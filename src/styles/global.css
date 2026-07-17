@@ -113,11 +113,6 @@ button {
   letter-spacing: -0.025em;
 }
 
-.wordmark img {
-  width: 26px;
-  height: 26px;
-  filter: drop-shadow(0 3px 7px rgb(17 18 20 / 10%));
-}
 
 .navLinks {
   display: flex;
@@ -334,50 +329,13 @@ main {
 }
 
 .materialsIntro {
-  display: grid;
-  grid-template-columns: minmax(0, 0.72fr) minmax(420px, 1.28fr);
-  gap: clamp(2rem, 7vw, 7rem);
-  align-items: center;
+  max-width: 52rem;
 }
 
 .materialsIntro h2 {
-  max-width: 8ch;
+  max-width: 11ch;
 }
 
-.designProjection {
-  position: relative;
-  display: grid;
-  min-width: 0;
-  min-height: 260px;
-  place-items: center;
-  overflow: hidden;
-  border-radius: var(--radius-large);
-  background:
-    radial-gradient(circle at 50% 55%, rgb(77 141 255 / 13%), transparent 45%),
-    linear-gradient(145deg, rgb(255 255 255 / 72%), rgb(223 224 223 / 55%));
-}
-
-.designProjection::after {
-  position: absolute;
-  right: 16%;
-  bottom: 13%;
-  left: 16%;
-  height: 20%;
-  border-radius: 50%;
-  background: rgb(17 18 20 / 13%);
-  content: '';
-  filter: blur(24px);
-}
-
-.designProjection img {
-  position: relative;
-  z-index: 1;
-  width: 126%;
-  max-width: none;
-  opacity: 0.76;
-  mix-blend-mode: multiply;
-  transform: translateY(-2%);
-}
 
 .designGrid .editorialCard {
   min-height: 230px;
@@ -471,13 +429,7 @@ main {
   }
 
 
-  .materialsIntro {
-    grid-template-columns: 1fr;
-  }
 
-  .designProjection {
-    min-height: 220px;
-  }
 
   .connectivityGrid,
   .designGrid,

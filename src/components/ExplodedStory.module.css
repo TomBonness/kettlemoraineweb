@@ -36,14 +36,16 @@
 
 .visualGrid {
   display: grid;
-  grid-template-columns: minmax(0, 1.18fr) minmax(280px, 0.82fr);
-  align-items: start;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  align-items: stretch;
   gap: clamp(1rem, 2vw, 1.5rem);
   margin-top: clamp(3rem, 7vw, 6rem);
 }
 
 .render {
   position: relative;
+  display: grid;
+  grid-template-rows: auto 1fr;
   min-width: 0;
   margin: 0;
   overflow: hidden;
@@ -72,9 +74,6 @@
   object-fit: cover;
 }
 
-.enclosureRender {
-  margin-top: clamp(2.5rem, 7vw, 6rem);
-}
 
 .render figcaption {
   display: grid;
@@ -157,9 +156,6 @@
     grid-template-columns: 1fr;
   }
 
-  .enclosureRender {
-    margin-top: 0;
-  }
 
   .layers {
     grid-template-columns: repeat(2, minmax(0, 1fr));

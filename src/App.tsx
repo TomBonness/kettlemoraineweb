@@ -5,7 +5,6 @@ import { HeroProduct } from './components/HeroProduct'
 import { LifecycleDemo } from './components/LifecycleDemo'
 import { SpecsGrid } from './components/SpecsGrid'
 import { WaitlistForm } from './components/WaitlistForm'
-import topView from './assets/product/source/top.svg'
 import {
   connectivityCards,
   designPanels,
@@ -28,7 +27,6 @@ function App() {
       <header className="siteNav">
         <nav className="navInner" aria-label={productCopy.primaryNavigationLabel}>
           <a className="wordmark" href="#overview" aria-label={productCopy.overviewAriaLabel}>
-            <img src="/logo.png" width="28" height="28" alt="" />
             <span>{productCopy.wordmark}</span>
           </a>
           <div className="navLinks">
@@ -73,16 +71,6 @@ function App() {
             <div className="sectionInner">
               <div className="materialsIntro">
                 <h2 id="materials-title">{productCopy.materialsHeading}</h2>
-                <div className="designProjection">
-                  <img
-                    src={topView}
-                    width="1800"
-                    height="540"
-                    loading="lazy"
-                    decoding="async"
-                    alt={productCopy.topAlt}
-                  />
-                </div>
               </div>
               <div className="designGrid">
                 {designPanels.map((panel) => (

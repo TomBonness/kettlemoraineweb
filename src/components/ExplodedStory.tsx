@@ -30,12 +30,12 @@ export function ExplodedStory() {
                 <source
                   type="image/avif"
                   srcSet={`${exploded640Avif} 640w, ${exploded1024Avif} 1024w, ${exploded1536Avif} 1536w`}
-                  sizes="(max-width: 900px) 100vw, 62vw"
+                  sizes="(max-width: 900px) 100vw, 50vw"
                 />
                 <source
                   type="image/webp"
                   srcSet={`${exploded640Webp} 640w, ${exploded1024Webp} 1024w, ${exploded1536Webp} 1536w`}
-                  sizes="(max-width: 900px) 100vw, 62vw"
+                  sizes="(max-width: 900px) 100vw, 50vw"
                 />
                 <img
                   src={exploded1024Webp}
@@ -59,12 +59,12 @@ export function ExplodedStory() {
                 <source
                   type="image/avif"
                   srcSet={`${rear640Avif} 640w, ${rear1024Avif} 1024w, ${rear1536Avif} 1536w`}
-                  sizes="(max-width: 900px) 100vw, 38vw"
+                  sizes="(max-width: 900px) 100vw, 50vw"
                 />
                 <source
                   type="image/webp"
                   srcSet={`${rear640Webp} 640w, ${rear1024Webp} 1024w, ${rear1536Webp} 1536w`}
-                  sizes="(max-width: 900px) 100vw, 38vw"
+                  sizes="(max-width: 900px) 100vw, 50vw"
                 />
                 <img
                   src={rear1024Webp}

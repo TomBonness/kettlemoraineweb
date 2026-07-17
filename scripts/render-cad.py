@@ -38,6 +38,7 @@ def material(
     emission: tuple[float, float, float, float] | None = None,
     emission_strength: float = 0.0,
     microtexture: float = 0.0,
+    specular_ior_level: float = 0.5,
 ) -> bpy.types.Material:
     result = bpy.data.materials.new(name)
     result.use_nodes = True
@@ -48,6 +49,7 @@ def material(
     set_input(shader, "Metallic", metallic)
     set_input(shader, "Roughness", roughness)
     set_input(shader, "IOR", 1.46)
+    set_input(shader, "Specular IOR Level", specular_ior_level)
     set_input(shader, "Transmission Weight", transmission)
     if emission is not None:
         set_input(shader, "Emission Color", emission)
@@ -214,8 +216,8 @@ def main() -> None:
 
     silver = material("Silver bead-blasted aluminum", (0.4, 0.44, 0.49, 1), metallic=0.88, roughness=0.3, microtexture=0.15)
     brushed_steel = material("Satin steel", (0.32, 0.36, 0.41, 1), metallic=0.9, roughness=0.24, microtexture=0.08)
-    keycap_white = material("Warm white keycaps", (0.82, 0.805, 0.77, 1), roughness=0.24, microtexture=0.035)
-    graphite = material("Graphite legends", (0.025, 0.03, 0.038, 1), metallic=0.05, roughness=0.28)
+    keycap_white = material("Warm white keycaps", (0.72, 0.705, 0.68, 1), roughness=0.32, microtexture=0.035)
+    graphite = material("Graphite legends", (0.001, 0.001, 0.0015, 1), roughness=0.62, specular_ior_level=0.0)
     black = material("Black polymer", (0.018, 0.022, 0.03, 1), roughness=0.34, microtexture=0.025)
     frosted = material("Frosted polycarbonate", (0.78, 0.88, 0.95, 1), roughness=0.42, transmission=0.28, microtexture=0.12)
     touch = material("Touch surface", (0.48, 0.74, 1.0, 1), roughness=0.28, transmission=0.2, emission=(0.18, 0.48, 1.0, 1), emission_strength=0.16)
@@ -294,22 +296,61 @@ def main() -> None:
     stage(
         background=(0.012, 0.016, 0.024, 1),
         ground=dark_ground,
-        target=(0.048, 0.048, 0.065),
-        camera_location=(0.22, -0.22, 0.21),
+        target=(0.048, 0.088, 0.085),
+        camera_location=(0.19, -0.30, 0.19),
         lens=58,
     )
+    enclosure_names = {"lower-enclosure", "rf-window"}
+    cap_names = {"encoder-knob", "joystick-cap", "touch-puck"}
+    hardware_names = {"touch-electrode", "touch-rgb-led"}
+    hardware_prefixes = ("mx-switch", "encoder-", "joystick-", "stabilizer-")
+    grouped_parts = {
+        "enclosure": [],
+        "core": [],
+        "interface": [],
+        "control hardware": [],
+        "caps": [],
+    }
     for obj in parts:
         name = obj.name
-        if name == "top-plate":
-            obj.location.z += 42
-        elif name.startswith("keycap-"):
-            obj.location.z += 78
-        elif name.startswith("mx-switch") or name.startswith("encoder-") or name.startswith("joystick-") or name.startswith("stabilizer-") or name.startswith("touch-"):
-            obj.location.z += 59
-        elif name.startswith("m2-fastener"):
-            obj.location.z += 54
-        elif name != "lower-enclosure" and not name.startswith("rubber-foot") and name != "rf-window":
-            obj.location.z += 20
+        if name in enclosure_names or name.startswith(("rubber-foot", "m2-fastener")):
+            grouped_parts["enclosure"].append(obj)
+        elif name == "top-plate":
+            grouped_parts["interface"].append(obj)
+        elif name in cap_names or name.startswith("keycap-"):
+            grouped_parts["caps"].append(obj)
+        elif name in hardware_names or name.startswith(hardware_prefixes):
+            grouped_parts["control hardware"].append(obj)
+        else:
+            grouped_parts["core"].append(obj)
+    layer_groups = list(grouped_parts.items())
+    bpy.context.view_layer.update()
+    layer_bounds = {}
+    for layer_name, layer_parts in layer_groups:
+        layer_z = [(obj.matrix_world @ Vector(corner)).z for obj in layer_parts for corner in obj.bound_box]
+        layer_bounds[layer_name] = (min(layer_z), max(layer_z))
+
+    previous_top = layer_bounds["enclosure"][1]
+    layer_offsets = {"enclosure": (0.0, 0.0)}
+    for layer_index, (layer_name, layer_parts) in enumerate(layer_groups[1:], start=1):
+        layer_bottom, layer_top = layer_bounds[layer_name]
+        vertical_offset = previous_top + 0.02 - layer_bottom
+        rear_offset = layer_index * 0.02
+        for obj in layer_parts:
+            world_matrix = obj.matrix_world.copy()
+            world_matrix.translation += Vector((0.0, rear_offset, vertical_offset))
+            obj.matrix_world = world_matrix
+        previous_top = layer_top + vertical_offset
+        layer_offsets[layer_name] = (rear_offset, vertical_offset)
+
+    print(
+        "Exploded physical-layer offsets: "
+        + ", ".join(
+            f"{layer_name}=back {rear_offset * 100:.1f} cm/up {vertical_offset * 100:.1f} cm"
+            for layer_name, (rear_offset, vertical_offset) in layer_offsets.items()
+        )
+        + "; vertical air gaps=2.0 cm"
+    )
     render(args.output_dir / "open-micro-exploded-master.png")
 
     for obj in parts:
