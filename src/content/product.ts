@@ -2,27 +2,27 @@ export type LifecycleEffect = 'solid' | 'breathe' | 'pulse' | 'blink'
 
 export const navigation = [
   { label: 'Overview', href: '#overview' },
-  { label: 'Controls', href: '#controls' },
   { label: 'Design', href: '#design' },
+  { label: 'Controls', href: '#controls' },
   { label: 'Specs', href: '#specs' },
 ] as const
 
 export const headings = {
   hero: 'Open Micro',
-  lifecycle: 'Your workflow, in light.',
-  controls: 'Twelve keys. More than shortcuts.',
-  connectivity: 'Connected on your terms.',
-  design: 'Built in layers.',
-  specifications: 'The design, measured.',
-  openSource: 'Open from enclosure to protocol.',
-  waitlist: 'Be first to know.',
+  lifecycle: 'Your work, at a glance.',
+  controls: 'One touch. Any action.',
+  connectivity: 'Connect the way you want.',
+  design: 'Built with care.',
+  specifications: 'Everything, considered.',
+  openSource: 'Make it yours. All the way down.',
+  waitlist: 'See what comes next.',
 } as const
 
 export const hero = {
-  eyebrow: 'Open-source hardware · Revision 0.1',
-  description: 'A tactile desktop controller that works with any local automation harness.',
-  primaryCta: 'Get preorder updates',
-  secondaryCta: 'Explore the design',
+  eyebrow: 'Open-source by design · Revision 0.1',
+  description: 'A beautifully focused control surface for the work you do every day.',
+  primaryCta: 'Keep me updated',
+  secondaryCta: 'See how it’s built',
 } as const
 
 export const productCopy = {
@@ -31,35 +31,36 @@ export const productCopy = {
   wordmark: 'Open Micro',
   overviewAriaLabel: 'Open Micro overview',
   navigationCta: 'Get updates',
-  lifecycleEyebrow: 'Works with any harness',
+  heroCaptionTitle: 'Fifteen controls. One clear space.',
+  heroCaptionBody: 'Everything you need, right where you want it.',
+  lifecycleEyebrow: 'See what matters',
   lifecycleLead:
-    'Connect the documented local API to any harness and make long-running work visible at a glance.',
-  lifecycleControlLabel: 'Choose a workflow state',
-  controlsEyebrow: 'Software-defined controls',
+    'A quiet field of light makes every state clear—ready, working, waiting, or done.',
+  lifecycleControlLabel: 'Explore status light states',
+  controlsEyebrow: 'Made to be yours',
   controlsLead:
-    'Map twelve hot-swap keys, an encoder, a five-way control, and a touch surface to the actions you use all day.',
-  controlMapTitle: 'Your workflow, under one hand.',
+    'Twelve hot-swap keys, a dial, a five-way control, and touch put the actions you use most within easy reach.',
+  controlMapTitle: 'Make it yours.',
   controlMapInstructions:
-    'Select, focus, or hover over a control to see the action mapped to it.',
+    'Choose a control to see one way it can fit the way you work.',
   controlMapLabel: 'Interactive Open Micro control map',
   controlMapFront: 'Front · operator edge',
   controlMapRear: 'Rear · USB-C',
-  connectivityEyebrow: 'Transport, power, and software',
+  connectivityEyebrow: 'Simply connected',
   connectivityLead:
-    'Move between USB-C and bonded Bluetooth with a protected 600 mAh battery for a clean, portable desk.',
-  designEyebrow: 'Four-layer construction',
+    'Plug in at your desk. Move freely with Bluetooth. Keep every choice in your hands.',
+  designEyebrow: 'Designed with intention',
   designLead:
-    'Every part has one job, from the machined shell to the light-diffusing control surface.',
-  materialsHeading: 'Measured to fit your desk.',
-  specsEyebrow: 'Customer-facing specifications',
-  openSourceEyebrow: 'Source and licensing',
-  waitlistEyebrow: 'Preorder notification list',
+    'Every layer is considered. Every detail has a purpose. Together, they create a compact control surface designed to feel at home on your desk.',
+  specsEyebrow: 'The details',
+  openSourceEyebrow: 'Open by design',
+  waitlistEyebrow: 'Stay in the loop',
   waitlistLead:
-    'Leave one address and we’ll share preorder timing only when it is confirmed.',
-  explodedRenderTitle: 'Architecture, opened up.',
-  explodedRenderBody: 'The shell, core, light plate, and controls separate cleanly into a serviceable stack.',
-  enclosureRenderTitle: 'The working edge.',
-  enclosureRenderBody: 'USB-C, power, and protected openings sit flush within the rounded aluminum shell.',
+    'Open Micro is still taking shape. Leave your email and we’ll only write when preorder timing is confirmed.',
+  explodedRenderTitle: 'Thoughtful from the inside out.',
+  explodedRenderBody: 'A layered design keeps the shell, electronics, light plate, and controls distinct and serviceable.',
+  enclosureRenderTitle: 'A quiet presence.',
+  enclosureRenderBody: 'Rounded aluminum surrounds a clean working edge, with power and USB-C set neatly into the rear.',
   heroAlt:
     'Silver Open Micro controller with twelve white keys, encoder, five-way control, and touch surface',
   explodedAlt:
@@ -69,7 +70,7 @@ export const productCopy = {
   topAlt:
     'Open Micro assembled control layout',
   footerProduct: 'Open Micro · Revision 0.1',
-  visualizationCredit: 'Revision 0.1 design visualization',
+  visualizationCredit: 'Revision 0.1 design visualization — not a photographed product',
 } as const
 
 export const waitlistCopy = {
@@ -91,7 +92,7 @@ export const lifecycleStates = [
     effect: 'solid',
     period: 0,
     timing: 'Ready',
-    description: 'Available for the next request.',
+    description: 'Ready when you are.',
   },
   {
     id: 'thinking',
@@ -100,7 +101,7 @@ export const lifecycleStates = [
     effect: 'breathe',
     period: 1400,
     timing: 'Working',
-    description: 'Reasoning through the current request.',
+    description: 'Working through the next step.',
   },
   {
     id: 'running',
@@ -109,7 +110,7 @@ export const lifecycleStates = [
     effect: 'pulse',
     period: 800,
     timing: 'Active',
-    description: 'Executing tools and code.',
+    description: 'Putting your request into motion.',
   },
   {
     id: 'waiting',
@@ -118,7 +119,7 @@ export const lifecycleStates = [
     effect: 'blink',
     period: 900,
     timing: 'Needs input',
-    description: 'Paused for input or approval.',
+    description: 'Waiting for your input.',
   },
   {
     id: 'done',
@@ -127,7 +128,7 @@ export const lifecycleStates = [
     effect: 'solid',
     period: 4000,
     timing: 'Complete',
-    description: 'The current task has completed.',
+    description: 'Everything is complete.',
   },
   {
     id: 'error',
@@ -136,7 +137,7 @@ export const lifecycleStates = [
     effect: 'blink',
     period: 700,
     timing: 'Attention',
-    description: 'The workflow needs attention.',
+    description: 'Something needs your attention.',
   },
 ] as const satisfies ReadonlyArray<{
   id: string
@@ -180,24 +181,24 @@ export const controls = [
 
 export const connectivityCards = [
   {
-    label: 'Wired',
-    title: 'USB-C',
-    body: 'USB keyboard and vendor HID transport for direct, documented control.',
+    label: 'USB-C',
+    title: 'Plug in and go.',
+    body: 'A direct, dependable connection for everyday control.',
   },
   {
-    label: 'Wireless',
-    title: 'Bonded Bluetooth Low Energy',
-    body: 'BLE keyboard, custom GATT, and five profiles for moving between hosts.',
+    label: 'Bluetooth',
+    title: 'Move freely.',
+    body: 'Bonded wireless and five saved profiles make it easy to move between devices.',
   },
   {
-    label: 'Firmware',
-    title: 'ZMK, mapped your way',
-    body: 'ZMK keymaps and Studio support keep the hardware software-defined.',
+    label: 'ZMK + Studio',
+    title: 'Shape every control.',
+    body: 'Change the layout, tune the behavior, and let Open Micro grow with the way you work.',
   },
   {
-    label: 'Host software',
-    title: 'Local by design',
-    body: 'A Rust daemon, CLI, simulator, and documented local JSON protocol for macOS, Linux, and Windows.',
+    label: 'Local software',
+    title: 'Your desk. Your data.',
+    body: 'The companion software runs locally on macOS, Linux, and Windows.',
   },
 ] as const
 
@@ -205,51 +206,35 @@ export const explodedLayers = [
   {
     label: '01',
     title: 'Enclosure',
-    value: 'Printed or 6061-T6',
-    body: 'A rounded shell keeps the footprint compact and the desk presence quiet.',
+    value: 'Printed or aluminum',
+    body: 'Soft corners and a compact footprint give the design a calm, grounded presence.',
   },
   {
     label: '02',
     title: 'Core',
-    value: '91.5 mm · four layers',
-    body: 'The nRF52840-based board carries USB-C, Bluetooth, power, and every input.',
+    value: 'One purposeful board',
+    body: 'A compact four-layer board brings every control, connection, and light together.',
   },
   {
     label: '03',
     title: 'Light plate',
-    value: '1.5 mm polycarbonate',
-    body: 'A frosted interface softens the reverse-mount RGB light beneath each control.',
+    value: 'Soft, diffused light',
+    body: 'Frosted polycarbonate gives each control a clear, gentle glow.',
   },
   {
     label: '04',
-    title: 'Controls',
-    value: 'Hot-swap and remap',
-    body: 'Twelve MX positions, an encoder, a five-way control, and touch stay fully software-defined.',
+    title: 'Control hardware',
+    value: 'Tactile by design',
+    body: 'Switches, a dial, five-way control, and touch give every action a distinct response.',
+  },
+  {
+    label: '05',
+    title: 'Caps',
+    value: 'Made to change',
+    body: 'Replaceable keycaps and remappable inputs let the surface become your own.',
   },
 ] as const
 
-export const designPanels = [
-  {
-    label: 'Footprint',
-    value: '96 × 96 × 17.5 mm',
-    body: 'A compact rounded-square assembled enclosure target.',
-  },
-  {
-    label: 'Core',
-    value: '91.5 mm · four layers',
-    body: 'A 1.6 mm PCB design envelope around the nRF52840-based EBYTE E73 module.',
-  },
-  {
-    label: 'Surface',
-    value: 'Frosted polycarbonate',
-    body: 'A 1.5 mm plate above 12 full-height MX-compatible hot-swap positions.',
-  },
-  {
-    label: 'Enclosure options',
-    value: 'Printed or CNC',
-    body: 'Printed construction or 6061-T6 aluminum with 120-grit bead blast and clear/silver anodize.',
-  },
-] as const
 
 export const specs = [
   ['Enclosure', '96 × 96 × 17.5 mm'],
@@ -271,7 +256,7 @@ export const licenses = [
   ['Pinned Lucide-derived keycap artwork', 'ISC'],
 ] as const
 
-export const openSourceStatement = 'Open-source design and software, licensed as listed'
+export const openSourceStatement = 'The enclosure, electronics, firmware, and host software are open for you to study, change, and build on.'
 
 export const privacyStatement =
   'Preorder updates only. We store your email solely for Open Micro launch notices until the preorder notice program ends.'

@@ -97,7 +97,7 @@
 
 .layers {
   display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-template-columns: repeat(5, minmax(0, 1fr));
   margin: clamp(4rem, 8vw, 7rem) 0 0;
   padding: 0;
   border-top: 1px solid rgb(255 255 255 / 15%);
@@ -161,7 +161,7 @@
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
-  .layers li:nth-child(3) {
+  .layers li:nth-child(2n + 3) {
     padding-left: 0;
     border-left: 0;
   }

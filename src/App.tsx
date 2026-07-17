@@ -7,7 +7,6 @@ import { SpecsGrid } from './components/SpecsGrid'
 import { WaitlistForm } from './components/WaitlistForm'
 import {
   connectivityCards,
-  designPanels,
   headings,
   licenses,
   navigation,
@@ -41,8 +40,7 @@ function App() {
       <main id="main-content">
         <HeroProduct />
 
-
-        <Reveal><LifecycleDemo /></Reveal>
+        <ExplodedStory />
         <Reveal><ControlsShowcase /></Reveal>
 
         <Reveal>
@@ -64,26 +62,7 @@ function App() {
           </section>
         </Reveal>
 
-        <ExplodedStory />
-
-        <Reveal>
-          <section className="section designSection" aria-labelledby="materials-title">
-            <div className="sectionInner">
-              <div className="materialsIntro">
-                <h2 id="materials-title">{productCopy.materialsHeading}</h2>
-              </div>
-              <div className="designGrid">
-                {designPanels.map((panel) => (
-                  <article className="editorialCard" key={panel.label}>
-                    <small>{panel.label}</small>
-                    <h3>{panel.value}</h3>
-                    <p>{panel.body}</p>
-                  </article>
-                ))}
-              </div>
-            </div>
-          </section>
-        </Reveal>
+        <Reveal><LifecycleDemo /></Reveal>
 
         <Reveal><SpecsGrid /></Reveal>
 

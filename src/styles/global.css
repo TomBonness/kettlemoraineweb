@@ -272,8 +272,7 @@ main {
   transform-origin: center top;
 }
 
-.connectivityGrid,
-.designGrid {
+.connectivityGrid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 1rem;
@@ -324,22 +323,6 @@ main {
   line-height: 1.55;
 }
 
-.designSection {
-  background: #efefec;
-}
-
-.materialsIntro {
-  max-width: 52rem;
-}
-
-.materialsIntro h2 {
-  max-width: 11ch;
-}
-
-
-.designGrid .editorialCard {
-  min-height: 230px;
-}
 
 .openSourceLayout {
   display: grid;
@@ -432,7 +415,6 @@ main {
 
 
   .connectivityGrid,
-  .designGrid,
   .openSourceLayout {
     grid-template-columns: 1fr;
   }
@@ -448,8 +430,7 @@ main {
 }
 
 @media (max-width: 390px) {
-  .connectivityGrid,
-  .designGrid {
+  .connectivityGrid {
     grid-template-columns: 1fr;
   }
 

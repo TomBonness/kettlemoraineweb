@@ -79,8 +79,8 @@ export function HeroProduct() {
           />
         </picture>
         <p className={styles.renderCaption}>
-          <strong>15 controls.</strong>
-          <span>Mapped to the workflow you already use.</span>
+          <strong>{productCopy.heroCaptionTitle}</strong>
+          <span>{productCopy.heroCaptionBody}</span>
         </p>
       </div>
     </section>
