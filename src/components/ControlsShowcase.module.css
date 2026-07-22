@@ -110,12 +110,12 @@
 .control:focus-visible,
 .control.active {
   z-index: 2;
-  border-color: rgb(77 141 255 / 78%);
+  border-color: rgb(5 72 253 / 78%);
   outline: 0;
-  background: rgb(77 141 255 / 10%);
+  background: rgb(5 72 253 / 10%);
   box-shadow:
-    0 0 0 3px rgb(77 141 255 / 18%),
-    0 10px 24px rgb(31 95 201 / 16%);
+    0 0 0 3px rgb(5 72 253 / 18%),
+    0 10px 24px rgb(5 72 253 / 16%);
   transform: scale(1.04);
 }
 

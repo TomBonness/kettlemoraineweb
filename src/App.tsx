@@ -6,6 +6,7 @@ import { LifecycleDemo } from './components/LifecycleDemo'
 import { SpecsGrid } from './components/SpecsGrid'
 import { WaitlistForm } from './components/WaitlistForm'
 import {
+  brandCopy,
   connectivityCards,
   headings,
   licenses,
@@ -25,8 +26,21 @@ function App() {
       <a className="skipLink" href="#main-content">{productCopy.skipLink}</a>
       <header className="siteNav">
         <nav className="navInner" aria-label={productCopy.primaryNavigationLabel}>
-          <a className="wordmark" href="#overview" aria-label={productCopy.overviewAriaLabel}>
-            <span>{productCopy.wordmark}</span>
+          <a className="wordmark" href="#overview" aria-label={brandCopy.navigationLabel}>
+            <img
+              className="wordmarkFull"
+              src="/brand/kettle-moraine-wordmark.png"
+              width="1440"
+              height="374"
+              alt=""
+            />
+            <img
+              className="wordmarkMark"
+              src="/brand/kettle-moraine-mark.png"
+              width="512"
+              height="512"
+              alt=""
+            />
           </a>
           <div className="navLinks">
             {navigation.map((item) => (
@@ -86,12 +100,56 @@ function App() {
           </section>
         </Reveal>
 
+        <Reveal>
+          <section className="labStatement" aria-labelledby="lab-statement-title">
+            <div className="labStatementInner">
+              <div className="labIdentity">
+                <img
+                  src="/brand/kettle-moraine-wordmark.png"
+                  width="1440"
+                  height="374"
+                  alt={brandCopy.name}
+                  loading="lazy"
+                />
+                <p>{brandCopy.statementProduct}</p>
+              </div>
+              <div className="labStatementCopy">
+                <p className="eyebrow">{brandCopy.statementEyebrow}</p>
+                <h2 id="lab-statement-title">{brandCopy.statementHeading}</h2>
+                <p>{brandCopy.statementBody}</p>
+              </div>
+              <div className="labMark" aria-hidden="true">
+                <span>Design / Build</span>
+                <img
+                  src="/brand/kettle-moraine-mark.png"
+                  width="512"
+                  height="512"
+                  alt=""
+                  loading="lazy"
+                />
+                <span>Hardware / Software</span>
+              </div>
+            </div>
+          </section>
+        </Reveal>
+
         <WaitlistForm />
       </main>
 
       <footer className="siteFooter">
         <div className="footerInner">
-          <strong>{productCopy.footerProduct}</strong>
+          <div className="footerBrand">
+            <img
+              src="/brand/kettle-moraine-mark.png"
+              width="512"
+              height="512"
+              alt=""
+            />
+            <div>
+              <strong>{brandCopy.name}</strong>
+              <span>{productCopy.footerProduct}</span>
+            </div>
+          </div>
           <p className="footerPrivacy">{privacyStatement}</p>
           <p className="footerCredit">{productCopy.visualizationCredit}</p>
         </div>

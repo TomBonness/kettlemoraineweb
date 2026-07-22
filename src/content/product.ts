@@ -18,8 +18,19 @@ export const headings = {
   waitlist: 'See what comes next.',
 } as const
 
+
+export const brandCopy = {
+  name: 'Kettle Moraine Research Labs',
+  navigationLabel: 'Kettle Moraine Research Labs — Open Micro overview',
+  statementEyebrow: 'From the lab',
+  statementHeading: 'Tools for clearer work.',
+  statementBody:
+    'We design focused, open hardware and software for people who want to understand and shape the tools they use.',
+  statementProduct: 'Open Micro · Product 01',
+} as const
+
 export const hero = {
-  eyebrow: 'Open-source by design · Revision 0.1',
+  eyebrow: 'Product 01 · Open-source by design',
   description: 'A beautifully focused control surface for the work you do every day.',
   primaryCta: 'Keep me updated',
   secondaryCta: 'See how it’s built',
@@ -28,8 +39,6 @@ export const hero = {
 export const productCopy = {
   skipLink: 'Skip to content',
   primaryNavigationLabel: 'Primary navigation',
-  wordmark: 'Open Micro',
-  overviewAriaLabel: 'Open Micro overview',
   navigationCta: 'Get updates',
   heroCaptionTitle: 'Fifteen controls. One clear space.',
   heroCaptionBody: 'Everything you need, right where you want it.',
@@ -56,7 +65,7 @@ export const productCopy = {
   openSourceEyebrow: 'Open by design',
   waitlistEyebrow: 'Stay in the loop',
   waitlistLead:
-    'Open Micro is still taking shape. Leave your email and we’ll only write when preorder timing is confirmed.',
+    'Kettle Moraine Research Labs is developing Open Micro in the open. Leave your email and we’ll only write when preorder timing is confirmed.',
   explodedRenderTitle: 'Thoughtful from the inside out.',
   explodedRenderBody: 'A layered design keeps the shell, electronics, light plate, and controls distinct and serviceable.',
   enclosureRenderTitle: 'A quiet presence.',
@@ -69,7 +78,7 @@ export const productCopy = {
     'Rear three-quarter view of Open Micro showing its USB-C and power openings',
   topAlt:
     'Open Micro assembled control layout',
-  footerProduct: 'Open Micro · Revision 0.1',
+  footerProduct: 'Open Micro · Product 01 · Revision 0.1',
   visualizationCredit: 'Revision 0.1 design visualization — not a photographed product',
 } as const
 
@@ -97,7 +106,7 @@ export const lifecycleStates = [
   {
     id: 'thinking',
     name: 'Thinking',
-    color: '#4D8DFF',
+    color: '#0548FD',
     effect: 'breathe',
     period: 1400,
     timing: 'Working',
@@ -259,4 +268,4 @@ export const licenses = [
 export const openSourceStatement = 'The enclosure, electronics, firmware, and host software are open for you to study, change, and build on.'
 
 export const privacyStatement =
-  'Preorder updates only. We store your email solely for Open Micro launch notices until the preorder notice program ends.'
+  'Preorder updates only. Kettle Moraine Research Labs stores your email solely for Open Micro launch notices until the preorder notice program ends.'

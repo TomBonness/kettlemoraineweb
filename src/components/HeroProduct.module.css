@@ -57,7 +57,7 @@
   border-radius: 50%;
   background:
     radial-gradient(ellipse at 50% 48%, rgb(236 230 224 / 92%) 0 48%, rgb(242 238 233 / 72%) 61%, transparent 79%),
-    radial-gradient(circle at 48% 62%, rgb(77 141 255 / 8%), transparent 64%);
+    radial-gradient(circle at 48% 62%, rgb(5 72 253 / 10%), transparent 64%);
   filter: blur(20px);
 }
 
