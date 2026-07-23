@@ -1,0 +1,106 @@
+.panel {
+  display: grid;
+  min-width: 0;
+  grid-template-rows: auto 1fr;
+  overflow: hidden;
+  border: 1px solid var(--hairline);
+  border-radius: var(--radius-large);
+  background: var(--surface);
+  transition:
+    border-color var(--hover-duration) var(--motion-ease),
+    box-shadow var(--hover-duration) var(--motion-ease),
+    transform var(--hover-duration) var(--motion-ease);
+}
+
+.panel:hover,
+.panel:focus-within {
+  border-color: #b9bcc2;
+  box-shadow: 0 22px 50px rgb(17 18 20 / 7%);
+  transform: translateY(-4px);
+}
+
+.media {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+  border-bottom: 1px solid var(--hairline);
+  background: #ecece7;
+}
+
+.media > picture,
+.media > picture > img,
+.media > figure {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.media > picture > img {
+  object-fit: cover;
+}
+
+.copy {
+  display: grid;
+  align-content: start;
+  padding: clamp(1.35rem, 3vw, 2.25rem);
+}
+
+.copy > p {
+  margin: 0;
+  color: var(--text-secondary);
+  font-size: 0.65rem;
+  font-weight: 720;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.copy h2 {
+  margin: 0.65rem 0 0;
+  font-size: clamp(2rem, 4vw, 3.6rem);
+  font-weight: 580;
+  letter-spacing: -0.055em;
+  line-height: 0.98;
+}
+
+.summaryRow {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 1.5rem;
+  align-items: end;
+  margin-top: clamp(1.5rem, 3vw, 2.5rem);
+}
+
+.summaryRow > p {
+  max-width: 33rem;
+  margin: 0;
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+  line-height: 1.55;
+}
+
+.summaryRow a {
+  display: inline-flex;
+  min-height: 44px;
+  align-items: center;
+  gap: 0.5rem;
+  border-bottom: 1px solid var(--text-primary);
+  font-size: 0.78rem;
+  font-weight: 650;
+  white-space: nowrap;
+}
+
+.summaryRow a span {
+  font-size: 0.9rem;
+}
+
+@media (max-width: 1100px) {
+  .summaryRow {
+    grid-template-columns: 1fr;
+    align-items: start;
+  }
+
+  .summaryRow a {
+    justify-self: start;
+  }
+}

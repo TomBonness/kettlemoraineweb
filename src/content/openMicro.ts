@@ -26,12 +26,12 @@ export const brandCopy = {
   statementHeading: 'Tools for clearer work.',
   statementBody:
     'We design focused, open hardware and software for people who want to understand and shape the tools they use.',
-  statementProduct: 'Open Micro · Product 01',
+  statementProduct: 'Open Micro',
 } as const
 
 export const hero = {
   eyebrow: 'Open-source control surface',
-  indexLabel: 'Product 01 · Open-source by design',
+  indexLabel: 'Revision 0.1 · Open-source by design',
   description: 'Hardware made to study, change, and build on.',
   primaryCta: 'Keep me updated',
   secondaryCta: 'See how it’s built',
@@ -79,7 +79,6 @@ export const productCopy = {
     'Rear three-quarter view of Open Micro showing its USB-C and power openings',
   topAlt:
     'Open Micro assembled control layout',
-  footerProduct: 'Open Micro · Product 01 · Revision 0.1',
   visualizationCredit: 'Revision 0.1 design visualization — not a photographed product',
 } as const
 

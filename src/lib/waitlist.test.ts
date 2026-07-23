@@ -33,7 +33,7 @@ describe('joinWaitlist', () => {
     expect(createMock).toHaveBeenCalledWith(
       {
         email: 'preview+case@example.com',
-        source: 'homepage',
+        source: 'open-micro-product',
         consentVersion: 'waitlist-v1',
       },
       { authMode: 'apiKey' },

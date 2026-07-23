@@ -1,5 +1,5 @@
 import { useRef, type PointerEvent } from 'react'
-import { brandCopy, headings, hero, productCopy } from '../content/product'
+import { brandCopy, headings, hero, productCopy } from '../content/openMicro'
 import styles from './HeroProduct.module.css'
 
 
@@ -77,6 +77,7 @@ export function HeroProduct() {
           </a>
         </div>
       </div>
+      <p className={styles.visualizationCredit}>{productCopy.visualizationCredit}</p>
     </section>
   )
 }

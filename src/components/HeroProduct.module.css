@@ -209,6 +209,14 @@
   gap: 0.7rem;
 }
 
+.visualizationCredit {
+  margin: -0.2rem 0 0;
+  color: var(--text-secondary);
+  font-size: 0.67rem;
+  line-height: 1.45;
+  text-align: right;
+}
+
 @media (max-width: 900px) {
   .hero {
     padding-top: 1.5rem;
@@ -306,6 +314,10 @@
     gap: 0.9rem;
     padding-top: 1.2rem;
   }
+  .visualizationCredit {
+    text-align: left;
+  }
+
 }
 
 @media (max-width: 390px) {

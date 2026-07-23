@@ -1,161 +1,57 @@
-import { type ReactNode } from 'react'
-import { ControlsShowcase } from './components/ControlsShowcase'
-import { ExplodedStory } from './components/ExplodedStory'
-import { HeroProduct } from './components/HeroProduct'
-import { LifecycleDemo } from './components/LifecycleDemo'
-import { SpecsGrid } from './components/SpecsGrid'
-import { WaitlistForm } from './components/WaitlistForm'
-import {
-  brandCopy,
-  connectivityCards,
-  headings,
-  licenses,
-  navigation,
-  openSourceStatement,
-  privacyStatement,
-  productCopy,
-} from './content/product'
+import { useEffect } from 'react'
+import { routes } from './content/catalog'
+import { applyRouteMetadata } from './lib/metadata'
+import { resolveRoute, type RouteId } from './lib/routes'
+import { CompanyHomePage } from './pages/CompanyHomePage'
+import { LavtypePage } from './pages/LavtypePage'
+import { NotFoundPage } from './pages/NotFoundPage'
+import { OpenMicroPage } from './pages/OpenMicroPage'
 
-function Reveal({ children }: { children: ReactNode }) {
-  return <div className="revealSection">{children}</div>
+const routeMetadata: Record<RouteId, { path: string; title: string; description: string; image: string }> = {
+  home: {
+    path: routes.home,
+    title: 'Kettle Moraine Research Labs — Tools for clearer work',
+    description: 'Kettle Moraine Research Labs makes focused, open hardware and software, including Open Micro and Lavtype.',
+    image: '/kettle-moraine-social.png',
+  },
+  'open-micro': {
+    path: routes.openMicro,
+    title: 'Open Micro — Kettle Moraine Research Labs',
+    description: 'An open-source control surface designed to put everyday actions within easy reach.',
+    image: '/open-micro-og.png',
+  },
+  lavtype: {
+    path: routes.lavtype,
+    title: 'Lavtype — Kettle Moraine Research Labs',
+    description: 'Local push-to-talk dictation for macOS and Linux: hold a shortcut, speak, release, and type the final transcript into the focused app.',
+    image: '/lavtype-social.png',
+  },
+  'not-found': {
+    path: routes.home,
+    title: 'Page not found — Kettle Moraine Research Labs',
+    description: 'The page you asked for is not in the lab.',
+    image: '/kettle-moraine-social.png',
+  },
 }
 
 function App() {
-  return (
-    <>
-      <a className="skipLink" href="#main-content">{productCopy.skipLink}</a>
-      <header className="siteNav">
-        <nav className="navInner" aria-label={productCopy.primaryNavigationLabel}>
-          <a className="wordmark" href="#overview" aria-label={brandCopy.navigationLabel}>
-            <img
-              className="wordmarkFull"
-              src="/brand/kettle-moraine-wordmark.png"
-              width="1440"
-              height="374"
-              alt=""
-            />
-            <img
-              className="wordmarkMark"
-              src="/brand/kettle-moraine-mark.png"
-              width="512"
-              height="512"
-              alt=""
-            />
-          </a>
-          <div className="navLinks">
-            {navigation.map((item) => (
-              <a key={item.href} href={item.href}>{item.label}</a>
-            ))}
-          </div>
-          <a className="navCta" href="#waitlist">{productCopy.navigationCta}</a>
-        </nav>
-      </header>
+  const route = resolveRoute(window.location.pathname)
 
-      <main id="main-content">
-        <HeroProduct />
+  useEffect(() => {
+    const metadata = routeMetadata[route]
+    applyRouteMetadata(route === 'not-found' ? { ...metadata, path: window.location.pathname } : metadata)
+  }, [route])
 
-        <ExplodedStory />
-        <Reveal><ControlsShowcase /></Reveal>
-
-        <Reveal>
-          <section className="section" aria-labelledby="connectivity-title">
-            <div className="sectionInner">
-              <p className="eyebrow">{productCopy.connectivityEyebrow}</p>
-              <h2 id="connectivity-title">{headings.connectivity}</h2>
-              <p className="sectionLead">{productCopy.connectivityLead}</p>
-              <div className="connectivityGrid">
-                {connectivityCards.map((card) => (
-                  <article className="editorialCard" key={card.title}>
-                    <small>{card.label}</small>
-                    <h3>{card.title}</h3>
-                    <p>{card.body}</p>
-                  </article>
-                ))}
-              </div>
-            </div>
-          </section>
-        </Reveal>
-
-        <Reveal><LifecycleDemo /></Reveal>
-
-        <Reveal><SpecsGrid /></Reveal>
-
-        <Reveal>
-          <section className="section" aria-labelledby="open-source-title">
-            <div className={`sectionInner openSourceLayout`}>
-              <div>
-                <p className="eyebrow">{productCopy.openSourceEyebrow}</p>
-                <h2 id="open-source-title">{headings.openSource}</h2>
-                <p className="openSourceStatement">{openSourceStatement}</p>
-              </div>
-              <dl className="licenseList">
-                {licenses.map(([scope, license]) => (
-                  <div key={scope}>
-                    <dt>{scope}</dt>
-                    <dd>{license}</dd>
-                  </div>
-                ))}
-              </dl>
-            </div>
-          </section>
-        </Reveal>
-
-        <Reveal>
-          <section className="labStatement" aria-labelledby="lab-statement-title">
-            <div className="labStatementInner">
-              <div className="labIdentity">
-                <img
-                  src="/brand/kettle-moraine-wordmark.png"
-                  width="1440"
-                  height="374"
-                  alt={brandCopy.name}
-                  loading="lazy"
-                />
-                <p>{brandCopy.statementProduct}</p>
-              </div>
-              <div className="labStatementCopy">
-                <p className="eyebrow">{brandCopy.statementEyebrow}</p>
-                <h2 id="lab-statement-title">{brandCopy.statementHeading}</h2>
-                <p>{brandCopy.statementBody}</p>
-              </div>
-              <div className="labMark" aria-hidden="true">
-                <span>KM / RL</span>
-                <img
-                  src="/brand/kettle-moraine-mark.png"
-                  width="512"
-                  height="512"
-                  alt=""
-                  loading="lazy"
-                />
-                <span>Open / 01</span>
-              </div>
-            </div>
-          </section>
-        </Reveal>
-
-        <WaitlistForm />
-      </main>
-
-      <footer className="siteFooter">
-        <div className="footerInner">
-          <div className="footerBrand">
-            <img
-              src="/brand/kettle-moraine-mark.png"
-              width="512"
-              height="512"
-              alt=""
-            />
-            <div>
-              <strong>{brandCopy.name}</strong>
-              <span>{productCopy.footerProduct}</span>
-            </div>
-          </div>
-          <p className="footerPrivacy">{privacyStatement}</p>
-          <p className="footerCredit">{productCopy.visualizationCredit}</p>
-        </div>
-      </footer>
-    </>
-  )
+  switch (route) {
+    case 'home':
+      return <CompanyHomePage />
+    case 'open-micro':
+      return <OpenMicroPage />
+    case 'lavtype':
+      return <LavtypePage />
+    default:
+      return <NotFoundPage />
+  }
 }
 
 export default App

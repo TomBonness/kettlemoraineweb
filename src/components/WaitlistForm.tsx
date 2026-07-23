@@ -1,5 +1,5 @@
 import { useState, type ChangeEvent, type FormEvent } from 'react'
-import { headings, privacyStatement, productCopy, waitlistCopy } from '../content/product'
+import { headings, privacyStatement, productCopy, waitlistCopy } from '../content/openMicro'
 import { joinWaitlist } from '../lib/waitlist'
 import styles from './WaitlistForm.module.css'
 

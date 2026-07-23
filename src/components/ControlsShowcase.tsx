@@ -5,7 +5,7 @@ import top1536Avif from '../assets/product/generated/top-1536.avif'
 import top640Webp from '../assets/product/generated/top-640.webp'
 import top1024Webp from '../assets/product/generated/top-1024.webp'
 import top1536Webp from '../assets/product/generated/top-1536.webp'
-import { controls, headings, productCopy } from '../content/product'
+import { controls, headings, productCopy } from '../content/openMicro'
 import styles from './ControlsShowcase.module.css'
 
 const frameSizeMm = 130

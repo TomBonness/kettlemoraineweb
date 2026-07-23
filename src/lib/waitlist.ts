@@ -11,7 +11,7 @@ export async function joinWaitlist(email: string): Promise<'accepted' | 'retry'>
     const { data, errors } = await client.models.WaitlistEntry.create(
       {
         email: normalized,
-        source: 'homepage',
+        source: 'open-micro-product',
         consentVersion: 'waitlist-v1',
       },
       { authMode: 'apiKey' },

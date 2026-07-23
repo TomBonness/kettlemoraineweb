@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState, type CSSProperties, type FocusEvent } from 'react'
 import { useReducedMotion } from 'motion/react'
-import { headings, lifecycleStates, productCopy } from '../content/product'
+import { headings, lifecycleStates, productCopy } from '../content/openMicro'
 import styles from './LifecycleDemo.module.css'
 
 export function LifecycleDemo() {

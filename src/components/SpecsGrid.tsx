@@ -1,4 +1,4 @@
-import { headings, productCopy, specs } from '../content/product'
+import { headings, productCopy, specs } from '../content/openMicro'
 import styles from './SpecsGrid.module.css'
 
 export function SpecsGrid() {

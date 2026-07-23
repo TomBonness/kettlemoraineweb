@@ -10,7 +10,7 @@ import rear1536Avif from '../assets/product/generated/rear-1536.avif'
 import rear640Webp from '../assets/product/generated/rear-640.webp'
 import rear1024Webp from '../assets/product/generated/rear-1024.webp'
 import rear1536Webp from '../assets/product/generated/rear-1536.webp'
-import { explodedLayers, headings, productCopy } from '../content/product'
+import { explodedLayers, headings, productCopy } from '../content/openMicro'
 import styles from './ExplodedStory.module.css'
 
 export function ExplodedStory() {
