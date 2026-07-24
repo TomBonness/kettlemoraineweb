@@ -549,6 +549,11 @@
     aspect-ratio: 4 / 3;
   }
 
+  .lavtypeMedia {
+    min-height: clamp(340px, 92vw, 370px);
+    aspect-ratio: auto;
+  }
+
   .featureCopy {
     padding: 2rem 1.5rem 2.5rem;
   }
