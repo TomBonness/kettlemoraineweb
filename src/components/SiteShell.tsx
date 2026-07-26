@@ -35,12 +35,15 @@ export function SiteShell({ children, currentPath, navigation, cta }: SiteShellP
             aria-current={currentPageValue(routes.home, currentPath)}
           >
             <img
-              className="wordmarkFull"
-              src="/brand/kettle-moraine-wordmark.png"
-              width="1440"
-              height="374"
+              src="/brand/kettle-moraine-mark.png"
+              width="512"
+              height="512"
               alt=""
             />
+            <span className="wordmarkText" aria-hidden="true">
+              <strong>Kettle Moraine</strong>
+              <span>Research Labs</span>
+            </span>
           </a>
           <div className="navLinks">
             {navigation.map((item) => (
@@ -57,7 +60,7 @@ export function SiteShell({ children, currentPath, navigation, cta }: SiteShellP
             <a className="navCta" href={cta.href}>
               {cta.label} <span aria-hidden="true">{linkGlyph(cta.href)}</span>
             </a>
-          ) : <span className="navSpacer" />}
+          ) : null}
           <details className="mobileNav">
             <summary>
               <span>Menu</span>
