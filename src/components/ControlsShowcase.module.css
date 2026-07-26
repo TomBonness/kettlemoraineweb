@@ -1,8 +1,18 @@
+.section {
+  padding-block: var(--section-space);
+  background: var(--surface);
+}
+
 .layout {
   display: grid;
-  grid-template-columns: minmax(0, 0.82fr) minmax(320px, 1.18fr);
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  column-gap: var(--grid-gap);
   align-items: center;
-  gap: clamp(3rem, 8vw, 8rem);
+}
+
+.copy {
+  min-width: 0;
+  grid-column: 1 / 5;
 }
 
 .copy h2 {
@@ -11,22 +21,20 @@
 
 .readout {
   min-height: 7rem;
-  margin-top: 2.25rem;
-  padding: 1.15rem 1.2rem;
-  border: 1px solid var(--hairline);
-  border-radius: var(--radius-small);
-  background: var(--surface);
+  margin-top: var(--space-8);
+  padding-block: var(--space-4);
+  border-block: 1px solid var(--hairline);
 }
 
 .readout strong {
   display: block;
   font-size: 0.92rem;
-  font-weight: 620;
+  font-weight: 600;
 }
 
 .readout p {
   max-width: 34rem;
-  margin: 0.5rem 0 0;
+  margin: var(--space-2) 0 0;
   color: var(--text-secondary);
   font-size: 0.9rem;
   line-height: 1.5;
@@ -34,6 +42,7 @@
 
 .mapWrap {
   min-width: 0;
+  grid-column: 6 / 13;
 }
 
 .orientation,
@@ -41,18 +50,18 @@
   margin: 0;
   color: var(--text-secondary);
   font-size: 0.68rem;
-  font-weight: 650;
+  font-weight: 600;
   letter-spacing: 0.12em;
   text-align: center;
   text-transform: uppercase;
 }
 
 .orientation {
-  margin-bottom: 0.75rem;
+  margin-bottom: var(--space-3);
 }
 
 .mapCaption {
-  margin-top: 0.75rem;
+  margin-top: var(--space-3);
 }
 
 .deviceMap {
@@ -60,11 +69,9 @@
   width: 100%;
   max-width: 610px;
   margin: 0 auto;
-  overflow: hidden;
   aspect-ratio: 1;
-  border-radius: 3rem;
-  background: #e9e6e2;
-  box-shadow: 0 40px 70px rgb(17 18 20 / 12%);
+  border-radius: var(--radius-large);
+  background: var(--surface-muted);
 }
 
 .topPicture,
@@ -72,6 +79,11 @@
   display: block;
   width: 100%;
   height: 100%;
+}
+
+.topPicture {
+  overflow: hidden;
+  border-radius: inherit;
 }
 
 .topPicture img {
@@ -90,9 +102,7 @@
   font: inherit;
   transition:
     border-color var(--hover-duration) var(--motion-ease),
-    background-color var(--hover-duration) var(--motion-ease),
-    box-shadow var(--hover-duration) var(--motion-ease),
-    transform var(--hover-duration) var(--motion-ease);
+    background-color var(--hover-duration) var(--motion-ease);
 }
 
 .key,
@@ -107,28 +117,41 @@
 }
 
 .control:hover,
-.control:focus-visible,
 .control.active {
   z-index: 2;
   border-color: rgb(5 72 253 / 78%);
-  outline: 0;
   background: rgb(5 72 253 / 10%);
-  box-shadow:
-    0 0 0 3px rgb(5 72 253 / 18%),
-    0 10px 24px rgb(5 72 253 / 16%);
-  transform: scale(1.04);
 }
 
-@media (max-width: 900px) {
+@media (min-width: 900px) and (max-width: 1099px) {
+  .layout {
+    grid-template-columns: repeat(8, minmax(0, 1fr));
+  }
+
+  .copy {
+    grid-column: 1 / 4;
+  }
+
+  .mapWrap {
+    grid-column: 4 / 9;
+  }
+}
+
+@media (max-width: 899px) {
   .layout {
     grid-template-columns: 1fr;
+    gap: var(--space-12);
+  }
+
+  .copy,
+  .mapWrap {
+    grid-column: 1;
   }
 
   .copy h2 {
     max-width: 12ch;
   }
 }
-
 
 @media (prefers-reduced-motion: reduce) {
   .control {

@@ -35,11 +35,12 @@ export function OpenMicroPage() {
     >
       <HeroProduct />
 
-      <ExplodedStory />
       <Reveal><ControlsShowcase /></Reveal>
+      <Reveal><LifecycleDemo /></Reveal>
+      <ExplodedStory />
 
       <Reveal>
-        <section className="section" aria-labelledby="connectivity-title">
+        <section className="section sectionCompact sectionCanvas" aria-labelledby="connectivity-title">
           <div className="sectionInner">
             <p className="eyebrow">{productCopy.connectivityEyebrow}</p>
             <h2 id="connectivity-title">{headings.connectivity}</h2>
@@ -57,19 +58,17 @@ export function OpenMicroPage() {
         </section>
       </Reveal>
 
-      <Reveal><LifecycleDemo /></Reveal>
-
       <Reveal><SpecsGrid /></Reveal>
 
       <Reveal>
-        <section className="section" aria-labelledby="open-source-title">
+        <section className="section sectionCompact sectionCanvas" aria-labelledby="open-source-title">
           <div className="sectionInner openSourceLayout">
             <div>
               <p className="eyebrow">{productCopy.openSourceEyebrow}</p>
               <h2 id="open-source-title">{headings.openSource}</h2>
               <p className="openSourceStatement">{openSourceStatement}</p>
               <a className="sourceLink" href="https://github.com/TomBonness/open-micro">
-                View Open Micro source
+                View Open Micro source <span aria-hidden="true">↗</span>
               </a>
             </div>
             <dl className="licenseList">
@@ -101,17 +100,6 @@ export function OpenMicroPage() {
               <p className="eyebrow">{brandCopy.statementEyebrow}</p>
               <h2 id="lab-statement-title">{brandCopy.statementHeading}</h2>
               <p>{brandCopy.statementBody}</p>
-            </div>
-            <div className="labMark" aria-hidden="true">
-              <span>KM / RL</span>
-              <img
-                src="/brand/kettle-moraine-mark.png"
-                width="512"
-                height="512"
-                alt=""
-                loading="lazy"
-              />
-              <span>Open Micro</span>
             </div>
           </div>
         </section>

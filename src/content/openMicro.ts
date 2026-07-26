@@ -2,8 +2,8 @@ export type LifecycleEffect = 'solid' | 'breathe' | 'pulse' | 'blink'
 
 export const navigation = [
   { label: 'Overview', href: '#overview' },
-  { label: 'Design', href: '#design' },
   { label: 'Controls', href: '#controls' },
+  { label: 'Design', href: '#design' },
   { label: 'Specs', href: '#specs' },
 ] as const
 

@@ -20,8 +20,6 @@ export function CompanyHomePage() {
   return (
     <SiteShell currentPath={routes.home} navigation={homeNavigation}>
       <section className={styles.hero} aria-labelledby="company-heading">
-        <div className={styles.heroGrid} aria-hidden="true" />
-        <div className={styles.heroCrosshair} aria-hidden="true"><span /></div>
         <div className={styles.heroInner}>
           <header className={styles.heroTopline}>
             <p>Independent product lab</p>
@@ -43,7 +41,7 @@ export function CompanyHomePage() {
                 <a href={product.path} key={product.id}>
                   <span>{product.category}</span>
                   <strong>{product.name}</strong>
-                  <span aria-hidden="true">↗</span>
+                  <span aria-hidden="true">→</span>
                 </a>
               ))}
             </nav>
@@ -63,17 +61,17 @@ export function CompanyHomePage() {
 
           <div className={styles.featureStack}>
             <article className={`${styles.feature} ${styles.openMicroFeature}`}>
-              <div className={styles.openMicroMedia}>
+              <figure className={styles.openMicroMedia}>
                 <picture>
                   <source
                     type="image/avif"
                     srcSet={`${hero640Avif} 640w, ${hero1024Avif} 1024w, ${hero1536Avif} 1536w`}
-                    sizes="(max-width: 767px) 100vw, 68vw"
+                    sizes="(max-width: 767px) calc(100vw - 40px), (max-width: 1099px) calc(100vw - 64px), 58vw"
                   />
                   <source
                     type="image/webp"
                     srcSet={`${hero640Webp} 640w, ${hero1024Webp} 1024w, ${hero1536Webp} 1536w`}
-                    sizes="(max-width: 767px) 100vw, 68vw"
+                    sizes="(max-width: 767px) calc(100vw - 40px), (max-width: 1099px) calc(100vw - 64px), 58vw"
                   />
                   <img
                     src={hero1024Webp}
@@ -84,11 +82,11 @@ export function CompanyHomePage() {
                     alt="Silver Open Micro control surface with twelve keys, a dial, five-way control, and touch surface"
                   />
                 </picture>
-                <div className={styles.mediaIndex} aria-hidden="true">
+                <figcaption className={styles.mediaIndex}>
                   <span>Open hardware + software</span>
                   <span>Revision 0.1</span>
-                </div>
-              </div>
+                </figcaption>
+              </figure>
               <div className={styles.featureCopy}>
                 <p className={styles.productCategory}>{openMicro.category}</p>
                 <h3>{openMicro.name}</h3>
@@ -98,7 +96,7 @@ export function CompanyHomePage() {
                   <div><dt>Connection</dt><dd>USB-C + Bluetooth</dd></div>
                 </dl>
                 <a className={styles.productLink} href={openMicro.path}>
-                  Explore Open Micro <span aria-hidden="true">↗</span>
+                  Explore Open Micro <span aria-hidden="true">→</span>
                 </a>
               </div>
             </article>
@@ -113,7 +111,7 @@ export function CompanyHomePage() {
                   <div><dt>Platforms</dt><dd>macOS + X11 Linux</dd></div>
                 </dl>
                 <a className={styles.productLink} href={lavtype.path}>
-                  Explore Lavtype <span aria-hidden="true">↗</span>
+                  Explore Lavtype <span aria-hidden="true">→</span>
                 </a>
               </div>
               <div className={styles.lavtypeMedia}>

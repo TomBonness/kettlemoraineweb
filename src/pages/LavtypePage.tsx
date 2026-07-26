@@ -25,19 +25,19 @@ export function LavtypePage() {
             <p className={styles.outcome}>{lavtypeHero.outcome}</p>
             <p className={styles.compatibility}>{lavtypeHero.compatibility}</p>
             <div className={styles.heroActions}>
-              <a className={`button ${styles.primaryCta}`} href={lavtypeLinks.download}>Download Lavtype</a>
-              <a className="button buttonQuiet" href={lavtypeLinks.source}>View source</a>
+              <a className={`button ${styles.primaryCta}`} href={lavtypeLinks.download}>Download Lavtype <span aria-hidden="true">↗</span></a>
+              <a className="button buttonQuiet" href={lavtypeLinks.source}>View source <span aria-hidden="true">↗</span></a>
             </div>
           </div>
           <VoiceTrace id="how-it-works" />
         </section>
 
-        <section className="section sectionDark" id="local-recognition" aria-labelledby="local-recognition-title">
+        <section className={`section ${styles.localRecognition}`} id="local-recognition" aria-labelledby="local-recognition-title">
           <div className={`sectionInner ${styles.statementGrid}`}>
             <div>
-              <p className="eyebrow eyebrowDark">Local recognition</p>
+              <p className="eyebrow">Local recognition</p>
               <h2 id="local-recognition-title">No cloud recognizer.</h2>
-              <p className="sectionLead sectionLeadDark">
+              <p className="sectionLead">
                 Parakeet is downloaded only after you choose it and then runs locally/offline. On macOS, Lavtype requires on-device Apple Speech and never falls back to Apple’s network recognizer.
               </p>
             </div>
@@ -52,7 +52,7 @@ export function LavtypePage() {
           </div>
         </section>
 
-        <section className="section" id="platform" aria-labelledby="platform-title">
+        <section className={`section ${styles.platform}`} id="platform" aria-labelledby="platform-title">
           <div className="sectionInner">
             <p className="eyebrow">Platform</p>
             <h2 id="platform-title">Built for macOS and X11 Linux.</h2>
@@ -65,9 +65,9 @@ export function LavtypePage() {
               ))}
             </dl>
             <div className={styles.platformActions}>
-              <a className={`button ${styles.primaryCta}`} href={lavtypeLinks.download}>Download Lavtype</a>
-              <a className="button buttonQuiet" href={lavtypeLinks.source}>View source</a>
-              <a className="button buttonQuiet" href={lavtypeLinks.installGuide}>Read the install guide</a>
+              <a className={`button ${styles.primaryCta}`} href={lavtypeLinks.download}>Download Lavtype <span aria-hidden="true">↗</span></a>
+              <a className="sourceLink" href={lavtypeLinks.source}>View source <span aria-hidden="true">↗</span></a>
+              <a className="sourceLink" href={lavtypeLinks.installGuide}>Read the install guide <span aria-hidden="true">↗</span></a>
             </div>
           </div>
         </section>

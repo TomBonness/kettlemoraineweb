@@ -1,23 +1,16 @@
-.heading {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(280px, 0.56fr);
-  gap: 3rem;
-  align-items: end;
+.section {
+  padding-block: var(--section-space-compact);
+  background: var(--surface);
 }
 
-.disclosure {
-  margin: 0 0 0.7rem;
-  padding-left: 1.2rem;
-  border-left: 2px solid var(--accent);
-  color: var(--text-secondary);
-  font-size: 0.88rem;
-  line-height: 1.55;
+.heading h2 {
+  max-width: 10ch;
 }
 
 .grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  margin: clamp(3rem, 7vw, 6rem) 0 0;
+  margin: var(--section-space-compact) 0 0;
   border-top: 1px solid var(--hairline);
 }
 
@@ -25,41 +18,37 @@
   display: grid;
   min-height: 112px;
   grid-template-columns: minmax(100px, 0.42fr) minmax(0, 1fr);
-  gap: 1rem;
+  gap: var(--space-4);
   align-items: start;
-  padding: 1.35rem 0;
+  padding: var(--space-6) 0;
   border-bottom: 1px solid var(--hairline);
 }
 
 .grid div:nth-child(odd) {
-  padding-right: clamp(1rem, 3vw, 3rem);
+  padding-right: var(--space-8);
   border-right: 1px solid var(--hairline);
 }
 
 .grid div:nth-child(even) {
-  padding-left: clamp(1rem, 3vw, 3rem);
+  padding-left: var(--space-8);
 }
 
 .grid dt {
   color: var(--text-secondary);
   font-size: 0.74rem;
-  font-weight: 650;
+  font-weight: 600;
   letter-spacing: 0.04em;
   text-transform: uppercase;
 }
 
 .grid dd {
+  overflow-wrap: anywhere;
   margin: 0;
   font-size: clamp(0.9rem, 1.2vw, 1.02rem);
   line-height: 1.5;
 }
 
 @media (max-width: 767px) {
-  .heading {
-    grid-template-columns: 1fr;
-    gap: 2rem;
-  }
-
   .grid {
     grid-template-columns: 1fr;
   }
@@ -75,6 +64,6 @@
   .grid div {
     min-height: auto;
     grid-template-columns: 1fr;
-    gap: 0.45rem;
+    gap: var(--space-2);
   }
 }

@@ -18,9 +18,9 @@ export function ExplodedStory() {
     <section className={styles.story} id="design" aria-labelledby="design-title">
       <div className={styles.inner}>
         <header className={styles.heading}>
-          <p className="eyebrow eyebrowDark">{productCopy.designEyebrow}</p>
+          <p className="eyebrow">{productCopy.designEyebrow}</p>
           <h2 id="design-title">{headings.design}</h2>
-          <p className="sectionLead sectionLeadDark">{productCopy.designLead}</p>
+          <p className="sectionLead">{productCopy.designLead}</p>
         </header>
 
         <div className={styles.visualGrid}>
@@ -30,12 +30,12 @@ export function ExplodedStory() {
                 <source
                   type="image/avif"
                   srcSet={`${exploded640Avif} 640w, ${exploded1024Avif} 1024w, ${exploded1536Avif} 1536w`}
-                  sizes="(max-width: 900px) 100vw, 50vw"
+                  sizes="(max-width: 767px) calc(100vw - 40px), (max-width: 1099px) calc(100vw - 64px), 58vw"
                 />
                 <source
                   type="image/webp"
                   srcSet={`${exploded640Webp} 640w, ${exploded1024Webp} 1024w, ${exploded1536Webp} 1536w`}
-                  sizes="(max-width: 900px) 100vw, 50vw"
+                  sizes="(max-width: 767px) calc(100vw - 40px), (max-width: 1099px) calc(100vw - 64px), 58vw"
                 />
                 <img
                   src={exploded1024Webp}
@@ -59,12 +59,12 @@ export function ExplodedStory() {
                 <source
                   type="image/avif"
                   srcSet={`${rear640Avif} 640w, ${rear1024Avif} 1024w, ${rear1536Avif} 1536w`}
-                  sizes="(max-width: 900px) 100vw, 50vw"
+                  sizes="(max-width: 767px) calc(100vw - 40px), (max-width: 1099px) calc(100vw - 64px), 42vw"
                 />
                 <source
                   type="image/webp"
                   srcSet={`${rear640Webp} 640w, ${rear1024Webp} 1024w, ${rear1536Webp} 1536w`}
-                  sizes="(max-width: 900px) 100vw, 50vw"
+                  sizes="(max-width: 767px) calc(100vw - 40px), (max-width: 1099px) calc(100vw - 64px), 42vw"
                 />
                 <img
                   src={rear1024Webp}

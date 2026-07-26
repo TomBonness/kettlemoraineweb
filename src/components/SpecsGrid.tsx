@@ -3,7 +3,7 @@ import styles from './SpecsGrid.module.css'
 
 export function SpecsGrid() {
   return (
-    <section className="section" id="specs" aria-labelledby="specs-title">
+    <section className={`section ${styles.section}`} id="specs" aria-labelledby="specs-title">
       <div className="sectionInner">
         <div className={styles.heading}>
           <div>
