@@ -1,10 +1,8 @@
 import { useState, type FocusEvent } from 'react'
-import top640Avif from '../assets/product/generated/top-640.avif'
-import top1024Avif from '../assets/product/generated/top-1024.avif'
-import top1536Avif from '../assets/product/generated/top-1536.avif'
-import top640Webp from '../assets/product/generated/top-640.webp'
-import top1024Webp from '../assets/product/generated/top-1024.webp'
-import top1536Webp from '../assets/product/generated/top-1536.webp'
+import drawingTop640Avif from '../assets/product/generated/drawing-top-640.avif'
+import drawingTop1024Avif from '../assets/product/generated/drawing-top-1024.avif'
+import drawingTop640Webp from '../assets/product/generated/drawing-top-640.webp'
+import drawingTop1024Webp from '../assets/product/generated/drawing-top-1024.webp'
 import { controls, headings, productCopy } from '../content/openMicro'
 import styles from './ControlsShowcase.module.css'
 
@@ -50,15 +48,15 @@ export function ControlsShowcase() {
             <picture className={styles.topPicture} aria-hidden="true">
               <source
                 type="image/avif"
-                srcSet={`${top640Avif} 640w, ${top1024Avif} 1024w, ${top1536Avif} 1536w`}
+                srcSet={`${drawingTop640Avif} 640w, ${drawingTop1024Avif} 1024w`}
                 sizes="(max-width: 767px) calc(100vw - 40px), (max-width: 1099px) calc(100vw - 64px), 55vw"
               />
               <source
                 type="image/webp"
-                srcSet={`${top640Webp} 640w, ${top1024Webp} 1024w, ${top1536Webp} 1536w`}
+                srcSet={`${drawingTop640Webp} 640w, ${drawingTop1024Webp} 1024w`}
                 sizes="(max-width: 767px) calc(100vw - 40px), (max-width: 1099px) calc(100vw - 64px), 55vw"
               />
-              <img src={top1024Webp} width="1536" height="1536" loading="lazy" decoding="async" alt="" />
+              <img src={drawingTop1024Webp} width="1024" height="1024" loading="lazy" decoding="async" alt="" />
             </picture>
             {controls.map((control) => (
               <button

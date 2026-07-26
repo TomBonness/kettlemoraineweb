@@ -1,15 +1,11 @@
-import hero640Avif from '../assets/product/generated/hero-640.avif'
-import hero1024Avif from '../assets/product/generated/hero-1024.avif'
-import hero1536Avif from '../assets/product/generated/hero-1536.avif'
-import hero640Webp from '../assets/product/generated/hero-640.webp'
-import hero1024Webp from '../assets/product/generated/hero-1024.webp'
-import hero1536Webp from '../assets/product/generated/hero-1536.webp'
-import rear640Avif from '../assets/product/generated/rear-640.avif'
-import rear1024Avif from '../assets/product/generated/rear-1024.avif'
-import rear1536Avif from '../assets/product/generated/rear-1536.avif'
-import rear640Webp from '../assets/product/generated/rear-640.webp'
-import rear1024Webp from '../assets/product/generated/rear-1024.webp'
-import rear1536Webp from '../assets/product/generated/rear-1536.webp'
+import drawingExploded640Avif from '../assets/product/generated/drawing-exploded-640.avif'
+import drawingExploded1024Avif from '../assets/product/generated/drawing-exploded-1024.avif'
+import drawingExploded640Webp from '../assets/product/generated/drawing-exploded-640.webp'
+import drawingExploded1024Webp from '../assets/product/generated/drawing-exploded-1024.webp'
+import drawingTop640Avif from '../assets/product/generated/drawing-top-640.avif'
+import drawingTop1024Avif from '../assets/product/generated/drawing-top-1024.avif'
+import drawingTop640Webp from '../assets/product/generated/drawing-top-640.webp'
+import drawingTop1024Webp from '../assets/product/generated/drawing-top-1024.webp'
 import { SiteShell } from '../components/SiteShell'
 import { VoiceTrace } from '../components/VoiceTrace'
 import { productCatalog, routes } from '../content/catalog'
@@ -43,26 +39,26 @@ export function CompanyHomePage() {
             <picture>
               <source
                 type="image/avif"
-                srcSet={`${rear640Avif} 640w, ${rear1024Avif} 1024w, ${rear1536Avif} 1536w`}
+                srcSet={`${drawingExploded640Avif} 640w, ${drawingExploded1024Avif} 1024w`}
                 sizes="(max-width: 767px) calc(100vw - 40px), (max-width: 1099px) 36vw, 34vw"
               />
               <source
                 type="image/webp"
-                srcSet={`${rear640Webp} 640w, ${rear1024Webp} 1024w, ${rear1536Webp} 1536w`}
+                srcSet={`${drawingExploded640Webp} 640w, ${drawingExploded1024Webp} 1024w`}
                 sizes="(max-width: 767px) calc(100vw - 40px), (max-width: 1099px) 36vw, 34vw"
               />
               <img
-                src={rear1024Webp}
-                width="1536"
-                height="1536"
+                src={drawingExploded1024Webp}
+                width="1024"
+                height="1024"
                 fetchPriority="high"
                 decoding="async"
-                alt={productCopy.enclosureAlt}
+                alt={productCopy.explodedAlt}
               />
             </picture>
             <figcaption>
               <span>{openMicro.name}</span>
-              <span>{productCopy.controlMapRear}</span>
+              <span>Exploded view</span>
             </figcaption>
           </figure>
 
@@ -99,21 +95,21 @@ export function CompanyHomePage() {
                 <picture>
                   <source
                     type="image/avif"
-                    srcSet={`${hero640Avif} 640w, ${hero1024Avif} 1024w, ${hero1536Avif} 1536w`}
+                    srcSet={`${drawingTop640Avif} 640w, ${drawingTop1024Avif} 1024w`}
                     sizes="(max-width: 767px) calc(100vw - 40px), (max-width: 1099px) calc(100vw - 64px), 58vw"
                   />
                   <source
                     type="image/webp"
-                    srcSet={`${hero640Webp} 640w, ${hero1024Webp} 1024w, ${hero1536Webp} 1536w`}
+                    srcSet={`${drawingTop640Webp} 640w, ${drawingTop1024Webp} 1024w`}
                     sizes="(max-width: 767px) calc(100vw - 40px), (max-width: 1099px) calc(100vw - 64px), 58vw"
                   />
                   <img
-                    src={hero1024Webp}
-                    width="1536"
-                    height="1536"
+                    src={drawingTop1024Webp}
+                    width="1024"
+                    height="1024"
                     loading="lazy"
                     decoding="async"
-                    alt="Silver Open Micro control surface with twelve keys, a dial, five-way control, and touch surface"
+                    alt={productCopy.topAlt}
                   />
                 </picture>
                 <figcaption className={styles.mediaIndex}>

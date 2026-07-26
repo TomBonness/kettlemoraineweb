@@ -1,15 +1,11 @@
-import exploded640Avif from '../assets/product/generated/exploded-640.avif'
-import exploded1024Avif from '../assets/product/generated/exploded-1024.avif'
-import exploded1536Avif from '../assets/product/generated/exploded-1536.avif'
-import exploded640Webp from '../assets/product/generated/exploded-640.webp'
-import exploded1024Webp from '../assets/product/generated/exploded-1024.webp'
-import exploded1536Webp from '../assets/product/generated/exploded-1536.webp'
-import rear640Avif from '../assets/product/generated/rear-640.avif'
-import rear1024Avif from '../assets/product/generated/rear-1024.avif'
-import rear1536Avif from '../assets/product/generated/rear-1536.avif'
-import rear640Webp from '../assets/product/generated/rear-640.webp'
-import rear1024Webp from '../assets/product/generated/rear-1024.webp'
-import rear1536Webp from '../assets/product/generated/rear-1536.webp'
+import drawingEnclosure640Avif from '../assets/product/generated/drawing-enclosure-640.avif'
+import drawingEnclosure1024Avif from '../assets/product/generated/drawing-enclosure-1024.avif'
+import drawingEnclosure640Webp from '../assets/product/generated/drawing-enclosure-640.webp'
+import drawingEnclosure1024Webp from '../assets/product/generated/drawing-enclosure-1024.webp'
+import drawingExploded640Avif from '../assets/product/generated/drawing-exploded-640.avif'
+import drawingExploded1024Avif from '../assets/product/generated/drawing-exploded-1024.avif'
+import drawingExploded640Webp from '../assets/product/generated/drawing-exploded-640.webp'
+import drawingExploded1024Webp from '../assets/product/generated/drawing-exploded-1024.webp'
 import { explodedLayers, headings, productCopy } from '../content/openMicro'
 import styles from './ExplodedStory.module.css'
 
@@ -29,18 +25,18 @@ export function ExplodedStory() {
               <picture>
                 <source
                   type="image/avif"
-                  srcSet={`${exploded640Avif} 640w, ${exploded1024Avif} 1024w, ${exploded1536Avif} 1536w`}
+                  srcSet={`${drawingExploded640Avif} 640w, ${drawingExploded1024Avif} 1024w`}
                   sizes="(max-width: 767px) calc(100vw - 40px), (max-width: 1099px) calc(100vw - 64px), 58vw"
                 />
                 <source
                   type="image/webp"
-                  srcSet={`${exploded640Webp} 640w, ${exploded1024Webp} 1024w, ${exploded1536Webp} 1536w`}
+                  srcSet={`${drawingExploded640Webp} 640w, ${drawingExploded1024Webp} 1024w`}
                   sizes="(max-width: 767px) calc(100vw - 40px), (max-width: 1099px) calc(100vw - 64px), 58vw"
                 />
                 <img
-                  src={exploded1024Webp}
-                  width="1536"
-                  height="1536"
+                  src={drawingExploded1024Webp}
+                  width="1024"
+                  height="1024"
                   loading="lazy"
                   decoding="async"
                   alt={productCopy.explodedAlt}
@@ -58,18 +54,18 @@ export function ExplodedStory() {
               <picture>
                 <source
                   type="image/avif"
-                  srcSet={`${rear640Avif} 640w, ${rear1024Avif} 1024w, ${rear1536Avif} 1536w`}
+                  srcSet={`${drawingEnclosure640Avif} 640w, ${drawingEnclosure1024Avif} 1024w`}
                   sizes="(max-width: 767px) calc(100vw - 40px), (max-width: 1099px) calc(100vw - 64px), 42vw"
                 />
                 <source
                   type="image/webp"
-                  srcSet={`${rear640Webp} 640w, ${rear1024Webp} 1024w, ${rear1536Webp} 1536w`}
+                  srcSet={`${drawingEnclosure640Webp} 640w, ${drawingEnclosure1024Webp} 1024w`}
                   sizes="(max-width: 767px) calc(100vw - 40px), (max-width: 1099px) calc(100vw - 64px), 42vw"
                 />
                 <img
-                  src={rear1024Webp}
-                  width="1536"
-                  height="1536"
+                  src={drawingEnclosure1024Webp}
+                  width="1024"
+                  height="1024"
                   loading="lazy"
                   decoding="async"
                   alt={productCopy.enclosureAlt}

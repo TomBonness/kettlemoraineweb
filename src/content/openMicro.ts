@@ -72,14 +72,14 @@ export const productCopy = {
   enclosureRenderTitle: 'A quiet presence.',
   enclosureRenderBody: 'Rounded aluminum surrounds a clean working edge, with power and USB-C set neatly into the rear.',
   heroAlt:
-    'Silver Open Micro controller with twelve white keys, encoder, five-way control, and touch surface',
+    'Top-view technical drawing of Open Micro with twelve keys, an encoder, five-way control, and touch surface',
   explodedAlt:
-    'Open Micro aluminum enclosure, PCB, interface plate, switches, and keycaps separated into layers',
+    'Exploded technical drawing of Open Micro showing the enclosure and control assembly',
   enclosureAlt:
-    'Rear three-quarter view of Open Micro showing its USB-C and power openings',
+    'Technical drawing of the Open Micro lower enclosure showing the rear openings',
   topAlt:
-    'Open Micro assembled control layout',
-  visualizationCredit: 'Revision 0.1 design visualization — not a photographed product',
+    'Top-view technical drawing of the Open Micro control layout',
+  visualizationCredit: 'Revision 0.1 technical drawing — based on the working CAD assembly',
 } as const
 
 export const waitlistCopy = {

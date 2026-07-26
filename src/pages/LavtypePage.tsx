@@ -41,7 +41,7 @@ export function LavtypePage() {
                 Parakeet is downloaded only after you choose it and then runs locally/offline. On macOS, Lavtype requires on-device Apple Speech and never falls back to Apple’s network recognizer.
               </p>
             </div>
-            <dl className={styles.darkDetails}>
+            <dl className={styles.recognitionDetails}>
               {localRecognitionDetails.map(([term, detail]) => (
                 <div key={term}>
                   <dt>{term}</dt>

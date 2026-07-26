@@ -88,33 +88,33 @@
   grid-column: 1 / 6;
 }
 
-.darkDetails,
+.recognitionDetails,
 .detailsGrid {
   margin: 0;
 }
 
-.darkDetails {
+.recognitionDetails {
   grid-column: 6 / 13;
   padding-inline: var(--space-6);
-  border-radius: var(--radius-large);
-  background: var(--navy);
+  border-block: 1px solid var(--hairline);
+  background: var(--surface);
 }
 
-.darkDetails div {
+.recognitionDetails div {
   display: grid;
   min-height: 84px;
   grid-template-columns: minmax(120px, 0.38fr) minmax(0, 1fr);
   gap: var(--space-6);
   align-items: center;
   padding: var(--space-4) 0;
-  border-bottom: 1px solid rgb(245 241 232 / 14%);
+  border-bottom: 1px solid var(--hairline);
 }
 
-.darkDetails div:last-child {
+.recognitionDetails div:last-child {
   border-bottom: 0;
 }
 
-.darkDetails dt,
+.recognitionDetails dt,
 .detailsGrid dt {
   font-size: 0.72rem;
   font-weight: 600;
@@ -122,11 +122,11 @@
   text-transform: uppercase;
 }
 
-.darkDetails dt {
-  color: var(--on-navy-muted);
+.recognitionDetails dt {
+  color: var(--text-secondary);
 }
 
-.darkDetails dd,
+.recognitionDetails dd,
 .detailsGrid dd {
   overflow-wrap: anywhere;
   margin: 0;
@@ -134,8 +134,8 @@
   line-height: 1.5;
 }
 
-.darkDetails dd {
-  color: var(--on-navy);
+.recognitionDetails dd {
+  color: var(--text-primary);
 }
 
 .platform {
@@ -199,7 +199,7 @@
     grid-column: 1 / 4;
   }
 
-  .darkDetails {
+  .recognitionDetails {
     grid-column: 4 / 9;
   }
 }
@@ -226,7 +226,7 @@
   }
 
   .statementGrid > div:first-child,
-  .darkDetails {
+  .recognitionDetails {
     grid-column: 1;
   }
 }
@@ -260,7 +260,7 @@
     flex: 1 1 100%;
   }
 
-  .darkDetails div,
+  .recognitionDetails div,
   .detailsGrid div {
     min-height: auto;
     grid-template-columns: 1fr;
