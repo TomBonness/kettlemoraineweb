@@ -1,7 +1,3 @@
-import drawingExploded640Avif from '../assets/product/generated/drawing-exploded-640.avif'
-import drawingExploded1024Avif from '../assets/product/generated/drawing-exploded-1024.avif'
-import drawingExploded640Webp from '../assets/product/generated/drawing-exploded-640.webp'
-import drawingExploded1024Webp from '../assets/product/generated/drawing-exploded-1024.webp'
 import drawingTop640Avif from '../assets/product/generated/drawing-top-640.avif'
 import drawingTop1024Avif from '../assets/product/generated/drawing-top-1024.avif'
 import drawingTop640Webp from '../assets/product/generated/drawing-top-640.webp'
@@ -23,6 +19,8 @@ export function CompanyHomePage() {
   return (
     <SiteShell currentPath={routes.home} navigation={homeNavigation}>
       <section className={styles.hero} aria-labelledby="company-heading">
+        <div className={styles.heroGrid} aria-hidden="true" />
+        <div className={styles.heroCrosshair} aria-hidden="true"><span /></div>
         <div className={styles.heroInner}>
           <header className={styles.heroTopline}>
             <p>Independent product lab</p>
@@ -35,33 +33,6 @@ export function CompanyHomePage() {
             </h1>
           </div>
 
-          <figure className={styles.heroVisual}>
-            <picture>
-              <source
-                type="image/avif"
-                srcSet={`${drawingExploded640Avif} 640w, ${drawingExploded1024Avif} 1024w`}
-                sizes="(max-width: 767px) calc(100vw - 40px), (max-width: 1099px) 36vw, 34vw"
-              />
-              <source
-                type="image/webp"
-                srcSet={`${drawingExploded640Webp} 640w, ${drawingExploded1024Webp} 1024w`}
-                sizes="(max-width: 767px) calc(100vw - 40px), (max-width: 1099px) 36vw, 34vw"
-              />
-              <img
-                src={drawingExploded1024Webp}
-                width="1024"
-                height="1024"
-                fetchPriority="high"
-                decoding="async"
-                alt={productCopy.explodedAlt}
-              />
-            </picture>
-            <figcaption>
-              <span>{openMicro.name}</span>
-              <span>Exploded view</span>
-            </figcaption>
-          </figure>
-
           <div className={styles.heroFooter}>
             <p className={styles.heroStatement}>
               We design focused, open hardware and software for people who want to understand and shape the tools they use.
@@ -71,7 +42,7 @@ export function CompanyHomePage() {
                 <a href={product.path} key={product.id}>
                   <span>{product.category}</span>
                   <strong>{product.name}</strong>
-                  <span aria-hidden="true">→</span>
+                  <span aria-hidden="true">↗</span>
                 </a>
               ))}
             </nav>
@@ -91,32 +62,32 @@ export function CompanyHomePage() {
 
           <div className={styles.featureStack}>
             <article className={`${styles.feature} ${styles.openMicroFeature}`}>
-              <figure className={styles.openMicroMedia}>
+              <div className={styles.openMicroMedia}>
                 <picture>
                   <source
                     type="image/avif"
                     srcSet={`${drawingTop640Avif} 640w, ${drawingTop1024Avif} 1024w`}
-                    sizes="(max-width: 767px) calc(100vw - 40px), (max-width: 1099px) calc(100vw - 64px), 58vw"
+                    sizes="(max-width: 767px) 100vw, 68vw"
                   />
                   <source
                     type="image/webp"
                     srcSet={`${drawingTop640Webp} 640w, ${drawingTop1024Webp} 1024w`}
-                    sizes="(max-width: 767px) calc(100vw - 40px), (max-width: 1099px) calc(100vw - 64px), 58vw"
+                    sizes="(max-width: 767px) 100vw, 68vw"
                   />
                   <img
                     src={drawingTop1024Webp}
                     width="1024"
                     height="1024"
-                    loading="lazy"
+                    loading="eager"
                     decoding="async"
                     alt={productCopy.topAlt}
                   />
                 </picture>
-                <figcaption className={styles.mediaIndex}>
+                <div className={styles.mediaIndex} aria-hidden="true">
                   <span>Open hardware + software</span>
                   <span>Revision 0.1</span>
-                </figcaption>
-              </figure>
+                </div>
+              </div>
               <div className={styles.featureCopy}>
                 <p className={styles.productCategory}>{openMicro.category}</p>
                 <h3>{openMicro.name}</h3>
@@ -126,7 +97,7 @@ export function CompanyHomePage() {
                   <div><dt>Connection</dt><dd>USB-C + Bluetooth</dd></div>
                 </dl>
                 <a className={styles.productLink} href={openMicro.path}>
-                  Explore Open Micro <span aria-hidden="true">→</span>
+                  Explore Open Micro <span aria-hidden="true">↗</span>
                 </a>
               </div>
             </article>
@@ -141,7 +112,7 @@ export function CompanyHomePage() {
                   <div><dt>Platforms</dt><dd>macOS + X11 Linux</dd></div>
                 </dl>
                 <a className={styles.productLink} href={lavtype.path}>
-                  Explore Lavtype <span aria-hidden="true">→</span>
+                  Explore Lavtype <span aria-hidden="true">↗</span>
                 </a>
               </div>
               <div className={styles.lavtypeMedia}>

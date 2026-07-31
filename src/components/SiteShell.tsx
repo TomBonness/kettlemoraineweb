@@ -17,11 +17,6 @@ function currentPageValue(href: string, currentPath: string) {
   return !href.includes('#') && href === currentPath ? 'page' : undefined
 }
 
-function linkGlyph(href: string) {
-  if (href.includes('#')) return '↓'
-  return href.startsWith('/') ? '→' : '↗'
-}
-
 export function SiteShell({ children, currentPath, navigation, cta }: SiteShellProps) {
   return (
     <>
@@ -35,15 +30,19 @@ export function SiteShell({ children, currentPath, navigation, cta }: SiteShellP
             aria-current={currentPageValue(routes.home, currentPath)}
           >
             <img
+              className="wordmarkFull"
+              src="/brand/kettle-moraine-wordmark.png"
+              width="1440"
+              height="374"
+              alt=""
+            />
+            <img
+              className="wordmarkMark"
               src="/brand/kettle-moraine-mark.png"
               width="512"
               height="512"
               alt=""
             />
-            <span className="wordmarkText" aria-hidden="true">
-              <strong>Kettle Moraine</strong>
-              <span>Research Labs</span>
-            </span>
           </a>
           <div className="navLinks">
             {navigation.map((item) => (
@@ -56,11 +55,7 @@ export function SiteShell({ children, currentPath, navigation, cta }: SiteShellP
               </a>
             ))}
           </div>
-          {cta ? (
-            <a className="navCta" href={cta.href}>
-              {cta.label} <span aria-hidden="true">{linkGlyph(cta.href)}</span>
-            </a>
-          ) : null}
+          {cta ? <a className="navCta" href={cta.href}>{cta.label}</a> : <span className="navSpacer" />}
           <details className="mobileNav">
             <summary>
               <span>Menu</span>
@@ -75,7 +70,7 @@ export function SiteShell({ children, currentPath, navigation, cta }: SiteShellP
                     aria-current={currentPageValue(item.href, currentPath)}
                   >
                     {item.label}
-                    <span aria-hidden="true">{linkGlyph(item.href)}</span>
+                    <span aria-hidden="true">{item.href.includes('#') ? '↓' : '↗'}</span>
                   </a>
                 ))}
               </div>
@@ -86,7 +81,6 @@ export function SiteShell({ children, currentPath, navigation, cta }: SiteShellP
                   aria-label={`${cta.label} — mobile navigation`}
                 >
                   {cta.label}
-                  <span aria-hidden="true">{linkGlyph(cta.href)}</span>
                 </a>
               )}
             </div>

@@ -14,9 +14,9 @@ export function ExplodedStory() {
     <section className={styles.story} id="design" aria-labelledby="design-title">
       <div className={styles.inner}>
         <header className={styles.heading}>
-          <p className="eyebrow">{productCopy.designEyebrow}</p>
+          <p className="eyebrow eyebrowDark">{productCopy.designEyebrow}</p>
           <h2 id="design-title">{headings.design}</h2>
-          <p className="sectionLead">{productCopy.designLead}</p>
+          <p className="sectionLead sectionLeadDark">{productCopy.designLead}</p>
         </header>
 
         <div className={styles.visualGrid}>
@@ -26,12 +26,12 @@ export function ExplodedStory() {
                 <source
                   type="image/avif"
                   srcSet={`${drawingExploded640Avif} 640w, ${drawingExploded1024Avif} 1024w`}
-                  sizes="(max-width: 767px) calc(100vw - 40px), (max-width: 1099px) calc(100vw - 64px), 58vw"
+                  sizes="(max-width: 900px) 100vw, 50vw"
                 />
                 <source
                   type="image/webp"
                   srcSet={`${drawingExploded640Webp} 640w, ${drawingExploded1024Webp} 1024w`}
-                  sizes="(max-width: 767px) calc(100vw - 40px), (max-width: 1099px) calc(100vw - 64px), 58vw"
+                  sizes="(max-width: 900px) 100vw, 50vw"
                 />
                 <img
                   src={drawingExploded1024Webp}
@@ -55,12 +55,12 @@ export function ExplodedStory() {
                 <source
                   type="image/avif"
                   srcSet={`${drawingEnclosure640Avif} 640w, ${drawingEnclosure1024Avif} 1024w`}
-                  sizes="(max-width: 767px) calc(100vw - 40px), (max-width: 1099px) calc(100vw - 64px), 42vw"
+                  sizes="(max-width: 900px) 100vw, 50vw"
                 />
                 <source
                   type="image/webp"
                   srcSet={`${drawingEnclosure640Webp} 640w, ${drawingEnclosure1024Webp} 1024w`}
-                  sizes="(max-width: 767px) calc(100vw - 40px), (max-width: 1099px) calc(100vw - 64px), 42vw"
+                  sizes="(max-width: 900px) 100vw, 50vw"
                 />
                 <img
                   src={drawingEnclosure1024Webp}

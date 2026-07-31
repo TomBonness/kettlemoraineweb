@@ -21,7 +21,7 @@ export function ControlsShowcase() {
   }
 
   return (
-    <section className={`section ${styles.section}`} id="controls" aria-labelledby="controls-title">
+    <section className="section" id="controls" aria-labelledby="controls-title">
       <div className={`sectionInner ${styles.layout}`}>
         <div className={styles.copy}>
           <p className="eyebrow">{productCopy.controlsEyebrow}</p>
@@ -49,12 +49,12 @@ export function ControlsShowcase() {
               <source
                 type="image/avif"
                 srcSet={`${drawingTop640Avif} 640w, ${drawingTop1024Avif} 1024w`}
-                sizes="(max-width: 767px) calc(100vw - 40px), (max-width: 1099px) calc(100vw - 64px), 55vw"
+                sizes="(max-width: 900px) 100vw, 55vw"
               />
               <source
                 type="image/webp"
                 srcSet={`${drawingTop640Webp} 640w, ${drawingTop1024Webp} 1024w`}
-                sizes="(max-width: 767px) calc(100vw - 40px), (max-width: 1099px) calc(100vw - 64px), 55vw"
+                sizes="(max-width: 900px) 100vw, 55vw"
               />
               <img src={drawingTop1024Webp} width="1024" height="1024" loading="lazy" decoding="async" alt="" />
             </picture>

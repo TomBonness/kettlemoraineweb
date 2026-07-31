@@ -1,145 +1,338 @@
 .hero {
-  display: grid;
+  position: relative;
   width: 100%;
   max-width: var(--content-max);
-  min-height: min(52rem, calc(100svh - var(--nav-height)));
-  grid-template-columns: repeat(12, minmax(0, 1fr));
-  column-gap: var(--grid-gap);
-  align-items: center;
   margin: 0 auto;
-  padding: var(--section-space-compact) var(--gutter);
-}
-
-.copy {
-  min-width: 0;
-  grid-column: 1 / 6;
-}
-
-.productType {
-  margin: 0;
-  color: var(--text-secondary);
-  font-size: 0.68rem;
-  font-weight: 700;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-}
-
-.copy h1 {
-  margin: var(--space-4) 0 0;
-  color: var(--text-primary);
-  font-family: var(--font-display);
-  font-size: var(--product-title-size);
-  font-weight: 400;
-  font-optical-sizing: auto;
-  letter-spacing: -0.025em;
-  line-height: 0.9;
-}
-
-.description {
-  max-width: 28rem;
-  margin: var(--space-8) 0 0;
-  color: var(--text-secondary);
-  font-size: var(--lead-size);
-  line-height: 1.5;
-}
-
-.actions {
-  display: flex;
-  flex-wrap: wrap;
-  gap: var(--space-3);
-  margin-top: var(--space-8);
-}
-
-.indexLabel {
-  margin: var(--space-8) 0 0;
-  padding-top: var(--space-4);
-  border-top: 1px solid var(--hairline);
-  color: var(--text-secondary);
-  font-size: 0.68rem;
-  font-weight: 600;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
+  padding: clamp(2rem, 5vw, 4.5rem) var(--gutter) clamp(4rem, 8vw, 7rem);
 }
 
 .artwork {
   --image-x: 0px;
   --image-y: 0px;
+  position: relative;
   overflow: hidden;
-  min-width: 0;
-  grid-column: 6 / 13;
-  margin: 0;
+  aspect-ratio: 1200 / 630;
   border: 1px solid var(--hairline);
-  border-radius: var(--radius-large);
-  background: var(--surface-muted);
-}
-
-.artwork picture {
-  display: block;
-  overflow: hidden;
-  aspect-ratio: 1;
+  border-radius: 4px;
+  background: var(--canvas);
+  box-shadow: 0 30px 80px rgb(17 18 20 / 10%);
+  isolation: isolate;
 }
 
 .productBackdrop {
+  position: absolute;
+  z-index: 0;
+  inset: -1%;
   display: block;
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
-  transform: translate3d(var(--image-x), var(--image-y), 0) scale(1.01);
-  transition: transform var(--motion-duration) var(--motion-ease);
+  width: 102%;
+  max-width: none;
+  height: 102%;
+  object-fit: cover;
+  transform: translate3d(var(--image-x), var(--image-y), 0) scale(1.02);
+  transition: transform 500ms var(--motion-ease);
+  will-change: transform;
 }
 
-.artwork figcaption {
-  padding: var(--space-3) var(--space-4);
-  border-top: 1px solid var(--hairline);
+.wash {
+  position: absolute;
+  z-index: 1;
+  inset: 0;
+  background:
+    linear-gradient(90deg, rgb(247 247 243 / 100%) 0%, rgb(247 247 243 / 97%) 34%, rgb(247 247 243 / 22%) 67%, transparent 82%),
+    linear-gradient(0deg, rgb(247 247 243 / 45%) 0%, transparent 48%);
+}
+
+.grid {
+  position: absolute;
+  z-index: 2;
+  inset: 0;
+  background:
+    linear-gradient(rgb(17 18 20 / 4%) 1px, transparent 1px),
+    linear-gradient(90deg, rgb(17 18 20 / 4%) 1px, transparent 1px);
+  background-size: 42px 42px;
+  pointer-events: none;
+}
+
+.grid::before {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 8px;
+  background: var(--accent);
+  content: '';
+}
+
+.brandLogo {
+  position: absolute;
+  z-index: 4;
+  top: 8%;
+  left: 5.5%;
+  display: none;
+  width: min(38%, 470px);
+  height: auto;
+}
+
+.desktopKicker {
+  position: absolute;
+  z-index: 4;
+  top: 8%;
+  left: 5.5%;
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  margin: 0;
   color: var(--text-secondary);
-  font-size: 0.68rem;
+  font-size: clamp(0.62rem, 0.8vw, 0.72rem);
+  font-weight: 740;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+}
+
+.desktopKicker::before {
+  width: 2rem;
+  height: 0.22rem;
+  border-radius: 999px;
+  background: var(--accent);
+  content: '';
+}
+
+.copy {
+  position: absolute;
+  z-index: 4;
+  bottom: 8%;
+  left: 5.5%;
+  width: min(52%, 620px);
+}
+
+.copy h1 {
+  margin: 0;
+  color: var(--text-primary);
+  font-size: clamp(3.7rem, 7vw, 6.3rem);
+  font-weight: 700;
+  letter-spacing: -0.065em;
+  line-height: 0.88;
+  text-transform: uppercase;
+}
+
+.accentRule {
+  display: block;
+  width: 2.65rem;
+  height: 0.3rem;
+  margin-top: clamp(1.2rem, 2.2vw, 2rem);
+  border-radius: 999px;
+  background: var(--accent);
+}
+
+.productType {
+  margin: 1.15rem 0 0;
+  color: #4f5259;
+  font-size: clamp(0.68rem, 1.35vw, 1.15rem);
+  font-weight: 760;
+  letter-spacing: 0.18em;
+  line-height: 1.2;
+  text-transform: uppercase;
+}
+
+.description {
+  margin: clamp(1rem, 2vw, 1.6rem) 0 0;
+  color: var(--text-secondary);
+  font-size: clamp(0.82rem, 1.35vw, 1.05rem);
+  line-height: 1.5;
+}
+
+.crosshair {
+  position: absolute;
+  z-index: 4;
+  top: 6.5%;
+  right: 5.4%;
+  width: 3.6rem;
+  height: 3.6rem;
+}
+
+.crosshair::before,
+.crosshair::after {
+  position: absolute;
+  background: rgb(17 18 20 / 18%);
+  content: '';
+}
+
+.crosshair::before {
+  top: 50%;
+  right: 0;
+  left: 0;
+  height: 1px;
+}
+
+.crosshair::after {
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  width: 1px;
+}
+
+.crosshair span {
+  position: absolute;
+  z-index: 1;
+  top: 50%;
+  left: 50%;
+  width: 1rem;
+  height: 1rem;
+  border-radius: 50%;
+  background: var(--accent);
+  box-shadow: 0 0 0 5px rgb(247 247 243 / 70%);
+  transform: translate(-50%, -50%);
+}
+
+.actionRail {
+  display: flex;
+  min-height: 78px;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 2rem;
+  padding: 1rem 0 0;
+}
+
+.actionRail > p {
+  display: none;
+  margin: 0;
+  color: var(--text-secondary);
+  font-size: 0.65rem;
+  font-weight: 720;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.7rem;
+}
+
+.visualizationCredit {
+  margin: -0.2rem 0 0;
+  color: var(--text-secondary);
+  font-size: 0.67rem;
   line-height: 1.45;
+  text-align: right;
 }
 
-@media (min-width: 900px) and (max-width: 1099px) {
+@media (max-width: 900px) {
   .hero {
-    grid-template-columns: repeat(8, minmax(0, 1fr));
+    padding-top: 1.5rem;
   }
 
-  .copy {
-    grid-column: 1 / 4;
+  .brandLogo {
+    width: 40%;
   }
 
-  .artwork {
-    grid-column: 4 / 9;
-  }
-}
-
-@media (max-width: 899px) {
-  .hero {
-    min-height: auto;
-    grid-template-columns: 1fr;
-    gap: var(--space-12);
-  }
-
-  .copy,
-  .artwork {
-    grid-column: 1;
+  .copy h1 {
+    font-size: clamp(3.4rem, 10vw, 5rem);
   }
 }
 
 @media (max-width: 767px) {
-  .hero {
-    padding-top: var(--space-12);
-    padding-bottom: var(--section-space-compact);
+  .brandLogo {
+    display: block;
+  }
+
+  .desktopKicker {
+    display: none;
+  }
+
+  .actionRail {
+    justify-content: space-between;
+  }
+
+  .actionRail > p {
+    display: block;
   }
 }
 
+@media (max-width: 700px) {
+  .hero {
+    padding-top: 1rem;
+  }
+
+  .artwork {
+    min-height: min(680px, calc(100svh - 150px));
+    aspect-ratio: auto;
+    border-radius: 18px;
+  }
+
+  .productBackdrop {
+    inset: -1%;
+    width: 178%;
+    height: 102%;
+    object-position: 69% center;
+  }
+
+  .wash {
+    background:
+      linear-gradient(0deg, rgb(247 247 243 / 100%) 0%, rgb(247 247 243 / 96%) 39%, rgb(247 247 243 / 10%) 72%),
+      linear-gradient(90deg, rgb(247 247 243 / 76%) 0%, transparent 78%);
+  }
+
+  .brandLogo {
+    top: 1.5rem;
+    left: 1.5rem;
+    width: min(76%, 300px);
+  }
+
+  .copy {
+    right: 1.5rem;
+    bottom: 2rem;
+    left: 1.5rem;
+    width: auto;
+  }
+
+  .copy h1 {
+    font-size: clamp(3.2rem, 16vw, 4.6rem);
+  }
+
+  .productType {
+    max-width: 20rem;
+    font-size: 0.7rem;
+    line-height: 1.4;
+  }
+
+  .description {
+    max-width: 18rem;
+    font-size: 0.9rem;
+  }
+
+  .crosshair {
+    top: 5.5rem;
+    right: 1.5rem;
+    width: 2.8rem;
+    height: 2.8rem;
+  }
+
+  .actionRail {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 0.9rem;
+    padding-top: 1.2rem;
+  }
+  .visualizationCredit {
+    text-align: left;
+  }
+
+}
+
 @media (max-width: 390px) {
-  .actions,
-  .actions a {
+  .actions {
     width: 100%;
+  }
+
+  .actions a {
+    flex: 1 1 auto;
   }
 }
 
 @media (pointer: coarse), (prefers-reduced-motion: reduce) {
   .productBackdrop {
-    transform: scale(1.01);
+    transform: scale(1.02);
     transition: none;
   }
 }

@@ -47,7 +47,7 @@ export function LifecycleDemo() {
   } as CSSProperties
 
   return (
-    <section className={`section ${styles.section}`} aria-labelledby="lifecycle-title">
+    <section className="section sectionDark" aria-labelledby="lifecycle-title">
       <div
         className={`sectionInner ${styles.layout}`}
         ref={rootRef}
@@ -57,9 +57,9 @@ export function LifecycleDemo() {
         onBlurCapture={handleBlur}
       >
         <div className={styles.intro}>
-          <p className="eyebrow">{productCopy.lifecycleEyebrow}</p>
+          <p className="eyebrow eyebrowDark">{productCopy.lifecycleEyebrow}</p>
           <h2 id="lifecycle-title">{headings.lifecycle}</h2>
-          <p className="sectionLead">{productCopy.lifecycleLead}</p>
+          <p className="sectionLead sectionLeadDark">{productCopy.lifecycleLead}</p>
         </div>
 
         <div className={styles.demo}>
