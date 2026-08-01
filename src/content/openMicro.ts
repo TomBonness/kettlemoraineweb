@@ -68,7 +68,6 @@ export const productCopy = {
     'Close studio view of the illuminated frosted side wall and matte-black controls on Open Micro',
   topAlt:
     'Top-view technical drawing of the Open Micro control layout',
-  visualizationCredit: 'Revision 0.1 Blender visualization — rendered from the working CAD assembly',
 } as const
 
 export const waitlistCopy = {

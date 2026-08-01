@@ -95,7 +95,6 @@ export function HeroProduct() {
           </a>
         </div>
       </div>
-      <p className={styles.visualizationCredit}>{productCopy.visualizationCredit}</p>
     </section>
   )
 }
