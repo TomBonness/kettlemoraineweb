@@ -1,7 +1,9 @@
-import drawingTop640Avif from '../assets/product/generated/drawing-top-640.avif'
-import drawingTop1024Avif from '../assets/product/generated/drawing-top-1024.avif'
-import drawingTop640Webp from '../assets/product/generated/drawing-top-640.webp'
-import drawingTop1024Webp from '../assets/product/generated/drawing-top-1024.webp'
+import hero640Avif from '../assets/product/generated/hero-640.avif'
+import hero1024Avif from '../assets/product/generated/hero-1024.avif'
+import hero1536Avif from '../assets/product/generated/hero-1536.avif'
+import hero640Webp from '../assets/product/generated/hero-640.webp'
+import hero1024Webp from '../assets/product/generated/hero-1024.webp'
+import hero1536Webp from '../assets/product/generated/hero-1536.webp'
 import { SiteShell } from '../components/SiteShell'
 import { VoiceTrace } from '../components/VoiceTrace'
 import { productCatalog, routes } from '../content/catalog'
@@ -66,21 +68,21 @@ export function CompanyHomePage() {
                 <picture>
                   <source
                     type="image/avif"
-                    srcSet={`${drawingTop640Avif} 640w, ${drawingTop1024Avif} 1024w`}
+                    srcSet={`${hero640Avif} 640w, ${hero1024Avif} 1024w, ${hero1536Avif} 1536w`}
                     sizes="(max-width: 767px) 100vw, 68vw"
                   />
                   <source
                     type="image/webp"
-                    srcSet={`${drawingTop640Webp} 640w, ${drawingTop1024Webp} 1024w`}
+                    srcSet={`${hero640Webp} 640w, ${hero1024Webp} 1024w, ${hero1536Webp} 1536w`}
                     sizes="(max-width: 767px) 100vw, 68vw"
                   />
                   <img
-                    src={drawingTop1024Webp}
+                    src={hero1024Webp}
                     width="1024"
-                    height="1024"
+                    height="768"
                     loading="eager"
                     decoding="async"
-                    alt={productCopy.topAlt}
+                    alt={productCopy.heroAlt}
                   />
                 </picture>
                 <div className={styles.mediaIndex} aria-hidden="true">

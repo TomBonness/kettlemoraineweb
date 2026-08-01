@@ -5,11 +5,9 @@ const fullFrame = { left: 0, top: 0, width: 2048, height: 2048 }
 const masters = {
   hero: {
     input: 'artwork/masters/open-micro-hero-master.png',
-    crop: { left: 128, top: 320, width: 1664, height: 1664 },
   },
   exploded: {
     input: 'artwork/masters/open-micro-exploded-master.png',
-    crop: { left: 144, top: 288, width: 1760, height: 1760 },
   },
   rear: { input: 'artwork/masters/open-micro-rear-master.png', crop: fullFrame },
   top: { input: 'artwork/masters/open-micro-top-master.png', crop: fullFrame },
@@ -26,6 +24,12 @@ const drawingWidths = [1024, 640]
 const drawingBackground = '#eae4d9'
 const drawingInk = '#172033'
 const drawingSecondaryInk = '#59616d'
+
+function resizeMaster(master, width) {
+  const image = sharp(master.input)
+  if (master.crop) image.extract(master.crop)
+  return image.resize({ width, withoutEnlargement: true })
+}
 
 async function createEditorialDrawing(name, drawing, width) {
   const source = (await readFile(drawing.input, 'utf8'))
@@ -65,14 +69,10 @@ await mkdir('public', { recursive: true })
 await Promise.all(
   Object.entries(masters).flatMap(([name, master]) =>
     widths.flatMap((width) => [
-      sharp(master.input)
-        .extract(master.crop)
-        .resize({ width, withoutEnlargement: true })
+      resizeMaster(master, width)
         .avif({ quality: 70, effort: 6, chromaSubsampling: '4:4:4' })
         .toFile(`${outputDirectory}/${name}-${width}.avif`),
-      sharp(master.input)
-        .extract(master.crop)
-        .resize({ width, withoutEnlargement: true })
+      resizeMaster(master, width)
         .webp({ quality: 86, smartSubsample: true })
         .toFile(`${outputDirectory}/${name}-${width}.webp`),
     ]),
@@ -85,10 +85,11 @@ await Promise.all(
   ),
 )
 
-await sharp(socialMaster.input)
-  .extract(socialMaster.crop)
+const socialImage = sharp(socialMaster.input)
+if (socialMaster.crop) socialImage.extract(socialMaster.crop)
+await socialImage
   .resize(1200, 630, { fit: 'cover', position: 'centre' })
   .png({ compressionLevel: 9 })
   .toFile('public/open-micro-social.png')
 
-console.log('Optimized Open Micro product imagery and editorial drawings.')
+console.log('Optimized Open Micro product imagery, Blender renders, and editorial drawings.')

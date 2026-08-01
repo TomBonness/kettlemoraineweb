@@ -1,8 +1,10 @@
 import { useRef, type PointerEvent } from 'react'
-import drawingTop640Avif from '../assets/product/generated/drawing-top-640.avif'
-import drawingTop1024Avif from '../assets/product/generated/drawing-top-1024.avif'
-import drawingTop640Webp from '../assets/product/generated/drawing-top-640.webp'
-import drawingTop1024Webp from '../assets/product/generated/drawing-top-1024.webp'
+import hero640Avif from '../assets/product/generated/hero-640.avif'
+import hero1024Avif from '../assets/product/generated/hero-1024.avif'
+import hero1536Avif from '../assets/product/generated/hero-1536.avif'
+import hero640Webp from '../assets/product/generated/hero-640.webp'
+import hero1024Webp from '../assets/product/generated/hero-1024.webp'
+import hero1536Webp from '../assets/product/generated/hero-1536.webp'
 import { brandCopy, headings, hero, productCopy } from '../content/openMicro'
 import styles from './HeroProduct.module.css'
 
@@ -43,19 +45,19 @@ export function HeroProduct() {
         <picture>
           <source
             type="image/avif"
-            srcSet={`${drawingTop640Avif} 640w, ${drawingTop1024Avif} 1024w`}
+            srcSet={`${hero640Avif} 640w, ${hero1024Avif} 1024w, ${hero1536Avif} 1536w`}
             sizes="(min-width: 1500px) 1440px, (max-width: 700px) 100vw, calc(100vw - 64px)"
           />
           <source
             type="image/webp"
-            srcSet={`${drawingTop640Webp} 640w, ${drawingTop1024Webp} 1024w`}
+            srcSet={`${hero640Webp} 640w, ${hero1024Webp} 1024w, ${hero1536Webp} 1536w`}
             sizes="(min-width: 1500px) 1440px, (max-width: 700px) 100vw, calc(100vw - 64px)"
           />
           <img
             className={styles.productBackdrop}
-            src={drawingTop1024Webp}
+            src={hero1024Webp}
             width="1024"
-            height="1024"
+            height="768"
             fetchPriority="high"
             decoding="async"
             alt={productCopy.heroAlt}

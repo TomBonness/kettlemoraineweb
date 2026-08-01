@@ -72,14 +72,14 @@ export const productCopy = {
   enclosureRenderTitle: 'A quiet presence.',
   enclosureRenderBody: 'Rounded aluminum surrounds a clean working edge, with power and USB-C set neatly into the rear.',
   heroAlt:
-    'Top-view technical drawing of Open Micro with twelve keys, an encoder, five-way control, and touch surface',
+    'Dark studio render of Open Micro with twelve keys, an encoder, five-way control, and illuminated side wall',
   explodedAlt:
-    'Exploded technical drawing of Open Micro showing the enclosure and control assembly',
+    'Exploded studio render of Open Micro showing its controls, switches, circuit boards, illuminated wall, and enclosure',
   enclosureAlt:
     'Technical drawing of the Open Micro lower enclosure showing the rear openings',
   topAlt:
     'Top-view technical drawing of the Open Micro control layout',
-  visualizationCredit: 'Revision 0.1 technical drawing — based on the working CAD assembly',
+  visualizationCredit: 'Revision 0.1 Blender visualization — rendered from the working CAD assembly',
 } as const
 
 export const waitlistCopy = {
