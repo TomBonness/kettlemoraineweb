@@ -1,7 +1,9 @@
-import drawingEnclosure640Avif from '../assets/product/generated/drawing-enclosure-640.avif'
-import drawingEnclosure1024Avif from '../assets/product/generated/drawing-enclosure-1024.avif'
-import drawingEnclosure640Webp from '../assets/product/generated/drawing-enclosure-640.webp'
-import drawingEnclosure1024Webp from '../assets/product/generated/drawing-enclosure-1024.webp'
+import hero640Avif from '../assets/product/generated/hero-640.avif'
+import hero1024Avif from '../assets/product/generated/hero-1024.avif'
+import hero1536Avif from '../assets/product/generated/hero-1536.avif'
+import hero640Webp from '../assets/product/generated/hero-640.webp'
+import hero1024Webp from '../assets/product/generated/hero-1024.webp'
+import hero1536Webp from '../assets/product/generated/hero-1536.webp'
 import exploded640Avif from '../assets/product/generated/exploded-640.avif'
 import exploded1024Avif from '../assets/product/generated/exploded-1024.avif'
 import exploded1536Avif from '../assets/product/generated/exploded-1536.avif'
@@ -51,32 +53,32 @@ export function ExplodedStory() {
             </figcaption>
           </figure>
 
-          <figure className={`${styles.render} ${styles.enclosureRender}`}>
+          <figure className={`${styles.render} ${styles.detailRender}`}>
             <div className={styles.renderImage}>
               <picture>
                 <source
                   type="image/avif"
-                  srcSet={`${drawingEnclosure640Avif} 640w, ${drawingEnclosure1024Avif} 1024w`}
+                  srcSet={`${hero640Avif} 640w, ${hero1024Avif} 1024w, ${hero1536Avif} 1536w`}
                   sizes="(max-width: 900px) 100vw, 50vw"
                 />
                 <source
                   type="image/webp"
-                  srcSet={`${drawingEnclosure640Webp} 640w, ${drawingEnclosure1024Webp} 1024w`}
+                  srcSet={`${hero640Webp} 640w, ${hero1024Webp} 1024w, ${hero1536Webp} 1536w`}
                   sizes="(max-width: 900px) 100vw, 50vw"
                 />
                 <img
-                  src={drawingEnclosure1024Webp}
+                  src={hero1024Webp}
                   width="1024"
-                  height="1024"
+                  height="768"
                   loading="lazy"
                   decoding="async"
-                  alt={productCopy.enclosureAlt}
+                  alt={productCopy.lightDetailAlt}
                 />
               </picture>
             </div>
             <figcaption>
-              <strong>{productCopy.enclosureRenderTitle}</strong>
-              <span>{productCopy.enclosureRenderBody}</span>
+              <strong>{productCopy.lightDetailTitle}</strong>
+              <span>{productCopy.lightDetailBody}</span>
             </figcaption>
           </figure>
         </div>

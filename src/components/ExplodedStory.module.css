@@ -74,6 +74,11 @@
   object-fit: cover;
 }
 
+.detailRender .renderImage img {
+  object-position: center 72%;
+  transform: scale(1.18);
+}
+
 
 .render figcaption {
   display: grid;

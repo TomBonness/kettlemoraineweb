@@ -1,16 +1,13 @@
-export type LifecycleEffect = 'solid' | 'breathe' | 'pulse' | 'blink'
 
 export const navigation = [
   { label: 'Overview', href: '#overview' },
   { label: 'Design', href: '#design' },
-  { label: 'Controls', href: '#controls' },
   { label: 'Specs', href: '#specs' },
 ] as const
 
 export const headings = {
   hero: 'Open Micro',
-  lifecycle: 'Your work, at a glance.',
-  controls: 'One touch. Any action.',
+  status: 'Know when to look back.',
   connectivity: 'Connect the way you want.',
   design: 'Built with care.',
   specifications: 'Everything, considered.',
@@ -43,19 +40,11 @@ export const productCopy = {
   navigationCta: 'Get updates',
   heroCaptionTitle: 'Fifteen controls. One clear space.',
   heroCaptionBody: 'Everything you need, right where you want it.',
-  lifecycleEyebrow: 'See what matters',
-  lifecycleLead:
-    'A quiet field of light makes every state clear—ready, working, waiting, or done.',
-  lifecycleControlLabel: 'Explore status light states',
-  controlsEyebrow: 'Made to be yours',
-  controlsLead:
-    'Twelve hot-swap keys, a dial, a five-way control, and touch put the actions you use most within easy reach.',
-  controlMapTitle: 'Make it yours.',
-  controlMapInstructions:
-    'Choose a control to see one way it can fit the way you work.',
-  controlMapLabel: 'Interactive Open Micro control map',
-  controlMapFront: 'Front · operator edge',
-  controlMapRear: 'Rear · USB-C',
+  statusEyebrow: 'Signal, not distraction',
+  statusLead:
+    'Open Micro turns background work into a small, consistent language of color and rhythm. Every state is visible here—nothing to hover over, cycle through, or guess.',
+  statusPrinciple: 'Color names the state. Rhythm tells you whether it needs you.',
+  statusLegendLabel: 'Open Micro status signal legend',
   connectivityEyebrow: 'Simply connected',
   connectivityLead:
     'Plug in at your desk. Move freely with Bluetooth. Keep every choice in your hands.',
@@ -69,14 +58,14 @@ export const productCopy = {
     'Kettle Moraine Research Labs is developing Open Micro in the open. Leave your email and we’ll only write when preorder timing is confirmed.',
   explodedRenderTitle: 'Thoughtful from the inside out.',
   explodedRenderBody: 'A layered design keeps the shell, electronics, light plate, and controls distinct and serviceable.',
-  enclosureRenderTitle: 'A quiet presence.',
-  enclosureRenderBody: 'Rounded aluminum surrounds a clean working edge, with power and USB-C set neatly into the rear.',
+  lightDetailTitle: 'Light in the structure.',
+  lightDetailBody: 'The frosted wall turns edge-mounted RGB into a soft, readable signal while the working surface stays visually quiet.',
   heroAlt:
     'Dark studio render of Open Micro with twelve keys, an encoder, five-way control, and illuminated side wall',
   explodedAlt:
     'Exploded studio render of Open Micro showing its controls, switches, circuit boards, illuminated wall, and enclosure',
-  enclosureAlt:
-    'Technical drawing of the Open Micro lower enclosure showing the rear openings',
+  lightDetailAlt:
+    'Close studio view of the illuminated frosted side wall and matte-black controls on Open Micro',
   topAlt:
     'Top-view technical drawing of the Open Micro control layout',
   visualizationCredit: 'Revision 0.1 Blender visualization — rendered from the working CAD assembly',
@@ -93,100 +82,50 @@ export const waitlistCopy = {
 } as const
 
 
-export const lifecycleStates = [
+export const statusSignals = [
   {
-    id: 'idle',
-    name: 'Idle',
-    color: '#202020',
-    effect: 'solid',
-    period: 0,
-    timing: 'Ready',
-    description: 'Ready when you are.',
+    name: 'Ready',
+    color: '#69717E',
+    behavior: 'Dim / still',
+    meaning: 'Open Micro is standing by.',
   },
   {
-    id: 'thinking',
-    name: 'Thinking',
+    name: 'Working',
     color: '#0548FD',
-    effect: 'breathe',
-    period: 1400,
-    timing: 'Working',
-    description: 'Working through the next step.',
+    behavior: 'Slow breathe',
+    meaning: 'Background work is in progress.',
   },
   {
-    id: 'running',
-    name: 'Running',
+    name: 'Active',
     color: '#31C7D9',
-    effect: 'pulse',
-    period: 800,
-    timing: 'Active',
-    description: 'Putting your request into motion.',
+    behavior: 'Steady pulse',
+    meaning: 'A mapped action is running now.',
   },
   {
-    id: 'waiting',
-    name: 'Waiting',
+    name: 'Needs input',
     color: '#FF9F0A',
-    effect: 'blink',
-    period: 900,
-    timing: 'Needs input',
-    description: 'Waiting for your input.',
+    behavior: 'Short blink',
+    meaning: 'The next step is waiting on you.',
   },
   {
-    id: 'done',
-    name: 'Done',
+    name: 'Complete',
     color: '#30D158',
-    effect: 'solid',
-    period: 4000,
-    timing: 'Complete',
-    description: 'Everything is complete.',
+    behavior: 'Solid',
+    meaning: 'The workflow finished successfully.',
   },
   {
-    id: 'error',
-    name: 'Error',
+    name: 'Attention',
     color: '#FF453A',
-    effect: 'blink',
-    period: 700,
-    timing: 'Attention',
-    description: 'Something needs your attention.',
+    behavior: 'Fast blink',
+    meaning: 'Something needs review.',
   },
 ] as const satisfies ReadonlyArray<{
-  id: string
   name: string
   color: string
-  effect: LifecycleEffect
-  period: number
-  timing: string
-  description: string
+  behavior: string
+  meaning: string
 }>
 
-export type ControlKind = 'key' | 'wide-key' | 'encoder' | 'joystick' | 'touch'
-
-export const controls = [
-  { id: 'touch', name: 'Mode switch', legend: 'Mode', role: 'Switch profiles or command layers.', kind: 'touch', x: 19.425, y: 19.425, width: 14, height: 14 },
-  { id: 'microphone', name: 'Voice command', legend: 'Voice', role: 'Open push-to-talk input.', kind: 'wide-key', x: 48, y: 19.425, width: 37.05, height: 18 },
-  { id: 'command-6', name: 'Launch workflow', legend: 'Launch', role: 'Start the selected automation.', kind: 'key', x: 76.575, y: 19.425, width: 18, height: 18 },
-  { id: 'command-1', name: 'Review diff', legend: 'Diff', role: 'Open the current change for review.', kind: 'key', x: 19.425, y: 38.475, width: 18, height: 18 },
-  { id: 'command-2', name: 'Debug', legend: 'Debug', role: 'Open the debugger for the active run.', kind: 'key', x: 38.475, y: 38.475, width: 18, height: 18 },
-  { id: 'command-3', name: 'Build', legend: 'Build', role: 'Build the active project.', kind: 'key', x: 57.525, y: 38.475, width: 18, height: 18 },
-  { id: 'command-4', name: 'Test', legend: 'Test', role: 'Run the mapped test suite.', kind: 'key', x: 76.575, y: 38.475, width: 18, height: 18 },
-  { id: 'agent-3', name: 'Create branch', legend: 'Branch', role: 'Create or switch the active branch.', kind: 'key', x: 19.425, y: 57.525, width: 18, height: 18 },
-  { id: 'agent-4', name: 'Commit', legend: 'Commit', role: 'Create a commit from staged changes.', kind: 'key', x: 38.475, y: 57.525, width: 18, height: 18 },
-  { id: 'agent-5', name: 'Pull request', legend: 'Pull request', role: 'Open the active change for review.', kind: 'key', x: 57.525, y: 57.525, width: 18, height: 18 },
-  { id: 'agent-6', name: 'Merge branch', legend: 'Merge', role: 'Merge the active branch when checks are green.', kind: 'key', x: 76.575, y: 57.525, width: 18, height: 18 },
-  { id: 'encoder', name: 'Command palette', legend: 'Palette', role: 'Turn through commands and press to confirm.', kind: 'encoder', x: 19.425, y: 76.575, width: 18.5, height: 18.5 },
-  { id: 'agent-1', name: 'Terminal', legend: 'Terminal', role: 'Open a command line in the active workspace.', kind: 'key', x: 38.475, y: 76.575, width: 18, height: 18 },
-  { id: 'agent-2', name: 'Code action', legend: 'Code', role: 'Open the mapped editor action.', kind: 'key', x: 57.525, y: 76.575, width: 18, height: 18 },
-  { id: 'joystick', name: 'Navigate', legend: 'Move', role: 'Move through results in four directions and press to select.', kind: 'joystick', x: 76.575, y: 76.575, width: 15, height: 15 },
-] as const satisfies ReadonlyArray<{
-  id: string
-  name: string
-  legend: string
-  role: string
-  kind: ControlKind
-  x: number
-  y: number
-  width: number
-  height: number
-}>
 
 export const connectivityCards = [
   {

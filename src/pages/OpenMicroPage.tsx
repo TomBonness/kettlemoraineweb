@@ -1,8 +1,7 @@
 import { type ReactNode } from 'react'
-import { ControlsShowcase } from '../components/ControlsShowcase'
 import { ExplodedStory } from '../components/ExplodedStory'
 import { HeroProduct } from '../components/HeroProduct'
-import { LifecycleDemo } from '../components/LifecycleDemo'
+import { StatusLanguage } from '../components/StatusLanguage'
 import { SiteShell } from '../components/SiteShell'
 import { SpecsGrid } from '../components/SpecsGrid'
 import { WaitlistForm } from '../components/WaitlistForm'
@@ -36,7 +35,6 @@ export function OpenMicroPage() {
       <HeroProduct />
 
       <ExplodedStory />
-      <Reveal><ControlsShowcase /></Reveal>
 
       <Reveal>
         <section className="section" aria-labelledby="connectivity-title">
@@ -57,7 +55,7 @@ export function OpenMicroPage() {
         </section>
       </Reveal>
 
-      <Reveal><LifecycleDemo /></Reveal>
+      <Reveal><StatusLanguage /></Reveal>
 
       <Reveal><SpecsGrid /></Reveal>
 
