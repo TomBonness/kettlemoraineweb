@@ -42,8 +42,9 @@
 
 .grid dt {
   color: var(--text-secondary);
-  font-size: 0.74rem;
-  font-weight: 650;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 600;
   letter-spacing: 0.04em;
   text-transform: uppercase;
 }

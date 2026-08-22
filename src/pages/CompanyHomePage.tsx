@@ -1,3 +1,4 @@
+import { useRef, type PointerEvent, type ReactNode } from 'react'
 import hero640Avif from '../assets/product/generated/hero-640.avif'
 import hero1024Avif from '../assets/product/generated/hero-1024.avif'
 import hero1536Avif from '../assets/product/generated/hero-1536.avif'
@@ -8,6 +9,7 @@ import { SiteShell } from '../components/SiteShell'
 import { VoiceTrace } from '../components/VoiceTrace'
 import { productCatalog, routes } from '../content/catalog'
 import { productCopy } from '../content/openMicro'
+import { useReveal } from '../lib/reveal'
 import styles from './CompanyHomePage.module.css'
 
 const homeNavigation = productCatalog.map((product) => ({
@@ -15,15 +17,48 @@ const homeNavigation = productCatalog.map((product) => ({
   href: product.path,
 }))
 
+function Reveal({ children }: { children: ReactNode }) {
+  const ref = useReveal<HTMLDivElement>()
+  return <div className="revealSection" ref={ref}>{children}</div>
+}
+
 export function CompanyHomePage() {
   const [openMicro, lavtype] = productCatalog
+  const heroCopyRef = useRef<HTMLDivElement>(null)
+
+  function handleHeroPointer(event: PointerEvent<HTMLElement>) {
+    if (
+      window.matchMedia('(prefers-reduced-motion: reduce)').matches ||
+      !window.matchMedia('(pointer: fine)').matches
+    ) return
+
+    const el = heroCopyRef.current
+    if (!el) return
+    const bounds = event.currentTarget.getBoundingClientRect()
+    const x = (event.clientX - bounds.left) / bounds.width - 0.5
+    const y = (event.clientY - bounds.top) / bounds.height - 0.5
+    el.style.setProperty('--copy-x', `${x * 10}px`)
+    el.style.setProperty('--copy-y', `${y * 7}px`)
+  }
+
+  function resetHeroPointer() {
+    const el = heroCopyRef.current
+    if (!el) return
+    el.style.removeProperty('--copy-x')
+    el.style.removeProperty('--copy-y')
+  }
 
   return (
     <SiteShell currentPath={routes.home} navigation={homeNavigation}>
-      <section className={styles.hero} aria-labelledby="company-heading">
+      <section
+        className={styles.hero}
+        aria-labelledby="company-heading"
+        onPointerMove={handleHeroPointer}
+        onPointerLeave={resetHeroPointer}
+      >
         <div className={styles.heroGrid} aria-hidden="true" />
         <div className={styles.heroCrosshair} aria-hidden="true"><span /></div>
-        <div className={styles.heroInner}>
+        <div className={styles.heroInner} ref={heroCopyRef}>
 
           <div className={styles.heroTitle}>
             <h1 id="company-heading" aria-label="Tools for clearer work.">
@@ -48,6 +83,7 @@ export function CompanyHomePage() {
         </div>
       </section>
 
+      <Reveal>
       <section className={styles.products} id="products" aria-labelledby="products-heading">
         <div className={styles.productsInner}>
           <header className={styles.productsIntro}>
@@ -126,6 +162,7 @@ export function CompanyHomePage() {
           </div>
         </div>
       </section>
+      </Reveal>
     </SiteShell>
   )
 }

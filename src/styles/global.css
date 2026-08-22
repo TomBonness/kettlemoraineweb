@@ -19,7 +19,7 @@ body {
   margin: 0;
   background: var(--canvas);
   color: var(--text-primary);
-  font-family: var(--font-display);
+  font-family: var(--font-sans);
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
@@ -28,7 +28,7 @@ body {
 body,
 button,
 input {
-  font-family: var(--font-display);
+  font-family: var(--font-sans);
 }
 
 button,
@@ -86,10 +86,10 @@ button {
   position: sticky;
   z-index: 100;
   top: 0;
-  border-bottom: 1px solid rgb(217 219 223 / 72%);
-  background: rgb(247 247 245 / 76%);
-  backdrop-filter: saturate(160%) blur(18px);
-  -webkit-backdrop-filter: saturate(160%) blur(18px);
+  border-bottom: 1px solid var(--hairline);
+  background: rgb(247 247 240 / 79%);
+  backdrop-filter: saturate(170%) blur(22px);
+  -webkit-backdrop-filter: saturate(170%) blur(22px);
 }
 
 .navInner {
@@ -132,8 +132,10 @@ button {
   min-height: 44px;
   padding: 0.85rem 0;
   color: var(--text-secondary);
-  font-size: 0.74rem;
-  font-weight: 590;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
 }
 
 .navLinks a::after {
@@ -175,7 +177,7 @@ button {
 .navCta:hover,
 .navCta:focus-visible {
   background: var(--accent-strong);
-  transform: translateY(-2px);
+  transform: translateY(-1px);
 }
 
 .navSpacer {
@@ -208,8 +210,9 @@ main {
 
 .section h2 {
   margin: 0;
+  font-family: var(--font-serif);
   font-size: clamp(2.5rem, 7vw, 6rem);
-  font-weight: 580;
+  font-weight: 600;
   letter-spacing: -0.06em;
   line-height: 0.96;
 }
@@ -272,8 +275,16 @@ main {
 
 
 .revealSection {
+  opacity: 0;
+  transform: translateY(18px);
+}
+
+.revealSection.is-revealed {
   opacity: 1;
-  transform-origin: center top;
+  transform: none;
+  transition:
+    opacity var(--reveal-duration) var(--motion-ease),
+    transform var(--reveal-duration) var(--motion-ease);
 }
 
 .connectivityGrid {
@@ -304,8 +315,9 @@ main {
 
 .editorialCard small {
   color: var(--text-secondary);
+  font-family: var(--font-mono);
   font-size: 0.66rem;
-  font-weight: 700;
+  font-weight: 600;
   letter-spacing: 0.12em;
   text-transform: uppercase;
 }
@@ -313,9 +325,10 @@ main {
 .editorialCard h3 {
   max-width: 16ch;
   margin: 1.5rem 0 0;
+  font-family: var(--font-serif);
   font-size: clamp(1.6rem, 3vw, 2.7rem);
-  font-weight: 580;
-  letter-spacing: -0.045em;
+  font-weight: 600;
+  letter-spacing: -0.035em;
   line-height: 1.02;
 }
 
@@ -374,11 +387,17 @@ main {
 
 .licenseList dt {
   color: var(--text-secondary);
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.03em;
 }
 
 .licenseList dd {
   margin: 0;
-  font-weight: 640;
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  font-weight: 600;
 }
 
 .labStatement {
@@ -421,8 +440,9 @@ main {
 .labIdentity p {
   margin: 1.3rem 0 0;
   color: var(--text-secondary);
+  font-family: var(--font-mono);
   font-size: 0.66rem;
-  font-weight: 700;
+  font-weight: 600;
   letter-spacing: 0.13em;
   text-transform: uppercase;
 }
@@ -430,6 +450,7 @@ main {
 .labStatementCopy h2 {
   max-width: 9ch;
   margin: 0;
+  font-family: var(--font-serif);
   font-size: clamp(2.6rem, 5.2vw, 5.5rem);
   font-weight: 600;
   letter-spacing: -0.06em;
@@ -476,8 +497,9 @@ main {
   position: absolute;
   z-index: 2;
   color: var(--text-secondary);
+  font-family: var(--font-mono);
   font-size: 0.55rem;
-  font-weight: 740;
+  font-weight: 600;
   letter-spacing: 0.14em;
   text-transform: uppercase;
 }
@@ -488,11 +510,22 @@ main {
   align-items: center;
 }
 
+.notFoundIndex {
+  margin: 0 0 1.25rem;
+  color: var(--text-secondary);
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
 .notFound h1 {
   max-width: 10ch;
   margin: 0;
+  font-family: var(--font-serif);
   font-size: clamp(3.5rem, 9vw, 8rem);
-  font-weight: 580;
+  font-weight: 600;
   letter-spacing: -0.065em;
   line-height: 0.9;
 }
@@ -528,6 +561,7 @@ main {
 
 .footerInner {
   display: grid;
+  min-height: 72px;
   grid-template-columns: minmax(250px, 1fr) auto;
   gap: 2rem;
   align-items: center;
@@ -581,9 +615,17 @@ main {
   display: inline-flex;
   min-height: 44px;
   align-items: center;
-  color: #f8f8f6;
-  font-size: 0.75rem;
+  color: #b4b8c1;
+  font-family: var(--font-mono);
+  font-size: 0.74rem;
   font-weight: 600;
+  letter-spacing: 0.03em;
+  transition: color var(--hover-duration) var(--motion-ease);
+}
+
+.footerLinks a:hover,
+.footerLinks a:focus-visible {
+  color: #f8f8f6;
 }
 
 @media (max-width: 1000px) {
@@ -638,8 +680,10 @@ main {
     background: rgb(255 255 255 / 72%);
     color: var(--text-primary);
     cursor: pointer;
+    font-family: var(--font-mono);
     font-size: 0.7rem;
-    font-weight: 680;
+    font-weight: 600;
+    letter-spacing: 0.03em;
     list-style: none;
     transition:
       border-color var(--hover-duration) var(--motion-ease),

@@ -20,14 +20,20 @@
   border: 1px solid rgb(255 255 255 / 13%);
   border-radius: var(--radius-large);
   background: rgb(255 255 255 / 5%);
+  transition: border-color var(--hover-duration) var(--motion-ease);
+}
+
+.formWrap:focus-within {
+  border-color: rgb(255 255 255 / 22%);
 }
 
 .formWrap label {
   display: block;
   margin-bottom: 0.65rem;
   color: #d3d5da;
+  font-family: var(--font-mono);
   font-size: 0.76rem;
-  font-weight: 650;
+  font-weight: 600;
   letter-spacing: 0.04em;
 }
 

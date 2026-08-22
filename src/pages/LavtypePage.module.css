@@ -19,8 +19,9 @@
 
 .heroCopy h1 {
   margin: 0;
-  font-size: clamp(4.25rem, 8vw, 8rem);
-  font-weight: 580;
+  font-family: var(--font-serif);
+  font-size: clamp(4.2rem, 8vw, 8rem);
+  font-weight: 600;
   letter-spacing: -0.07em;
   line-height: 0.86;
 }
@@ -39,6 +40,7 @@
   max-width: 39rem;
   margin: clamp(1.5rem, 3vw, 2.5rem) 0 0;
   color: var(--text-secondary);
+  font-family: var(--font-sans);
   font-size: clamp(1rem, 1.5vw, 1.24rem);
   line-height: 1.58;
 }
@@ -46,8 +48,9 @@
 .compatibility {
   margin: 1.35rem 0 0;
   color: var(--text-secondary);
+  font-family: var(--font-mono);
   font-size: 0.72rem;
-  font-weight: 650;
+  font-weight: 600;
   letter-spacing: 0.05em;
 }
 
@@ -100,8 +103,9 @@
 
 .darkDetails dt,
 .detailsGrid dt {
-  font-size: 0.72rem;
-  font-weight: 680;
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  font-weight: 600;
   letter-spacing: 0.04em;
   text-transform: uppercase;
 }

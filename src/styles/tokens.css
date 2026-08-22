@@ -13,7 +13,16 @@
   --motion-ease: cubic-bezier(.22, 1, .36, 1);
   --hover-duration: 180ms;
   --reveal-duration: 600ms;
-  --font-display: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", sans-serif;
+  --font-sans: "Inter", system-ui, sans-serif;
+  --font-serif: "Source Serif 4", Georgia, serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, monospace;
+  --font-display: "Source Serif 4", Inter, system-ui, sans-serif;
+  --ink-soft: #43464D;
+  --surface-raised: #FFFEFC;
+  --graph-accent: #5C64FF;
+  --hairline-dark: #26292F;
+  --paper-grid: rgb(17 17 21 / 5%);
+  --ease-spring: cubic-bezier(.34, 1.56, .64, 1);
   --lead-size: clamp(1rem, 1.4vw, 1.25rem);
   --gutter: 24px;
 }

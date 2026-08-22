@@ -15,6 +15,7 @@ import {
   openSourceStatement,
   productCopy,
 } from '../content/openMicro'
+import { useReveal } from '../lib/reveal'
 
 const openMicroNavigation = navigation.map((item) => ({
   ...item,
@@ -22,7 +23,8 @@ const openMicroNavigation = navigation.map((item) => ({
 }))
 
 function Reveal({ children }: { children: ReactNode }) {
-  return <div className="revealSection">{children}</div>
+  const ref = useReveal<HTMLDivElement>()
+  return <div className="revealSection" ref={ref}>{children}</div>
 }
 
 export function OpenMicroPage() {

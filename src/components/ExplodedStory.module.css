@@ -57,6 +57,20 @@
     0 30px 80px rgb(0 0 0 / 22%);
 }
 
+.render figcaption strong {
+  font-family: var(--font-sans);
+  font-weight: 600;
+}
+
+.render figcaption span {
+  font-family: var(--font-sans);
+}
+
+.render figcaption strong,
+.render figcaption span {
+  letter-spacing: -0.015em;
+}
+
 .renderImage {
   position: relative;
   aspect-ratio: 1;
@@ -124,7 +138,9 @@
 
 .layers > li > span {
   color: #747985;
+  font-family: var(--font-mono);
   font-size: 0.65rem;
+  font-weight: 600;
   font-variant-numeric: tabular-nums;
   letter-spacing: 0.12em;
 }
@@ -136,22 +152,25 @@
 
 .layers small {
   color: #8f949f;
+  font-family: var(--font-mono);
   font-size: 0.65rem;
-  font-weight: 700;
+  font-weight: 600;
   letter-spacing: 0.12em;
   text-transform: uppercase;
 }
 
 .layers strong {
   margin-top: 0.75rem;
+  font-family: var(--font-sans);
   font-size: clamp(1rem, 1.6vw, 1.25rem);
-  font-weight: 590;
-  letter-spacing: -0.025em;
+  font-weight: 600;
+  letter-spacing: -0.02em;
 }
 
 .layers p {
   margin: 0.8rem 0 0;
   color: #aeb2bc;
+  font-family: var(--font-sans);
   font-size: 0.79rem;
   line-height: 1.55;
 }

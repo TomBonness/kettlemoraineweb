@@ -13,9 +13,9 @@
   overflow: hidden;
   aspect-ratio: 1200 / 630;
   border: 1px solid var(--hairline);
-  border-radius: 4px;
+  border-radius: 8px;
   background: var(--canvas);
-  box-shadow: 0 30px 80px rgb(17 18 20 / 10%);
+  box-shadow: 0 30px 90px rgb(17 18 20 / 12%);
   isolation: isolate;
 }
 
@@ -83,8 +83,9 @@
   gap: 0.7rem;
   margin: 0;
   color: var(--text-secondary);
+  font-family: var(--font-mono);
   font-size: clamp(0.62rem, 0.8vw, 0.72rem);
-  font-weight: 740;
+  font-weight: 600;
   letter-spacing: 0.15em;
   text-transform: uppercase;
 }
@@ -108,11 +109,11 @@
 .copy h1 {
   margin: 0;
   color: var(--text-primary);
+  font-family: var(--font-serif);
   font-size: clamp(3.7rem, 7vw, 6.3rem);
-  font-weight: 700;
-  letter-spacing: -0.065em;
+  font-weight: 600;
+  letter-spacing: -0.055em;
   line-height: 0.88;
-  text-transform: uppercase;
 }
 
 .accentRule {
@@ -127,9 +128,10 @@
 .productType {
   margin: 1.15rem 0 0;
   color: #4f5259;
-  font-size: clamp(0.68rem, 1.35vw, 1.15rem);
-  font-weight: 760;
-  letter-spacing: 0.18em;
+  font-family: var(--font-mono);
+  font-size: clamp(0.66rem, 1.2vw, 1rem);
+  font-weight: 600;
+  letter-spacing: 0.16em;
   line-height: 1.2;
   text-transform: uppercase;
 }
@@ -137,6 +139,7 @@
 .description {
   margin: clamp(1rem, 2vw, 1.6rem) 0 0;
   color: var(--text-secondary);
+  font-family: var(--font-sans);
   font-size: clamp(0.82rem, 1.35vw, 1.05rem);
   line-height: 1.5;
 }
@@ -197,8 +200,9 @@
   display: none;
   margin: 0;
   color: var(--text-secondary);
+  font-family: var(--font-mono);
   font-size: 0.65rem;
-  font-weight: 720;
+  font-weight: 600;
   letter-spacing: 0.14em;
   text-transform: uppercase;
 }
