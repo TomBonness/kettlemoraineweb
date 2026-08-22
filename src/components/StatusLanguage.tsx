@@ -7,7 +7,6 @@ export function StatusLanguage() {
     <section className="section sectionDark" aria-labelledby="status-title">
       <div className={`sectionInner ${styles.layout}`}>
         <header className={styles.intro}>
-          <p className="eyebrow eyebrowDark">{productCopy.statusEyebrow}</p>
           <h2 id="status-title">{headings.status}</h2>
           <p className="sectionLead sectionLeadDark">{productCopy.statusLead}</p>
           <div className={styles.principle}>
@@ -39,10 +38,7 @@ export function StatusLanguage() {
                 style={{ '--signal-color': signal.color } as CSSProperties}
               >
                 <span className={styles.signalIndex}>{String(index + 1).padStart(2, '0')}</span>
-                <div className={styles.signalName}>
-                  <span aria-hidden="true" />
-                  <strong>{signal.name}</strong>
-                </div>
+                <strong className={styles.signalName}>{signal.name}</strong>
                 <p>{signal.meaning}</p>
                 <small>{signal.behavior}</small>
               </li>

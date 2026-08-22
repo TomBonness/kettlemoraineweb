@@ -39,7 +39,6 @@ export function OpenMicroPage() {
       <Reveal>
         <section className="section" aria-labelledby="connectivity-title">
           <div className="sectionInner">
-            <p className="eyebrow">{productCopy.connectivityEyebrow}</p>
             <h2 id="connectivity-title">{headings.connectivity}</h2>
             <p className="sectionLead">{productCopy.connectivityLead}</p>
             <div className="connectivityGrid">
@@ -63,7 +62,6 @@ export function OpenMicroPage() {
         <section className="section" aria-labelledby="open-source-title">
           <div className="sectionInner openSourceLayout">
             <div>
-              <p className="eyebrow">{productCopy.openSourceEyebrow}</p>
               <h2 id="open-source-title">{headings.openSource}</h2>
               <p className="openSourceStatement">{openSourceStatement}</p>
               <a className="sourceLink" href="https://github.com/TomBonness/open-micro">
@@ -96,7 +94,6 @@ export function OpenMicroPage() {
               <p>{brandCopy.statementProduct}</p>
             </div>
             <div className="labStatementCopy">
-              <p className="eyebrow">{brandCopy.statementEyebrow}</p>
               <h2 id="lab-statement-title">{brandCopy.statementHeading}</h2>
               <p>{brandCopy.statementBody}</p>
             </div>

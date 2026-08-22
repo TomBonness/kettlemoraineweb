@@ -207,37 +207,13 @@ main {
 }
 
 .section h2 {
-  margin: 0.16em 0 0;
+  margin: 0;
   font-size: clamp(2.5rem, 7vw, 6rem);
   font-weight: 580;
   letter-spacing: -0.06em;
   line-height: 0.96;
 }
 
-.eyebrow {
-  display: flex;
-  align-items: center;
-  gap: 0.65rem;
-  margin: 0;
-  color: var(--text-secondary);
-  font-size: 0.68rem;
-  font-weight: 720;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-}
-
-.eyebrow::before {
-  width: 1.75rem;
-  height: 0.18rem;
-  border-radius: 999px;
-  background: var(--accent);
-  content: '';
-  flex: 0 0 auto;
-}
-
-.eyebrowDark {
-  color: #a9adb7;
-}
 
 .sectionLead {
   max-width: 38rem;
@@ -453,7 +429,7 @@ main {
 
 .labStatementCopy h2 {
   max-width: 9ch;
-  margin: 0.3em 0 0;
+  margin: 0;
   font-size: clamp(2.6rem, 5.2vw, 5.5rem);
   font-weight: 600;
   letter-spacing: -0.06em;
@@ -514,14 +490,14 @@ main {
 
 .notFound h1 {
   max-width: 10ch;
-  margin: 0.35em 0 0;
+  margin: 0;
   font-size: clamp(3.5rem, 9vw, 8rem);
   font-weight: 580;
   letter-spacing: -0.065em;
   line-height: 0.9;
 }
 
-.notFound .sectionInner > p:not(.eyebrow) {
+.notFound .sectionInner > p {
   max-width: 34rem;
   margin: 2rem 0 0;
   color: var(--text-secondary);

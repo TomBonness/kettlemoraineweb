@@ -18,7 +18,7 @@
 }
 
 .heroCopy h1 {
-  margin: 0.28em 0 0;
+  margin: 0;
   font-size: clamp(4.25rem, 8vw, 8rem);
   font-weight: 580;
   letter-spacing: -0.07em;

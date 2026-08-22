@@ -19,7 +19,6 @@ export const headings = {
 export const brandCopy = {
   name: 'Kettle Moraine Research Labs',
   navigationLabel: 'Kettle Moraine Research Labs — Open Micro overview',
-  statementEyebrow: 'From the lab',
   statementHeading: 'Tools for clearer work.',
   statementBody:
     'We design focused, open hardware and software for people who want to understand and shape the tools they use.',
@@ -40,20 +39,14 @@ export const productCopy = {
   navigationCta: 'Get updates',
   heroCaptionTitle: 'Fifteen controls. One clear space.',
   heroCaptionBody: 'Everything you need, right where you want it.',
-  statusEyebrow: 'Signal, not distraction',
   statusLead:
     'Open Micro turns background work into a small, consistent language of color and rhythm. Every state is visible here—nothing to hover over, cycle through, or guess.',
   statusPrinciple: 'Color names the state. Rhythm tells you whether it needs you.',
   statusLegendLabel: 'Open Micro status signal legend',
-  connectivityEyebrow: 'Simply connected',
   connectivityLead:
     'Plug in at your desk. Move freely with Bluetooth. Keep every choice in your hands.',
-  designEyebrow: 'Designed with intention',
   designLead:
     'Every layer is considered. Every detail has a purpose. Together, they create a compact control surface designed to feel at home on your desk.',
-  specsEyebrow: 'The details',
-  openSourceEyebrow: 'Open by design',
-  waitlistEyebrow: 'Stay in the loop',
   waitlistLead:
     'Kettle Moraine Research Labs is developing Open Micro in the open. Leave your email and we’ll only write when preorder timing is confirmed.',
   explodedRenderTitle: 'Thoughtful from the inside out.',

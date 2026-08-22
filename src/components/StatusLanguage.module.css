@@ -119,24 +119,9 @@
 }
 
 .signalName {
-  display: flex;
-  align-items: center;
-  gap: 0.7rem;
-}
-
-.signalName > span {
-  width: 0.55rem;
-  flex: 0 0 auto;
-  aspect-ratio: 1;
-  border-radius: 50%;
-  background: var(--signal-color);
-  box-shadow: 0 0 1rem color-mix(in srgb, var(--signal-color) 58%, transparent);
-}
-
-.signalName strong {
-  color: #f8f8f6;
+  color: var(--signal-color);
   font-size: 0.92rem;
-  font-weight: 610;
+  font-weight: 650;
 }
 
 .signals p {

@@ -1,4 +1,4 @@
-import { headings, productCopy, specs } from '../content/openMicro'
+import { headings, specs } from '../content/openMicro'
 import styles from './SpecsGrid.module.css'
 
 export function SpecsGrid() {
@@ -7,7 +7,6 @@ export function SpecsGrid() {
       <div className="sectionInner">
         <div className={styles.heading}>
           <div>
-            <p className="eyebrow">{productCopy.specsEyebrow}</p>
             <h2 id="specs-title">{headings.specifications}</h2>
           </div>
         </div>

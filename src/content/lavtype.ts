@@ -13,7 +13,6 @@ export const lavtypeNavigation = [
 ] as const
 
 export const lavtypeHero = {
-  category: 'Local push-to-talk dictation',
   outcome:
     'Hold one shortcut while you speak. Release it, and Lavtype types the final transcript into the app that is focused when recognition finishes.',
   compatibility: 'macOS 13+ · Linux x86_64 on X11/Xorg',

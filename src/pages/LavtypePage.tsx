@@ -20,7 +20,6 @@ export function LavtypePage() {
       <div className={styles.page}>
         <section className={styles.hero} aria-labelledby="lavtype-title">
           <div className={styles.heroCopy}>
-            <p className="eyebrow">{lavtypeHero.category}</p>
             <h1 id="lavtype-title">Lavtype</h1>
             <p className={styles.outcome}>{lavtypeHero.outcome}</p>
             <p className={styles.compatibility}>{lavtypeHero.compatibility}</p>
@@ -35,7 +34,6 @@ export function LavtypePage() {
         <section className="section sectionDark" id="local-recognition" aria-labelledby="local-recognition-title">
           <div className={`sectionInner ${styles.statementGrid}`}>
             <div>
-              <p className="eyebrow eyebrowDark">Local recognition</p>
               <h2 id="local-recognition-title">No cloud recognizer.</h2>
               <p className="sectionLead sectionLeadDark">
                 Parakeet is downloaded only after you choose it and then runs locally/offline. On macOS, Lavtype requires on-device Apple Speech and never falls back to Apple’s network recognizer.
@@ -54,7 +52,6 @@ export function LavtypePage() {
 
         <section className="section" id="platform" aria-labelledby="platform-title">
           <div className="sectionInner">
-            <p className="eyebrow">Platform</p>
             <h2 id="platform-title">Built for macOS and X11 Linux.</h2>
             <dl className={styles.detailsGrid}>
               {platformDetails.map(([term, detail]) => (

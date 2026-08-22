@@ -23,7 +23,7 @@
 
 .heading h2 {
   max-width: 9ch;
-  margin: 0.16em 0 0;
+  margin: 0;
   font-size: clamp(3.2rem, 9vw, 7.5rem);
   font-weight: 580;
   letter-spacing: -0.065em;

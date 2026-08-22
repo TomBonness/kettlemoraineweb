@@ -18,7 +18,6 @@ export function ExplodedStory() {
     <section className={styles.story} id="design" aria-labelledby="design-title">
       <div className={styles.inner}>
         <header className={styles.heading}>
-          <p className="eyebrow eyebrowDark">{productCopy.designEyebrow}</p>
           <h2 id="design-title">{headings.design}</h2>
           <p className="sectionLead sectionLeadDark">{productCopy.designLead}</p>
         </header>

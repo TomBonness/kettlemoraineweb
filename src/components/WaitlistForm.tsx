@@ -50,7 +50,6 @@ export function WaitlistForm() {
     <section className={`section ${styles.section}`} id="waitlist" aria-labelledby="waitlist-title">
       <div className={`sectionInner ${styles.layout}`}>
         <div>
-          <p className="eyebrow eyebrowDark">{productCopy.waitlistEyebrow}</p>
           <h2 id="waitlist-title">{headings.waitlist}</h2>
           <p className="sectionLead sectionLeadDark">{productCopy.waitlistLead}</p>
         </div>
