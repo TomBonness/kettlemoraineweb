@@ -24,9 +24,6 @@ export function CompanyHomePage() {
         <div className={styles.heroGrid} aria-hidden="true" />
         <div className={styles.heroCrosshair} aria-hidden="true"><span /></div>
         <div className={styles.heroInner}>
-          <header className={styles.heroTopline}>
-            <p>Independent product lab</p>
-          </header>
 
           <div className={styles.heroTitle}>
             <h1 id="company-heading" aria-label="Tools for clearer work.">
@@ -42,7 +39,6 @@ export function CompanyHomePage() {
             <nav className={styles.productRail} aria-label="Featured products">
               {productCatalog.map((product) => (
                 <a href={product.path} key={product.id}>
-                  <span>{product.category}</span>
                   <strong>{product.name}</strong>
                   <span aria-hidden="true">↗</span>
                 </a>
@@ -63,7 +59,11 @@ export function CompanyHomePage() {
           </header>
 
           <div className={styles.featureStack}>
-            <article className={`${styles.feature} ${styles.openMicroFeature}`}>
+            <a
+              className={`${styles.feature} ${styles.openMicroFeature}`}
+              href={openMicro.path}
+              aria-label={`Explore ${openMicro.name}`}
+            >
               <div className={styles.openMicroMedia}>
                 <picture>
                   <source
@@ -91,36 +91,38 @@ export function CompanyHomePage() {
                 </div>
               </div>
               <div className={styles.featureCopy}>
-                <p className={styles.productCategory}>{openMicro.category}</p>
                 <h3>{openMicro.name}</h3>
                 <p className={styles.productSummary}>{openMicro.summary}</p>
                 <dl className={styles.productFacts}>
                   <div><dt>Controls</dt><dd>15</dd></div>
                   <div><dt>Connection</dt><dd>USB-C + Bluetooth</dd></div>
                 </dl>
-                <a className={styles.productLink} href={openMicro.path}>
+                <span className={styles.productLink}>
                   Explore Open Micro <span aria-hidden="true">↗</span>
-                </a>
+                </span>
               </div>
-            </article>
+            </a>
 
-            <article className={`${styles.feature} ${styles.lavtypeFeature}`}>
+            <a
+              className={`${styles.feature} ${styles.lavtypeFeature}`}
+              href={lavtype.path}
+              aria-label={`Explore ${lavtype.name}`}
+            >
               <div className={styles.featureCopy}>
-                <p className={styles.productCategory}>{lavtype.category}</p>
                 <h3>{lavtype.name}</h3>
                 <p className={styles.productSummary}>{lavtype.summary}</p>
                 <dl className={styles.productFacts}>
                   <div><dt>Recognition</dt><dd>Local</dd></div>
                   <div><dt>Platforms</dt><dd>macOS + X11 Linux</dd></div>
                 </dl>
-                <a className={styles.productLink} href={lavtype.path}>
+                <span className={styles.productLink}>
                   Explore Lavtype <span aria-hidden="true">↗</span>
-                </a>
+                </span>
               </div>
               <div className={styles.lavtypeMedia}>
                 <VoiceTrace compact />
               </div>
-            </article>
+            </a>
           </div>
         </div>
       </section>
