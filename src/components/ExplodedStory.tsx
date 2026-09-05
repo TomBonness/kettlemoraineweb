@@ -10,50 +10,46 @@ export function ExplodedStory() {
           <p className={styles.lead}>{productCopy.designLead}</p>
         </header>
 
-        <div className={styles.visualGrid}>
-          <figure className={styles.assembly}>
+        <figure className={styles.construction}>
+          <div className={styles.assembly}>
             <img
               {...marketingRenders.exploded}
-              sizes="(max-width: 767px) calc(100vw - 48px), (max-width: 1280px) 52vw, 650px"
+              sizes="(max-width: 767px) calc(100vw - 48px), (max-width: 900px) calc(100vw - 96px), (max-width: 1280px) 48vw, 580px"
               loading="lazy"
               decoding="async"
             />
-            <figcaption>
-              <strong>{productCopy.explodedRenderTitle}</strong>
-              <p>{productCopy.explodedRenderBody}</p>
-            </figcaption>
-          </figure>
-
-          <div className={styles.materialStory}>
-            <figure className={styles.detail}>
-              <img
-                {...marketingRenders.detail}
-                sizes="(max-width: 767px) calc(100vw - 48px), (max-width: 1280px) 40vw, 490px"
-                loading="lazy"
-                decoding="async"
-              />
-              <figcaption>
-                <strong>A quiet contrast.</strong>
-                <p>
-                  Textured dark PBT above matte solder mask. Small ENIG contacts against a dark
-                  working surface. Anodized aluminum below a frosted polycarbonate wall, with
-                  silicone at the desk. A study in touch, light, and restraint.
-                </p>
-              </figcaption>
-            </figure>
-
-            <ul className={styles.layers} aria-label="Material layers">
+          </div>
+          <figcaption className={styles.layerDetails}>
+            <ol
+              className={styles.layers}
+              role="list"
+              aria-label="Construction, from keycaps to base"
+            >
               {explodedLayers.map((layer) => (
                 <li key={layer.title}>
-                  <h3>
-                    {layer.title} <span>/ {layer.value}</span>
-                  </h3>
+                  <h3>{layer.title}</h3>
                   <p>{layer.body}</p>
                 </li>
               ))}
-            </ul>
-          </div>
-        </div>
+            </ol>
+          </figcaption>
+        </figure>
+
+        <figure className={styles.materialStudy}>
+          <figcaption>
+            <h3>A quiet contrast.</h3>
+            <p>
+              Textured dark PBT, matte solder mask, and small gold-colored ENIG contacts. A
+              restrained palette, with contrast where your hands meet the controls.
+            </p>
+          </figcaption>
+          <img
+            {...marketingRenders.detail}
+            sizes="(max-width: 767px) calc(100vw - 48px), (max-width: 1280px) 58vw, 690px"
+            loading="lazy"
+            decoding="async"
+          />
+        </figure>
 
         <p className={styles.studyNote}>
           Concept and material studies, not manufactured or qualified hardware. Surface finishes and

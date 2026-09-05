@@ -98,9 +98,6 @@ export const productCopy = {
     'Plug in at your desk. Move freely with Bluetooth. Keep every choice in your hands.',
   designLead:
     'An exposed control board. A separate electronics layer. A frosted wall that carries the light. Each part has a place in a design you can look into.',
-  explodedRenderTitle: 'Thoughtful from the inside out.',
-  explodedRenderBody:
-    'The concept separates the controls, two circuit boards, light-carrying wall, aluminum bottom, and silicone feet.',
 } as const
 
 export const waitlistCopy = {
@@ -180,29 +177,24 @@ export const connectivityCards = [
 
 export const explodedLayers = [
   {
-    title: 'Enclosure',
-    value: 'Anodized aluminum',
-    body: 'A CNC 6061-T6 aluminum bottom gives the concept its compact, grounded foundation.',
+    title: 'Textured PBT keycaps',
+    body: 'Vendor-made, uniform-profile keycaps give the controls a consistent surface under your fingers.',
   },
   {
-    title: 'Core',
-    value: 'Two boards. Clear roles.',
-    body: 'The exposed top PCB holds the controls; the lower sister board carries compute, power, USB, RF, and wall emitters.',
-  },
-  {
-    title: 'Light-carrying wall',
-    value: 'Soft, diffused light',
-    body: 'A removable neutral-frosted polycarbonate wall carries the light around the perimeter.',
-  },
-  {
-    title: 'Control hardware',
-    value: 'Tactile by design',
+    title: 'Tactile controls',
     body: 'Twelve MX switches, a push encoder, and an exposed capacitive touch control give actions a physical place.',
   },
   {
-    title: 'Caps',
-    value: 'Textured dark PBT',
-    body: 'Vendor-made uniform-profile keycaps sit above the switches; silicone feet complete the base.',
+    title: 'Two boards. Clear roles.',
+    body: 'The exposed top PCB holds the controls; the lower sister board carries compute, power, USB, RF, and wall emitters.',
+  },
+  {
+    title: 'Soft, diffused light',
+    body: 'A removable neutral-frosted polycarbonate wall carries the light around the perimeter.',
+  },
+  {
+    title: 'Anodized aluminum',
+    body: 'A CNC 6061-T6 aluminum bottom gives the concept its grounded foundation. Silicone feet sit between the base and your desk.',
   },
 ] as const
 
