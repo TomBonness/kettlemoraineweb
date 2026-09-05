@@ -1,12 +1,22 @@
 import { useState, type ChangeEvent, type FormEvent } from 'react'
-import { headings, privacyStatement, productCopy, waitlistCopy } from '../content/openMicro'
+import { waitlistCopy } from '../content/openMicro'
 import { joinWaitlist } from '../lib/waitlist'
 import styles from './WaitlistForm.module.css'
 
 type FormStatus = 'idle' | 'pending' | 'success' | 'error'
 
+type WaitlistFormProps = {
+  signup: {
+    source: string
+    heading: string
+    lead: string
+    submit: string
+    success: string
+    privacy: string
+  }
+}
 
-export function WaitlistForm() {
+export function WaitlistForm({ signup }: WaitlistFormProps) {
   const [email, setEmail] = useState('')
   const [website, setWebsite] = useState('')
   const [isValid, setIsValid] = useState(false)
@@ -30,7 +40,7 @@ export function WaitlistForm() {
 
     setStatus('pending')
     try {
-      const result = await joinWaitlist(email)
+      const result = await joinWaitlist(email, signup.source)
       setStatus(result === 'accepted' ? 'success' : 'error')
     } catch {
       setStatus('error')
@@ -41,7 +51,7 @@ export function WaitlistForm() {
     status === 'pending'
       ? waitlistCopy.pending
       : status === 'success'
-        ? waitlistCopy.success
+        ? signup.success
         : status === 'error'
           ? waitlistCopy.error
           : ''
@@ -50,8 +60,8 @@ export function WaitlistForm() {
     <section className={`section ${styles.section}`} id="waitlist" aria-labelledby="waitlist-title">
       <div className={`sectionInner ${styles.layout}`}>
         <div>
-          <h2 id="waitlist-title">{headings.waitlist}</h2>
-          <p className="sectionLead sectionLeadDark">{productCopy.waitlistLead}</p>
+          <h2 id="waitlist-title">{signup.heading}</h2>
+          <p className="sectionLead sectionLeadDark">{signup.lead}</p>
         </div>
 
         <div className={styles.formWrap}>
@@ -88,7 +98,7 @@ export function WaitlistForm() {
                 type="submit"
                 disabled={!isValid || status === 'pending' || status === 'success'}
               >
-                {status === 'pending' ? waitlistCopy.pending : waitlistCopy.submit}
+                {status === 'pending' ? waitlistCopy.pending : signup.submit}
               </button>
             </div>
           </form>
@@ -96,7 +106,7 @@ export function WaitlistForm() {
           <p className={styles.status} aria-live="polite" aria-atomic="true">
             {statusMessage}
           </p>
-          <p className={styles.privacy}>{privacyStatement}</p>
+          <p className={styles.privacy}>{signup.privacy}</p>
         </div>
       </div>
     </section>

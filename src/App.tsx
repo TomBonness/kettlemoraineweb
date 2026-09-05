@@ -3,6 +3,7 @@ import { routes } from './content/catalog'
 import { applyRouteMetadata } from './lib/metadata'
 import { resolveRoute, type RouteId } from './lib/routes'
 import { CompanyHomePage } from './pages/CompanyHomePage'
+import { InferencePage } from './pages/InferencePage'
 import { LavtypePage } from './pages/LavtypePage'
 import { NotFoundPage } from './pages/NotFoundPage'
 import { OpenMicroPage } from './pages/OpenMicroPage'
@@ -11,7 +12,7 @@ const routeMetadata: Record<RouteId, { path: string; title: string; description:
   home: {
     path: routes.home,
     title: 'Kettle Moraine Research Labs — Tools for clearer work',
-    description: 'Kettle Moraine Research Labs makes focused, open hardware and software, including Open Micro and Lavtype.',
+    description: 'Kettle Moraine Research Labs makes focused, open hardware and software: Open Micro, 1,000 TPS inference, and Lavtype.',
     image: '/kettle-moraine-social.png',
   },
   'open-micro': {
@@ -19,6 +20,12 @@ const routeMetadata: Record<RouteId, { path: string; title: string; description:
     title: 'Open Micro — Kettle Moraine Research Labs',
     description: 'An open-source control surface designed to put everyday actions within easy reach.',
     image: '/open-micro-og.png',
+  },
+  inference: {
+    path: routes.inference,
+    title: '1,000 TPS — Kettle Moraine Research Labs',
+    description: 'A thousand tokens. A different rhythm. Explore GLM-5.3-Flash inference targeting 1,000 tokens per second, and sign up for API access.',
+    image: '/products/inference/social.png',
   },
   lavtype: {
     path: routes.lavtype,
@@ -47,6 +54,8 @@ function App() {
       return <CompanyHomePage />
     case 'open-micro':
       return <OpenMicroPage />
+    case 'inference':
+      return <InferencePage />
     case 'lavtype':
       return <LavtypePage />
     default:

@@ -19,13 +19,16 @@ function renderPath(path: string) {
 }
 
 describe('page routing', () => {
-  it('renders the company homepage with both product choices', () => {
+  it('renders the homepage with inference as the second product choice', () => {
     renderPath('/')
 
     expect(screen.getByRole('heading', { level: 1, name: 'Tools for clearer work.' })).toBeInTheDocument()
     expect(document.title).toBe('Kettle Moraine Research Labs — Tools for clearer work')
-    expect(screen.getByRole('link', { name: 'Explore Open Micro' })).toHaveAttribute('href', '/products/open-micro')
-    expect(screen.getByRole('link', { name: 'Explore Lavtype' })).toHaveAttribute('href', '/products/lavtype')
+    expect(screen.getAllByRole('link', { name: /^Explore / }).map((link) => link.getAttribute('href'))).toEqual([
+      '/products/open-micro',
+      '/products/1000-tps',
+      '/products/lavtype',
+    ])
   })
 
   it.each(['/products/open-micro', '/products/open-micro/'])('renders Open Micro at %s', (path) => {

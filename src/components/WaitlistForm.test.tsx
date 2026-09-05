@@ -9,6 +9,7 @@ vi.mock('../lib/waitlist', () => ({
 }))
 
 import { WaitlistForm } from './WaitlistForm'
+import { openMicroSignup } from '../content/openMicro'
 
 function deferredResult() {
   let resolve!: (value: 'accepted' | 'retry') => void
@@ -25,7 +26,7 @@ describe('WaitlistForm', () => {
 
   it('keeps submit disabled until the native email validity is valid', async () => {
     const user = userEvent.setup()
-    render(<WaitlistForm />)
+    render(<WaitlistForm signup={openMicroSignup} />)
     const email = screen.getByLabelText('Email address')
     const submit = screen.getByRole('button', { name: 'Notify me' })
 
@@ -41,7 +42,7 @@ describe('WaitlistForm', () => {
     const user = userEvent.setup()
     const request = deferredResult()
     joinWaitlistMock.mockReturnValueOnce(request.promise)
-    const { container } = render(<WaitlistForm />)
+    const { container } = render(<WaitlistForm signup={openMicroSignup} />)
     const email = screen.getByLabelText('Email address')
 
     await user.type(email, 'person@example.com')
@@ -56,22 +57,25 @@ describe('WaitlistForm', () => {
     expect(screen.getByRole('button', { name: 'Notify me' })).toBeEnabled()
   })
 
-  it('announces the exact success state', async () => {
+  it('locks the form after an accepted signup to prevent duplicate submissions', async () => {
     const user = userEvent.setup()
     joinWaitlistMock.mockResolvedValue('accepted')
-    const { container } = render(<WaitlistForm />)
+    render(<WaitlistForm signup={openMicroSignup} />)
 
-    await user.type(screen.getByLabelText('Email address'), 'person@example.com')
-    await user.click(screen.getByRole('button', { name: 'Notify me' }))
+    const email = screen.getByLabelText('Email address')
+    const submit = screen.getByRole('button', { name: 'Notify me' })
+    await user.type(email, 'person@example.com')
+    await user.click(submit)
 
-    expect(container.querySelector('[aria-live="polite"]')).toHaveTextContent(
-      "You're on the list. We'll let you know when preorder timing is confirmed.",
-    )
+    expect(email).toBeDisabled()
+    expect(submit).toBeDisabled()
+    await user.click(submit)
+    expect(joinWaitlistMock).toHaveBeenCalledOnce()
   })
 
   it('treats a filled honeypot as success without making a request', async () => {
     const user = userEvent.setup()
-    const { container } = render(<WaitlistForm />)
+    const { container } = render(<WaitlistForm signup={openMicroSignup} />)
     const honeypot = container.querySelector<HTMLInputElement>('input[name="website"]')
     if (!honeypot) throw new Error('honeypot missing')
 
@@ -80,8 +84,6 @@ describe('WaitlistForm', () => {
     await user.click(screen.getByRole('button', { name: 'Notify me' }))
 
     expect(joinWaitlistMock).not.toHaveBeenCalled()
-    expect(container.querySelector('[aria-live="polite"]')).toHaveTextContent(
-      "You're on the list. We'll let you know when preorder timing is confirmed.",
-    )
+    expect(screen.getByRole('button', { name: 'Notify me' })).toBeDisabled()
   })
 })

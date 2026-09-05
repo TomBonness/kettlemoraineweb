@@ -12,6 +12,7 @@ import {
   headings,
   licenses,
   navigation,
+  openMicroSignup,
   openSourceStatement,
   productCopy,
 } from '../content/openMicro'
@@ -114,7 +115,7 @@ export function OpenMicroPage() {
         </section>
       </Reveal>
 
-      <WaitlistForm />
+      <WaitlistForm signup={openMicroSignup} />
     </SiteShell>
   )
 }

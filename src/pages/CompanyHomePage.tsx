@@ -23,7 +23,7 @@ function Reveal({ children }: { children: ReactNode }) {
 }
 
 export function CompanyHomePage() {
-  const [openMicro, lavtype] = productCatalog
+  const [openMicro, inference, lavtype] = productCatalog
   const heroCopyRef = useRef<HTMLDivElement>(null)
 
   function handleHeroPointer(event: PointerEvent<HTMLElement>) {
@@ -91,7 +91,7 @@ export function CompanyHomePage() {
               <span>Physical controls.</span>
               <span>Local software.</span>
             </h2>
-            <p>Two focused products, each built to keep the person using it in control.</p>
+            <p>Focused hardware, software, and inference. Built to keep the person using it in control.</p>
           </header>
 
           <div className={styles.featureStack}>
@@ -135,6 +135,43 @@ export function CompanyHomePage() {
                 </dl>
                 <span className={styles.productLink}>
                   Explore Open Micro <span aria-hidden="true">↗</span>
+                </span>
+              </div>
+            </a>
+
+            <a
+              className={`${styles.feature} ${styles.inferenceFeature}`}
+              href={inference.path}
+              aria-label={`Explore ${inference.name}`}
+            >
+              <div className={styles.inferenceMedia}>
+                <img
+                  src="/products/inference/token-lens.svg"
+                  width="1200"
+                  height="1000"
+                  loading="lazy"
+                  decoding="async"
+                  alt=""
+                />
+                <div className={styles.inferenceMetric} aria-hidden="true">
+                  <span>1,000</span>
+                  <small>tokens / second</small>
+                </div>
+                <div className={styles.inferenceCaption}>
+                  <span>GLM-5.3-Flash</span>
+                  <span>Inference target</span>
+                </div>
+              </div>
+              <div className={styles.featureCopy}>
+                <span className={styles.inferenceEyebrow}>A different rhythm</span>
+                <h3>{inference.name}</h3>
+                <p className={styles.productSummary}>{inference.summary}</p>
+                <dl className={styles.productFacts}>
+                  <div><dt>Model</dt><dd>GLM-5.3-Flash</dd></div>
+                  <div><dt>Access</dt><dd>Inference API</dd></div>
+                </dl>
+                <span className={styles.productLink}>
+                  Explore 1,000 TPS <span aria-hidden="true">↗</span>
                 </span>
               </div>
             </a>

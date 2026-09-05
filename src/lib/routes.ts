@@ -1,6 +1,6 @@
 import { routes } from '../content/catalog'
 
-export type RouteId = 'home' | 'open-micro' | 'lavtype' | 'not-found'
+export type RouteId = 'home' | 'open-micro' | 'inference' | 'lavtype' | 'not-found'
 
 export function resolveRoute(pathname: string): RouteId {
   const normalizedPath = pathname === '/' ? pathname : pathname.replace(/\/+$/, '') || '/'
@@ -10,6 +10,8 @@ export function resolveRoute(pathname: string): RouteId {
       return 'home'
     case routes.openMicro:
       return 'open-micro'
+    case routes.inference:
+      return 'inference'
     case routes.lavtype:
       return 'lavtype'
     default:

@@ -12,7 +12,6 @@ export const headings = {
   design: 'Built with care.',
   specifications: 'Everything, considered.',
   openSource: 'Make it yours. All the way down.',
-  waitlist: 'See what comes next.',
 } as const
 
 
@@ -47,8 +46,6 @@ export const productCopy = {
     'Plug in at your desk. Move freely with Bluetooth. Keep every choice in your hands.',
   designLead:
     'Every layer is considered. Every detail has a purpose. Together, they create a compact control surface designed to feel at home on your desk.',
-  waitlistLead:
-    'Kettle Moraine Research Labs is developing Open Micro in the open. Leave your email and we’ll only write when preorder timing is confirmed.',
   explodedRenderTitle: 'Thoughtful from the inside out.',
   explodedRenderBody: 'A layered design keeps the shell, electronics, light plate, and controls distinct and serviceable.',
   lightDetailTitle: 'Light in the structure.',
@@ -67,9 +64,7 @@ export const waitlistCopy = {
   honeypotLabel: 'Website',
   emailLabel: 'Email address',
   placeholder: 'you@example.com',
-  submit: 'Notify me',
   pending: 'Joining…',
-  success: "You're on the list. We'll let you know when preorder timing is confirmed.",
   error: "We couldn't save your email. Please try again.",
 } as const
 
@@ -198,5 +193,11 @@ export const licenses = [
 
 export const openSourceStatement = 'The enclosure, electronics, firmware, and host software are open for you to study, change, and build on.'
 
-export const privacyStatement =
-  'Preorder updates only. Kettle Moraine Research Labs stores your email solely for Open Micro launch notices until the preorder notice program ends.'
+export const openMicroSignup = {
+  source: 'open-micro-product',
+  heading: 'See what comes next.',
+  lead: 'Kettle Moraine Research Labs is developing Open Micro in the open. Leave your email and we’ll only write when preorder timing is confirmed.',
+  submit: 'Notify me',
+  success: "You're on the list. We'll let you know when preorder timing is confirmed.",
+  privacy: 'Preorder updates only. Kettle Moraine Research Labs stores your email solely for Open Micro launch notices until the preorder notice program ends.',
+} as const
