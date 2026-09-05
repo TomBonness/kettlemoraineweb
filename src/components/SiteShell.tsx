@@ -20,7 +20,9 @@ function currentPageValue(href: string, currentPath: string) {
 export function SiteShell({ children, currentPath, navigation, cta }: SiteShellProps) {
   return (
     <>
-      <a className="skipLink" href="#main-content">Skip to content</a>
+      <a className="skipLink" href="#main-content">
+        Skip to content
+      </a>
       <header className="siteNav">
         <nav className="navInner" aria-label="Primary navigation">
           <a
@@ -55,13 +57,38 @@ export function SiteShell({ children, currentPath, navigation, cta }: SiteShellP
               </a>
             ))}
           </div>
-          {cta ? <a className="navCta" href={cta.href}>{cta.label}</a> : <span className="navSpacer" />}
-          <details className="mobileNav">
+          {cta ? (
+            <a className="navCta" href={cta.href}>
+              {cta.label}
+            </a>
+          ) : (
+            <span className="navSpacer" />
+          )}
+          <details
+            className="mobileNav"
+            onKeyDown={(event) => {
+              if (event.key !== 'Escape') return
+              event.preventDefault()
+              event.currentTarget.open = false
+              event.currentTarget.querySelector('summary')?.focus()
+            }}
+          >
             <summary>
               <span>Menu</span>
-              <span className="mobileNavIcon" aria-hidden="true"><i /><i /></span>
+              <span className="mobileNavIcon" aria-hidden="true">
+                <i />
+                <i />
+              </span>
             </summary>
-            <div className="mobileNavPanel">
+            <div
+              className="mobileNavPanel"
+              onClick={(event) => {
+                if (event.target instanceof Element && event.target.closest('a')) {
+                  const menu = event.currentTarget.closest('details')
+                  if (menu) menu.open = false
+                }
+              }}
+            >
               <div className="mobileNavLinks">
                 {navigation.map((item) => (
                   <a
@@ -92,29 +119,54 @@ export function SiteShell({ children, currentPath, navigation, cta }: SiteShellP
 
       <footer className="siteFooter">
         <div className="footerInner">
-          <div className="footerBrand">
-            <img
-              src="/brand/kettle-moraine-mark.png"
-              width="512"
-              height="512"
-              alt=""
-            />
-            <div>
-              <strong>Kettle Moraine Research Labs</strong>
-              <span>Tools for clearer work.</span>
-            </div>
+          <div className="footerIntro">
+            <a
+              className="footerBrand"
+              href={routes.home}
+              aria-label="Kettle Moraine Research Labs — home"
+            >
+              <img
+                src="/brand/kettle-moraine-mark.png"
+                width="512"
+                height="512"
+                alt=""
+                loading="lazy"
+              />
+              <strong>
+                Kettle Moraine
+                <br />
+                Research Labs
+              </strong>
+            </a>
+            <p className="footerStatement">
+              Tools for
+              <br />
+              <em>clearer work.</em>
+            </p>
           </div>
           <nav className="footerLinks" aria-label="Products">
+            <p className="footerLabel">From the lab</p>
             {productCatalog.map((product) => (
               <a
                 key={product.id}
                 href={product.path}
+                aria-label={product.name}
                 aria-current={currentPageValue(product.path, currentPath)}
               >
-                {product.name}
+                <span>
+                  <small>{product.category}</small>
+                  <strong>{product.name}</strong>
+                </span>
+                <span aria-hidden="true">↗</span>
               </a>
             ))}
           </nav>
+          <div className="footerBottom">
+            <span>Hardware. Software. A little perspective.</span>
+            <a href="#main-content">
+              Back to top <span aria-hidden="true">↑</span>
+            </a>
+          </div>
         </div>
       </footer>
     </>

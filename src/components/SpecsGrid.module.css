@@ -1,81 +1,78 @@
+.section {
+  background: var(--canvas);
+}
+.inner {
+  max-width: var(--content-max);
+  margin: 0 auto;
+  padding: clamp(5rem, 9vw, 8rem) var(--gutter);
+}
 .heading {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(280px, 0.56fr);
+  grid-template-columns: minmax(0, 1fr) minmax(240px, 0.5fr);
   gap: 3rem;
   align-items: end;
 }
-
+.eyebrow {
+  margin: 0 0 2rem;
+  color: var(--accent);
+  font: 0.64rem/1.6 var(--font-mono);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+.heading h2 {
+  max-width: 11ch;
+  margin: 0;
+  font: 500 clamp(3.1rem, 6.2vw, 5.8rem)/1 var(--font-serif);
+  letter-spacing: -0.06em;
+}
 .disclosure {
-  margin: 0 0 0.7rem;
+  margin: 0 0 0.4rem;
   padding-left: 1.2rem;
   border-left: 2px solid var(--accent);
   color: var(--text-secondary);
-  font-size: 0.88rem;
-  line-height: 1.55;
+  font: 0.68rem/1.9 var(--font-mono);
 }
-
 .grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  margin: clamp(3rem, 7vw, 6rem) 0 0;
-  border-top: 1px solid var(--hairline);
+  column-gap: clamp(2rem, 6vw, 5rem);
+  margin: clamp(3rem, 6vw, 5rem) 0 0;
 }
-
 .grid div {
   display: grid;
   min-height: 112px;
-  grid-template-columns: minmax(100px, 0.42fr) minmax(0, 1fr);
+  grid-template-columns: minmax(100px, 0.4fr) minmax(0, 1fr);
   gap: 1rem;
   align-items: start;
-  padding: 1.35rem 0;
-  border-bottom: 1px solid var(--hairline);
+  padding: 1.5rem 0;
+  border-top: 1px solid var(--hairline);
 }
-
-.grid div:nth-child(odd) {
-  padding-right: clamp(1rem, 3vw, 3rem);
-  border-right: 1px solid var(--hairline);
-}
-
-.grid div:nth-child(even) {
-  padding-left: clamp(1rem, 3vw, 3rem);
-}
-
 .grid dt {
   color: var(--text-secondary);
-  font-family: var(--font-mono);
-  font-size: 0.72rem;
-  font-weight: 600;
-  letter-spacing: 0.04em;
+  font: 0.6rem/1.7 var(--font-mono);
+  letter-spacing: 0.06em;
   text-transform: uppercase;
 }
-
 .grid dd {
   margin: 0;
-  font-size: clamp(0.9rem, 1.2vw, 1.02rem);
-  line-height: 1.5;
+  font-size: 0.87rem;
+  line-height: 1.75;
 }
-
 @media (max-width: 767px) {
   .heading {
     grid-template-columns: 1fr;
     gap: 2rem;
   }
-
   .grid {
     grid-template-columns: 1fr;
   }
-
-  .grid div:nth-child(n) {
-    padding-right: 0;
-    padding-left: 0;
-    border-right: 0;
-  }
-}
-
-@media (max-width: 390px) {
   .grid div {
     min-height: auto;
+  }
+}
+@media (max-width: 390px) {
+  .grid div {
     grid-template-columns: 1fr;
-    gap: 0.45rem;
+    gap: 0.5rem;
   }
 }

@@ -1,17 +1,6 @@
 import { render, screen } from '@testing-library/react'
-import { afterAll, beforeAll, describe, expect, it, vi } from 'vitest'
+import { describe, expect, it } from 'vitest'
 import App from './App'
-
-beforeAll(() => {
-  vi.stubGlobal('IntersectionObserver', class {
-    observe() {}
-    disconnect() {}
-  })
-})
-
-afterAll(() => {
-  vi.unstubAllGlobals()
-})
 
 function renderPath(path: string) {
   window.history.replaceState({}, '', path)
@@ -22,13 +11,13 @@ describe('page routing', () => {
   it('renders the homepage with inference as the second product choice', () => {
     renderPath('/')
 
-    expect(screen.getByRole('heading', { level: 1, name: 'Tools for clearer work.' })).toBeInTheDocument()
+    expect(
+      screen.getByRole('heading', { level: 1, name: 'Tools for clearer work.' }),
+    ).toBeInTheDocument()
     expect(document.title).toBe('Kettle Moraine Research Labs — Tools for clearer work')
-    expect(screen.getAllByRole('link', { name: /^Explore / }).map((link) => link.getAttribute('href'))).toEqual([
-      '/products/open-micro',
-      '/products/1000-tps',
-      '/products/lavtype',
-    ])
+    expect(
+      screen.getAllByRole('link', { name: /^Explore / }).map((link) => link.getAttribute('href')),
+    ).toEqual(['/products/open-micro', '/products/1000-tps', '/products/lavtype'])
   })
 
   it.each(['/products/open-micro', '/products/open-micro/'])('renders Open Micro at %s', (path) => {
@@ -36,8 +25,14 @@ describe('page routing', () => {
 
     expect(screen.getByRole('heading', { level: 1, name: 'Open Micro' })).toBeInTheDocument()
     expect(document.title).toBe('Open Micro — Kettle Moraine Research Labs')
-    expect(screen.getByRole('link', { name: 'Get updates' })).toHaveAttribute('href', '/products/open-micro#waitlist')
-    expect(screen.getByRole('link', { name: 'View Open Micro source' })).toHaveAttribute('href', 'https://github.com/TomBonness/open-micro')
+    expect(screen.getByRole('link', { name: 'Get updates' })).toHaveAttribute(
+      'href',
+      '/products/open-micro#waitlist',
+    )
+    expect(screen.getByRole('link', { name: 'View Open Micro source' })).toHaveAttribute(
+      'href',
+      'https://github.com/TomBonness/open-micro',
+    )
   })
 
   it.each(['/products/lavtype', '/products/lavtype/'])('renders Lavtype at %s', (path) => {

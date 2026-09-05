@@ -60,6 +60,7 @@ export function WaitlistForm({ signup }: WaitlistFormProps) {
     <section className={`section ${styles.section}`} id="waitlist" aria-labelledby="waitlist-title">
       <div className={`sectionInner ${styles.layout}`}>
         <div>
+          <p className={`sectionEyebrow ${styles.eyebrow}`}>A note from the lab</p>
           <h2 id="waitlist-title">{signup.heading}</h2>
           <p className="sectionLead sectionLeadDark">{signup.lead}</p>
         </div>

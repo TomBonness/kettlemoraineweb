@@ -1,4 +1,3 @@
-
 export const navigation = [
   { label: 'Overview', href: '#overview' },
   { label: 'Design', href: '#design' },
@@ -14,19 +13,8 @@ export const headings = {
   openSource: 'Make it yours. All the way down.',
 } as const
 
-
-export const brandCopy = {
-  name: 'Kettle Moraine Research Labs',
-  navigationLabel: 'Kettle Moraine Research Labs — Open Micro overview',
-  statementHeading: 'Tools for clearer work.',
-  statementBody:
-    'We design focused, open hardware and software for people who want to understand and shape the tools they use.',
-  statementProduct: 'Open Micro',
-} as const
-
 export const hero = {
   eyebrow: 'Open-source control surface',
-  indexLabel: 'Revision 0.1 · Open-source by design',
   description: 'Hardware made to study, change, and build on.',
   primaryCta: 'Keep me updated',
   secondaryCta: 'See how it’s built',
@@ -36,8 +24,6 @@ export const productCopy = {
   skipLink: 'Skip to content',
   primaryNavigationLabel: 'Primary navigation',
   navigationCta: 'Get updates',
-  heroCaptionTitle: 'Fifteen controls. One clear space.',
-  heroCaptionBody: 'Everything you need, right where you want it.',
   statusLead:
     'Open Micro turns background work into a small, consistent language of color and rhythm. Every state is visible here—nothing to hover over, cycle through, or guess.',
   statusPrinciple: 'Color names the state. Rhythm tells you whether it needs you.',
@@ -47,17 +33,18 @@ export const productCopy = {
   designLead:
     'Every layer is considered. Every detail has a purpose. Together, they create a compact control surface designed to feel at home on your desk.',
   explodedRenderTitle: 'Thoughtful from the inside out.',
-  explodedRenderBody: 'A layered design keeps the shell, electronics, light plate, and controls distinct and serviceable.',
+  explodedRenderBody:
+    'A layered design keeps the shell, electronics, light plate, and controls distinct and serviceable.',
   lightDetailTitle: 'Light in the structure.',
-  lightDetailBody: 'The frosted wall turns edge-mounted RGB into a soft, readable signal while the working surface stays visually quiet.',
+  lightDetailBody:
+    'The frosted wall turns edge-mounted RGB into a soft, readable signal while the working surface stays visually quiet.',
   heroAlt:
     'Dark studio render of Open Micro with twelve keys, an encoder, five-way control, and illuminated side wall',
   explodedAlt:
     'Exploded studio render of Open Micro showing its controls, switches, circuit boards, illuminated wall, and enclosure',
   lightDetailAlt:
     'Close studio view of the illuminated frosted side wall and matte-black controls on Open Micro',
-  topAlt:
-    'Top-view technical drawing of the Open Micro control layout',
+  topAlt: 'Top-view technical drawing of the Open Micro control layout',
 } as const
 
 export const waitlistCopy = {
@@ -67,7 +54,6 @@ export const waitlistCopy = {
   pending: 'Joining…',
   error: "We couldn't save your email. Please try again.",
 } as const
-
 
 export const statusSignals = [
   {
@@ -112,7 +98,6 @@ export const statusSignals = [
   behavior: string
   meaning: string
 }>
-
 
 export const connectivityCards = [
   {
@@ -170,7 +155,6 @@ export const explodedLayers = [
   },
 ] as const
 
-
 export const specs = [
   ['Enclosure', '96 × 96 × 17.5 mm'],
   ['PCB', '91.5 × 91.5 × 1.6 mm, four layers'],
@@ -191,7 +175,8 @@ export const licenses = [
   ['Pinned Lucide-derived keycap artwork', 'ISC'],
 ] as const
 
-export const openSourceStatement = 'The enclosure, electronics, firmware, and host software are open for you to study, change, and build on.'
+export const openSourceStatement =
+  'The enclosure, electronics, firmware, and host software are open for you to study, change, and build on.'
 
 export const openMicroSignup = {
   source: 'open-micro-product',
@@ -199,5 +184,6 @@ export const openMicroSignup = {
   lead: 'Kettle Moraine Research Labs is developing Open Micro in the open. Leave your email and we’ll only write when preorder timing is confirmed.',
   submit: 'Notify me',
   success: "You're on the list. We'll let you know when preorder timing is confirmed.",
-  privacy: 'Preorder updates only. Kettle Moraine Research Labs stores your email solely for Open Micro launch notices until the preorder notice program ends.',
+  privacy:
+    'Preorder updates only. Kettle Moraine Research Labs stores your email solely for Open Micro launch notices until the preorder notice program ends.',
 } as const

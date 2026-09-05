@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="680" height="660" viewBox="0 0 680 660" fill="none">
+  <defs>
+    <linearGradient id="wave" x1="76" y1="180" x2="602" y2="180" gradientUnits="userSpaceOnUse"><stop stop-color="#0548FD" stop-opacity="0.2"/><stop offset=".42" stop-color="#4F80FF"/><stop offset=".7" stop-color="#89AEFF"/><stop offset="1" stop-color="#0548FD" stop-opacity="0.2"/></linearGradient>
+    <linearGradient id="key" x1="158" y1="463" x2="251" y2="577" gradientUnits="userSpaceOnUse"><stop stop-color="#43464D"/><stop offset="1" stop-color="#171A21"/></linearGradient>
+    <radialGradient id="halo"><stop stop-color="#0548FD" stop-opacity=".26"/><stop offset="1" stop-color="#0548FD" stop-opacity="0"/></radialGradient>
+    <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse"><path d="M40 0H0V40" stroke="#A2B8F5" stroke-opacity=".06"/></pattern>
+    <filter id="shadow" x="-30%" y="-35%" width="160%" height="180%"><feDropShadow dx="0" dy="18" stdDeviation="22" flood-color="#000" flood-opacity=".32"/></filter>
+  </defs>
+  <ellipse cx="354" cy="253" rx="327" ry="270" fill="url(#halo)"/>
+  <path d="M42 52H638V605H42z" fill="url(#grid)"/>
+  <g stroke="#596371" stroke-width="1"><path d="M42 73V52h21m554 0h21v21M42 584v21h21m554 0h21v-21"/></g>
+  <g fill="#9CA6BC" font-family="ui-monospace, monospace" font-size="10" letter-spacing="2"><text x="76" y="90">01 / VOICE SIGNAL</text><text x="484" y="90">HOLD TO SPEAK</text></g>
+  <path d="M76 191H604" stroke="#5D78B7" stroke-opacity=".3" stroke-dasharray="2 6"/>
+  <g stroke="url(#wave)" stroke-width="5" stroke-linecap="round">
+    <path d="M80 184v14m12-18v22m12-28v34m12-22v10m12-31v52m12-40v28m12-65v102m12-79v56m12-96v136m12-99v62m12-48v34m12-66v98m12-126v154m12-112v70m12-54v38m12-87v136m12-113v90m12-123v156m12-109v62m12-77v92m12-57v22m12-31v40m12-59v78m12-102v126m12-87v48m12-36v24m12-56v88m12-66v44m12-79v114m12-89v64m12-47v30m12-36v42m12-53v64m12-46v28m12-20v12m12-30v48m12-35v22m12-16v10m12-20v30m12-22v14m12-12v10m12-9v8m12-7v6m12-8v10m12-7v4"/>
+  </g>
+  <path d="M340 291v34m-5-6 5 6 5-6" stroke="#7C98DE"/>
+  <g filter="url(#shadow)">
+    <rect x="114" y="348" width="458" height="151" rx="4" fill="#F4F3ED"/>
+    <path d="M114 352a4 4 0 0 1 4-4h450a4 4 0 0 1 4 4v30H114z" fill="#E9E9E3"/>
+    <circle cx="131" cy="365" r="3" fill="#B8BAB9"/><circle cx="142" cy="365" r="3" fill="#B8BAB9"/><circle cx="153" cy="365" r="3" fill="#B8BAB9"/>
+    <text x="554" y="368" text-anchor="end" fill="#60666B" font-family="ui-monospace, monospace" font-size="9" letter-spacing="1.4">FOCUSED APP</text>
+    <text x="140" y="421" fill="#191C22" font-family="Georgia, serif" font-size="27">Meet me at the trailhead</text>
+    <text x="140" y="457" fill="#191C22" font-family="Georgia, serif" font-size="27">at nine.</text>
+    <path d="M226 435v28" stroke="#0548FD" stroke-width="2"/>
+    <path d="M523 457l7 7 13-15" stroke="#0548FD" stroke-width="2"/>
+  </g>
+  <path d="M94 191H61v366h66" stroke="#5273BC" stroke-opacity=".6"/><circle cx="61" cy="191" r="3" fill="#729AFF"/>
+  <g filter="url(#shadow)">
+    <rect x="132" y="523" width="162" height="65" rx="12" fill="#0D1017" stroke="#484E5C"/>
+    <rect x="132" y="516" width="162" height="65" rx="12" fill="url(#key)" stroke="#6A7283"/>
+    <rect x="142" y="524" width="142" height="44" rx="6" stroke="#5A6170" stroke-opacity=".6"/>
+    <text x="213" y="552" text-anchor="middle" fill="#EFF2F8" font-family="ui-monospace, monospace" font-size="13" letter-spacing="2">SHORTCUT</text>
+    <path d="M183 573h60" stroke="#749AFF" stroke-width="2" stroke-linecap="round"/>
+  </g>
+  <g fill="#9CA6BC" font-family="ui-monospace, monospace" font-size="10" letter-spacing="1.2"><text x="321" y="546">02 / RELEASE</text><text x="321" y="568" fill="#D9DFEE">ONE FINAL TRANSCRIPT</text></g>
+</svg>

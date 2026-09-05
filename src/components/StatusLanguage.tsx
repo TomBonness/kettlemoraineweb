@@ -4,13 +4,14 @@ import styles from './StatusLanguage.module.css'
 
 export function StatusLanguage() {
   return (
-    <section className="section sectionDark" aria-labelledby="status-title">
-      <div className={`sectionInner ${styles.layout}`}>
+    <section className={styles.section} aria-labelledby="status-title">
+      <div className={styles.layout}>
         <header className={styles.intro}>
+          <p className={styles.eyebrow}>03 / Ambient feedback</p>
           <h2 id="status-title">{headings.status}</h2>
-          <p className="sectionLead sectionLeadDark">{productCopy.statusLead}</p>
+          <p className={styles.lead}>{productCopy.statusLead}</p>
           <div className={styles.principle}>
-            <span aria-hidden="true">01 / 02</span>
+            <span aria-hidden="true">RGB</span>
             <p>{productCopy.statusPrinciple}</p>
           </div>
         </header>
@@ -33,10 +34,7 @@ export function StatusLanguage() {
 
           <ol className={styles.signals} aria-label={productCopy.statusLegendLabel}>
             {statusSignals.map((signal, index) => (
-              <li
-                key={signal.name}
-                style={{ '--signal-color': signal.color } as CSSProperties}
-              >
+              <li key={signal.name} style={{ '--signal-color': signal.color } as CSSProperties}>
                 <span className={styles.signalIndex}>{String(index + 1).padStart(2, '0')}</span>
                 <strong className={styles.signalName}>{signal.name}</strong>
                 <p>{signal.meaning}</p>

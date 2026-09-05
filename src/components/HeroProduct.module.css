@@ -1,332 +1,255 @@
 .hero {
   position: relative;
-  width: 100%;
+  isolation: isolate;
+  overflow: hidden;
+  background: #101216;
+  color: #f7f7f3;
+}
+
+.inner {
   max-width: var(--content-max);
   margin: 0 auto;
-  padding: clamp(2rem, 5vw, 4.5rem) var(--gutter) clamp(4rem, 8vw, 7rem);
+  padding: 2rem var(--gutter) 0;
+}
+
+.topline {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid #323740;
+  color: #aeb6c5;
+  font: 0.65rem/1.6 var(--font-mono);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.topline p {
+  margin: 0;
+}
+.topline p::before {
+  display: inline-block;
+  width: 0.45rem;
+  height: 0.45rem;
+  margin-right: 0.75rem;
+  background: #5787ff;
+  content: '';
+}
+
+.stage {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr);
+  align-items: center;
+  min-height: 620px;
+}
+
+.copy {
+  position: relative;
+  z-index: 2;
+  padding: 4rem 0;
+}
+.copy h1 {
+  margin: 0;
+  font: 500 clamp(4.4rem, 8.1vw, 7.3rem)/0.96 var(--font-serif);
+  letter-spacing: -0.065em;
+}
+
+.statement {
+  margin: 2rem 0 1.1rem;
+  color: #c0cbe0;
+  font: 400 clamp(1.9rem, 3vw, 2.7rem)/1.13 var(--font-serif);
+  letter-spacing: -0.035em;
+}
+
+.description {
+  max-width: 23rem;
+  margin: 0;
+  color: #aeb6c5;
+  font-size: 0.95rem;
+  line-height: 1.75;
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.75rem 1.6rem;
+  margin-top: 2.1rem;
+}
+
+.actions :global(.buttonPrimary) {
+  background: var(--accent);
+}
+
+.actions :global(.buttonPrimary):hover {
+  background: var(--accent-strong);
+}
+.textLink {
+  display: inline-flex;
+  min-height: 44px;
+  align-items: center;
+  gap: 1.5rem;
+  border-bottom: 1px solid #748095;
+  color: #e1e6ef;
+  font-size: 0.78rem;
+  text-decoration: none;
+}
+.textLink:hover {
+  color: #8eafff;
+  border-color: currentColor;
+}
+.textLink:focus-visible {
+  outline: 2px solid #8eafff;
+  outline-offset: 5px;
 }
 
 .artwork {
   --image-x: 0px;
   --image-y: 0px;
   position: relative;
-  overflow: hidden;
-  aspect-ratio: 1200 / 630;
-  border: 1px solid var(--hairline);
-  border-radius: 8px;
-  background: var(--canvas);
-  box-shadow: 0 30px 90px rgb(17 18 20 / 12%);
-  isolation: isolate;
+  min-width: 0;
+  margin: 0 -6rem 0 -2rem;
 }
 
+.artwork::before {
+  position: absolute;
+  z-index: -1;
+  inset: 8% 6% 4%;
+  background:
+    linear-gradient(#738bb80b 1px, transparent 1px),
+    linear-gradient(90deg, #738bb80b 1px, transparent 1px);
+  background-size: 48px 48px;
+  content: '';
+}
+
+.artwork picture {
+  display: block;
+}
 .productBackdrop {
-  position: absolute;
-  z-index: 0;
-  inset: -1%;
   display: block;
-  width: 102%;
-  max-width: none;
-  height: 102%;
-  object-fit: cover;
-  transform: translate3d(var(--image-x), var(--image-y), 0) scale(1.02);
-  transition: transform 500ms var(--motion-ease);
-  will-change: transform;
-}
-
-.wash {
-  position: absolute;
-  z-index: 1;
-  inset: 0;
-  background:
-    linear-gradient(90deg, rgb(247 247 243 / 100%) 0%, rgb(247 247 243 / 97%) 34%, rgb(247 247 243 / 22%) 67%, transparent 82%),
-    linear-gradient(0deg, rgb(247 247 243 / 45%) 0%, transparent 48%);
-}
-
-.grid {
-  position: absolute;
-  z-index: 2;
-  inset: 0;
-  background:
-    linear-gradient(rgb(17 18 20 / 4%) 1px, transparent 1px),
-    linear-gradient(90deg, rgb(17 18 20 / 4%) 1px, transparent 1px);
-  background-size: 42px 42px;
-  pointer-events: none;
-}
-
-.grid::before {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  width: 8px;
-  background: var(--accent);
-  content: '';
-}
-
-.brandLogo {
-  position: absolute;
-  z-index: 4;
-  top: 8%;
-  left: 5.5%;
-  display: none;
-  width: min(38%, 470px);
+  width: 100%;
   height: auto;
+  mix-blend-mode: screen;
+  mask-image:
+    linear-gradient(to right, transparent, #000 10%, #000 90%, transparent),
+    linear-gradient(to bottom, transparent, #000 8%, #000 80%, transparent);
+  mask-composite: intersect;
+  transform: translate3d(var(--image-x), var(--image-y), 0);
+  transition: transform 500ms var(--motion-ease);
 }
 
-.desktopKicker {
+.measure {
+  position: relative;
+  width: 56%;
+  margin: -0.5rem auto 0;
+  border-top: 1px solid #485976;
+  text-align: center;
+}
+.measure::before,
+.measure::after {
   position: absolute;
-  z-index: 4;
-  top: 8%;
-  left: 5.5%;
-  display: flex;
-  align-items: center;
-  gap: 0.7rem;
-  margin: 0;
-  color: var(--text-secondary);
-  font-family: var(--font-mono);
-  font-size: clamp(0.62rem, 0.8vw, 0.72rem);
-  font-weight: 600;
-  letter-spacing: 0.15em;
-  text-transform: uppercase;
-}
-
-.desktopKicker::before {
-  width: 2rem;
-  height: 0.22rem;
-  border-radius: 999px;
-  background: var(--accent);
+  top: -5px;
+  height: 9px;
+  border-left: 1px solid #6981a8;
   content: '';
 }
-
-.copy {
-  position: absolute;
-  z-index: 4;
-  bottom: 8%;
-  left: 5.5%;
-  width: min(52%, 620px);
-}
-
-.copy h1 {
-  margin: 0;
-  color: var(--text-primary);
-  font-family: var(--font-serif);
-  font-size: clamp(3.7rem, 7vw, 6.3rem);
-  font-weight: 600;
-  letter-spacing: -0.055em;
-  line-height: 0.88;
-}
-
-.accentRule {
-  display: block;
-  width: 2.65rem;
-  height: 0.3rem;
-  margin-top: clamp(1.2rem, 2.2vw, 2rem);
-  border-radius: 999px;
-  background: var(--accent);
-}
-
-.productType {
-  margin: 1.15rem 0 0;
-  color: #4f5259;
-  font-family: var(--font-mono);
-  font-size: clamp(0.66rem, 1.2vw, 1rem);
-  font-weight: 600;
-  letter-spacing: 0.16em;
-  line-height: 1.2;
-  text-transform: uppercase;
-}
-
-.description {
-  margin: clamp(1rem, 2vw, 1.6rem) 0 0;
-  color: var(--text-secondary);
-  font-family: var(--font-sans);
-  font-size: clamp(0.82rem, 1.35vw, 1.05rem);
-  line-height: 1.5;
-}
-
-.crosshair {
-  position: absolute;
-  z-index: 4;
-  top: 6.5%;
-  right: 5.4%;
-  width: 3.6rem;
-  height: 3.6rem;
-}
-
-.crosshair::before,
-.crosshair::after {
-  position: absolute;
-  background: rgb(17 18 20 / 18%);
-  content: '';
-}
-
-.crosshair::before {
-  top: 50%;
-  right: 0;
+.measure::before {
   left: 0;
-  height: 1px;
+}
+.measure::after {
+  right: 0;
+}
+.measure span {
+  position: relative;
+  top: -0.7rem;
+  padding: 0 0.7rem;
+  background: #101216;
+  color: #9faec6;
+  font: 0.65rem var(--font-mono);
+}
+.renderLabel {
+  margin: 0.8rem 0 0;
+  color: #95a1b6;
+  font: 0.57rem/1.8 var(--font-mono);
+  text-align: center;
+  letter-spacing: 0.035em;
 }
 
-.crosshair::after {
-  top: 0;
-  bottom: 0;
-  left: 50%;
-  width: 1px;
-}
-
-.crosshair span {
-  position: absolute;
-  z-index: 1;
-  top: 50%;
-  left: 50%;
-  width: 1rem;
-  height: 1rem;
-  border-radius: 50%;
-  background: var(--accent);
-  box-shadow: 0 0 0 5px rgb(247 247 243 / 70%);
-  transform: translate(-50%, -50%);
-}
-
-.actionRail {
-  display: flex;
-  min-height: 78px;
-  align-items: center;
-  justify-content: flex-end;
-  gap: 2rem;
-  padding: 1rem 0 0;
-}
-
-.actionRail > p {
-  display: none;
+.baseline {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 1.5rem;
   margin: 0;
-  color: var(--text-secondary);
-  font-family: var(--font-mono);
-  font-size: 0.65rem;
-  font-weight: 600;
-  letter-spacing: 0.14em;
+  padding: 1.6rem 0 1.9rem;
+  border-top: 1px solid #323740;
+}
+.baseline dt {
+  color: #929db1;
+  font: 0.58rem/1.7 var(--font-mono);
   text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+.baseline dd {
+  margin: 0.5rem 0 0;
+  color: #e0e5ef;
+  font: 0.72rem/1.6 var(--font-mono);
 }
 
-.actions {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.7rem;
-}
-
-
-@media (max-width: 900px) {
-  .hero {
-    padding-top: 1.5rem;
+@media (max-width: 1000px) {
+  .stage {
+    min-height: 540px;
   }
-
-  .brandLogo {
-    width: 40%;
-  }
-
   .copy h1 {
-    font-size: clamp(3.4rem, 10vw, 5rem);
+    font-size: clamp(3.6rem, 8vw, 6rem);
+  }
+  .artwork {
+    margin-right: -3rem;
   }
 }
 
 @media (max-width: 767px) {
-  .brandLogo {
-    display: block;
+  .inner {
+    padding-top: 1.5rem;
   }
-
-  .desktopKicker {
-    display: none;
+  .topline {
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    font-size: 0.57rem;
   }
-
-  .actionRail {
-    justify-content: space-between;
+  .stage {
+    grid-template-columns: 1fr;
+    min-height: 0;
   }
-
-  .actionRail > p {
-    display: block;
-  }
-}
-
-@media (max-width: 700px) {
-  .hero {
-    padding-top: 1rem;
-  }
-
-  .artwork {
-    min-height: min(680px, calc(100svh - 150px));
-    aspect-ratio: auto;
-    border-radius: 18px;
-  }
-
-  .productBackdrop {
-    inset: -1%;
-    width: 178%;
-    height: 102%;
-    object-position: 69% center;
-  }
-
-  .wash {
-    background:
-      linear-gradient(0deg, rgb(247 247 243 / 100%) 0%, rgb(247 247 243 / 96%) 39%, rgb(247 247 243 / 10%) 72%),
-      linear-gradient(90deg, rgb(247 247 243 / 76%) 0%, transparent 78%);
-  }
-
-  .brandLogo {
-    top: 1.5rem;
-    left: 1.5rem;
-    width: min(76%, 300px);
-  }
-
   .copy {
-    right: 1.5rem;
-    bottom: 2rem;
-    left: 1.5rem;
-    width: auto;
+    padding: 3.5rem 0 0;
   }
-
   .copy h1 {
-    font-size: clamp(3.2rem, 16vw, 4.6rem);
+    font-size: clamp(3.6rem, 13.5vw, 6rem);
   }
-
-  .productType {
-    max-width: 20rem;
-    font-size: 0.7rem;
-    line-height: 1.4;
+  .statement {
+    margin-top: 1.5rem;
+    font-size: clamp(1.9rem, 6vw, 2.6rem);
   }
-
-  .description {
-    max-width: 18rem;
-    font-size: 0.9rem;
+  .artwork {
+    margin: 0 -1.5rem 2rem;
   }
-
-  .crosshair {
-    top: 5.5rem;
-    right: 1.5rem;
-    width: 2.8rem;
-    height: 2.8rem;
+  .renderLabel {
+    padding: 0 1.5rem;
+    font-size: 0.53rem;
   }
-
-  .actionRail {
-    align-items: flex-start;
-    flex-direction: column;
-    gap: 0.9rem;
-    padding-top: 1.2rem;
+  .baseline {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1.5rem 1rem;
   }
-
-}
-
-@media (max-width: 390px) {
-  .actions {
-    width: 100%;
-  }
-
-  .actions a {
-    flex: 1 1 auto;
+  .baseline dd {
+    font-size: 0.64rem;
   }
 }
 
 @media (pointer: coarse), (prefers-reduced-motion: reduce) {
   .productBackdrop {
-    transform: scale(1.02);
+    transform: none;
     transition: none;
   }
 }

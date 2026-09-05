@@ -5,9 +5,8 @@ import hero1536Avif from '../assets/product/generated/hero-1536.avif'
 import hero640Webp from '../assets/product/generated/hero-640.webp'
 import hero1024Webp from '../assets/product/generated/hero-1024.webp'
 import hero1536Webp from '../assets/product/generated/hero-1536.webp'
-import { brandCopy, headings, hero, productCopy } from '../content/openMicro'
+import { headings, hero, productCopy } from '../content/openMicro'
 import styles from './HeroProduct.module.css'
-
 
 export function HeroProduct() {
   const visualRef = useRef<HTMLDivElement>(null)
@@ -16,7 +15,8 @@ export function HeroProduct() {
     if (
       window.matchMedia('(prefers-reduced-motion: reduce)').matches ||
       !window.matchMedia('(pointer: fine)').matches
-    ) return
+    )
+      return
 
     const visual = visualRef.current
     if (!visual) return
@@ -36,64 +36,81 @@ export function HeroProduct() {
 
   return (
     <section className={styles.hero} id="overview" aria-labelledby="hero-title">
-      <div
-        className={styles.artwork}
-        ref={visualRef}
-        onPointerMove={handlePointerMove}
-        onPointerLeave={resetPointer}
-      >
-        <picture>
-          <source
-            type="image/avif"
-            srcSet={`${hero640Avif} 640w, ${hero1024Avif} 1024w, ${hero1536Avif} 1536w`}
-            sizes="(min-width: 1500px) 1440px, (max-width: 700px) 100vw, calc(100vw - 64px)"
-          />
-          <source
-            type="image/webp"
-            srcSet={`${hero640Webp} 640w, ${hero1024Webp} 1024w, ${hero1536Webp} 1536w`}
-            sizes="(min-width: 1500px) 1440px, (max-width: 700px) 100vw, calc(100vw - 64px)"
-          />
-          <img
-            className={styles.productBackdrop}
-            src={hero1024Webp}
-            width="1024"
-            height="768"
-            fetchPriority="high"
-            decoding="async"
-            alt={productCopy.heroAlt}
-          />
-        </picture>
-        <div className={styles.wash} aria-hidden="true" />
-        <div className={styles.grid} aria-hidden="true" />
-        <img
-          className={styles.brandLogo}
-          src="/brand/kettle-moraine-wordmark.png"
-          width="1440"
-          height="374"
-          alt={brandCopy.name}
-        />
-        <p className={styles.desktopKicker}>{hero.indexLabel}</p>
-        <div className={styles.crosshair} aria-hidden="true">
-          <span />
+      <div className={styles.inner}>
+        <div className={styles.topline}>
+          <p>{hero.eyebrow}</p>
+          <span>Hardware / Rev. 0.1</span>
         </div>
-        <div className={styles.copy}>
-          <h1 id="hero-title">{headings.hero}</h1>
-          <span className={styles.accentRule} aria-hidden="true" />
-          <p className={styles.productType}>{hero.eyebrow}</p>
-          <p className={styles.description}>{hero.description}</p>
+        <div className={styles.stage}>
+          <div className={styles.copy}>
+            <h1 id="hero-title">{headings.hero}</h1>
+            <p className={styles.statement}>
+              A physical place
+              <br />
+              for digital work.
+            </p>
+            <p className={styles.description}>{hero.description}</p>
+            <div className={styles.actions}>
+              <a className="button buttonPrimary" href="#waitlist">
+                {hero.primaryCta}
+              </a>
+              <a className={styles.textLink} href="#design">
+                {hero.secondaryCta}
+                <span aria-hidden="true">↗</span>
+              </a>
+            </div>
+          </div>
+          <div
+            className={styles.artwork}
+            ref={visualRef}
+            onPointerMove={handlePointerMove}
+            onPointerLeave={resetPointer}
+          >
+            <picture>
+              <source
+                type="image/avif"
+                srcSet={`${hero640Avif} 640w, ${hero1024Avif} 1024w, ${hero1536Avif} 1536w`}
+                sizes="(max-width: 767px) 100vw, 65vw"
+              />
+              <source
+                type="image/webp"
+                srcSet={`${hero640Webp} 640w, ${hero1024Webp} 1024w, ${hero1536Webp} 1536w`}
+                sizes="(max-width: 767px) 100vw, 65vw"
+              />
+              <img
+                className={styles.productBackdrop}
+                src={hero1024Webp}
+                width="1024"
+                height="768"
+                fetchPriority="high"
+                decoding="async"
+                alt={productCopy.heroAlt}
+              />
+            </picture>
+            <div className={styles.measure} aria-hidden="true">
+              <span>96 mm</span>
+            </div>
+            <p className={styles.renderLabel}>MX hot-swap / Encoder / Five-way / Touch</p>
+          </div>
         </div>
-      </div>
-
-      <div className={styles.actionRail}>
-        <p>{hero.indexLabel}</p>
-        <div className={styles.actions}>
-          <a className="button buttonPrimary" href="#waitlist">
-            {hero.primaryCta}
-          </a>
-          <a className="button buttonQuiet" href="#design">
-            {hero.secondaryCta}
-          </a>
-        </div>
+        <dl className={styles.baseline}>
+          <div>
+            <dt>Footprint</dt>
+            <dd>96 × 96 mm</dd>
+          </div>
+          <div>
+            <dt>Connection</dt>
+            <dd>USB-C + Bluetooth</dd>
+          </div>
+          <div>
+            <dt>Firmware</dt>
+            <dd>ZMK + Studio</dd>
+          </div>
+          <div>
+            <dt>Designed to be</dt>
+            <dd>Open. All the way down.</dd>
+          </div>
+        </dl>
       </div>
     </section>
   )

@@ -1,6 +1,8 @@
 import styles from './VoiceTrace.module.css'
 
-const waveformLevels = [24, 48, 72, 42, 86, 58, 32, 68, 46, 78, 38, 22]
+const waveformLevels = [
+  12, 24, 48, 32, 72, 42, 86, 58, 32, 68, 46, 78, 38, 62, 94, 54, 76, 42, 58, 30, 44, 22, 16, 8,
+]
 
 const steps = [
   {
@@ -15,7 +17,7 @@ const steps = [
   },
   {
     label: 'Release',
-    caption: 'Release to type one final transcript into the focused app.',
+    caption: 'Release to type one final transcript into the app focused when recognition finishes.',
     visual: 'transcript',
   },
 ] as const
@@ -27,14 +29,11 @@ type VoiceTraceProps = {
 
 export function VoiceTrace({ compact = false, id }: VoiceTraceProps) {
   return (
-    <figure
-      className={`${styles.instrument} ${compact ? styles.compact : ''}`}
-      id={id}
-      style={{ '--product-accent': 'var(--accent)' } as React.CSSProperties}
-    >
+    <figure className={`${styles.instrument} ${compact ? styles.compact : ''}`} id={id}>
       <figcaption className={styles.header}>
         <img src="/products/lavtype/lavtype-icon.png" width="1024" height="1024" alt="" />
-        <span>Lavtype voice trace</span>
+        <span>Lavtype / Voice to text</span>
+        <span className={styles.headerNote}>A three-step workflow</span>
       </figcaption>
       <ol className={styles.sequence}>
         {steps.map((step) => (
@@ -42,18 +41,22 @@ export function VoiceTrace({ compact = false, id }: VoiceTraceProps) {
             {step.visual === 'key' && (
               <div className={styles.keyStage} aria-hidden="true">
                 <kbd>⌘ ⇧ Space</kbd>
+                <span>Example shortcut</span>
               </div>
             )}
             {step.visual === 'waveform' && (
               <div className={styles.waveform} aria-hidden="true">
                 {waveformLevels.map((level, index) => (
-                  <span key={`${level}-${index}`} style={{ height: `${level}%` }} />
+                  <span
+                    key={`${level}-${index}`}
+                    style={{ height: `${level}%`, animationDelay: `${index * -0.07}s` }}
+                  />
                 ))}
               </div>
             )}
             {step.visual === 'transcript' && (
               <div className={styles.transcript}>
-                <span>Final transcript</span>
+                <span>Focused app / final text</span>
                 <q>Meet me at the trailhead at nine.</q>
               </div>
             )}

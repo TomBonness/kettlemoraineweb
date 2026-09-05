@@ -1,4 +1,3 @@
-import { useRef, type PointerEvent, type ReactNode } from 'react'
 import hero640Avif from '../assets/product/generated/hero-640.avif'
 import hero1024Avif from '../assets/product/generated/hero-1024.avif'
 import hero1536Avif from '../assets/product/generated/hero-1536.avif'
@@ -9,7 +8,6 @@ import { SiteShell } from '../components/SiteShell'
 import { VoiceTrace } from '../components/VoiceTrace'
 import { productCatalog, routes } from '../content/catalog'
 import { productCopy } from '../content/openMicro'
-import { useReveal } from '../lib/reveal'
 import styles from './CompanyHomePage.module.css'
 
 const homeNavigation = productCatalog.map((product) => ({
@@ -17,48 +15,25 @@ const homeNavigation = productCatalog.map((product) => ({
   href: product.path,
 }))
 
-function Reveal({ children }: { children: ReactNode }) {
-  const ref = useReveal<HTMLDivElement>()
-  return <div className="revealSection" ref={ref}>{children}</div>
-}
-
 export function CompanyHomePage() {
   const [openMicro, inference, lavtype] = productCatalog
-  const heroCopyRef = useRef<HTMLDivElement>(null)
-
-  function handleHeroPointer(event: PointerEvent<HTMLElement>) {
-    if (
-      window.matchMedia('(prefers-reduced-motion: reduce)').matches ||
-      !window.matchMedia('(pointer: fine)').matches
-    ) return
-
-    const el = heroCopyRef.current
-    if (!el) return
-    const bounds = event.currentTarget.getBoundingClientRect()
-    const x = (event.clientX - bounds.left) / bounds.width - 0.5
-    const y = (event.clientY - bounds.top) / bounds.height - 0.5
-    el.style.setProperty('--copy-x', `${x * 10}px`)
-    el.style.setProperty('--copy-y', `${y * 7}px`)
-  }
-
-  function resetHeroPointer() {
-    const el = heroCopyRef.current
-    if (!el) return
-    el.style.removeProperty('--copy-x')
-    el.style.removeProperty('--copy-y')
-  }
 
   return (
     <SiteShell currentPath={routes.home} navigation={homeNavigation}>
-      <section
-        className={styles.hero}
-        aria-labelledby="company-heading"
-        onPointerMove={handleHeroPointer}
-        onPointerLeave={resetHeroPointer}
-      >
+      <section className={styles.hero} aria-labelledby="company-heading">
         <div className={styles.heroGrid} aria-hidden="true" />
-        <div className={styles.heroCrosshair} aria-hidden="true"><span /></div>
-        <div className={styles.heroInner} ref={heroCopyRef}>
+        <img
+          className={styles.heroArtwork}
+          src="/brand/contours.svg"
+          width="1200"
+          height="1000"
+          alt=""
+        />
+        <div className={styles.heroInner}>
+          <div className={styles.heroTopline}>
+            <span>Kettle Moraine / Research Labs</span>
+            <span>Independent by design</span>
+          </div>
 
           <div className={styles.heroTitle}>
             <h1 id="company-heading" aria-label="Tools for clearer work.">
@@ -69,11 +44,15 @@ export function CompanyHomePage() {
 
           <div className={styles.heroFooter}>
             <p className={styles.heroStatement}>
-              We design focused, open hardware and software for people who want to understand and shape the tools they use.
+              We design focused, open hardware and software for people who want to understand and
+              shape the tools they use.
             </p>
             <nav className={styles.productRail} aria-label="Featured products">
-              {productCatalog.map((product) => (
+              {productCatalog.map((product, index) => (
                 <a href={product.path} key={product.id}>
+                  <small>
+                    0{index + 1} / {product.category}
+                  </small>
                   <strong>{product.name}</strong>
                   <span aria-hidden="true">↗</span>
                 </a>
@@ -83,15 +62,20 @@ export function CompanyHomePage() {
         </div>
       </section>
 
-      <Reveal>
       <section className={styles.products} id="products" aria-labelledby="products-heading">
         <div className={styles.productsInner}>
           <header className={styles.productsIntro}>
-            <h2 id="products-heading">
-              <span>Physical controls.</span>
-              <span>Local software.</span>
-            </h2>
-            <p>Focused hardware, software, and inference. Built to keep the person using it in control.</p>
+            <div>
+              <p className="sectionEyebrow">01 / From the lab</p>
+              <h2 id="products-heading">
+                <span>Clearer work.</span>
+                <span>In every form.</span>
+              </h2>
+            </div>
+            <p>
+              Focused hardware, software, and inference. Built to keep the person using it in
+              control.
+            </p>
           </header>
 
           <div className={styles.featureStack}>
@@ -127,11 +111,18 @@ export function CompanyHomePage() {
                 </div>
               </div>
               <div className={styles.featureCopy}>
+                <span className={styles.productEyebrow}>01 / {openMicro.category}</span>
                 <h3>{openMicro.name}</h3>
                 <p className={styles.productSummary}>{openMicro.summary}</p>
                 <dl className={styles.productFacts}>
-                  <div><dt>Controls</dt><dd>15</dd></div>
-                  <div><dt>Connection</dt><dd>USB-C + Bluetooth</dd></div>
+                  <div>
+                    <dt>Controls</dt>
+                    <dd>15</dd>
+                  </div>
+                  <div>
+                    <dt>Connection</dt>
+                    <dd>USB-C + Bluetooth</dd>
+                  </div>
                 </dl>
                 <span className={styles.productLink}>
                   Explore Open Micro <span aria-hidden="true">↗</span>
@@ -163,12 +154,18 @@ export function CompanyHomePage() {
                 </div>
               </div>
               <div className={styles.featureCopy}>
-                <span className={styles.inferenceEyebrow}>A different rhythm</span>
+                <span className={styles.productEyebrow}>02 / {inference.category}</span>
                 <h3>{inference.name}</h3>
                 <p className={styles.productSummary}>{inference.summary}</p>
                 <dl className={styles.productFacts}>
-                  <div><dt>Model</dt><dd>GLM-5.3-Flash</dd></div>
-                  <div><dt>Access</dt><dd>Inference API</dd></div>
+                  <div>
+                    <dt>Model</dt>
+                    <dd>GLM-5.3-Flash</dd>
+                  </div>
+                  <div>
+                    <dt>Access</dt>
+                    <dd>Inference API</dd>
+                  </div>
                 </dl>
                 <span className={styles.productLink}>
                   Explore 1,000 TPS <span aria-hidden="true">↗</span>
@@ -182,11 +179,18 @@ export function CompanyHomePage() {
               aria-label={`Explore ${lavtype.name}`}
             >
               <div className={styles.featureCopy}>
+                <span className={styles.productEyebrow}>03 / {lavtype.category}</span>
                 <h3>{lavtype.name}</h3>
                 <p className={styles.productSummary}>{lavtype.summary}</p>
                 <dl className={styles.productFacts}>
-                  <div><dt>Recognition</dt><dd>Local</dd></div>
-                  <div><dt>Platforms</dt><dd>macOS + X11 Linux</dd></div>
+                  <div>
+                    <dt>Recognition</dt>
+                    <dd>Local</dd>
+                  </div>
+                  <div>
+                    <dt>Platforms</dt>
+                    <dd>macOS + X11 Linux</dd>
+                  </div>
                 </dl>
                 <span className={styles.productLink}>
                   Explore Lavtype <span aria-hidden="true">↗</span>
@@ -199,7 +203,51 @@ export function CompanyHomePage() {
           </div>
         </div>
       </section>
-      </Reveal>
+
+      <section className={styles.principles} aria-labelledby="principles-title">
+        <div className={styles.principlesInner}>
+          <div className={styles.principlesIntro}>
+            <div>
+              <p className="sectionEyebrow">02 / How we think</p>
+              <h2 id="principles-title">
+                Small lab.
+                <br />
+                <em>Long view.</em>
+              </h2>
+            </div>
+            <p>
+              Good tools earn their place. Not by doing everything, but by making the things that
+              matter feel a little more natural.
+            </p>
+          </div>
+          <div className={styles.principleGrid}>
+            <article>
+              <span>01</span>
+              <h3>Less in the way.</h3>
+              <p>
+                A physical control. A held shortcut. A faster response. We look for the small
+                moments where a better tool makes a real difference.
+              </p>
+            </article>
+            <article>
+              <span>02</span>
+              <h3>More in your hands.</h3>
+              <p>
+                Open hardware, local software, and open-weight models. Tools should invite
+                understanding, not get in the way of it.
+              </p>
+            </article>
+            <article>
+              <span>03</span>
+              <h3>Considered all the way through.</h3>
+              <p>
+                From the enclosure to the interface, the details belong to the same idea: technology
+                that respects the person using it.
+              </p>
+            </article>
+          </div>
+        </div>
+      </section>
     </SiteShell>
   )
 }

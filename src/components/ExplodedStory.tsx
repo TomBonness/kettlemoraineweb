@@ -18,13 +18,15 @@ export function ExplodedStory() {
     <section className={styles.story} id="design" aria-labelledby="design-title">
       <div className={styles.inner}>
         <header className={styles.heading}>
+          <p className={styles.eyebrow}>01 / The physical design</p>
           <h2 id="design-title">{headings.design}</h2>
-          <p className="sectionLead sectionLeadDark">{productCopy.designLead}</p>
+          <p className={styles.lead}>{productCopy.designLead}</p>
         </header>
 
         <div className={styles.visualGrid}>
           <figure className={`${styles.render} ${styles.explodedRender}`}>
             <div className={styles.renderImage}>
+              <span className={styles.figureLabel}>Fig. 01 / Component study</span>
               <picture>
                 <source
                   type="image/avif"
@@ -54,6 +56,7 @@ export function ExplodedStory() {
 
           <figure className={`${styles.render} ${styles.detailRender}`}>
             <div className={styles.renderImage}>
+              <span className={styles.figureLabel}>Fig. 02 / Light detail</span>
               <picture>
                 <source
                   type="image/avif"
