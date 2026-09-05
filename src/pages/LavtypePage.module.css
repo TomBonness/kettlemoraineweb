@@ -19,11 +19,6 @@
   padding-left: var(--gutter);
 }
 
-.heroInner {
-  padding-top: clamp(2rem, 4vw, 3.5rem);
-}
-
-.heroTopline,
 .heroBaseline {
   display: flex;
   flex-wrap: wrap;
@@ -32,45 +27,10 @@
   gap: 1rem;
 }
 
-.eyebrow,
-.heroTag,
 .heroBaseline,
-.heroArt figcaption,
-.processNotes,
-.localDiagram figcaption,
-.diagramNote,
-.platformHeading > span,
-.downloadIdentity span {
-  font-family: var(--font-mono);
-  font-size: 0.65rem;
+.processNotes {
+  font-size: 0.85rem;
   line-height: 1.6;
-  letter-spacing: 0.08em;
-}
-
-.eyebrow {
-  display: flex;
-  align-items: center;
-  gap: 0.65rem;
-  margin: 0 0 1.5rem;
-  text-transform: uppercase;
-}
-
-.heroTopline .eyebrow {
-  margin: 0;
-}
-
-.brandDot,
-.statusDot {
-  display: inline-block;
-  width: 6px;
-  height: 6px;
-  flex: 0 0 auto;
-  border-radius: 50%;
-  background: #7098ff;
-}
-
-.heroTag {
-  color: #aeb7c9;
 }
 
 .heroGrid {
@@ -78,7 +38,7 @@
   grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
   align-items: center;
   gap: 0.5rem;
-  padding: clamp(3rem, 6vw, 5rem) 0;
+  padding: clamp(3.5rem, 7vw, 6rem) 0;
 }
 
 .heroCopy {
@@ -178,21 +138,10 @@
   height: auto;
 }
 
-.heroArt figcaption {
-  display: flex;
-  justify-content: space-between;
-  gap: 1rem;
-  margin: -0.25rem 3rem 0;
-  color: #929dae;
-  font-size: 0.58rem;
-  text-transform: uppercase;
-}
-
 .heroBaseline {
   padding: 1.4rem 0;
   border-top: 1px solid #343945;
   color: #aeb7c9;
-  font-size: 0.6rem;
 }
 
 .processSection,
@@ -232,23 +181,8 @@
 }
 
 .processNotes {
-  display: flex;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  gap: 0.6rem 2rem;
-  margin-top: 1.4rem;
+  margin: 1.4rem 0 0;
   color: var(--text-secondary);
-  font-size: 0.61rem;
-  letter-spacing: 0;
-}
-
-.processNotes p {
-  margin: 0;
-}
-
-.processNotes span {
-  margin-right: 0.8rem;
-  color: var(--accent);
 }
 
 .privacySection {
@@ -266,10 +200,6 @@
   grid-template-columns: minmax(0, 1fr) minmax(0, 0.92fr);
   gap: clamp(2.5rem, 7vw, 7rem);
   align-items: center;
-}
-
-.privacySection .eyebrow {
-  color: #bbc4d7;
 }
 
 .privacySection h2 em {
@@ -299,23 +229,14 @@
   background: radial-gradient(ellipse at 50% 35%, #1e2c4d 0%, #171b24 70%);
 }
 
-.localDiagram figcaption {
-  display: flex;
-  align-items: center;
-  gap: 0.7rem;
-  color: #c5ccdb;
-  font-size: 0.58rem;
-  text-transform: uppercase;
-}
-
 .diagramInput {
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 0.7rem;
-  margin: 2.5rem 0 0;
+  margin: 0;
   color: #dfe6f4;
-  font-size: 0.72rem;
+  font-size: 0.9rem;
 }
 
 .diagramInput svg {
@@ -360,14 +281,13 @@
 .recognizerChoices div > span {
   min-height: 2.6em;
   color: #a9b7d2;
-  font-size: 0.64rem;
+  font-size: 0.8rem;
   line-height: 1.4;
 }
 
 .recognizerChoices small {
   color: #a3beff;
-  font-family: var(--font-mono);
-  font-size: 0.55rem;
+  font-size: 0.8rem;
 }
 
 .choiceOr {
@@ -377,7 +297,7 @@
   transform: translate(-50%, -50%);
   color: #b9c5da;
   font-family: var(--font-serif);
-  font-size: 0.7rem;
+  font-size: 0.9rem;
   font-style: italic;
 }
 
@@ -388,8 +308,7 @@
   gap: 0.8rem;
   margin-top: 0.8rem;
   color: #e2e9f9;
-  font-family: var(--font-mono);
-  font-size: 0.63rem;
+  font-size: 0.9rem;
   text-align: center;
 }
 
@@ -403,9 +322,8 @@
   padding-top: 1rem;
   border-top: 1px solid #344158;
   color: #97a5bf;
-  font-size: 0.55rem;
-  line-height: 1.8;
-  letter-spacing: 0;
+  font-size: 0.85rem;
+  line-height: 1.65;
 }
 
 .recognitionDetails {
@@ -421,11 +339,9 @@
 .platformDetails dt,
 .sharedDetails dt {
   margin-bottom: 0.6rem;
-  font-family: var(--font-mono);
-  font-size: 0.61rem;
+  font-size: 0.85rem;
+  font-weight: 500;
   line-height: 1.5;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
 }
 
 .recognitionDetails dt {
@@ -480,8 +396,8 @@
 }
 
 .platformHeading > span {
-  color: var(--accent);
-  font-size: 0.6rem;
+  color: var(--text-secondary);
+  font-size: 0.9rem;
 }
 
 .platformDetails {
@@ -539,13 +455,6 @@
   letter-spacing: -0.02em;
 }
 
-.downloadIdentity span {
-  display: block;
-  margin-top: 0.35rem;
-  color: var(--text-secondary);
-  font-size: 0.55rem;
-}
-
 @media (max-width: 1000px) {
   .heroGrid {
     grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
@@ -583,15 +492,6 @@
     margin: 0 auto;
   }
 
-  .heroArt figcaption {
-    margin-right: 1.5rem;
-    margin-left: 1.5rem;
-  }
-
-  .heroBaseline {
-    font-size: 0.55rem;
-  }
-
   .sectionIntro {
     gap: 1.5rem;
   }
@@ -623,14 +523,6 @@
 }
 
 @media (max-width: 390px) {
-  .heroTopline {
-    gap: 0.55rem;
-  }
-
-  .heroTag {
-    font-size: 0.58rem;
-  }
-
   .heroActions {
     gap: 1rem;
   }
@@ -644,11 +536,7 @@
   }
 
   .recognizerChoices strong {
-    font-size: 0.75rem;
-  }
-
-  .recognizerChoices small {
-    font-size: 0.49rem;
+    font-size: 0.9rem;
   }
 }
 

@@ -10,33 +10,6 @@
   color: #f6f6f0;
 }
 
-.header {
-  display: flex;
-  align-items: center;
-  gap: 0.65rem;
-  margin-bottom: 2rem;
-  color: #c0c9db;
-  font-family: var(--font-mono);
-  font-size: 0.61rem;
-  line-height: 1.5;
-  letter-spacing: 0.07em;
-  text-transform: uppercase;
-}
-
-.header img {
-  width: 1.5rem;
-  height: 1.5rem;
-  object-fit: contain;
-}
-
-.headerNote {
-  margin-left: auto;
-  color: #94a1b8;
-  font-size: 0.55rem;
-  letter-spacing: 0.02em;
-  text-transform: none;
-}
-
 .sequence {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -44,7 +17,6 @@
   margin: 0;
   padding: 0;
   list-style: none;
-  counter-reset: voice-step;
 }
 
 .step {
@@ -52,7 +24,6 @@
   min-width: 0;
   grid-template-rows: 180px auto;
   gap: 1.5rem;
-  counter-increment: voice-step;
 }
 
 .keyStage,
@@ -98,11 +69,11 @@
 }
 
 .keyStage > span {
-  color: #9facbf;
-  font-family: var(--font-mono);
-  font-size: 0.5rem;
-  letter-spacing: 0.07em;
-  text-transform: uppercase;
+  padding: 0 0.5rem;
+  color: #bdc8da;
+  font-size: 0.8rem;
+  line-height: 1.4;
+  text-align: center;
 }
 
 .waveform {
@@ -133,22 +104,13 @@
 .transcript {
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: center;
   gap: 1.5rem;
   padding: 1.2rem;
   border-top: 5px solid #d7dbdd;
   background: #f1f2ed;
   box-shadow: 0 10px 30px rgb(0 0 0 / 12%);
   color: #1a2231;
-}
-
-.transcript > span {
-  color: #596375;
-  font-family: var(--font-mono);
-  font-size: 0.5rem;
-  line-height: 1.5;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
 }
 
 .transcript q {
@@ -176,21 +138,11 @@
 }
 
 .stepCopy strong {
-  display: flex;
-  align-items: baseline;
-  gap: 0.75rem;
+  display: block;
   font-family: var(--font-serif);
   font-size: 1.65rem;
   font-weight: 400;
   letter-spacing: -0.025em;
-}
-
-.stepCopy strong::before {
-  color: #8eafff;
-  content: counter(voice-step, decimal-leading-zero);
-  font-family: var(--font-mono);
-  font-size: 0.56rem;
-  letter-spacing: 0;
 }
 
 .stepCopy p {
@@ -212,15 +164,6 @@
   border-radius: 0;
 }
 
-.compact .header {
-  margin-bottom: 1.2rem;
-  font-size: 0.55rem;
-}
-
-.compact .headerNote {
-  display: none;
-}
-
 .compact .sequence {
   gap: 0.75rem;
 }
@@ -240,7 +183,7 @@
 }
 
 .compact .keyStage > span {
-  font-size: 0.43rem;
+  font-size: 0.75rem;
 }
 
 .compact .waveform {
@@ -258,10 +201,6 @@
   padding: 0.7rem;
 }
 
-.compact .transcript > span {
-  font-size: 0.43rem;
-}
-
 .compact .transcript q {
   font-size: clamp(0.82rem, 1.5vw, 1.1rem);
 }
@@ -271,22 +210,7 @@
 }
 
 .compact .stepCopy strong {
-  gap: 0.45rem;
   font-size: 1.1rem;
-}
-
-.compact .stepCopy strong::before {
-  font-size: 0.48rem;
-}
-
-.compact .stepCopy p {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  overflow: hidden;
-  clip: rect(0 0 0 0);
-  clip-path: inset(50%);
-  white-space: nowrap;
 }
 
 @keyframes voicePulse {
@@ -317,10 +241,6 @@
 }
 
 @media (max-width: 767px) {
-  .headerNote {
-    display: none;
-  }
-
   .sequence {
     grid-template-columns: 1fr;
     gap: 1.7rem;
@@ -374,21 +294,11 @@
   }
 
   .stepCopy p {
-    font-size: 0.75rem;
+    font-size: 0.85rem;
   }
 
   .compact {
     padding: 0.9rem;
-  }
-
-  .compact .header {
-    margin-bottom: 0.75rem;
-    font-size: 0.5rem;
-  }
-
-  .compact .header img {
-    width: 1.2rem;
-    height: 1.2rem;
   }
 
   .compact .sequence {
@@ -419,7 +329,7 @@
   }
 
   .compact .keyStage > span {
-    font-size: 0.4rem;
+    font-size: 0.75rem;
   }
 
   .compact .waveform {
@@ -443,18 +353,17 @@
 
 @media (max-width: 390px) {
   .instrument:not(.compact) .step {
-    grid-template-columns: minmax(92px, 0.85fr) minmax(0, 1fr);
-    gap: 0.8rem;
+    grid-template-columns: 1fr;
+    grid-template-rows: 150px auto;
+    gap: 1rem;
   }
 
   .stepCopy strong {
-    flex-wrap: wrap;
-    gap: 0.3rem;
     font-size: 1.25rem;
   }
 
   .stepCopy p {
-    font-size: 0.7rem;
+    font-size: 0.85rem;
   }
 
   .transcript {

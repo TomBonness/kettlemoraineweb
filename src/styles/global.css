@@ -187,21 +187,6 @@ button {
   display: none;
 }
 
-.sectionEyebrow {
-  margin: 0 0 1.6rem;
-  color: var(--text-secondary);
-  font-family: var(--font-mono);
-  font-size: 0.65rem;
-  font-weight: 500;
-  letter-spacing: 0.1em;
-  line-height: 1.7;
-  text-transform: uppercase;
-}
-
-.sectionDark .sectionEyebrow {
-  color: #89adff;
-}
-
 main {
   overflow: clip;
 }
@@ -325,27 +310,17 @@ main {
   transform: translateY(-50%);
 }
 
-.notFoundIndex {
-  margin: 0 0 1.25rem;
-  color: #89adff;
-  font-family: var(--font-mono);
-  font-size: 0.72rem;
-  font-weight: 600;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-}
-
 .notFound h1 {
   max-width: 10ch;
   margin: 0;
   font-family: var(--font-serif);
   font-size: clamp(3.5rem, 9vw, 8rem);
-  font-weight: 600;
-  letter-spacing: -0.065em;
-  line-height: 0.9;
+  font-weight: 500;
+  letter-spacing: -0.06em;
+  line-height: 0.98;
 }
 
-.notFound .sectionInner > p:not(.notFoundIndex) {
+.notFound .sectionInner > p {
   max-width: 34rem;
   margin: 2rem 0 0;
   color: #b5bfce;
@@ -377,7 +352,6 @@ main {
 .footerBrand {
   display: inline-flex;
   align-items: center;
-  gap: 0.85rem;
 }
 
 .footerBrand img {
@@ -388,17 +362,8 @@ main {
   background: var(--canvas);
 }
 
-.footerBrand strong {
-  color: #d1d7e1;
-  font-family: var(--font-mono);
-  font-size: 0.66rem;
-  font-weight: 500;
-  letter-spacing: 0.02em;
-  line-height: 1.6;
-}
-
 .footerStatement {
-  margin: 2rem 0 0;
+  margin: 1.5rem 0 0;
   color: #f7f7f3;
   font-family: var(--font-serif);
   font-size: clamp(3.4rem, 5.5vw, 5rem);
@@ -411,17 +376,8 @@ main {
   color: #aab6cd;
 }
 
-.footerLabel {
-  margin: 0 0 1rem;
-  color: #9cabc2;
-  font-family: var(--font-mono);
-  font-size: 0.65rem;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-}
-
 .footerLinks {
-  align-self: start;
+  align-self: center;
 }
 
 .footerLinks a {
@@ -435,21 +391,11 @@ main {
   transition: color var(--hover-duration) var(--motion-ease);
 }
 
-.footerLinks a > span:first-child {
-  display: grid;
-  gap: 0.45rem;
-}
-
-.footerLinks small {
-  color: #98a6bc;
-  font-family: var(--font-mono);
-  font-size: 0.59rem;
-}
-
 .footerLinks strong {
-  font-size: 1.2rem;
+  font-family: var(--font-serif);
+  font-size: clamp(1.8rem, 3vw, 2.5rem);
   font-weight: 500;
-  letter-spacing: -0.03em;
+  letter-spacing: -0.04em;
 }
 
 .footerLinks a > span:last-child {
@@ -465,14 +411,14 @@ main {
   display: flex;
   grid-column: 1 / -1;
   align-items: center;
-  justify-content: space-between;
+  justify-content: flex-end;
   flex-wrap: wrap;
   gap: 1rem;
   padding: 1rem 0;
   border-top: 1px solid #303747;
   color: #98a6bc;
-  font-family: var(--font-mono);
-  font-size: 0.6rem;
+  font-family: var(--font-sans);
+  font-size: 0.8rem;
   line-height: 1.6;
 }
 

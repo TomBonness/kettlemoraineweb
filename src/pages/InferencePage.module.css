@@ -17,23 +17,12 @@
   font-weight: inherit;
 }
 
-.eyebrow,
-.annotation,
-.modelTag,
-.heroBaseline,
 .finePrint,
 .sourceRail,
 .apiArtwork figcaption {
-  font-family: var(--font-mono);
-  font-size: 0.66rem;
+  font-family: var(--font-sans);
+  font-size: 0.85rem;
   line-height: 1.6;
-}
-
-.eyebrow {
-  margin: 0 0 1.8rem;
-  font-weight: 500;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
 }
 
 .hero {
@@ -68,43 +57,11 @@
 .heroInner {
   max-width: var(--content-max);
   margin: 0 auto;
-  padding: 2.25rem var(--gutter) 0;
-}
-
-.heroTopline,
-.heroBaseline {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 1rem;
-}
-
-.heroTopline .eyebrow {
-  display: flex;
-  align-items: center;
-  gap: 0.7rem;
-  margin: 0;
-  color: #c5c9d3;
-}
-
-.brandDot {
-  width: 7px;
-  height: 7px;
-  border-radius: 50%;
-  background: #658dff;
-  box-shadow: 0 0 14px rgb(5 72 253 / 65%);
-}
-
-.modelTag {
-  padding: 0.5rem 0.85rem;
-  border: 1px solid #39404e;
-  border-radius: 999px;
-  background: rgb(16 17 20 / 70%);
-  color: #c5c9d3;
+  padding: clamp(4rem, 8vw, 7rem) var(--gutter) clamp(3rem, 5vw, 4.5rem);
 }
 
 .hero h1 {
-  margin: clamp(3.5rem, 7vw, 6rem) 0 1.6rem;
+  margin: 0 0 1.8rem;
   font-family: var(--font-serif);
   font-size: clamp(3.5rem, 7.2vw, 6.6rem);
   font-weight: 500;
@@ -150,7 +107,7 @@
   justify-content: space-between;
   gap: 1.5rem;
   border-bottom: 1px solid currentColor;
-  font-size: 0.78rem;
+  font-size: 0.88rem;
   font-weight: 550;
   transition: color var(--hover-duration) var(--motion-ease);
 }
@@ -167,7 +124,7 @@
   display: flex;
   align-items: center;
   gap: 2.25rem;
-  margin: 2.8rem 0 2.2rem;
+  margin: 3.5rem 0 0;
 }
 
 .metricNumber {
@@ -183,25 +140,12 @@
   gap: 0.7rem;
   padding: 0.4rem 0 0.4rem 1.4rem;
   border-left: 1px solid #535d73;
-  font-family: var(--font-mono);
-  font-size: 0.78rem;
+  font-size: 0.95rem;
 }
 
 .heroMetric small {
   color: #a5adbf;
-  font-size: 0.65rem;
-}
-
-.heroBaseline {
-  padding: 1.3rem 0;
-  border-top: 1px solid #363c49;
-  color: #a8afbe;
-  letter-spacing: 0.02em;
-}
-
-.heroBaseline > span:last-child {
-  display: flex;
-  gap: 2rem;
+  font-size: 0.85rem;
 }
 
 .speedSection,
@@ -215,9 +159,9 @@
 .sectionIntro {
   display: grid;
   grid-template-columns: 1.3fr 0.7fr;
-  align-items: end;
+  align-items: center;
   gap: 4rem;
-  margin-bottom: 3.5rem;
+  margin-bottom: 3rem;
 }
 
 .lead {
@@ -236,29 +180,12 @@
   box-shadow: 0 20px 60px rgb(16 17 20 / 3%);
 }
 
-.panelTopline {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 1rem;
-  padding-bottom: 1.5rem;
-  border-bottom: 1px solid var(--hairline);
-}
-
-.panelTopline .eyebrow {
-  margin: 0;
-}
-
-.annotation {
-  color: var(--text-secondary);
-}
-
 .speedStatement {
   display: grid;
   grid-template-columns: 1fr 0.7fr;
   align-items: end;
   gap: 3rem;
-  padding: 2.5rem 0;
+  padding: 0 0 2.5rem;
 }
 
 .speedStatement > strong {
@@ -294,8 +221,7 @@
   display: grid;
   gap: 0.7rem;
   color: var(--text-secondary);
-  font-family: var(--font-mono);
-  font-size: 0.63rem;
+  font-size: 0.78rem;
 }
 
 .tokenBlock {
@@ -307,13 +233,19 @@
     linear-gradient(0deg, #0548fd, #89adff);
 }
 
-.tokenTimeline > div:nth-child(2) .tokenBlock { opacity: 0.82; }
-.tokenTimeline > div:nth-child(3) .tokenBlock { opacity: 0.64; }
-.tokenTimeline > div:nth-child(4) .tokenBlock { opacity: 0.46; }
+.tokenTimeline > div:nth-child(2) .tokenBlock {
+  opacity: 0.82;
+}
+.tokenTimeline > div:nth-child(3) .tokenBlock {
+  opacity: 0.64;
+}
+.tokenTimeline > div:nth-child(4) .tokenBlock {
+  opacity: 0.46;
+}
 
 .tokenTimeline small {
   color: var(--accent);
-  font-size: 0.65rem;
+  font-size: 0.78rem;
 }
 
 .benchmarkTrack {
@@ -329,11 +261,10 @@
   border-radius: inherit;
 }
 
-
 .finePrint {
   margin: 1.2rem 0 0;
   color: var(--text-secondary);
-  font-size: 0.62rem;
+  font-size: 0.85rem;
   line-height: 1.75;
 }
 
@@ -441,11 +372,9 @@
 }
 
 .benchmark figcaption > span,
-.chartAxis,
-.benchmarkRow small {
+.chartAxis {
   color: var(--text-secondary);
-  font-family: var(--font-mono);
-  font-size: 0.62rem;
+  font-size: 0.85rem;
 }
 
 .benchmarkPlot {
@@ -462,7 +391,7 @@
   justify-content: space-between;
   gap: 0.8rem;
   margin-bottom: 0.8rem;
-  font-size: 0.8rem;
+  font-size: 0.9rem;
 }
 
 .benchmarkRow strong {
@@ -486,11 +415,6 @@
 
 .highlightModel .benchmarkTrack > span {
   background: var(--accent);
-}
-
-.benchmarkRow small {
-  display: block;
-  margin-top: 0.7rem;
 }
 
 .chartAxis {
@@ -517,7 +441,7 @@
 
 .benchmarkNote p {
   margin: 0;
-  font-size: 0.78rem;
+  font-size: 0.88rem;
   line-height: 1.7;
 }
 
@@ -546,8 +470,7 @@
 
 .modelSpecs dt {
   color: var(--text-secondary);
-  font-family: var(--font-mono);
-  font-size: 0.65rem;
+  font-size: 0.85rem;
 }
 
 .modelSpecs dd {
@@ -579,11 +502,6 @@
   gap: 0.7rem 2rem;
   padding-top: 1.5rem;
   border-top: 1px solid #cdd1c9;
-}
-
-.sourceRail > span {
-  margin-right: auto;
-  color: var(--text-secondary);
 }
 
 .sourceRail a {
@@ -621,14 +539,10 @@
 }
 
 .apiArtwork figcaption {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.7rem;
-  justify-content: space-between;
   margin: 0 1.5rem;
   padding: 1.3rem 0;
   border-top: 1px solid #303642;
-  font-size: 0.55rem;
+  font-size: 0.85rem;
 }
 
 .apiCopy h3 {
@@ -648,26 +562,14 @@
   list-style: none;
 }
 
-.accessSteps li {
-  display: flex;
-  align-items: baseline;
-  gap: 1.2rem;
-}
-
-.accessSteps li > span {
-  color: var(--accent);
-  font-family: var(--font-mono);
-  font-size: 0.65rem;
-}
-
 .accessSteps strong {
-  font-size: 0.78rem;
+  font-size: 0.9rem;
   font-weight: 600;
 }
 
 .accessSteps p {
   margin-top: 0.25rem;
-  font-size: 0.75rem;
+  font-size: 0.88rem;
 }
 
 .questionsSection {
@@ -788,17 +690,10 @@
 
 @media (max-width: 767px) {
   .heroInner {
-    padding-top: 1.5rem;
-  }
-
-  .heroTopline {
-    align-items: flex-start;
-    flex-direction: column;
-    gap: 0.9rem;
+    padding-top: 3.5rem;
   }
 
   .hero h1 {
-    margin-top: 3rem;
     font-size: clamp(2.65rem, 7.9vw, 4rem);
   }
 
@@ -823,7 +718,8 @@
   .heroMetric {
     align-items: flex-end;
     gap: 1.2rem;
-    margin: 4rem 0 2.3rem;
+    flex-wrap: wrap;
+    margin: 3rem 0 0;
   }
 
   .metricNumber {
@@ -835,20 +731,11 @@
     margin-bottom: 0.2rem;
     padding-left: 0;
     border: 0;
-    font-size: 0.6rem;
+    font-size: 0.85rem;
   }
 
   .heroMetric small {
-    max-width: 11ch;
-    font-size: 0.55rem;
-  }
-
-  .heroBaseline {
-    font-size: 0.57rem;
-  }
-
-  .heroBaseline > span:last-child {
-    display: none;
+    font-size: 0.8rem;
   }
 
   .sectionIntro,
@@ -865,25 +752,14 @@
     font-size: clamp(2.7rem, 9vw, 4.5rem);
   }
 
-  .eyebrow {
-    margin-bottom: 1.25rem;
-    font-size: 0.59rem;
-  }
-
-  .panelTopline {
-    align-items: flex-start;
-    flex-direction: column;
-    gap: 0.4rem;
-  }
-
   .speedStatement {
     grid-template-columns: 1fr;
     gap: 1.4rem;
-    padding: 2rem 0;
+    padding: 0 0 2rem;
   }
 
   .tokenTimeline > div {
-    font-size: 0.53rem;
+    font-size: 0.72rem;
   }
 
   .tokenBlock {
@@ -923,20 +799,11 @@
   }
 
   .modelSpecs dt {
-    font-size: 0.58rem;
+    font-size: 0.8rem;
   }
 
   .sourceRail {
     gap: 0.2rem 1.3rem;
-  }
-
-  .sourceRail > span {
-    flex-basis: 100%;
-    margin-bottom: 0.5rem;
-  }
-
-  .sourceRail a {
-    font-size: 0.61rem;
   }
 
   .apiArtwork {

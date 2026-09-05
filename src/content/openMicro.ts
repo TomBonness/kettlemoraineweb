@@ -81,7 +81,6 @@ export const headings = {
 } as const
 
 export const hero = {
-  eyebrow: 'Open-source control surface',
   description: 'Hardware made to study, change, and build on.',
   primaryCta: 'Keep me updated',
   secondaryCta: 'See how it’s built',
@@ -181,31 +180,26 @@ export const connectivityCards = [
 
 export const explodedLayers = [
   {
-    label: '01',
     title: 'Enclosure',
     value: 'Anodized aluminum',
     body: 'A CNC 6061-T6 aluminum bottom gives the concept its compact, grounded foundation.',
   },
   {
-    label: '02',
     title: 'Core',
     value: 'Two boards. Clear roles.',
     body: 'The exposed top PCB holds the controls; the lower sister board carries compute, power, USB, RF, and wall emitters.',
   },
   {
-    label: '03',
     title: 'Light-carrying wall',
     value: 'Soft, diffused light',
     body: 'A removable neutral-frosted polycarbonate wall carries the light around the perimeter.',
   },
   {
-    label: '04',
     title: 'Control hardware',
     value: 'Tactile by design',
     body: 'Twelve MX switches, a push encoder, and an exposed capacitive touch control give actions a physical place.',
   },
   {
-    label: '05',
     title: 'Caps',
     value: 'Textured dark PBT',
     body: 'Vendor-made uniform-profile keycaps sit above the switches; silicone feet complete the base.',

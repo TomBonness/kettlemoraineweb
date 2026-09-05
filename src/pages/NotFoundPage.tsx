@@ -15,9 +15,6 @@ export function NotFoundPage() {
           <span>404</span>
         </div>
         <div className="sectionInner">
-          <p className="notFoundIndex" aria-hidden="true">
-            404 — off the map
-          </p>
           <h1 id="not-found-title">Page not found.</h1>
           <p>The page you asked for is not in the lab.</p>
           <a className="button buttonPrimary" href={routes.home}>

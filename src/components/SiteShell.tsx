@@ -132,11 +132,6 @@ export function SiteShell({ children, currentPath, navigation, cta }: SiteShellP
                 alt=""
                 loading="lazy"
               />
-              <strong>
-                Kettle Moraine
-                <br />
-                Research Labs
-              </strong>
             </a>
             <p className="footerStatement">
               Tools for
@@ -145,7 +140,6 @@ export function SiteShell({ children, currentPath, navigation, cta }: SiteShellP
             </p>
           </div>
           <nav className="footerLinks" aria-label="Products">
-            <p className="footerLabel">From the lab</p>
             {productCatalog.map((product) => (
               <a
                 key={product.id}
@@ -153,16 +147,12 @@ export function SiteShell({ children, currentPath, navigation, cta }: SiteShellP
                 aria-label={product.name}
                 aria-current={currentPageValue(product.path, currentPath)}
               >
-                <span>
-                  <small>{product.category}</small>
-                  <strong>{product.name}</strong>
-                </span>
+                <strong>{product.name}</strong>
                 <span aria-hidden="true">↗</span>
               </a>
             ))}
           </nav>
           <div className="footerBottom">
-            <span>Hardware. Software. A little perspective.</span>
             <a href="#main-content">
               Back to top <span aria-hidden="true">↑</span>
             </a>

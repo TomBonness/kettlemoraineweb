@@ -16,18 +16,6 @@
   gap: 1.5rem clamp(2rem, 5vw, 5rem);
 }
 
-.eyebrow {
-  margin: 0;
-  color: var(--accent);
-  font: 400 0.64rem/1.6 var(--font-mono);
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-}
-
-.heading > .eyebrow {
-  grid-column: 1 / -1;
-}
-
 .heading h2 {
   max-width: 9ch;
   margin: 0;
@@ -74,15 +62,6 @@
   padding-top: 1.25rem;
 }
 
-.figureLabel {
-  display: block;
-  margin-bottom: 0.9rem;
-  color: var(--text-secondary);
-  font: 0.59rem/1.6 var(--font-mono);
-  letter-spacing: 0.065em;
-  text-transform: uppercase;
-}
-
 .assembly figcaption strong,
 .detail figcaption strong {
   display: block;
@@ -99,39 +78,26 @@
   line-height: 1.8;
 }
 
-.layerKey {
-  margin-top: 2.5rem;
-}
-
 .layers {
-  margin: 1rem 0 0;
+  margin: 2rem 0 0;
   padding: 0;
   border-top: 1px solid var(--hairline);
   list-style: none;
 }
 
 .layers li {
-  display: grid;
-  grid-template-columns: 1.5rem minmax(0, 1fr);
-  gap: 0.8rem;
-  padding: 1rem 0;
+  padding: 1.25rem 0;
   border-bottom: 1px solid var(--hairline);
 }
 
-.layerNumber {
-  padding-top: 0.15rem;
-  color: var(--accent);
-  font: 0.65rem/1.6 var(--font-mono);
-}
-
-.layers h4 {
+.layers h3 {
   margin: 0;
-  font-size: 0.78rem;
+  font-size: 0.95rem;
   font-weight: 550;
   line-height: 1.6;
 }
 
-.layers h4 span {
+.layers h3 span {
   color: var(--text-secondary);
   font-weight: 400;
 }
@@ -139,7 +105,7 @@
 .layers p {
   margin: 0.4rem 0 0;
   color: var(--text-secondary);
-  font-size: 0.75rem;
+  font-size: 0.85rem;
   line-height: 1.75;
 }
 
@@ -149,7 +115,7 @@
   padding-top: 1.25rem;
   border-top: 1px solid var(--hairline);
   color: var(--text-secondary);
-  font-size: 0.75rem;
+  font-size: 0.85rem;
   line-height: 1.8;
 }
 

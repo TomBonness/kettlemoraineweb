@@ -30,16 +30,11 @@ type VoiceTraceProps = {
 export function VoiceTrace({ compact = false, id }: VoiceTraceProps) {
   return (
     <figure className={`${styles.instrument} ${compact ? styles.compact : ''}`} id={id}>
-      <figcaption className={styles.header}>
-        <img src="/products/lavtype/lavtype-icon.png" width="1024" height="1024" alt="" />
-        <span>Lavtype / Voice to text</span>
-        <span className={styles.headerNote}>A three-step workflow</span>
-      </figcaption>
       <ol className={styles.sequence}>
         {steps.map((step) => (
           <li className={styles.step} key={step.label}>
             {step.visual === 'key' && (
-              <div className={styles.keyStage} aria-hidden="true">
+              <div className={styles.keyStage}>
                 <kbd>⌘ ⇧ Space</kbd>
                 <span>Example shortcut</span>
               </div>
@@ -56,7 +51,6 @@ export function VoiceTrace({ compact = false, id }: VoiceTraceProps) {
             )}
             {step.visual === 'transcript' && (
               <div className={styles.transcript}>
-                <span>Focused app / final text</span>
                 <q>Meet me at the trailhead at nine.</q>
               </div>
             )}

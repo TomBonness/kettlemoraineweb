@@ -7,10 +7,7 @@ export function StatusLanguage() {
     <section className={styles.section} aria-labelledby="status-title">
       <div className={styles.layout}>
         <header className={styles.intro}>
-          <div>
-            <p className={styles.eyebrow}>03 / Ambient feedback</p>
-            <h2 id="status-title">{headings.status}</h2>
-          </div>
+          <h2 id="status-title">{headings.status}</h2>
           <p className={styles.lead}>{productCopy.statusLead}</p>
         </header>
 
@@ -22,30 +19,25 @@ export function StatusLanguage() {
             decoding="async"
           />
           <figcaption>
-            <span>Light study / After dark</span>
             <p>
-              Art-directed concept illumination, not qualified hardware. Lighting target: 21
-              physical emitters / 13 host-addressable channels.
+              An after-dark light study with art-directed concept illumination, not qualified
+              hardware. Lighting target: 21 physical emitters / 13 host-addressable channels.
             </p>
           </figcaption>
         </figure>
 
         <div className={styles.legend}>
-          <div className={styles.principle}>
-            <p>{productCopy.statusPrinciple}</p>
-            <span>Six states. One quiet language.</span>
-          </div>
+          <p className={styles.principle}>{productCopy.statusPrinciple}</p>
 
-          <ol className={styles.signals} aria-label={productCopy.statusLegendLabel}>
-            {statusSignals.map((signal, index) => (
+          <ul className={styles.signals} aria-label={productCopy.statusLegendLabel}>
+            {statusSignals.map((signal) => (
               <li key={signal.name} style={{ '--signal-color': signal.color } as CSSProperties}>
-                <span className={styles.signalIndex}>{String(index + 1).padStart(2, '0')}</span>
                 <strong className={styles.signalName}>{signal.name}</strong>
                 <p>{signal.meaning}</p>
-                <small>{signal.behavior}</small>
+                <p className={styles.behavior}>{signal.behavior}</p>
               </li>
             ))}
-          </ol>
+          </ul>
         </div>
       </div>
     </section>

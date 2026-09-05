@@ -35,10 +35,7 @@ export function OpenMicroPage() {
       <section className={styles.connectivity} aria-labelledby="connectivity-title">
         <div className={styles.inner}>
           <header className={styles.sectionHeading}>
-            <div>
-              <p className={styles.eyebrow}>02 / Connection & control</p>
-              <h2 id="connectivity-title">{headings.connectivity}</h2>
-            </div>
+            <h2 id="connectivity-title">{headings.connectivity}</h2>
             <p className={styles.lead}>{productCopy.connectivityLead}</p>
           </header>
           <figure className={styles.deskScene}>
@@ -49,9 +46,7 @@ export function OpenMicroPage() {
               decoding="async"
             />
             <figcaption>
-              <span>02 / In good company</span>
-              <span>A little space. A more hands-on workflow.</span>
-              <span>Concept visualization</span>
+              A little space. A more hands-on workflow. Concept visualization.
             </figcaption>
           </figure>
           <div className={styles.connectivityGrid}>
@@ -93,9 +88,10 @@ export function OpenMicroPage() {
                     </>
                   )}
                 </svg>
-                <small>{card.label}</small>
                 <h3>{card.title}</h3>
-                <p>{card.body}</p>
+                <p>
+                  <strong>{card.label}.</strong> {card.body}
+                </p>
               </article>
             ))}
           </div>
@@ -114,10 +110,9 @@ export function OpenMicroPage() {
               loading="lazy"
               decoding="async"
             />
-            <figcaption>07 / Open Micro — studio study</figcaption>
+            <figcaption>Open Micro studio concept study.</figcaption>
           </figure>
           <div>
-            <p className={styles.eyebrow}>05 / Yours to understand</p>
             <h2 id="open-source-title">{headings.openSource}</h2>
             <p className={styles.sourceStatement}>{openSourceStatement}</p>
             <a className={styles.sourceLink} href="https://github.com/TomBonness/open-micro">
@@ -135,9 +130,8 @@ export function OpenMicroPage() {
             ))}
           </dl>
           <aside className={styles.designStatus} aria-labelledby="design-status-title">
-            <p className={styles.eyebrow}>Design, in the open</p>
+            <h3 id="design-status-title">A concept. Not a qualified hardware release.</h3>
             <div>
-              <h3 id="design-status-title">A concept. Not a qualified hardware release.</h3>
               <p>
                 These are concept visualizations, not photographs. Component envelopes are
                 simplified; material appearance and LED illumination are art-directed.

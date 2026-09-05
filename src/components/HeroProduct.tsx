@@ -5,10 +5,6 @@ export function HeroProduct() {
   return (
     <section className={styles.hero} id="overview" aria-labelledby="hero-title">
       <div className={styles.inner}>
-        <div className={styles.topline}>
-          <p>{hero.eyebrow}</p>
-          <span className={styles.development}>In development</span>
-        </div>
         <h1 className={styles.title} id="hero-title">
           {headings.hero}
         </h1>
@@ -19,7 +15,7 @@ export function HeroProduct() {
               <br />
               for digital work.
             </p>
-            <p className={styles.description}>{hero.description}</p>
+            <p className={styles.description}>{hero.description} Open Micro is in development.</p>
             <div className={styles.actions}>
               <a className="button buttonPrimary" href="#waitlist">
                 {hero.primaryCta}
@@ -40,7 +36,7 @@ export function HeroProduct() {
                 decoding="async"
               />
             </div>
-            <figcaption>Concept visualization / Art-directed materials & light</figcaption>
+            <figcaption>Concept visualization with art-directed materials and light.</figcaption>
           </figure>
         </div>
         <dl className={styles.baseline}>

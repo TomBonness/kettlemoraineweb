@@ -24,11 +24,6 @@ export function CompanyHomePage() {
           alt=""
         />
         <div className={styles.heroInner}>
-          <div className={styles.heroTopline}>
-            <span>Kettle Moraine / Research Labs</span>
-            <span>Independent by design</span>
-          </div>
-
           <div className={styles.heroTitle}>
             <h1 id="company-heading" aria-label="Tools for clearer work.">
               <span aria-hidden="true">Tools for</span>
@@ -42,11 +37,8 @@ export function CompanyHomePage() {
               shape the tools they use.
             </p>
             <nav className={styles.productRail} aria-label="Featured products">
-              {productCatalog.map((product, index) => (
+              {productCatalog.map((product) => (
                 <a href={product.path} key={product.id}>
-                  <small>
-                    0{index + 1} / {product.category}
-                  </small>
                   <strong>{product.name}</strong>
                   <span aria-hidden="true">↗</span>
                 </a>
@@ -60,7 +52,6 @@ export function CompanyHomePage() {
         <div className={styles.productsInner}>
           <header className={styles.productsIntro}>
             <div>
-              <p className="sectionEyebrow">01 / From the lab</p>
               <h2 id="products-heading">
                 <span>Clearer work.</span>
                 <span>In every form.</span>
@@ -85,13 +76,8 @@ export function CompanyHomePage() {
                   loading="lazy"
                   decoding="async"
                 />
-                <div className={styles.mediaIndex} aria-hidden="true">
-                  <span>Open hardware + software</span>
-                  <span>Concept visualization</span>
-                </div>
               </div>
               <div className={styles.featureCopy}>
-                <span className={styles.productEyebrow}>01 / {openMicro.category}</span>
                 <h3>{openMicro.name}</h3>
                 <p className={styles.productSummary}>{openMicro.summary}</p>
                 <dl className={styles.productFacts}>
@@ -126,15 +112,10 @@ export function CompanyHomePage() {
                 />
                 <div className={styles.inferenceMetric} aria-hidden="true">
                   <span>1,000</span>
-                  <small>tokens / second</small>
-                </div>
-                <div className={styles.inferenceCaption}>
-                  <span>GLM-5.3-Flash</span>
-                  <span>Inference target</span>
+                  <small>tokens per second target</small>
                 </div>
               </div>
               <div className={styles.featureCopy}>
-                <span className={styles.productEyebrow}>02 / {inference.category}</span>
                 <h3>{inference.name}</h3>
                 <p className={styles.productSummary}>{inference.summary}</p>
                 <dl className={styles.productFacts}>
@@ -159,7 +140,6 @@ export function CompanyHomePage() {
               aria-label={`Explore ${lavtype.name}`}
             >
               <div className={styles.featureCopy}>
-                <span className={styles.productEyebrow}>03 / {lavtype.category}</span>
                 <h3>{lavtype.name}</h3>
                 <p className={styles.productSummary}>{lavtype.summary}</p>
                 <dl className={styles.productFacts}>
@@ -188,7 +168,6 @@ export function CompanyHomePage() {
         <div className={styles.principlesInner}>
           <div className={styles.principlesIntro}>
             <div>
-              <p className="sectionEyebrow">02 / How we think</p>
               <h2 id="principles-title">
                 Small lab.
                 <br />
@@ -202,7 +181,6 @@ export function CompanyHomePage() {
           </div>
           <div className={styles.principleGrid}>
             <article>
-              <span>01</span>
               <h3>Less in the way.</h3>
               <p>
                 A physical control. A held shortcut. A faster response. We look for the small
@@ -210,7 +188,6 @@ export function CompanyHomePage() {
               </p>
             </article>
             <article>
-              <span>02</span>
               <h3>More in your hands.</h3>
               <p>
                 Open hardware, local software, and open-weight models. Tools should invite
@@ -218,7 +195,6 @@ export function CompanyHomePage() {
               </p>
             </article>
             <article>
-              <span>03</span>
               <h3>Considered all the way through.</h3>
               <p>
                 From the enclosure to the interface, the details belong to the same idea: technology

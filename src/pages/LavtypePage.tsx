@@ -20,12 +20,6 @@ export function LavtypePage() {
       <div className={styles.page}>
         <section className={styles.hero} aria-labelledby="lavtype-title">
           <div className={styles.heroInner}>
-            <div className={styles.heroTopline}>
-              <p className={styles.eyebrow}>
-                <span className={styles.brandDot} /> Kettle Moraine / Lavtype
-              </p>
-              <span className={styles.heroTag}>Local voice → text</span>
-            </div>
             <div className={styles.heroGrid}>
               <div className={styles.heroCopy}>
                 <h1 id="lavtype-title">Lavtype</h1>
@@ -52,10 +46,6 @@ export function LavtypePage() {
                   alt="A spoken waveform becomes the sentence ‘Meet me at the trailhead at nine.’ above a held shortcut key."
                   fetchPriority="high"
                 />
-                <figcaption>
-                  <span>Voice in. Words out.</span>
-                  <span>One shortcut.</span>
-                </figcaption>
               </figure>
             </div>
             <div className={styles.heroBaseline}>
@@ -71,14 +61,11 @@ export function LavtypePage() {
           aria-labelledby="process-title"
         >
           <div className={styles.sectionIntro}>
-            <div>
-              <p className={styles.eyebrow}>01 / From thought to text</p>
-              <h2 id="process-title">
-                Say it.
-                <br />
-                <em>Keep going.</em>
-              </h2>
-            </div>
+            <h2 id="process-title">
+              Say it.
+              <br />
+              <em>Keep going.</em>
+            </h2>
             <p className={styles.lead}>
               The message, the note, the next sentence. Speak it instead of typing it. Lavtype sends
               one complete transcript to the app that is focused when recognition finishes—not to a
@@ -86,12 +73,7 @@ export function LavtypePage() {
             </p>
           </div>
           <VoiceTrace />
-          <div className={styles.processNotes}>
-            <p>
-              <span>01—03</span> Hold. Speak. Release. That’s the workflow.
-            </p>
-            <p>Up to 55 seconds per hold. Final results only.</p>
-          </div>
+          <p className={styles.processNotes}>Up to 55 seconds per hold. Final results only.</p>
         </section>
 
         <section
@@ -102,7 +84,6 @@ export function LavtypePage() {
           <div className={styles.sectionInner}>
             <div className={styles.privacyGrid}>
               <div>
-                <p className={styles.eyebrow}>02 / Recognition, kept close</p>
                 <h2 id="local-recognition-title">
                   Your machine.
                   <br />
@@ -118,9 +99,6 @@ export function LavtypePage() {
                 </p>
               </div>
               <figure className={styles.localDiagram}>
-                <figcaption>
-                  <span className={styles.statusDot} /> Recognition on your device
-                </figcaption>
                 <div className={styles.diagramInput}>
                   <svg viewBox="0 0 32 40" fill="none" aria-hidden="true">
                     <rect x="10" y="2" width="12" height="23" rx="6" />
@@ -165,14 +143,11 @@ export function LavtypePage() {
 
         <section className={styles.platformSection} id="platform" aria-labelledby="platform-title">
           <div className={styles.sectionIntro}>
-            <div>
-              <p className={styles.eyebrow}>03 / Make room for your voice</p>
-              <h2 id="platform-title">
-                Small software.
-                <br />
-                <em>Clear requirements.</em>
-              </h2>
-            </div>
+            <h2 id="platform-title">
+              Small software.
+              <br />
+              <em>Clear requirements.</em>
+            </h2>
             <p className={styles.lead}>
               Built for macOS and X11 Linux. Check your platform below, then grab a release. The
               source and install instructions are there if you want a closer look.
@@ -182,7 +157,7 @@ export function LavtypePage() {
             <article className={styles.platformCard} aria-labelledby="macos-title">
               <div className={styles.platformHeading}>
                 <h3 id="macos-title">macOS</h3>
-                <span>01 / DMG</span>
+                <span>DMG download</span>
               </div>
               <dl className={styles.platformDetails}>
                 {platformDetails.slice(0, 3).map(([term, detail]) => (
@@ -196,7 +171,7 @@ export function LavtypePage() {
             <article className={styles.platformCard} aria-labelledby="linux-title">
               <div className={styles.platformHeading}>
                 <h3 id="linux-title">Linux</h3>
-                <span>02 / AppImage</span>
+                <span>AppImage download</span>
               </div>
               <dl className={styles.platformDetails}>
                 {platformDetails.slice(3, 6).map(([term, detail]) => (
@@ -225,10 +200,7 @@ export function LavtypePage() {
                 alt=""
                 loading="lazy"
               />
-              <div>
-                <strong>A shortcut to your next sentence.</strong>
-                <span>Lavtype · Local voice typing</span>
-              </div>
+              <strong>A shortcut to your next sentence.</strong>
             </div>
             <div className={styles.platformActions}>
               <a className={`button ${styles.primaryCta}`} href={lavtypeLinks.download}>
