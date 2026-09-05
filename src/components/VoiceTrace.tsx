@@ -1,26 +1,9 @@
+import { lavtypeProcess, lavtypeSteps } from '../content/lavtype'
 import styles from './VoiceTrace.module.css'
 
 const waveformLevels = [
   12, 24, 48, 32, 72, 42, 86, 58, 32, 68, 46, 78, 38, 62, 94, 54, 76, 42, 58, 30, 44, 22, 16, 8,
 ]
-
-const steps = [
-  {
-    label: 'Hold',
-    caption: 'Press the shortcut you chose.',
-    visual: 'key',
-  },
-  {
-    label: 'Speak',
-    caption: 'Speak while the shortcut is held.',
-    visual: 'waveform',
-  },
-  {
-    label: 'Release',
-    caption: 'Release to type one final transcript into the app focused when recognition finishes.',
-    visual: 'transcript',
-  },
-] as const
 
 type VoiceTraceProps = {
   compact?: boolean
@@ -31,7 +14,7 @@ export function VoiceTrace({ compact = false, id }: VoiceTraceProps) {
   return (
     <figure className={`${styles.instrument} ${compact ? styles.compact : ''}`} id={id}>
       <ol className={styles.sequence}>
-        {steps.map((step) => (
+        {lavtypeSteps.map((step) => (
           <li className={styles.step} key={step.label}>
             {step.visual === 'key' && (
               <div className={styles.keyStage}>
@@ -51,7 +34,7 @@ export function VoiceTrace({ compact = false, id }: VoiceTraceProps) {
             )}
             {step.visual === 'transcript' && (
               <div className={styles.transcript}>
-                <q>Meet me at the trailhead at nine.</q>
+                <q>{lavtypeProcess.transcript}</q>
               </div>
             )}
             <div className={styles.stepCopy}>

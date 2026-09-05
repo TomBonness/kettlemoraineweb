@@ -1,11 +1,4 @@
-const productionOrigin = 'https://main.d1weoyfvphogxs.amplifyapp.com'
-
-type RouteMetadata = {
-  path: string
-  title: string
-  description: string
-  image: string
-}
+import { getPageMetadata, type RouteMetadata } from './pageMetadata'
 
 function setMetaContent(selector: string, attribute: 'name' | 'property', key: string, content: string) {
   let element = document.head.querySelector<HTMLMetaElement>(selector)
@@ -19,13 +12,11 @@ function setMetaContent(selector: string, attribute: 'name' | 'property', key: s
   element.content = content
 }
 
-export function applyRouteMetadata({ path, title, description, image }: RouteMetadata) {
-  const canonicalUrl = new URL(path, productionOrigin).toString()
-  const imageUrl = new URL(image, productionOrigin).toString()
+export function applyRouteMetadata(metadata: RouteMetadata) {
+  const { title, canonicalUrl, tags } = getPageMetadata(metadata)
   let canonical = document.head.querySelector<HTMLLinkElement>("link[rel='canonical']")
 
   document.title = title
-  setMetaContent("meta[name='description']", 'name', 'description', description)
 
   if (!canonical) {
     canonical = document.createElement('link')
@@ -34,10 +25,7 @@ export function applyRouteMetadata({ path, title, description, image }: RouteMet
   }
   canonical.href = canonicalUrl
 
-  setMetaContent("meta[property='og:title']", 'property', 'og:title', title)
-  setMetaContent("meta[property='og:description']", 'property', 'og:description', description)
-  setMetaContent("meta[property='og:image']", 'property', 'og:image', imageUrl)
-  setMetaContent("meta[name='twitter:title']", 'name', 'twitter:title', title)
-  setMetaContent("meta[name='twitter:description']", 'name', 'twitter:description', description)
-  setMetaContent("meta[name='twitter:image']", 'name', 'twitter:image', imageUrl)
+  for (const { attribute, key, content } of tags) {
+    setMetaContent(`meta[${attribute}='${key}']`, attribute, key, content)
+  }
 }

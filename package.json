@@ -12,7 +12,8 @@
     "build": "tsc -b && vite build",
     "preview": "vite preview",
     "test": "vitest run",
-    "assets:optimize": "node scripts/optimize-images.mjs"
+    "assets:optimize": "node scripts/optimize-images.mjs",
+    "assets:marketing": "tsx scripts/render-marketing.mjs"
   },
   "dependencies": {
     "aws-amplify": "^6.18.0",

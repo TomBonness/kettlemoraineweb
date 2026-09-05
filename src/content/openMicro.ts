@@ -73,15 +73,18 @@ export const navigation = [
 
 export const headings = {
   hero: 'Open Micro',
-  status: 'Know when to look back.',
-  connectivity: 'Connect the way you want.',
-  design: 'Built with care.',
-  specifications: 'Everything, considered.',
-  openSource: 'Make it yours. All the way down.',
+  status: 'See when work needs you.',
+  connectivity: 'Keep control on your computer.',
+  design: 'See how it fits together.',
+  specifications: 'The current design.',
+  openSource: 'You can change the design.',
 } as const
 
 export const hero = {
-  description: 'Hardware made to study, change, and build on.',
+  statement: 'A shortcut you can put your hand on.',
+  description:
+    'Open Micro is a desktop controller concept in development. Map repeated actions to keys, a dial, and touch instead of reaching through menus.',
+  caption: 'Concept visualization, not a finished product. Materials and light are art-directed.',
   primaryCta: 'Keep me updated',
   secondaryCta: 'See how it’s built',
 } as const
@@ -91,13 +94,17 @@ export const productCopy = {
   primaryNavigationLabel: 'Primary navigation',
   navigationCta: 'Get updates',
   statusLead:
-    'Open Micro turns background work into a small, consistent language of color and rhythm. Every state is visible here—nothing to hover over, cycle through, or guess.',
-  statusPrinciple: 'Color names the state. Rhythm tells you whether it needs you.',
+    'The planned lighting gives background work a visible status beside your keyboard. You should be able to see whether an action is still running, has finished, or needs your input without opening another window.',
+  statusPrinciple: 'Color and light patterns distinguish progress, completion, and a request for input.',
   statusLegendLabel: 'Open Micro status signal legend',
   connectivityLead:
-    'Plug in at your desk. Move freely with Bluetooth. Keep every choice in your hands.',
+    'The design pairs USB-C and Bluetooth with configurable firmware and local host software. Choose how to connect and what each control does.',
+  deskCaption: 'Open Micro beside a laptop, with its controls within reach. Concept visualization.',
   designLead:
-    'An exposed control board. A separate electronics layer. A frosted wall that carries the light. Each part has a place in a design you can look into.',
+    'The exposed control PCB lets you see the board beneath the keys. A separate lower board handles compute and power. Here’s how the concept fits together, from keycaps to base.',
+  materialHeading: 'Controls you can feel.',
+  materialBody:
+    'PBT keycaps give your fingers a textured surface. The encoder gives turning and pressing their own control. This close-up shows the matte solder mask and gold-colored ENIG contacts around them.',
 } as const
 
 export const waitlistCopy = {
@@ -113,31 +120,31 @@ export const statusSignals = [
     name: 'Ready',
     color: '#69717E',
     behavior: 'Dim / still',
-    meaning: 'Open Micro is standing by.',
+    meaning: 'The controller is ready for an action.',
   },
   {
     name: 'Working',
     color: '#0548FD',
     behavior: 'Slow breathe',
-    meaning: 'Background work is in progress.',
+    meaning: 'Work is continuing in the background.',
   },
   {
     name: 'Active',
     color: '#31C7D9',
     behavior: 'Steady pulse',
-    meaning: 'A mapped action is running now.',
+    meaning: 'An action assigned to a control is running.',
   },
   {
     name: 'Needs input',
     color: '#FF9F0A',
     behavior: 'Short blink',
-    meaning: 'The next step is waiting on you.',
+    meaning: 'The next step needs your input.',
   },
   {
     name: 'Complete',
     color: '#30D158',
     behavior: 'Solid',
-    meaning: 'The workflow finished successfully.',
+    meaning: 'The action finished successfully.',
   },
   {
     name: 'Attention',
@@ -155,46 +162,46 @@ export const statusSignals = [
 export const connectivityCards = [
   {
     label: 'USB-C',
-    title: 'Plug in and go.',
-    body: 'A direct, dependable connection for everyday control.',
+    title: 'Use a cable.',
+    body: 'Connect directly to your computer at your desk.',
   },
   {
     label: 'Bluetooth',
-    title: 'Move freely.',
-    body: 'Bonded wireless and five saved profiles make it easy to move between devices.',
+    title: 'Switch computers.',
+    body: 'Keep five bonded profiles for the computers you switch between.',
   },
   {
     label: 'ZMK + Studio',
-    title: 'Shape every control.',
-    body: 'Change the layout, tune the behavior, and let Open Micro grow with the way you work.',
+    title: 'Assign your controls.',
+    body: 'Configure the layout and behavior for the actions you repeat, rather than work around a fixed set of shortcuts.',
   },
   {
     label: 'Local software',
-    title: 'Your desk. Your data.',
-    body: 'The companion software runs locally on macOS, Linux, and Windows.',
+    title: 'Run the bridge locally.',
+    body: 'The Rust host software runs on your own computer, with a daemon, CLI, and simulator for macOS, Linux, and Windows.',
   },
 ] as const
 
 export const explodedLayers = [
   {
     title: 'Textured PBT keycaps',
-    body: 'Vendor-made, uniform-profile keycaps give the controls a consistent surface under your fingers.',
+    body: 'Uniform-profile PBT keycaps give your fingers a textured, consistent surface.',
   },
   {
-    title: 'Tactile controls',
-    body: 'Twelve MX switches, a push encoder, and an exposed capacitive touch control give actions a physical place.',
+    title: 'Keys, encoder, and touch',
+    body: 'Twelve MX hot-swap keys, a 24-detent push encoder, and capacitive touch. Choose the control that suits the action.',
   },
   {
-    title: 'Two boards. Clear roles.',
+    title: 'Control PCB and sister board',
     body: 'The exposed top PCB holds the controls; the lower sister board carries compute, power, USB, RF, and wall emitters.',
   },
   {
-    title: 'Soft, diffused light',
-    body: 'A removable neutral-frosted polycarbonate wall carries the light around the perimeter.',
+    title: 'Removable polycarbonate wall',
+    body: 'The neutral-frosted wall diffuses light around the perimeter, where it can show the status of your work.',
   },
   {
     title: 'Anodized aluminum',
-    body: 'A CNC 6061-T6 aluminum bottom gives the concept its grounded foundation. Silicone feet sit between the base and your desk.',
+    body: 'A CNC 6061-T6 aluminum bottom closes the enclosure. Silicone feet sit between the base and your desk.',
   },
 ] as const
 
@@ -222,12 +229,12 @@ export const licenses = [
 ] as const
 
 export const openSourceStatement =
-  'The enclosure, electronics, firmware, and host software are open for you to study, change, and build on.'
+  'The enclosure, electronics, firmware, and host software are open to inspect and change. You can study how a control reaches your computer and adapt the design to your work. The source is available now; the hardware is not ready to build.'
 
 export const openMicroSignup = {
   source: 'open-micro-product',
-  heading: 'See what comes next.',
-  lead: 'Kettle Moraine Research Labs is developing Open Micro in the open. Leave your email and we’ll only write when preorder timing is confirmed.',
+  heading: 'Hear when preorders are confirmed.',
+  lead: 'Open Micro is still in development. Leave your email if you’d like to hear when preorder timing is confirmed.',
   submit: 'Notify me',
   success: "You're on the list. We'll let you know when preorder timing is confirmed.",
   privacy:

@@ -134,9 +134,9 @@ export function SiteShell({ children, currentPath, navigation, cta }: SiteShellP
               />
             </a>
             <p className="footerStatement">
-              Tools for
+              You have
               <br />
-              <em>clearer work.</em>
+              <em>work to do.</em>
             </p>
           </div>
           <nav className="footerLinks" aria-label="Products">

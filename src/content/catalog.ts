@@ -19,21 +19,21 @@ export const productCatalog: readonly CatalogProduct[] = [
     id: 'open-micro',
     name: 'Open Micro',
     summary:
-      'A concept in development. Tactile controls, local software, and an open design you can shape to fit your work.',
+      'Give the actions you repeat a key, a turn, or a touch. An open-source desktop controller, currently a concept in development.',
     path: routes.openMicro,
   },
   {
     id: 'inference',
     name: '1,000 TPS',
     summary:
-      'GLM-5.3-Flash. A 1,000-token-per-second ambition. Open-weight intelligence, served from our hardware to your next idea.',
+      'We’re building hosted GLM-5.3-Flash inference with a 1,000-token-per-second target. So less of the job is waiting for the next response.',
     path: routes.inference,
   },
   {
     id: 'lavtype',
     name: 'Lavtype',
     summary:
-      'Hold a shortcut, speak, and release. Lavtype types the final transcript into the focused app.',
+      'Say the sentence you were going to type. Lavtype transcribes on your machine and puts the words in the focused app.',
     path: routes.lavtype,
   },
 ]

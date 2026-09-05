@@ -12,7 +12,6 @@ const masters = {
   rear: { input: 'artwork/masters/open-micro-rear-master.png', crop: fullFrame },
   top: { input: 'artwork/masters/open-micro-top-master.png', crop: fullFrame },
 }
-const socialMaster = masters.hero
 const widths = [1536, 1024, 640]
 const outputDirectory = 'src/assets/product/generated'
 const drawingSources = {
@@ -64,7 +63,6 @@ async function createEditorialDrawing(name, drawing, width) {
 }
 
 await mkdir(outputDirectory, { recursive: true })
-await mkdir('public', { recursive: true })
 
 await Promise.all(
   Object.entries(masters).flatMap(([name, master]) =>
@@ -84,12 +82,5 @@ await Promise.all(
     drawingWidths.map((width) => createEditorialDrawing(name, drawing, width)),
   ),
 )
-
-const socialImage = sharp(socialMaster.input)
-if (socialMaster.crop) socialImage.extract(socialMaster.crop)
-await socialImage
-  .resize(1200, 630, { fit: 'cover', position: 'centre' })
-  .png({ compressionLevel: 9 })
-  .toFile('public/open-micro-social.png')
 
 console.log('Optimized Open Micro product imagery, Blender renders, and editorial drawings.')

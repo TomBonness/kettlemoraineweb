@@ -44,8 +44,8 @@ function SpeedIllustration() {
           <em>Four seconds.</em>
         </strong>
         <p>
-          A substantial response, in a moment. At our target of 1,000 tokens per second, the space
-          between asking and making gets a lot smaller.
+          At our target of 1,000 tokens per second, a 4,000-token response would take four seconds
+          to generate. That’s less time waiting before you can read, test, and revise it.
         </p>
       </figcaption>
       <div className={styles.tokenTimeline} aria-hidden="true">
@@ -59,8 +59,9 @@ function SpeedIllustration() {
       </div>
       <p className={styles.finePrint}>
         4,000 generated tokens ÷ our 1,000 TPS output-throughput target = 4 seconds. Illustrative,
-        not a measured service result. Excludes prompt processing, network latency, tool execution,
-        and additional reasoning tokens. Performance varies with workload and concurrency.
+        not a measured service result. Excludes time to first token, prompt processing, network
+        latency, tool execution, and additional reasoning tokens. Performance varies with workload
+        and concurrency.
       </p>
     </figure>
   )
@@ -85,27 +86,28 @@ export function InferencePage() {
           />
           <div className={styles.heroInner}>
             <h1 id="inference-title">
-              A thousand tokens.
+              Spend less time
               <br />
-              <em>A different rhythm.</em>
+              <em>waiting for output.</em>
             </h1>
             <p className={styles.heroLead}>
-              Less waiting between an idea and what it becomes. GLM-5.3-Flash brings open-weight
-              intelligence, accelerated on our hardware. Built for your next application.
+              We’re building a hosted API for GLM-5.3-Flash on our own hardware, with a target of
+              1,000 tokens per second. Less time watching output arrive means more time to work
+              with it. The target is not a measured service result.
             </p>
             <div className={styles.heroActions}>
               <a className={`button ${styles.primaryButton}`} href="#waitlist">
                 Request API access <span aria-hidden="true">↗</span>
               </a>
               <a className={styles.textLink} href="#speed">
-                Feel the difference <span aria-hidden="true">↓</span>
+                See what the target means <span aria-hidden="true">↓</span>
               </a>
             </div>
             <div className={styles.heroMetric}>
               <span className={styles.metricNumber}>1,000</span>
               <div>
                 <span>tokens / second</span>
-                <small>Our inference target</small>
+                <small>Output-throughput target</small>
               </div>
             </div>
           </div>
@@ -114,13 +116,13 @@ export function InferencePage() {
         <section className={styles.speedSection} id="speed" aria-labelledby="speed-title">
           <div className={styles.sectionIntro}>
             <h2 id="speed-title">
-              Waiting is not
+              Shorter waits make
               <br />
-              <em>a workflow.</em>
+              <em>iteration easier.</em>
             </h2>
             <p className={styles.lead}>
-              Speed changes more than how quickly text appears. It changes how often you experiment,
-              how freely you iterate, and what an application can feel like.
+              Each generated draft or code change has to arrive before you can judge it. Faster
+              decoding can shorten that part of the loop, leaving more time to try another approach.
             </p>
           </div>
           <SpeedIllustration />
@@ -143,17 +145,17 @@ export function InferencePage() {
           <div className={styles.intelligenceInner}>
             <div className={styles.intelligenceCopy}>
               <h2 id="intelligence-title">
-                Fast is only
+                Useful output
                 <br />
-                <em>half the story.</em>
+                <em>still comes first.</em>
               </h2>
               <p className={styles.lead}>
-                Meet GLM-5.3-Flash. Open-weight intelligence with a serious coding pedigree.
+                GLM-5.3-Flash is an open-weight model with published coding results worth examining.
               </p>
               <p className={styles.bodyCopy}>
-                In Z.ai’s published Code Bench evaluation, GLM-5.3-Flash at max effort scores 29.0
-                against Claude Opus 4.8’s 29.5. A narrow gap on this coding evaluation. A compelling
-                model to accelerate.
+                In Z.ai’s Code Bench v1.0 evaluation, GLM-5.3-Flash at max effort scores 29.0
+                against Claude Opus 4.8’s 29.5. That result is one reason we’re working to serve
+                this model faster, not a claim that the models are interchangeable.
               </p>
               <a className={styles.textLink} href={inferenceSources.release}>
                 Read the model release <span aria-hidden="true">↗</span>
@@ -161,7 +163,7 @@ export function InferencePage() {
             </div>
             <figure className={styles.benchmark} aria-labelledby="benchmark-caption">
               <figcaption id="benchmark-caption">
-                <strong>In very good company.</strong>
+                <strong>One coding evaluation.</strong>
                 <span>Z.ai Code Bench v1.0. Higher is better.</span>
               </figcaption>
               <div className={styles.benchmarkPlot}>
@@ -246,13 +248,13 @@ export function InferencePage() {
         <section className={styles.apiSection} id="api" aria-labelledby="api-title">
           <div className={styles.sectionIntro}>
             <h2 id="api-title">
-              Our hardware.
+              A hosted API for
               <br />
-              <em>Your next big thing.</em>
+              <em>your application.</em>
             </h2>
             <p className={styles.lead}>
-              Locally hosted inference at Kettle Moraine. API access for you. Bring the ambition;
-              let the lab focus on the compute.
+              We’re developing inference on Kettle Moraine’s hardware, accessed over the network.
+              Your application would use the model without hosting it. This is not on-device inference.
             </p>
           </div>
           <div className={styles.apiGrid}>
@@ -263,44 +265,44 @@ export function InferencePage() {
                 height="640"
                 loading="lazy"
                 decoding="async"
-                alt="Isometric illustration of a local compute module sending a token stream to an application interface"
+                alt="Isometric illustration of a hosted compute module sending a token stream to an application interface"
               />
               <figcaption>
-                Architecture concept: GLM-5.3-Flash connects to your application through an API.
+                Architecture concept: GLM-5.3-Flash on our hardware, connected to your app through an API.
               </figcaption>
             </figure>
             <div className={styles.apiCopy}>
               <h3>
-                One connection.
-                <br />A whole new pace.
+                Access starts
+                <br />with an invitation.
               </h3>
               <p>
-                For the editor that keeps up. The agent that tries one more approach. The product
-                that makes intelligence feel like part of the interface.
+                Request access if shorter generation waits would help your application. We’ll send
+                API access and launch updates by email; signing up does not provide an endpoint today.
               </p>
               <ol className={styles.accessSteps}>
                 <li>
-                  <strong>Tell us you’re interested.</strong>
-                  <p>Sign up for API access with your email.</p>
+                  <strong>Request access.</strong>
+                  <p>Add your email to the API access list.</p>
                 </li>
                 <li>
-                  <strong>Get your invitation.</strong>
-                  <p>Access details and onboarding, straight from the lab.</p>
+                  <strong>Watch for access details.</strong>
+                  <p>We’ll email you about invitations and launch.</p>
                 </li>
                 <li>
-                  <strong>Bring your application.</strong>
-                  <p>Connect to your assigned endpoint with your API credentials.</p>
+                  <strong>Connect when invited.</strong>
+                  <p>Use the endpoint and API credentials provided with your access details.</p>
                 </li>
               </ol>
               <a className={styles.textLink} href="#waitlist">
-                Let’s build something faster <span aria-hidden="true">↗</span>
+                Request API access <span aria-hidden="true">↗</span>
               </a>
             </div>
           </div>
         </section>
 
         <section className={styles.questionsSection} aria-labelledby="questions-title">
-          <h2 id="questions-title">A little more context.</h2>
+          <h2 id="questions-title">Questions about the service.</h2>
           <div className={styles.questions}>
             <details>
               <summary>
@@ -308,9 +310,10 @@ export function InferencePage() {
               </summary>
               <p>
                 TPS means tokens per second: the rate at which a model generates pieces of text. A
-                token might be a word, part of a word, or punctuation. At 1,000 tokens per second,
-                generating 4,000 tokens takes four seconds, before accounting for prompt processing,
-                networking, tools, and additional reasoning.
+                token might be a word, part of a word, or punctuation. Our 1,000 TPS figure is an
+                output-throughput target, not a measured result. At that rate, 4,000 tokens would
+                take four seconds to generate, excluding time to first token, prompt processing,
+                networking, tools, and additional reasoning tokens.
               </p>
             </details>
             <details>
@@ -330,9 +333,9 @@ export function InferencePage() {
                 Where does the model run?<span aria-hidden="true">+</span>
               </summary>
               <p>
-                Our approach is to host GLM-5.3-Flash on Kettle Moraine’s own hardware and expose
-                inference through an API. “Local” describes the lab’s model hosting, not an offline
-                model running on your device. Your application connects over the network.
+                We’re building a service that hosts GLM-5.3-Flash on Kettle Moraine’s own hardware.
+                Your application sends requests over the network through an API. The model does not
+                run on your device, and this is not an offline service.
               </p>
             </details>
             <details>
@@ -340,10 +343,11 @@ export function InferencePage() {
                 How should I read the model comparison?<span aria-hidden="true">+</span>
               </summary>
               <p>
-                The chart shows one coding evaluation published by Z.ai, the model’s developer. It
-                compares GLM-5.3-Flash with Claude Opus 4.8 in that evaluation, not across all
-                tasks. Model quality benchmarks and inference speed measure different things. Follow
-                the linked sources for methodology and current results.
+                The chart shows Z.ai Code Bench v1.0, published by the model’s developer on August
+                26, 2026 using Claude Code 2.1.207. GLM-5.3-Flash at max effort scored 29.0;
+                Claude Opus 4.8 scored 29.5. These are publisher-reported results, not Arena ratings,
+                overall model equivalence, or a benchmark of our serving hardware. The linked
+                sources explain the evaluation and model specifications.
               </p>
             </details>
           </div>

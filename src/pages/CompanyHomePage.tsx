@@ -1,7 +1,8 @@
 import { SiteShell } from '../components/SiteShell'
 import { VoiceTrace } from '../components/VoiceTrace'
 import { productCatalog, routes } from '../content/catalog'
-import { marketingRenders } from '../content/openMicro'
+import openMicroHome from '../assets/product/marketing/open-micro-home-960.webp'
+import openMicroHomeLarge from '../assets/product/marketing/open-micro-home-1600.webp'
 import styles from './CompanyHomePage.module.css'
 
 const homeNavigation = productCatalog.map((product) => ({
@@ -25,16 +26,16 @@ export function CompanyHomePage() {
         />
         <div className={styles.heroInner}>
           <div className={styles.heroTitle}>
-            <h1 id="company-heading" aria-label="Tools for clearer work.">
-              <span aria-hidden="true">Tools for</span>
-              <span aria-hidden="true">clearer work.</span>
+            <h1 id="company-heading" aria-label="You have work to do.">
+              <span aria-hidden="true">You have</span>
+              <span aria-hidden="true">work to do.</span>
             </h1>
           </div>
 
           <div className={styles.heroFooter}>
             <p className={styles.heroStatement}>
-              We design focused, open hardware and software for people who want to understand and
-              shape the tools they use.
+              We’re building hardware, software, and hosted inference for people who would rather be
+              making something than managing their computer.
             </p>
             <nav className={styles.productRail} aria-label="Featured products">
               {productCatalog.map((product) => (
@@ -53,13 +54,13 @@ export function CompanyHomePage() {
           <header className={styles.productsIntro}>
             <div>
               <h2 id="products-heading">
-                <span>Clearer work.</span>
-                <span>In every form.</span>
+                <span>Here’s where</span>
+                <span>we’re starting.</span>
               </h2>
             </div>
             <p>
-              Focused hardware, software, and inference. Built to keep the person using it in
-              control.
+              We’re starting with the actions you repeat, the words you want to write, and the
+              time spent waiting for an answer.
             </p>
           </header>
 
@@ -71,8 +72,12 @@ export function CompanyHomePage() {
             >
               <div className={styles.openMicroMedia}>
                 <img
-                  {...marketingRenders.studio}
-                  sizes="(max-width: 1000px) 100vw, (max-width: 1280px) 65vw, 780px"
+                  src={openMicroHome}
+                  srcSet={`${openMicroHome} 960w, ${openMicroHomeLarge} 1600w`}
+                  width="1600"
+                  height="1131"
+                  alt="Art-directed concept visualization of Open Micro with twelve dark keys, a push encoder, and a softly illuminated frosted wall"
+                  sizes="(max-width: 767px) calc(100vw - 48px), (max-width: 1050px) calc(100vw - 96px), (max-width: 1280px) 65vw, 780px"
                   loading="lazy"
                   decoding="async"
                 />
@@ -82,7 +87,7 @@ export function CompanyHomePage() {
                 <p className={styles.productSummary}>{openMicro.summary}</p>
                 <dl className={styles.productFacts}>
                   <div>
-                    <dt>At your fingertips</dt>
+                    <dt>Controls</dt>
                     <dd>12 keys + encoder + touch</dd>
                   </div>
                   <div>
@@ -169,36 +174,37 @@ export function CompanyHomePage() {
           <div className={styles.principlesIntro}>
             <div>
               <h2 id="principles-title">
-                Small lab.
+                The work
                 <br />
-                <em>Long view.</em>
+                <em>comes first.</em>
               </h2>
             </div>
             <p>
-              Good tools earn their place. Not by doing everything, but by making the things that
-              matter feel a little more natural.
+              We want a computer to feel like a tool you know, not a collection of systems you have
+              to keep happy. That’s a big ambition. We’re taking it one useful piece at a time.
             </p>
           </div>
           <div className={styles.principleGrid}>
             <article>
-              <h3>Less in the way.</h3>
+              <h3>Start with what gets in the way.</h3>
               <p>
-                A physical control. A held shortcut. A faster response. We look for the small
-                moments where a better tool makes a real difference.
+                The extra click, the copied transcript, the wait for an answer. Those are small
+                interruptions until they fill your day.
               </p>
             </article>
             <article>
-              <h3>More in your hands.</h3>
+              <h3>Leave room for the owner.</h3>
               <p>
-                Open hardware, local software, and open-weight models. Tools should invite
-                understanding, not get in the way of it.
+                We publish Open Micro’s designs and Lavtype’s source code. You can read them,
+                change them, and take the work in a direction we didn’t plan.
               </p>
             </article>
             <article>
-              <h3>Considered all the way through.</h3>
+              <h3>Say what’s ready.</h3>
               <p>
-                From the enclosure to the interface, the details belong to the same idea: technology
-                that respects the person using it.
+                A concept isn’t a finished product. A performance target isn’t a benchmark. We’ll
+                make those distinctions clear, along with where each tool runs and what it needs
+                from you.
               </p>
             </article>
           </div>

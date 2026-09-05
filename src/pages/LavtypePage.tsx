@@ -5,6 +5,9 @@ import {
   lavtypeHero,
   lavtypeLinks,
   lavtypeNavigation,
+  lavtypePlatform,
+  lavtypeProcess,
+  lavtypeRecognition,
   localRecognitionDetails,
   platformDetails,
 } from '../content/lavtype'
@@ -23,11 +26,7 @@ export function LavtypePage() {
             <div className={styles.heroGrid}>
               <div className={styles.heroCopy}>
                 <h1 id="lavtype-title">Lavtype</h1>
-                <p className={styles.heroStatement}>
-                  Your voice.
-                  <br />
-                  <em>Right where you work.</em>
-                </p>
+                <p className={styles.heroStatement}>{lavtypeHero.tagline}</p>
                 <p className={styles.outcome}>{lavtypeHero.outcome}</p>
                 <div className={styles.heroActions}>
                   <a className={`button ${styles.primaryCta}`} href={lavtypeLinks.download}>
@@ -43,7 +42,7 @@ export function LavtypePage() {
                   src="/products/lavtype/voice-to-text.svg"
                   width="680"
                   height="660"
-                  alt="A spoken waveform becomes the sentence ‘Meet me at the trailhead at nine.’ above a held shortcut key."
+                  alt={lavtypeProcess.illustrationAlt}
                   fetchPriority="high"
                 />
               </figure>
@@ -61,19 +60,11 @@ export function LavtypePage() {
           aria-labelledby="process-title"
         >
           <div className={styles.sectionIntro}>
-            <h2 id="process-title">
-              Say it.
-              <br />
-              <em>Keep going.</em>
-            </h2>
-            <p className={styles.lead}>
-              The message, the note, the next sentence. Speak it instead of typing it. Lavtype sends
-              one complete transcript to the app that is focused when recognition finishes—not to a
-              separate transcript window.
-            </p>
+            <h2 id="process-title">{lavtypeProcess.title}</h2>
+            <p className={styles.lead}>{lavtypeProcess.lead}</p>
           </div>
           <VoiceTrace />
-          <p className={styles.processNotes}>Up to 55 seconds per hold. Final results only.</p>
+          <p className={styles.processNotes}>{lavtypeProcess.notes}</p>
         </section>
 
         <section
@@ -84,19 +75,9 @@ export function LavtypePage() {
           <div className={styles.sectionInner}>
             <div className={styles.privacyGrid}>
               <div>
-                <h2 id="local-recognition-title">
-                  Your machine.
-                  <br />
-                  <em>Your words.</em>
-                </h2>
-                <p className={styles.lead}>
-                  No cloud recognizer. No transcript history. No clipboard fallback.
-                </p>
-                <p className={styles.bodyCopy}>
-                  Choose Parakeet and explicitly download its English model to recognize speech
-                  locally, offline. Or, on macOS, use Apple Speech when on-device recognition is
-                  supported. Lavtype never falls back to Apple’s network recognizer.
-                </p>
+                <h2 id="local-recognition-title">{lavtypeRecognition.title}</h2>
+                <p className={styles.lead}>{lavtypeRecognition.lead}</p>
+                <p className={styles.bodyCopy}>{lavtypeRecognition.body}</p>
               </div>
               <figure className={styles.localDiagram}>
                 <div className={styles.diagramInput}>
@@ -109,7 +90,7 @@ export function LavtypePage() {
                 <div className={styles.recognizerChoices}>
                   <div>
                     <strong>Parakeet</strong>
-                    <span>Downloaded model</span>
+                    <span>{lavtypeRecognition.modelLabel}</span>
                     <small>Local / offline</small>
                   </div>
                   <span className={styles.choiceOr}>or</span>
@@ -121,13 +102,9 @@ export function LavtypePage() {
                 </div>
                 <div className={styles.diagramOutput}>
                   <span aria-hidden="true">↓</span>
-                  <span>Final transcript → focused app</span>
+                  <span>{lavtypeRecognition.output}</span>
                 </div>
-                <p className={styles.diagramNote}>
-                  Model setup may need a download.
-                  <br />
-                  Recognition stays on this side of the boundary.
-                </p>
+                <p className={styles.diagramNote}>{lavtypeRecognition.note}</p>
               </figure>
             </div>
             <dl className={styles.recognitionDetails}>
@@ -143,15 +120,8 @@ export function LavtypePage() {
 
         <section className={styles.platformSection} id="platform" aria-labelledby="platform-title">
           <div className={styles.sectionIntro}>
-            <h2 id="platform-title">
-              Small software.
-              <br />
-              <em>Clear requirements.</em>
-            </h2>
-            <p className={styles.lead}>
-              Built for macOS and X11 Linux. Check your platform below, then grab a release. The
-              source and install instructions are there if you want a closer look.
-            </p>
+            <h2 id="platform-title">{lavtypePlatform.title}</h2>
+            <p className={styles.lead}>{lavtypePlatform.lead}</p>
           </div>
           <div className={styles.platformGrid}>
             <article className={styles.platformCard} aria-labelledby="macos-title">
@@ -200,7 +170,7 @@ export function LavtypePage() {
                 alt=""
                 loading="lazy"
               />
-              <strong>A shortcut to your next sentence.</strong>
+              <strong>{lavtypePlatform.download}</strong>
             </div>
             <div className={styles.platformActions}>
               <a className={`button ${styles.primaryCta}`} href={lavtypeLinks.download}>

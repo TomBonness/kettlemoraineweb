@@ -8,8 +8,8 @@ export const inferenceNavigation = [
 
 export const inferenceSignup = {
   source: '1000-tps-product',
-  heading: 'Build at a different speed.',
-  lead: 'Put your next idea in the fast lane. Sign up for API access and hear from the lab about access invitations and launch details.',
+  heading: 'Build with less waiting.',
+  lead: 'Interested in using GLM-5.3-Flash through our hosted API? Request access for invitation and launch updates. We’re working toward 1,000 TPS; signup is not immediate access.',
   submit: 'Request access',
   success: 'You’re on the list. We’ll email you about API access and launch details.',
   privacy: 'API access updates only. Kettle Moraine Research Labs stores your email for 1,000 TPS access invitations and launch notices until the launch notice program ends.',
@@ -31,18 +31,18 @@ export const codingComparison = [
 
 export const speedScenarios = [
   {
-    title: 'Keep your train of thought.',
-    description: 'Draft, revise, and explore without turning every prompt into a context switch. Shorter generation waits keep the next idea close.',
+    title: 'Review the next draft sooner.',
+    description: 'A generated draft is a starting point, not finished work. Shorter output waits can let you read it, spot what’s missing, and revise before you move on to something else.',
     icon: 'flow',
   },
   {
-    title: 'Make iteration the default.',
-    description: 'Agents generate, call tools, and try again. Faster decoding leaves more room for the next attempt, not just the first answer.',
+    title: 'Try another approach.',
+    description: 'Coding agents alternate between generating output and running tools. Faster decoding can shorten the generation steps; tests, tool calls, and reasoning still take time.',
     icon: 'loop',
   },
   {
-    title: 'Think beyond the chat box.',
-    description: 'Responsive editors. Generative interfaces. On-demand explanations. Build experiences around a fast stream, not a loading state.',
+    title: 'Make room for longer output.',
+    description: 'A code change or detailed explanation can take many tokens. We’re working to make longer responses practical inside the tools you already use.',
     icon: 'interface',
   },
 ] as const

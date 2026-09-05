@@ -45,9 +45,7 @@ export function OpenMicroPage() {
               loading="lazy"
               decoding="async"
             />
-            <figcaption>
-              A little space. A more hands-on workflow. Concept visualization.
-            </figcaption>
+            <figcaption>{productCopy.deskCaption}</figcaption>
           </figure>
           <div className={styles.connectivityGrid}>
             {connectivityCards.map((card, index) => (

@@ -1,52 +1,12 @@
 import { useEffect } from 'react'
-import { routes } from './content/catalog'
+import { routeMetadata } from './lib/pageMetadata'
 import { applyRouteMetadata } from './lib/metadata'
-import { resolveRoute, type RouteId } from './lib/routes'
+import { resolveRoute } from './lib/routes'
 import { CompanyHomePage } from './pages/CompanyHomePage'
 import { InferencePage } from './pages/InferencePage'
 import { LavtypePage } from './pages/LavtypePage'
 import { NotFoundPage } from './pages/NotFoundPage'
 import { OpenMicroPage } from './pages/OpenMicroPage'
-
-const routeMetadata: Record<
-  RouteId,
-  { path: string; title: string; description: string; image: string }
-> = {
-  home: {
-    path: routes.home,
-    title: 'Kettle Moraine Research Labs — Tools for clearer work',
-    description:
-      'Kettle Moraine Research Labs makes focused, open hardware and software: Open Micro, 1,000 TPS inference, and Lavtype.',
-    image: '/kettle-moraine-social.png',
-  },
-  'open-micro': {
-    path: routes.openMicro,
-    title: 'Open Micro — Kettle Moraine Research Labs',
-    description:
-      'An open-source desktop controller in development: tactile controls, local software, and an open two-board design.',
-    image: '/open-micro-og.png',
-  },
-  inference: {
-    path: routes.inference,
-    title: '1,000 TPS — Kettle Moraine Research Labs',
-    description:
-      'A thousand tokens. A different rhythm. Explore GLM-5.3-Flash inference targeting 1,000 tokens per second, and sign up for API access.',
-    image: '/products/inference/social.png',
-  },
-  lavtype: {
-    path: routes.lavtype,
-    title: 'Lavtype — Kettle Moraine Research Labs',
-    description:
-      'Local push-to-talk dictation for macOS and Linux: hold a shortcut, speak, release, and type the final transcript into the focused app.',
-    image: '/lavtype-social.png',
-  },
-  'not-found': {
-    path: routes.home,
-    title: 'Page not found — Kettle Moraine Research Labs',
-    description: 'The page you asked for is not in the lab.',
-    image: '/kettle-moraine-social.png',
-  },
-}
 
 function App() {
   const route = resolveRoute(window.location.pathname)

@@ -16,7 +16,7 @@ export function NotFoundPage() {
         </div>
         <div className="sectionInner">
           <h1 id="not-found-title">Page not found.</h1>
-          <p>The page you asked for is not in the lab.</p>
+          <p>That address doesn’t lead to a page on this site.</p>
           <a className="button buttonPrimary" href={routes.home}>
             Back to home
           </a>

@@ -10,12 +10,8 @@ export function HeroProduct() {
         </h1>
         <div className={styles.stage}>
           <div className={styles.copy}>
-            <p className={styles.statement}>
-              A physical place
-              <br />
-              for digital work.
-            </p>
-            <p className={styles.description}>{hero.description} Open Micro is in development.</p>
+            <p className={styles.statement}>{hero.statement}</p>
+            <p className={styles.description}>{hero.description}</p>
             <div className={styles.actions}>
               <a className="button buttonPrimary" href="#waitlist">
                 {hero.primaryCta}
@@ -36,7 +32,7 @@ export function HeroProduct() {
                 decoding="async"
               />
             </div>
-            <figcaption>Concept visualization with art-directed materials and light.</figcaption>
+            <figcaption>{hero.caption}</figcaption>
           </figure>
         </div>
         <dl className={styles.baseline}>

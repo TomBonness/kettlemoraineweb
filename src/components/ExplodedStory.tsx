@@ -37,11 +37,8 @@ export function ExplodedStory() {
 
         <figure className={styles.materialStudy}>
           <figcaption>
-            <h3>A quiet contrast.</h3>
-            <p>
-              Textured dark PBT, matte solder mask, and small gold-colored ENIG contacts. A
-              restrained palette, with contrast where your hands meet the controls.
-            </p>
+            <h3>{productCopy.materialHeading}</h3>
+            <p>{productCopy.materialBody}</p>
           </figcaption>
           <img
             {...marketingRenders.detail}

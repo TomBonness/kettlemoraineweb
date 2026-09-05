@@ -20,9 +20,9 @@
     <path d="M114 352a4 4 0 0 1 4-4h450a4 4 0 0 1 4 4v30H114z" fill="#E9E9E3"/>
     <circle cx="131" cy="365" r="3" fill="#B8BAB9"/><circle cx="142" cy="365" r="3" fill="#B8BAB9"/><circle cx="153" cy="365" r="3" fill="#B8BAB9"/>
     <text x="554" y="371" text-anchor="end" fill="#60666B" font-family="Inter, sans-serif" font-size="18">Focused app</text>
-    <text x="140" y="421" fill="#191C22" font-family="Georgia, serif" font-size="27">Meet me at the trailhead</text>
-    <text x="140" y="457" fill="#191C22" font-family="Georgia, serif" font-size="27">at nine.</text>
-    <path d="M226 435v28" stroke="#0548FD" stroke-width="2"/>
+    <text x="140" y="421" fill="#191C22" font-family="Georgia, serif" font-size="27">Send the revised drawing</text>
+    <text x="140" y="457" fill="#191C22" font-family="Georgia, serif" font-size="27">tomorrow.</text>
+    <path d="M261 435v28" stroke="#0548FD" stroke-width="2"/>
     <path d="M523 457l7 7 13-15" stroke="#0548FD" stroke-width="2"/>
   </g>
   <path d="M94 191H61v366h66" stroke="#5273BC" stroke-opacity=".6"/><circle cx="61" cy="191" r="3" fill="#729AFF"/>
@@ -34,4 +34,5 @@
     <path d="M183 573h60" stroke="#749AFF" stroke-width="2" stroke-linecap="round"/>
   </g>
   <g fill="#D9DFEE" font-family="Inter, sans-serif" font-size="22"><text x="321" y="546">Release to type</text><text x="321" y="576">one final transcript.</text></g>
+  <text x="340" y="638" text-anchor="middle" fill="#CDD7EB" font-family="Inter, sans-serif" font-size="18">Into the app focused when recognition finishes.</text>
 </svg>

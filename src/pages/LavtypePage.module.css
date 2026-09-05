@@ -62,11 +62,7 @@
   font-size: clamp(1.9rem, 3.5vw, 3.25rem);
   line-height: 1.13;
   letter-spacing: -0.04em;
-}
-
-.heroStatement em {
-  color: #aebddf;
-  font-weight: 400;
+  text-wrap: balance;
 }
 
 .outcome {
@@ -167,11 +163,6 @@
   letter-spacing: -0.055em;
 }
 
-.page h2 em {
-  font-weight: 400;
-  color: #687082;
-}
-
 .lead {
   max-width: 37rem;
   margin: 0;
@@ -200,10 +191,6 @@
   grid-template-columns: minmax(0, 1fr) minmax(0, 0.92fr);
   gap: clamp(2.5rem, 7vw, 7rem);
   align-items: center;
-}
-
-.privacySection h2 em {
-  color: #aebddf;
 }
 
 .privacySection .lead {
