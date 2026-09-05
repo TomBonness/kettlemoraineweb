@@ -200,11 +200,10 @@ export function CompanyHomePage() {
               </p>
             </article>
             <article>
-              <h3>Say what’s ready.</h3>
+              <h3>Fit the way you work.</h3>
               <p>
-                A concept isn’t a finished product. A performance target isn’t a benchmark. We’ll
-                make those distinctions clear, along with where each tool runs and what it needs
-                from you.
+                Keep your favorite editor, your shortcuts, your habits. We’re building tools
+                that make your setup more useful, without asking you to start over.
               </p>
             </article>
           </div>

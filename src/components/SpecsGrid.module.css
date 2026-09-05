@@ -7,24 +7,10 @@
   padding: clamp(5rem, 9vw, 8rem) var(--gutter);
 }
 .heading {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(0, 0.6fr);
-  gap: 3rem;
-  align-items: end;
-}
-.heading h2 {
   max-width: 11ch;
   margin: 0;
   font: 500 clamp(3rem, 6.2vw, 5.8rem)/1.02 var(--font-serif);
   letter-spacing: -0.055em;
-}
-.disclosure {
-  margin: 0 0 0.4rem;
-  padding-left: 1.2rem;
-  border-left: 2px solid var(--accent);
-  color: var(--text-secondary);
-  font-size: 0.95rem;
-  line-height: 1.8;
 }
 .layout {
   display: grid;
@@ -41,13 +27,6 @@
   display: block;
   width: 100%;
   height: auto;
-}
-.overheadStudy figcaption {
-  max-width: 29rem;
-  margin-top: 1.25rem;
-  color: var(--text-secondary);
-  font-size: 0.85rem;
-  line-height: 1.8;
 }
 .grid {
   min-width: 0;
@@ -79,12 +58,6 @@
   .layout {
     grid-template-columns: 1fr;
     gap: 3rem;
-  }
-}
-@media (max-width: 767px) {
-  .heading {
-    grid-template-columns: 1fr;
-    gap: 2rem;
   }
 }
 @media (max-width: 390px) {

@@ -47,11 +47,6 @@ export function ExplodedStory() {
             decoding="async"
           />
         </figure>
-
-        <p className={styles.studyNote}>
-          Concept and material studies, not manufactured or qualified hardware. Surface finishes and
-          light are art-directed. The current design is not safe to fabricate or assemble.
-        </p>
       </div>
     </section>
   )

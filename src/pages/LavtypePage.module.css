@@ -25,10 +25,6 @@
   align-items: center;
   justify-content: space-between;
   gap: 1rem;
-}
-
-.heroBaseline,
-.processNotes {
   font-size: 0.85rem;
   line-height: 1.6;
 }
@@ -169,11 +165,6 @@
   color: var(--text-secondary);
   font-size: clamp(1rem, 1.5vw, 1.15rem);
   line-height: 1.75;
-}
-
-.processNotes {
-  margin: 1.4rem 0 0;
-  color: var(--text-secondary);
 }
 
 .privacySection {

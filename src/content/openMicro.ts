@@ -84,7 +84,6 @@ export const hero = {
   statement: 'A shortcut you can put your hand on.',
   description:
     'Open Micro is a desktop controller concept in development. Map repeated actions to keys, a dial, and touch instead of reaching through menus.',
-  caption: 'Concept visualization, not a finished product. Materials and light are art-directed.',
   primaryCta: 'Keep me updated',
   secondaryCta: 'See how it’s built',
 } as const
@@ -99,12 +98,11 @@ export const productCopy = {
   statusLegendLabel: 'Open Micro status signal legend',
   connectivityLead:
     'The design pairs USB-C and Bluetooth with configurable firmware and local host software. Choose how to connect and what each control does.',
-  deskCaption: 'Open Micro beside a laptop, with its controls within reach. Concept visualization.',
   designLead:
     'The exposed control PCB lets you see the board beneath the keys. A separate lower board handles compute and power. Here’s how the concept fits together, from keycaps to base.',
   materialHeading: 'Controls you can feel.',
   materialBody:
-    'PBT keycaps give your fingers a textured surface. The encoder gives turning and pressing their own control. This close-up shows the matte solder mask and gold-colored ENIG contacts around them.',
+    'PBT keycaps give your fingers a textured surface. The encoder gives turning and pressing their own control.',
 } as const
 
 export const waitlistCopy = {
@@ -229,7 +227,7 @@ export const licenses = [
 ] as const
 
 export const openSourceStatement =
-  'The enclosure, electronics, firmware, and host software are open to inspect and change. You can study how a control reaches your computer and adapt the design to your work. The source is available now; the hardware is not ready to build.'
+  'The enclosure, electronics, firmware, and host software are open to inspect and change. You can study how a control reaches your computer and adapt the design to your work.'
 
 export const openMicroSignup = {
   source: 'open-micro-product',

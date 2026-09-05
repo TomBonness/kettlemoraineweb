@@ -22,8 +22,7 @@ export const lavtypeHero = {
 export const lavtypeProcess = {
   title: 'Dictate without switching apps.',
   lead:
-    'Put the cursor where you want to write, then hold your shortcut and speak. When recognition finishes, Lavtype types one final transcript into the app that’s focused at that moment. Keep that app in focus until the text arrives.',
-  notes: 'Up to 55 seconds per hold. Clips under 100 ms type nothing.',
+    'Put the cursor where you want to write, then hold your shortcut and speak. When recognition finishes, Lavtype types one final transcript into the app that’s focused at that moment.',
   transcript: 'Send the revised drawing tomorrow.',
   illustrationAlt:
     'Hold a shortcut and speak. Release it to type “Send the revised drawing tomorrow.” into the app focused when recognition finishes.',

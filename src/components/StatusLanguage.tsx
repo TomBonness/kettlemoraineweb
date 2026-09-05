@@ -18,12 +18,6 @@ export function StatusLanguage() {
             loading="lazy"
             decoding="async"
           />
-          <figcaption>
-            <p>
-              An after-dark light study with art-directed concept illumination, not qualified
-              hardware. Lighting target: 21 physical emitters / 13 host-addressable channels.
-            </p>
-          </figcaption>
         </figure>
 
         <div className={styles.legend}>

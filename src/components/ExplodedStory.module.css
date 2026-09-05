@@ -112,15 +112,6 @@
   border-radius: 4px;
 }
 
-.studyNote {
-  margin: clamp(2.5rem, 5vw, 4rem) 0 0;
-  padding-top: 1.5rem;
-  border-top: 1px solid var(--hairline);
-  color: var(--text-secondary);
-  font-size: 0.85rem;
-  line-height: 1.8;
-}
-
 @media (max-width: 900px) {
   .construction {
     grid-template-columns: minmax(0, 1fr);

@@ -102,35 +102,6 @@
   height: auto;
 }
 
-.artwork figcaption {
-  margin-top: 0.75rem;
-  color: var(--text-secondary);
-  font-size: 0.85rem;
-  line-height: 1.7;
-  text-align: center;
-}
-
-.baseline {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 1.5rem clamp(2rem, 8vw, 7rem);
-  margin: 0;
-  padding: 1.5rem 0 2rem;
-  border-top: 1px solid var(--hairline);
-}
-
-.baseline dt {
-  color: var(--text-secondary);
-  font-size: 0.8rem;
-  line-height: 1.7;
-}
-
-.baseline dd {
-  margin: 0.35rem 0 0;
-  font-size: 0.82rem;
-  line-height: 1.6;
-}
-
 @media (max-width: 767px) {
   .inner {
     padding-top: 1.5rem;
@@ -160,14 +131,5 @@
 
   .artwork {
     margin-top: 0.5rem;
-  }
-
-  .artwork figcaption {
-    max-width: 34ch;
-    margin: 0.5rem auto 0;
-  }
-
-  .baseline {
-    gap: 1.25rem 2rem;
   }
 }

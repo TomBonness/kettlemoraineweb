@@ -64,7 +64,6 @@ export function LavtypePage() {
             <p className={styles.lead}>{lavtypeProcess.lead}</p>
           </div>
           <VoiceTrace />
-          <p className={styles.processNotes}>{lavtypeProcess.notes}</p>
         </section>
 
         <section

@@ -34,17 +34,6 @@
   width: 100%;
   height: auto;
 }
-.nightStudy figcaption {
-  padding: 1.25rem 0;
-  border-bottom: 1px solid #353b46;
-  color: #b2bac8;
-}
-.nightStudy figcaption p {
-  max-width: 65ch;
-  margin: 0;
-  font-size: 0.85rem;
-  line-height: 1.75;
-}
 .legend {
   margin-top: clamp(3rem, 5vw, 4.5rem);
 }

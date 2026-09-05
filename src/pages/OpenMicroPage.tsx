@@ -45,7 +45,6 @@ export function OpenMicroPage() {
               loading="lazy"
               decoding="async"
             />
-            <figcaption>{productCopy.deskCaption}</figcaption>
           </figure>
           <div className={styles.connectivityGrid}>
             {connectivityCards.map((card, index) => (
@@ -108,7 +107,6 @@ export function OpenMicroPage() {
               loading="lazy"
               decoding="async"
             />
-            <figcaption>Open Micro studio concept study.</figcaption>
           </figure>
           <div>
             <h2 id="open-source-title">{headings.openSource}</h2>
@@ -127,26 +125,12 @@ export function OpenMicroPage() {
               </div>
             ))}
           </dl>
-          <aside className={styles.designStatus} aria-labelledby="design-status-title">
-            <h3 id="design-status-title">A concept. Not a qualified hardware release.</h3>
-            <div>
-              <p>
-                These are concept visualizations, not photographs. Component envelopes are
-                simplified; material appearance and LED illumination are art-directed.
-              </p>
-              <p>
-                <strong>Do not fabricate or assemble the current hardware.</strong> Electrical and
-                mechanical blockers remain unresolved. No fabricated unit has completed
-                qualification.
-              </p>
-              <a
-                className={styles.sourceLink}
-                href="https://github.com/TomBonness/open-micro/blob/main/docs/qualification.md"
-              >
-                Read the hardware qualification notes<span aria-hidden="true">↗</span>
-              </a>
-            </div>
-          </aside>
+          <a
+            className={styles.sourceLink}
+            href="https://github.com/TomBonness/open-micro/blob/main/docs/qualification.md"
+          >
+            Read the hardware qualification notes<span aria-hidden="true">↗</span>
+          </a>
         </div>
       </section>
 

@@ -33,7 +33,7 @@ export const productCatalog: readonly CatalogProduct[] = [
     id: 'lavtype',
     name: 'Lavtype',
     summary:
-      'Say the sentence you were going to type. Lavtype transcribes on your machine and puts the words in the focused app.',
+      'Say the sentence you were going to type. Lavtype writes it where you’re working, with speech recognition that stays on your machine.',
     path: routes.lavtype,
   },
 ]

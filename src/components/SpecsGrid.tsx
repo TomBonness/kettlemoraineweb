@@ -5,12 +5,7 @@ export function SpecsGrid() {
   return (
     <section className={styles.section} id="specs" aria-labelledby="specs-title">
       <div className={styles.inner}>
-        <div className={styles.heading}>
-          <h2 id="specs-title">{headings.specifications}</h2>
-          <p className={styles.disclosure}>
-            Current design targets. Height and component stack remain unresolved.
-          </p>
-        </div>
+        <h2 className={styles.heading} id="specs-title">{headings.specifications}</h2>
 
         <div className={styles.layout}>
           <figure className={styles.overheadStudy}>
@@ -20,10 +15,6 @@ export function SpecsGrid() {
               loading="lazy"
               decoding="async"
             />
-            <figcaption>
-              Concept visualization of a design in development. Materials and illumination are
-              art-directed; this is not an engineering drawing.
-            </figcaption>
           </figure>
 
           <dl className={styles.grid}>

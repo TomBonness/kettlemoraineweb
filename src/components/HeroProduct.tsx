@@ -32,23 +32,8 @@ export function HeroProduct() {
                 decoding="async"
               />
             </div>
-            <figcaption>{hero.caption}</figcaption>
           </figure>
         </div>
-        <dl className={styles.baseline}>
-          <div>
-            <dt>Footprint</dt>
-            <dd>96 × 96 mm</dd>
-          </div>
-          <div>
-            <dt>Connection</dt>
-            <dd>USB-C + Bluetooth</dd>
-          </div>
-          <div>
-            <dt>Open firmware</dt>
-            <dd>ZMK + Studio</dd>
-          </div>
-        </dl>
       </div>
     </section>
   )

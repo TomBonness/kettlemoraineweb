@@ -57,12 +57,6 @@ function SpeedIllustration() {
           </div>
         ))}
       </div>
-      <p className={styles.finePrint}>
-        4,000 generated tokens ÷ our 1,000 TPS output-throughput target = 4 seconds. Illustrative,
-        not a measured service result. Excludes time to first token, prompt processing, network
-        latency, tool execution, and additional reasoning tokens. Performance varies with workload
-        and concurrency.
-      </p>
     </figure>
   )
 }
@@ -93,7 +87,7 @@ export function InferencePage() {
             <p className={styles.heroLead}>
               We’re building a hosted API for GLM-5.3-Flash on our own hardware, with a target of
               1,000 tokens per second. Less time watching output arrive means more time to work
-              with it. The target is not a measured service result.
+              with it.
             </p>
             <div className={styles.heroActions}>
               <a className={`button ${styles.primaryButton}`} href="#waitlist">
@@ -155,7 +149,7 @@ export function InferencePage() {
               <p className={styles.bodyCopy}>
                 In Z.ai’s Code Bench v1.0 evaluation, GLM-5.3-Flash at max effort scores 29.0
                 against Claude Opus 4.8’s 29.5. That result is one reason we’re working to serve
-                this model faster, not a claim that the models are interchangeable.
+                this model faster.
               </p>
               <a className={styles.textLink} href={inferenceSources.release}>
                 Read the model release <span aria-hidden="true">↗</span>
@@ -254,7 +248,7 @@ export function InferencePage() {
             </h2>
             <p className={styles.lead}>
               We’re developing inference on Kettle Moraine’s hardware, accessed over the network.
-              Your application would use the model without hosting it. This is not on-device inference.
+              Connect your application without managing the model or its hardware.
             </p>
           </div>
           <div className={styles.apiGrid}>
@@ -278,7 +272,7 @@ export function InferencePage() {
               </h3>
               <p>
                 Request access if shorter generation waits would help your application. We’ll send
-                API access and launch updates by email; signing up does not provide an endpoint today.
+                API access and launch updates by email.
               </p>
               <ol className={styles.accessSteps}>
                 <li>
@@ -323,9 +317,7 @@ export function InferencePage() {
               <p>
                 No. Throughput measures generation speed. Time to first token also includes getting
                 the request to the model and processing the prompt. A full response can include
-                reasoning and tool calls. Our 1,000 TPS target concerns output throughput; it is not
-                a guarantee of total request latency or speed at every context length and
-                concurrency level.
+                reasoning and tool calls. Our 1,000 TPS target concerns output throughput.
               </p>
             </details>
             <details>
