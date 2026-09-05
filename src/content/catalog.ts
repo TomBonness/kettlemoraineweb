@@ -20,7 +20,7 @@ export const productCatalog: readonly CatalogProduct[] = [
     id: 'open-micro',
     name: 'Open Micro',
     category: 'Open hardware',
-    summary: 'Fifteen controls, local software, and an open design you can shape to fit your work.',
+    summary: 'Tactile controls, local software, and an open design you can shape to fit your work.',
     path: routes.openMicro,
   },
   {

@@ -1,16 +1,4 @@
-import hero640Avif from '../assets/product/generated/hero-640.avif'
-import hero1024Avif from '../assets/product/generated/hero-1024.avif'
-import hero1536Avif from '../assets/product/generated/hero-1536.avif'
-import hero640Webp from '../assets/product/generated/hero-640.webp'
-import hero1024Webp from '../assets/product/generated/hero-1024.webp'
-import hero1536Webp from '../assets/product/generated/hero-1536.webp'
-import exploded640Avif from '../assets/product/generated/exploded-640.avif'
-import exploded1024Avif from '../assets/product/generated/exploded-1024.avif'
-import exploded1536Avif from '../assets/product/generated/exploded-1536.avif'
-import exploded640Webp from '../assets/product/generated/exploded-640.webp'
-import exploded1024Webp from '../assets/product/generated/exploded-1024.webp'
-import exploded1536Webp from '../assets/product/generated/exploded-1536.webp'
-import { explodedLayers, headings, productCopy } from '../content/openMicro'
+import { explodedLayers, headings, marketingRenders, productCopy } from '../content/openMicro'
 import styles from './ExplodedStory.module.css'
 
 export function ExplodedStory() {
@@ -24,79 +12,62 @@ export function ExplodedStory() {
         </header>
 
         <div className={styles.visualGrid}>
-          <figure className={`${styles.render} ${styles.explodedRender}`}>
-            <div className={styles.renderImage}>
-              <span className={styles.figureLabel}>Fig. 01 / Component study</span>
-              <picture>
-                <source
-                  type="image/avif"
-                  srcSet={`${exploded640Avif} 640w, ${exploded1024Avif} 1024w, ${exploded1536Avif} 1536w`}
-                  sizes="(max-width: 900px) 100vw, 50vw"
-                />
-                <source
-                  type="image/webp"
-                  srcSet={`${exploded640Webp} 640w, ${exploded1024Webp} 1024w, ${exploded1536Webp} 1536w`}
-                  sizes="(max-width: 900px) 100vw, 50vw"
-                />
-                <img
-                  src={exploded1024Webp}
-                  width="1024"
-                  height="768"
-                  loading="lazy"
-                  decoding="async"
-                  alt={productCopy.explodedAlt}
-                />
-              </picture>
-            </div>
+          <figure className={styles.assembly}>
+            <img
+              {...marketingRenders.exploded}
+              sizes="(max-width: 767px) calc(100vw - 48px), (max-width: 1280px) 52vw, 650px"
+              loading="lazy"
+              decoding="async"
+            />
             <figcaption>
+              <span className={styles.figureLabel}>Fig. 01 / Exploded concept</span>
               <strong>{productCopy.explodedRenderTitle}</strong>
-              <span>{productCopy.explodedRenderBody}</span>
+              <p>{productCopy.explodedRenderBody}</p>
             </figcaption>
           </figure>
 
-          <figure className={`${styles.render} ${styles.detailRender}`}>
-            <div className={styles.renderImage}>
-              <span className={styles.figureLabel}>Fig. 02 / Light detail</span>
-              <picture>
-                <source
-                  type="image/avif"
-                  srcSet={`${hero640Avif} 640w, ${hero1024Avif} 1024w, ${hero1536Avif} 1536w`}
-                  sizes="(max-width: 900px) 100vw, 50vw"
-                />
-                <source
-                  type="image/webp"
-                  srcSet={`${hero640Webp} 640w, ${hero1024Webp} 1024w, ${hero1536Webp} 1536w`}
-                  sizes="(max-width: 900px) 100vw, 50vw"
-                />
-                <img
-                  src={hero1024Webp}
-                  width="1024"
-                  height="768"
-                  loading="lazy"
-                  decoding="async"
-                  alt={productCopy.lightDetailAlt}
-                />
-              </picture>
+          <div className={styles.materialStory}>
+            <figure className={styles.detail}>
+              <img
+                {...marketingRenders.detail}
+                sizes="(max-width: 767px) calc(100vw - 48px), (max-width: 1280px) 40vw, 490px"
+                loading="lazy"
+                decoding="async"
+              />
+              <figcaption>
+                <span className={styles.figureLabel}>Fig. 02 / Material study</span>
+                <strong>A quiet contrast.</strong>
+                <p>
+                  Textured dark PBT above matte solder mask. Small ENIG contacts against a dark
+                  working surface. Anodized aluminum below a frosted polycarbonate wall, with
+                  silicone at the desk. A study in touch, light, and restraint.
+                </p>
+              </figcaption>
+            </figure>
+
+            <div className={styles.layerKey}>
+              <h3 className={styles.eyebrow}>The layer key</h3>
+              <ol className={styles.layers}>
+                {explodedLayers.map((layer) => (
+                  <li key={layer.label}>
+                    <span className={styles.layerNumber}>{layer.label}</span>
+                    <div>
+                      <h4>
+                        {layer.title} <span>/ {layer.value}</span>
+                      </h4>
+                      <p>{layer.body}</p>
+                    </div>
+                  </li>
+                ))}
+              </ol>
             </div>
-            <figcaption>
-              <strong>{productCopy.lightDetailTitle}</strong>
-              <span>{productCopy.lightDetailBody}</span>
-            </figcaption>
-          </figure>
+          </div>
         </div>
 
-        <ol className={styles.layers}>
-          {explodedLayers.map((layer) => (
-            <li key={layer.label}>
-              <span>{layer.label}</span>
-              <div>
-                <small>{layer.title}</small>
-                <strong>{layer.value}</strong>
-                <p>{layer.body}</p>
-              </div>
-            </li>
-          ))}
-        </ol>
+        <p className={styles.studyNote}>
+          Concept and material studies, not manufactured or qualified hardware. Surface finishes and
+          light are art-directed. The current design is not safe to fabricate or assemble.
+        </p>
       </div>
     </section>
   )

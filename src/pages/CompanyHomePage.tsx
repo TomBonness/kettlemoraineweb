@@ -1,13 +1,7 @@
-import hero640Avif from '../assets/product/generated/hero-640.avif'
-import hero1024Avif from '../assets/product/generated/hero-1024.avif'
-import hero1536Avif from '../assets/product/generated/hero-1536.avif'
-import hero640Webp from '../assets/product/generated/hero-640.webp'
-import hero1024Webp from '../assets/product/generated/hero-1024.webp'
-import hero1536Webp from '../assets/product/generated/hero-1536.webp'
 import { SiteShell } from '../components/SiteShell'
 import { VoiceTrace } from '../components/VoiceTrace'
 import { productCatalog, routes } from '../content/catalog'
-import { productCopy } from '../content/openMicro'
+import { marketingRenders } from '../content/openMicro'
 import styles from './CompanyHomePage.module.css'
 
 const homeNavigation = productCatalog.map((product) => ({
@@ -85,29 +79,15 @@ export function CompanyHomePage() {
               aria-label={`Explore ${openMicro.name}`}
             >
               <div className={styles.openMicroMedia}>
-                <picture>
-                  <source
-                    type="image/avif"
-                    srcSet={`${hero640Avif} 640w, ${hero1024Avif} 1024w, ${hero1536Avif} 1536w`}
-                    sizes="(max-width: 767px) 100vw, 68vw"
-                  />
-                  <source
-                    type="image/webp"
-                    srcSet={`${hero640Webp} 640w, ${hero1024Webp} 1024w, ${hero1536Webp} 1536w`}
-                    sizes="(max-width: 767px) 100vw, 68vw"
-                  />
-                  <img
-                    src={hero1024Webp}
-                    width="1024"
-                    height="768"
-                    loading="eager"
-                    decoding="async"
-                    alt={productCopy.heroAlt}
-                  />
-                </picture>
+                <img
+                  {...marketingRenders.studio}
+                  sizes="(max-width: 1000px) 100vw, (max-width: 1280px) 65vw, 780px"
+                  loading="lazy"
+                  decoding="async"
+                />
                 <div className={styles.mediaIndex} aria-hidden="true">
                   <span>Open hardware + software</span>
-                  <span>Revision 0.1</span>
+                  <span>Concept visualization</span>
                 </div>
               </div>
               <div className={styles.featureCopy}>
@@ -116,8 +96,8 @@ export function CompanyHomePage() {
                 <p className={styles.productSummary}>{openMicro.summary}</p>
                 <dl className={styles.productFacts}>
                   <div>
-                    <dt>Controls</dt>
-                    <dd>15</dd>
+                    <dt>At your fingertips</dt>
+                    <dd>12 keys + encoder + touch</dd>
                   </div>
                   <div>
                     <dt>Connection</dt>

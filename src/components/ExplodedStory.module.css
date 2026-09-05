@@ -1,188 +1,186 @@
 .story {
-  background: var(--canvas);
+  background: var(--surface-raised);
   color: var(--text-primary);
 }
+
 .inner {
   max-width: var(--content-max);
   margin: 0 auto;
-  padding: clamp(5rem, 9vw, 8rem) var(--gutter);
+  padding: clamp(4.5rem, 9vw, 8rem) var(--gutter);
 }
+
 .heading {
   display: grid;
-  grid-template-columns: 1.1fr 0.9fr;
-  gap: 1rem 5rem;
+  grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
   align-items: end;
+  gap: 1.5rem clamp(2rem, 5vw, 5rem);
 }
+
 .eyebrow {
-  grid-column: 1 / -1;
-  margin: 0 0 1rem;
+  margin: 0;
   color: var(--accent);
-  font: 0.64rem/1.6 var(--font-mono);
-  letter-spacing: 0.12em;
+  font: 400 0.64rem/1.6 var(--font-mono);
+  letter-spacing: 0.1em;
   text-transform: uppercase;
 }
+
+.heading > .eyebrow {
+  grid-column: 1 / -1;
+}
+
 .heading h2 {
   max-width: 9ch;
   margin: 0;
-  font: 500 clamp(3.1rem, 6.2vw, 5.8rem)/0.98 var(--font-serif);
-  letter-spacing: -0.06em;
+  font: 400 clamp(3.3rem, 7vw, 6.3rem)/0.98 var(--font-serif);
+  letter-spacing: -0.055em;
 }
+
 .lead {
-  max-width: 31rem;
-  margin: 0 0 0.2rem;
+  max-width: 32rem;
+  margin: 0;
   color: var(--text-secondary);
   font-size: 1rem;
   line-height: 1.8;
 }
+
 .visualGrid {
   display: grid;
-  grid-template-columns: minmax(0, 1.2fr) minmax(0, 0.8fr);
-  gap: clamp(1.25rem, 3vw, 2.5rem);
+  grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
+  gap: clamp(2rem, 4vw, 3.5rem);
   align-items: start;
   margin-top: clamp(3rem, 6vw, 5rem);
 }
-.render {
+
+.assembly,
+.detail {
   min-width: 0;
   margin: 0;
 }
-.detailRender {
-  margin-top: 5rem;
-}
-.renderImage {
-  position: relative;
-  overflow: hidden;
-  aspect-ratio: 1;
-  background: #101216;
-}
-.explodedRender .renderImage {
-  aspect-ratio: 1.05;
-}
-.renderImage picture,
-.renderImage img {
+
+.assembly img,
+.detail img {
   display: block;
   width: 100%;
-  height: 100%;
+  height: auto;
 }
-.renderImage img {
-  object-fit: cover;
+
+.materialStory {
+  min-width: 0;
+  padding-top: clamp(2rem, 5vw, 4rem);
 }
-.detailRender .renderImage img {
-  object-position: center 72%;
-  transform: scale(1.35);
+
+.assembly figcaption,
+.detail figcaption {
+  padding-top: 1.25rem;
 }
+
 .figureLabel {
-  position: absolute;
-  z-index: 1;
-  top: 1.2rem;
-  left: 1.2rem;
-  color: #b1b9c8;
-  font: 0.57rem/1.5 var(--font-mono);
-  letter-spacing: 0.06em;
+  display: block;
+  margin-bottom: 0.9rem;
+  color: var(--text-secondary);
+  font: 0.59rem/1.6 var(--font-mono);
+  letter-spacing: 0.065em;
   text-transform: uppercase;
 }
-.render figcaption {
-  display: grid;
-  gap: 0.75rem;
-  padding: 1.5rem 0 0;
-}
-.render figcaption strong {
-  font: 500 clamp(1.5rem, 2.4vw, 2rem)/1.15 var(--font-serif);
+
+.assembly figcaption strong,
+.detail figcaption strong {
+  display: block;
+  font: 400 clamp(1.7rem, 2.6vw, 2.3rem)/1.15 var(--font-serif);
   letter-spacing: -0.035em;
 }
-.render figcaption span {
-  max-width: 32rem;
+
+.assembly figcaption p,
+.detail figcaption p {
+  max-width: 49ch;
+  margin: 0.8rem 0 0;
   color: var(--text-secondary);
-  font-size: 0.82rem;
+  font-size: 0.86rem;
   line-height: 1.8;
 }
+
+.layerKey {
+  margin-top: 2.5rem;
+}
+
 .layers {
-  display: grid;
-  grid-template-columns: repeat(5, minmax(0, 1fr));
-  margin: clamp(3rem, 6vw, 5rem) 0 0;
+  margin: 1rem 0 0;
   padding: 0;
   border-top: 1px solid var(--hairline);
   list-style: none;
 }
+
 .layers li {
-  min-width: 0;
-  padding: 1.5rem 1.2rem 0 0;
-}
-.layers li + li {
-  padding-left: 1.2rem;
-  border-left: 1px solid var(--hairline);
-}
-.layers > li > span {
-  display: block;
-  margin-bottom: 2rem;
-  color: var(--accent);
-  font: 0.7rem var(--font-mono);
-}
-.layers li div {
   display: grid;
-  align-content: start;
+  grid-template-columns: 1.5rem minmax(0, 1fr);
+  gap: 0.8rem;
+  padding: 1rem 0;
+  border-bottom: 1px solid var(--hairline);
 }
-.layers small {
-  color: var(--text-secondary);
-  font: 0.57rem/1.6 var(--font-mono);
-  letter-spacing: 0.07em;
-  text-transform: uppercase;
+
+.layerNumber {
+  padding-top: 0.15rem;
+  color: var(--accent);
+  font: 0.65rem/1.6 var(--font-mono);
 }
-.layers strong {
-  margin-top: 0.6rem;
-  font-size: 0.9rem;
+
+.layers h4 {
+  margin: 0;
+  font-size: 0.78rem;
   font-weight: 550;
-  letter-spacing: -0.025em;
-  line-height: 1.4;
+  line-height: 1.6;
 }
+
+.layers h4 span {
+  color: var(--text-secondary);
+  font-weight: 400;
+}
+
 .layers p {
-  margin: 0.8rem 0 0;
+  margin: 0.4rem 0 0;
+  color: var(--text-secondary);
+  font-size: 0.75rem;
+  line-height: 1.75;
+}
+
+.studyNote {
+  max-width: 75ch;
+  margin: 3rem 0 0;
+  padding-top: 1.25rem;
+  border-top: 1px solid var(--hairline);
   color: var(--text-secondary);
   font-size: 0.75rem;
   line-height: 1.8;
 }
-@media (max-width: 900px) {
-  .heading {
-    gap: 1rem 2.5rem;
-  }
-  .layers {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-  .layers li:nth-child(n) {
-    padding: 1.5rem 1.2rem 1.5rem 0;
-    border-left: 0;
-    border-bottom: 1px solid var(--hairline);
-  }
-  .layers li:nth-child(even) {
-    padding-left: 1.2rem;
-  }
-  .layers > li > span {
-    margin-bottom: 1rem;
-  }
-}
-@media (max-width: 600px) {
+
+@media (max-width: 767px) {
   .heading,
   .visualGrid {
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr);
   }
+
   .heading {
-    gap: 1.5rem;
+    gap: 1.25rem;
   }
-  .eyebrow {
-    margin-bottom: 0;
+
+  .heading h2 {
+    font-size: clamp(3rem, 12vw, 5rem);
   }
+
   .lead {
-    font-size: 0.9rem;
+    max-width: 38ch;
+    font-size: 0.95rem;
   }
-  .detailRender {
-    margin-top: 1.5rem;
+
+  .visualGrid {
+    gap: 3rem;
   }
-  .layers {
-    grid-template-columns: 1fr;
+
+  .materialStory {
+    padding-top: 0;
   }
-  .layers li:nth-child(n) {
-    display: grid;
-    grid-template-columns: 2rem minmax(0, 1fr);
-    gap: 0.5rem;
-    padding: 1.5rem 0;
+
+  .studyNote {
+    margin-top: 2rem;
   }
 }
