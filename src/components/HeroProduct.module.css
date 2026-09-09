@@ -94,7 +94,7 @@
 .renderFrame img {
   position: absolute;
   /* Remove empty alpha canvas above the object, not the product itself. */
-  top: -68%;
+  top: -47%;
   left: -10%;
   display: block;
   width: 120%;

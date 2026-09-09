@@ -75,7 +75,7 @@ export function CompanyHomePage() {
                   src={openMicroHome}
                   srcSet={`${openMicroHome} 960w, ${openMicroHomeLarge} 1600w`}
                   width="1600"
-                  height="1131"
+                  height="1190"
                   alt="Art-directed concept visualization of Open Micro with twelve dark keys, a push encoder, and a softly illuminated frosted wall"
                   sizes="(max-width: 767px) calc(100vw - 48px), (max-width: 1050px) calc(100vw - 96px), (max-width: 1280px) 65vw, 780px"
                   loading="lazy"
