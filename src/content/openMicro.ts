@@ -19,21 +19,21 @@ export const marketingRenders = {
     srcSet: `${desk} 1600w, ${deskFull} 3840w`,
     width: 3840,
     height: 2160,
-    alt: 'Concept visualization of Open Micro connected by USB-C on a gray mat on a wooden desk',
+    alt: 'Concept visualization of Open Micro connected by USB-C on a black mat on a whitewashed wooden desk',
   },
   studio: {
     src: studio,
     srcSet: `${studio} 1600w, ${studioFull} 3840w`,
     width: 3840,
     height: 2880,
-    alt: 'Studio concept visualization of Open Micro with dark keycaps, exposed control PCB, and frosted wall',
+    alt: 'Studio concept visualization of Open Micro with dark keycaps, exposed control PCB, and smoked wall',
   },
   exploded: {
     src: exploded,
     srcSet: `${exploded} 1200w, ${explodedFull} 2880w`,
     width: 2880,
     height: 3840,
-    alt: 'Exploded concept visualization separating the controls, two PCBs, frosted wall, battery, aluminum base, and feet',
+    alt: 'Exploded concept visualization separating the controls, two PCBs, smoked wall, battery, aluminum base, and feet',
   },
   top: {
     src: top,
@@ -54,14 +54,14 @@ export const marketingRenders = {
     srcSet: `${night} 1600w, ${nightFull} 3840w`,
     width: 3840,
     height: 2160,
-    alt: 'Night concept visualization with cyan and violet light diffused through the frosted polycarbonate wall',
+    alt: 'Night concept visualization with white light diffused through the smoked polycarbonate wall',
   },
   transparent: {
     src: transparent,
     srcSet: `${transparent} 1600w, ${transparentFull} 2880w`,
     width: 2880,
     height: 2880,
-    alt: 'Three-quarter concept visualization of Open Micro with twelve dark keys, a push encoder, and a softly illuminated frosted wall',
+    alt: 'Three-quarter concept visualization of Open Micro with twelve dark keys, a push encoder, and a softly illuminated smoked wall',
   },
 } as const
 
@@ -195,7 +195,7 @@ export const explodedLayers = [
   },
   {
     title: 'Removable polycarbonate wall',
-    body: 'The neutral-frosted wall diffuses light around the perimeter, where it can show the status of your work.',
+    body: 'The satin-smoked wall diffuses light around the perimeter, where it can show the status of your work.',
   },
   {
     title: 'Anodized aluminum',
