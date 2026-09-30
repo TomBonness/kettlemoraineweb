@@ -31,9 +31,9 @@ export const routeMetadata: Record<ProductId | 'home' | 'not-found', RouteMetada
     path: routes.inference,
     title: 'Cinference Engine — Kettle Moraine Research Labs',
     description:
-      'An open-source C++/CUDA inference engine for one RTX 5090. Serve a 27B model with 256K context and image input through an OpenAI-compatible API on your own machine.',
+      'A custom C++/CUDA inference engine that runs a 27B model at up to 970 tokens per second on one RTX 5090, up to 7× faster than llama.cpp on the same card.',
     image: '/social/inference.png',
-    imageAlt: 'Cinference Engine — an open-source inference engine serving 256K context from one RTX 5090.',
+    imageAlt: 'Cinference Engine — 970 tokens per second on one RTX 5090.',
   },
   lavtype: {
     path: routes.lavtype,

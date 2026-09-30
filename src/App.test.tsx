@@ -45,7 +45,7 @@ describe('page routing', () => {
         screen.getByRole('heading', { level: 1, name: 'Cinference Engine' }),
       ).toBeInTheDocument()
       expect(document.title).toBe('Cinference Engine — Kettle Moraine Research Labs')
-      expect(screen.getByRole('link', { name: 'Get the installer' })).toHaveAttribute(
+      expect(screen.getAllByRole('link', { name: 'Get the installer' })[0]).toHaveAttribute(
         'href',
         'https://github.com/satellitedown/fafstmobel-cinference',
       )

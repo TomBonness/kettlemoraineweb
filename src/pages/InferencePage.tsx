@@ -1,15 +1,30 @@
+import type { CSSProperties } from 'react'
 import { SiteShell } from '../components/SiteShell'
+import { TokenRace } from '../components/TokenRace'
+import { WaitlistForm } from '../components/WaitlistForm'
 import { routes } from '../content/catalog'
 import {
+  comparedEngines,
+  comparisonAxisMax,
+  engineComparison,
+  engineSpecs,
   inferenceLinks,
   inferenceNavigation,
+  inferenceSignup,
   installCommands,
+  llamaCppSpeedup,
   localEndpoint,
+  peakTokensPerSecond,
+  raceFile,
+  speedHistory,
   speedTechniques,
-  throughputResults,
-  verificationChecks,
 } from '../content/inference'
 import styles from './InferencePage.module.css'
+
+const cinference = 'Cinference Engine'
+const [chats, edits] = engineComparison
+const historyGain =
+  speedHistory[speedHistory.length - 1].tokensPerSecond / speedHistory[0].tokensPerSecond
 
 function TechniqueIcon({ kind }: { kind: (typeof speedTechniques)[number]['icon'] }) {
   return (
@@ -34,12 +49,19 @@ function TechniqueIcon({ kind }: { kind: (typeof speedTechniques)[number]['icon'
           <path d="M82 19h22M82 28h14" />
           <rect x="79" y="33" width="28" height="8" rx="2" />
         </>
-      ) : (
+      ) : kind === 'kernel' ? (
         <>
           <path d="M4 24h18m-12 8h12M4 40h18" />
           <rect x="38" y="10" width="44" height="44" rx="4" />
           <rect x="50" y="22" width="20" height="20" rx="2" />
           <path d="M48 10V3m12 7V3m12 7V3M48 61v-7m12 7v-7m12 7v-7M38 20h-7m7 12h-7m7 12h-7M82 20h7m-7 12h7m-7 12h7" />
+        </>
+      ) : (
+        <>
+          <rect x="8" y="14" width="44" height="36" rx="4" />
+          <path d="M16 26h28M16 38h20M60 28h12M60 36h12" />
+          <rect x="80" y="14" width="34" height="36" rx="4" />
+          <path d="m89 32 5 5 11-12" />
         </>
       )}
     </svg>
@@ -66,14 +88,14 @@ export function InferencePage() {
           <div className={styles.heroInner}>
             <h1 id="inference-title">Cinference Engine</h1>
             <p className={styles.heroStatement}>
-              Less waiting,
+              Up to {llamaCppSpeedup.toFixed(1)}× faster than llama.cpp.
               <br />
-              <em>on hardware you own.</em>
+              <em>On the same RTX 5090.</em>
             </p>
             <p className={styles.heroLead}>
-              An open-source C++/CUDA inference engine for one RTX 5090. It serves a 27B model with
-              a 256K-token context window and image input through an OpenAI-compatible API on your
-              own machine.
+              A custom C++/CUDA inference engine. It drafts 15 tokens ahead, checks them all in one
+              pass, and runs a 27B model at up to {Math.floor(peakTokensPerSecond)} tokens per
+              second on a single GPU.
             </p>
             <div className={styles.heroActions}>
               <a className={`button ${styles.primaryButton}`} href={inferenceLinks.installer}>
@@ -84,10 +106,10 @@ export function InferencePage() {
               </a>
             </div>
             <div className={styles.heroMetric}>
-              <span className={styles.metricNumber}>256K</span>
+              <span className={styles.metricNumber}>{Math.floor(peakTokensPerSecond)}</span>
               <div>
-                <span>tokens of context</span>
-                <small>On one RTX 5090 (32 GB)</small>
+                <span>tokens / second</span>
+                <small>Peak decode on one RTX 5090</small>
               </div>
             </div>
           </div>
@@ -96,53 +118,116 @@ export function InferencePage() {
         <section className={styles.speedSection} id="speed" aria-labelledby="speed-title">
           <div className={styles.sectionIntro}>
             <h2 id="speed-title">
-              Shorter waits,
+              Same GPU.
               <br />
-              <em>measured.</em>
+              <em>Less waiting.</em>
             </h2>
             <p className={styles.lead}>
-              The engine drafts several tokens ahead and checks them together, so each step can
-              produce more than one token. How many depends on how predictable the output is.
+              We ran llama.cpp, NInfer, and Cinference Engine on one RTX 5090 with the same prompts.
+              Here’s a whole-file edit, replayed at each engine’s measured speed.
             </p>
           </div>
-          <figure className={styles.speedPanel} aria-labelledby="throughput-caption">
-            <figcaption className={styles.panelCaption} id="throughput-caption">
-              <strong>Tokens per second on one RTX 5090.</strong>
-              <span>One request at a time. Higher is faster.</span>
-            </figcaption>
-            <div className={styles.throughputPlot}>
-              {throughputResults.map((result) => (
-                <div className={styles.throughputRow} key={result.label}>
-                  <div className={styles.throughputLabel}>
-                    <span>
-                      {result.label}
-                      <small>{result.detail}</small>
-                    </span>
-                    <strong>{result.tokensPerSecond.toFixed(1)}</strong>
-                  </div>
-                  <div className={styles.throughputTrack}>
-                    <span style={{ width: `${(result.tokensPerSecond / 1000) * 100}%` }} />
-                  </div>
-                </div>
-              ))}
-              <div className={styles.chartAxis} aria-hidden="true">
-                <span>0</span>
-                <span>250</span>
-                <span>500</span>
-                <span>750</span>
-                <span>1,000</span>
-              </div>
+          <TokenRace
+            lanes={comparedEngines.map((engine) => ({
+              engine,
+              tokensPerSecond: edits.tokensPerSecond[engine],
+              highlight: engine === cinference,
+            }))}
+            text={raceFile}
+          />
+          <div className={styles.comparison}>
+            {[chats, edits].map((workload) => (
+              <figure className={styles.workload} key={workload.name}>
+                <figcaption>
+                  <strong>{workload.name}</strong>
+                  <span>{workload.detail}</span>
+                </figcaption>
+                <p className={styles.speedup}>
+                  {(
+                    workload.tokensPerSecond[cinference] / workload.tokensPerSecond['llama.cpp']
+                  ).toFixed(1)}
+                  ×<span>faster than llama.cpp</span>
+                </p>
+                <dl className={styles.bars}>
+                  {comparedEngines.map((engine) => (
+                    <div
+                      className={`${styles.bar} ${engine === cinference ? styles.barHighlight : ''}`}
+                      key={engine}
+                    >
+                      <dt>{engine}</dt>
+                      <dd>
+                        <span className={styles.barTrack}>
+                          <span
+                            style={{
+                              width: `${(workload.tokensPerSecond[engine] / comparisonAxisMax) * 100}%`,
+                            }}
+                          />
+                        </span>
+                        <strong>{workload.tokensPerSecond[engine].toFixed(1)}</strong>
+                      </dd>
+                    </div>
+                  ))}
+                </dl>
+              </figure>
+            ))}
+          </div>
+          <p className={styles.finePrint}>
+            Decode tokens per second, one request at a time, measured September 30, 2026 on one RTX
+            5090. llama.cpp ran Qwen3.8-27B Q4_K_M with stock settings; NInfer and Cinference Engine
+            ran fafstmobel with 15-token DFlash2 drafts.
+          </p>
+        </section>
+
+        <section className={styles.historySection} aria-labelledby="history-title">
+          <div className={styles.historyInner}>
+            <div className={styles.sectionIntro}>
+              <h2 id="history-title">
+                {historyGain.toFixed(1)}× faster
+                <br />
+                <em>in one week.</em>
+              </h2>
+              <p className={styles.lead}>
+                We tune Cinference Engine one pass at a time and measure every change. This is the
+                same benchmark after each pass.
+              </p>
             </div>
-            <p className={styles.finePrint}>
-              Chats and edits: ninfer-serve with verify trees and the model’s default sampling; 64
-              requests over 16 coding tasks with 1,024 output tokens, and 16 requests over four
-              edits that return a complete repository file. Benchmark: ninfer_bench, greedy, 256
-              tokens after a 32,768-token prompt from a corpus that repeats a few paragraphs.
-              Recorded on a desktop RTX 5090 at its 575&nbsp;W limit.{' '}
-              <a href={inferenceLinks.measurements}>Measurements</a>.
+            <figure className={styles.ladder} aria-labelledby="ladder-caption">
+              <ol>
+                {speedHistory.map((step) => (
+                  <li
+                    key={step.date}
+                    style={{ '--level': step.tokensPerSecond / 10 } as CSSProperties}
+                  >
+                    <span className={styles.ladderColumn}>
+                      <strong>{step.tokensPerSecond.toFixed(1)}</strong>
+                      <span className={styles.ladderBar} />
+                    </span>
+                    <span className={styles.ladderDate}>{step.date}</span>
+                    <span className={styles.ladderLabel}>{step.label}</span>
+                  </li>
+                ))}
+              </ol>
+              <figcaption id="ladder-caption">
+                Decode tokens per second after a 32,768-token prompt (ninfer_bench, greedy).{' '}
+                <a href={inferenceLinks.performance}>Measurements</a>.
+              </figcaption>
+            </figure>
+          </div>
+        </section>
+
+        <section className={styles.engineSection} id="engine" aria-labelledby="engine-title">
+          <div className={styles.sectionIntro}>
+            <h2 id="engine-title">
+              Custom where
+              <br />
+              <em>it counts.</em>
+            </h2>
+            <p className={styles.lead}>
+              Cinference Engine starts from NInfer and rewrites the parts that decide how long you
+              wait for the next token.
             </p>
-          </figure>
-          <div className={styles.scenarios}>
+          </div>
+          <div className={styles.techniques}>
             {speedTechniques.map((technique) => (
               <article key={technique.icon}>
                 <TechniqueIcon kind={technique.icon} />
@@ -151,117 +236,47 @@ export function InferencePage() {
               </article>
             ))}
           </div>
-        </section>
-
-        <section className={styles.engineSection} id="engine" aria-labelledby="engine-title">
-          <div className={styles.engineInner}>
-            <div className={styles.engineCopy}>
-              <h2 id="engine-title">
-                A long context
-                <br />
-                <em>on one card.</em>
-              </h2>
-              <p className={styles.lead}>
-                The recommended model, fafstmobel, runs with a 262,144-token context window, image
-                input, and reasoning in the RTX 5090’s 32 GB.
-              </p>
-              <p className={styles.bodyCopy}>
-                fafstmobel is a 27B Qwen3.8 derivative packaged as one file with its vision encoder
-                and DFlash2 drafter, so there’s nothing to convert. The engine also loads other
-                compatible NInfer v3 models by path.
-              </p>
-              <a className={styles.textLink} href={inferenceLinks.model}>
-                Read the model card <span aria-hidden="true">↗</span>
-              </a>
-            </div>
-            <figure className={styles.recallCheck} aria-labelledby="recall-caption">
-              <figcaption id="recall-caption">
-                <strong>One long-context check.</strong>
-                <span>Installer verification with the full 256K profile.</span>
-              </figcaption>
-              <div className={styles.recallResult}>
-                <span className={styles.recallNumber}>259,749</span>
-                <p>
-                  prompt tokens
-                  <br />
-                  <span>The model recalled a code placed at the very beginning.</span>
-                </p>
-              </div>
-              <p className={styles.checksLabel}>Also completed</p>
-              <ul className={styles.checks}>
-                {verificationChecks.map((check) => (
-                  <li key={check}>
-                    <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                      <path d="M4 12.5 9.5 18 20 6" />
-                    </svg>
-                    {check}
-                  </li>
-                ))}
-              </ul>
-              <p className={styles.finePrint}>
-                Source:{' '}
-                <a href={inferenceLinks.verification}>installer verification, September 29, 2026</a>.
-                Capacity and integration smoke checks, not a quality or throughput benchmark.
-              </p>
-            </figure>
-            <dl className={styles.modelSpecs}>
-              <div>
-                <dt>Context window</dt>
+          <dl className={styles.engineSpecs}>
+            {engineSpecs.map((spec) => (
+              <div key={spec.label}>
+                <dt>{spec.label}</dt>
                 <dd>
-                  256<span>K tokens</span>
+                  {spec.value}
+                  <span>{spec.unit}</span>
                 </dd>
               </div>
-              <div>
-                <dt>Parameters</dt>
-                <dd>
-                  27<span>B</span>
-                </dd>
-              </div>
-              <div>
-                <dt>Draft tokens</dt>
-                <dd>
-                  15<span> per round</span>
-                </dd>
-              </div>
-              <div>
-                <dt>Weights</dt>
-                <dd className={styles.textSpec}>
-                  NVFP4 +<br />
-                  FP8
-                </dd>
-              </div>
-            </dl>
-            <div className={styles.sourceRail}>
-              <a href={inferenceLinks.source}>
-                Engine source <span aria-hidden="true">↗</span>
-              </a>
-              <a href={inferenceLinks.installer}>
-                Installer <span aria-hidden="true">↗</span>
-              </a>
-              <a href={inferenceLinks.model}>
-                fafstmobel on Hugging Face <span aria-hidden="true">↗</span>
-              </a>
-              <a href={inferenceLinks.upstream}>
-                Built from NInfer <span aria-hidden="true">↗</span>
-              </a>
-            </div>
+            ))}
+          </dl>
+          <div className={styles.sourceRail}>
+            <a href={inferenceLinks.source}>
+              Engine source <span aria-hidden="true">↗</span>
+            </a>
+            <a href={inferenceLinks.performance}>
+              Performance log <span aria-hidden="true">↗</span>
+            </a>
+            <a href={inferenceLinks.model}>
+              fafstmobel on Hugging Face <span aria-hidden="true">↗</span>
+            </a>
+            <a href={inferenceLinks.upstream}>
+              Built from NInfer <span aria-hidden="true">↗</span>
+            </a>
           </div>
         </section>
 
-        <section className={styles.setupSection} id="setup" aria-labelledby="setup-title">
+        <section className={styles.installSection} id="install" aria-labelledby="install-title">
           <div className={styles.sectionIntro}>
-            <h2 id="setup-title">
-              Runs on
+            <h2 id="install-title">
+              Running in
               <br />
-              <em>your machine.</em>
+              <em>three steps.</em>
             </h2>
             <p className={styles.lead}>
-              The installer builds a pinned copy of the engine, downloads and checks the model, and
-              starts a local server. Point your application at it like any OpenAI-compatible API.
+              The installer builds the engine, downloads and checks the model, and starts a local
+              server. Point your app or coding agent at it like any OpenAI-compatible API.
             </p>
           </div>
-          <div className={styles.setupGrid}>
-            <figure className={styles.setupArtwork}>
+          <div className={styles.installGrid}>
+            <figure className={styles.installArtwork}>
               <img
                 src="/products/inference/inference-flow.svg"
                 width="1000"
@@ -270,35 +285,20 @@ export function InferencePage() {
                 decoding="async"
                 alt="Isometric illustration of a local GPU sending a token stream to an application interface"
               />
-              <figcaption>
-                Cinference Engine serves the model from your GPU. Your application connects through
-                a local, OpenAI-compatible endpoint.
-              </figcaption>
             </figure>
-            <div className={styles.setupCopy}>
-              <h3>
-                One menu,
-                <br />
-                three steps.
-              </h3>
-              <ol className={styles.setupSteps}>
+            <div className={styles.installCopy}>
+              <ol className={styles.installSteps}>
                 <li>
                   <strong>Check your setup.</strong>
-                  <p>
-                    Linux x86_64, an RTX 5090 with 32 GB, and an NVIDIA driver compatible with CUDA
-                    13.4. The installer doesn’t change drivers.
-                  </p>
+                  <p>Linux x86_64, an RTX 5090, and an NVIDIA driver for CUDA 13.4.</p>
                 </li>
                 <li>
                   <strong>Install.</strong>
-                  <p>
-                    Run the commands below and choose 1. The installer builds the engine and
-                    downloads about 23&nbsp;GB of model files.
-                  </p>
+                  <p>Run the commands below and choose 1.</p>
                 </li>
                 <li>
                   <strong>Start the server.</strong>
-                  <p>Choose 3, then connect your application to the local endpoint.</p>
+                  <p>Choose 3, then connect to the local endpoint.</p>
                 </li>
               </ol>
               <pre className={styles.command}>
@@ -314,8 +314,8 @@ export function InferencePage() {
                   <dd>{localEndpoint.model}</dd>
                 </div>
               </dl>
-              <a className={styles.textLink} href={inferenceLinks.installGuide}>
-                Read the installer guide <span aria-hidden="true">↗</span>
+              <a className={`button ${styles.primaryButton}`} href={inferenceLinks.installer}>
+                Get the installer <span aria-hidden="true">↗</span>
               </a>
             </div>
           </div>
@@ -326,60 +326,47 @@ export function InferencePage() {
           <div className={styles.questions}>
             <details>
               <summary>
-                What does Cinference Engine change from NInfer?<span aria-hidden="true">+</span>
+                Does the speed change what the model writes?<span aria-hidden="true">+</span>
               </summary>
               <p>
-                Cinference Engine is built from NInfer, an open-source C++/CUDA inference engine,
-                and changes the native engine itself: faster DFlash2 verification kernels, verify
-                trees with prompt lookup, lookup rounds, draft windows of up to 10 tokens for MTP
-                decoding, capture-based CUDA Graph reuse, and faster long-prompt prefill.
+                No. The full 27B model checks every drafted token and keeps only what it would have
+                produced itself, so the output follows the model’s own distribution.
               </p>
             </details>
             <details>
               <summary>
-                Which GPUs and models does it support?<span aria-hidden="true">+</span>
+                How is it faster than NInfer?<span aria-hidden="true">+</span>
               </summary>
               <p>
-                It’s validated on an RTX 5090 with 32 GB, and the installer builds for Blackwell
-                (sm_120a); other GPUs are not validated. The installer sets up fafstmobel, and the
-                engine also loads other compatible NInfer v3 models by path. fafstmobel’s outputs
-                are unmoderated and aren’t suitable for safety-critical use.
+                Cinference Engine keeps NInfer’s foundation and rewrites its decode path: new
+                verification kernels, verify trees, prompt lookup, lookup rounds, and GDN blocks that
+                overlap on a second CUDA stream.
               </p>
             </details>
             <details>
               <summary>
-                How fast will it be on my work?<span aria-hidden="true">+</span>
+                What does it run on?<span aria-hidden="true">+</span>
               </summary>
               <p>
-                It depends on how much of the output the drafter predicts. On one RTX 5090, coding
-                chats with reasoning averaged 307.5 tokens per second and complete-file edits 564.6;
-                output that copies its prompt goes fastest. Long prompts also take time to process
-                before the first token: a 190K-token request waited 51.3 seconds.
+                An RTX 5090 on Linux. The installer sets up fafstmobel, a 27B Qwen3.8 model with
+                vision and reasoning, and the engine also loads other NInfer v3 models.
               </p>
             </details>
             <details>
               <summary>
-                Can other computers connect to it?<span aria-hidden="true">+</span>
+                What does it cost?<span aria-hidden="true">+</span>
               </summary>
               <p>
-                By default, the installer’s server listens on 127.0.0.1 with no authentication and
-                handles one request at a time. Keep it on loopback and connect from applications on
-                the same machine.
-              </p>
-            </details>
-            <details>
-              <summary>
-                How is it licensed?<span aria-hidden="true">+</span>
-              </summary>
-              <p>
-                Cinference Engine’s source is Apache-2.0. The fafstmobel model has separate terms:
-                its Swift contribution uses the Swift Open License v1.0, whose commercial-use grant
-                has a US$1 million gross-revenue threshold. Read the model’s LICENSE.swift before
-                commercial use or redistribution.
+                Nothing. The engine is Apache-2.0. fafstmobel uses the Swift Open License v1.0, so
+                read its LICENSE.swift before commercial use.
               </p>
             </details>
           </div>
         </section>
+
+        <div className={styles.signup}>
+          <WaitlistForm signup={inferenceSignup} />
+        </div>
       </div>
     </SiteShell>
   )

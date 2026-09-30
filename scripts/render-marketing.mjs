@@ -109,8 +109,8 @@ await saveCard('inference', [
   ...header,
   await textLayer('Cinference', 64, 118, 104),
   await textLayer('Engine', 64, 230, 104),
-  await textLayer('Less waiting,\non hardware you own.', 69, 380, 32, 'serif', '#c8d2e8'),
-  await textLayer('Open source · 256K context on one RTX 5090.', 69, 554, 21, 'sans', muted),
+  await textLayer('970 tokens per second\non one RTX 5090.', 69, 380, 32, 'serif', '#c8d2e8'),
+  await textLayer('Custom C++/CUDA inference. Open source.', 69, 554, 21, 'sans', muted),
 ])
 
 const dictation = await sharp(asset('public/products/lavtype/voice-to-text.svg'))

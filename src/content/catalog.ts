@@ -26,7 +26,7 @@ export const productCatalog: readonly CatalogProduct[] = [
     id: 'inference',
     name: 'Cinference Engine',
     summary:
-      'Spend less time waiting on a model you run yourself. Cinference Engine serves a 27B model with 256K context from one RTX 5090.',
+      'A custom C++/CUDA inference engine that runs a 27B model at up to 970 tokens per second on one RTX 5090.',
     path: routes.inference,
   },
   {

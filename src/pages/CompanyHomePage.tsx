@@ -1,6 +1,7 @@
 import { SiteShell } from '../components/SiteShell'
 import { VoiceTrace } from '../components/VoiceTrace'
 import { productCatalog, routes } from '../content/catalog'
+import { llamaCppSpeedup, peakTokensPerSecond } from '../content/inference'
 import openMicroHome from '../assets/product/marketing/open-micro-home-960.webp'
 import openMicroHomeLarge from '../assets/product/marketing/open-micro-home-1600.webp'
 import styles from './CompanyHomePage.module.css'
@@ -116,8 +117,8 @@ export function CompanyHomePage() {
                   alt=""
                 />
                 <div className={styles.inferenceMetric} aria-hidden="true">
-                  <span>256K</span>
-                  <small>tokens of context on one RTX 5090</small>
+                  <span>{Math.floor(peakTokensPerSecond)}</span>
+                  <small>tokens per second on one RTX 5090</small>
                 </div>
               </div>
               <div className={styles.featureCopy}>
@@ -125,12 +126,12 @@ export function CompanyHomePage() {
                 <p className={styles.productSummary}>{inference.summary}</p>
                 <dl className={styles.productFacts}>
                   <div>
-                    <dt>Hardware</dt>
-                    <dd>One RTX 5090</dd>
+                    <dt>vs llama.cpp</dt>
+                    <dd>Up to {llamaCppSpeedup.toFixed(1)}× faster</dd>
                   </div>
                   <div>
-                    <dt>API</dt>
-                    <dd>OpenAI-compatible</dd>
+                    <dt>Hardware</dt>
+                    <dd>One RTX 5090</dd>
                   </div>
                 </dl>
                 <span className={styles.productLink}>

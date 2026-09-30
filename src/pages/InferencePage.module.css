@@ -16,14 +16,6 @@
   font-weight: inherit;
 }
 
-.finePrint,
-.sourceRail,
-.setupArtwork figcaption {
-  font-family: var(--font-sans);
-  font-size: 0.85rem;
-  line-height: 1.6;
-}
-
 .hero {
   position: relative;
   isolation: isolate;
@@ -69,14 +61,13 @@
 }
 
 .heroStatement {
-  max-width: 34rem;
+  max-width: 36rem;
   margin: 0 0 1.6rem;
   font-family: var(--font-serif);
   font-size: clamp(1.8rem, 3vw, 2.7rem);
   font-weight: 500;
   letter-spacing: -0.045em;
   line-height: 1.12;
-  text-wrap: balance;
 }
 
 .heroStatement em {
@@ -85,7 +76,7 @@
 }
 
 .heroLead {
-  max-width: 30rem;
+  max-width: 31rem;
   margin: 0;
   color: #bfc4cf;
   font-size: clamp(0.95rem, 1.4vw, 1.1rem);
@@ -123,10 +114,6 @@
 }
 
 .textLink:hover {
-  color: var(--accent);
-}
-
-.hero .textLink:hover {
   color: var(--blue-light);
 }
 
@@ -159,7 +146,8 @@
 }
 
 .speedSection,
-.setupSection,
+.engineSection,
+.installSection,
 .questionsSection {
   max-width: var(--content-max);
   margin: 0 auto;
@@ -181,130 +169,239 @@
   line-height: 1.65;
 }
 
-.speedPanel {
+.comparison {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1.25rem;
+  margin-top: 1.25rem;
+}
+
+.workload {
+  min-width: 0;
   margin: 0;
-  padding: clamp(1.5rem, 4vw, 3rem);
+  padding: clamp(1.4rem, 3vw, 2.1rem);
   border: 1px solid var(--hairline);
   border-radius: var(--radius-small);
   background: #fff;
-  box-shadow: 0 20px 60px rgb(16 17 20 / 3%);
 }
 
-.panelCaption,
-.recallCheck figcaption {
+.workload figcaption {
   display: grid;
-  gap: 0.75rem;
+  gap: 0.4rem;
 }
 
-.panelCaption strong,
-.recallCheck figcaption strong {
+.workload figcaption strong {
   font-family: var(--font-serif);
-  font-size: 1.9rem;
+  font-size: 1.75rem;
   font-weight: 500;
   letter-spacing: -0.04em;
-  line-height: 1.15;
 }
 
-.panelCaption > span,
-.recallCheck figcaption > span,
-.chartAxis {
+.workload figcaption span {
   color: var(--text-secondary);
   font-size: 0.85rem;
 }
 
-.throughputPlot {
-  margin-top: 2.5rem;
-}
-
-.throughputRow + .throughputRow {
-  margin-top: 1.65rem;
-}
-
-.throughputLabel {
+.speedup {
   display: flex;
-  align-items: flex-end;
-  justify-content: space-between;
-  gap: 0.8rem;
-  margin-bottom: 0.8rem;
-  font-size: 0.92rem;
-  font-weight: 600;
-}
-
-.throughputLabel small {
-  display: block;
-  margin-top: 0.25rem;
-  color: var(--text-secondary);
-  font-size: 0.8rem;
-  font-weight: 400;
-}
-
-.throughputLabel strong {
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.2rem 0.8rem;
+  margin: 1.5rem 0 1.6rem;
   color: var(--accent);
-  font-family: var(--font-mono);
-  font-size: 1.1rem;
+  font-size: clamp(3.2rem, 6vw, 4.6rem);
   font-weight: 500;
+  letter-spacing: -0.06em;
+  line-height: 1;
 }
 
-.throughputTrack {
-  height: 16px;
+.speedup span {
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+  letter-spacing: 0;
+}
+
+.bars {
+  display: grid;
+  gap: 0.9rem;
+  margin: 0;
+}
+
+.bar {
+  display: grid;
+  grid-template-columns: 8.5rem minmax(0, 1fr);
+  align-items: center;
+  gap: 1rem;
+}
+
+.bar dt {
+  color: var(--text-secondary);
+  font-size: 0.85rem;
+}
+
+.bar dd {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  margin: 0;
+}
+
+.barTrack {
+  flex: 1;
+  height: 14px;
   overflow: hidden;
   border-radius: 3px;
   background: #edeef0;
 }
 
-.throughputTrack > span {
+.barTrack > span {
   display: block;
   height: 100%;
   border-radius: inherit;
+  background: #a7abb3;
+}
+
+.bar strong {
+  min-width: 3.4rem;
+  font-family: var(--font-mono);
+  font-size: 0.95rem;
+  font-weight: 500;
+  text-align: right;
+}
+
+.barHighlight dt {
+  color: var(--text-primary);
+  font-weight: 600;
+}
+
+.barHighlight .barTrack > span {
   background: var(--accent);
 }
 
-.chartAxis {
-  display: flex;
-  justify-content: space-between;
-  margin-top: 1.3rem;
-  padding-top: 0.6rem;
-  border-top: 1px solid var(--hairline);
+.barHighlight strong {
+  color: var(--accent);
 }
 
 .finePrint {
-  margin: 1.2rem 0 0;
-  color: var(--text-secondary);
-  font-size: 0.85rem;
-  line-height: 1.75;
-}
-
-.speedPanel .finePrint {
   max-width: 62rem;
-  margin-top: 1.8rem;
+  margin: 1.4rem 0 0;
+  color: var(--text-secondary);
+  font-size: 0.82rem;
+  line-height: 1.7;
 }
 
+.historySection {
+  border-block: 1px solid var(--hairline);
+  background: #eceee9;
+}
+
+.historyInner {
+  max-width: var(--content-max);
+  margin: 0 auto;
+  padding: clamp(5rem, 9vw, 8rem) var(--gutter);
+}
+
+.ladder {
+  margin: 0;
+  padding: clamp(1.5rem, 3vw, 2.5rem);
+  border: 1px solid var(--hairline);
+  border-radius: var(--radius-small);
+  background: #fff;
+}
+
+.ladder ol {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: clamp(0.75rem, 2vw, 1.5rem);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.ladder li {
+  display: grid;
+  min-width: 0;
+  align-content: start;
+  gap: 0.35rem;
+}
+
+.ladderColumn {
+  display: flex;
+  height: 17rem;
+  flex-direction: column;
+  justify-content: flex-end;
+  gap: 0.5rem;
+  margin-bottom: 0.7rem;
+  border-bottom: 1px solid var(--hairline);
+}
+
+.ladderColumn strong {
+  font-family: var(--font-mono);
+  font-size: 0.95rem;
+  font-weight: 500;
+}
+
+.ladderBar {
+  display: block;
+  height: calc(var(--level) * 0.85%);
+  border-radius: 6px 6px 0 0;
+  background: #c3c9d6;
+}
+
+.ladder li:last-child .ladderBar {
+  background: linear-gradient(180deg, #89adff, var(--accent));
+}
+
+.ladder li:last-child .ladderColumn strong {
+  color: var(--accent);
+}
+
+.ladderDate {
+  color: var(--text-secondary);
+  font-size: 0.78rem;
+}
+
+.ladderLabel {
+  font-size: 0.86rem;
+  font-weight: 600;
+  line-height: 1.35;
+}
+
+.ladder figcaption {
+  margin-top: 1.6rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--hairline);
+  color: var(--text-secondary);
+  font-size: 0.82rem;
+  line-height: 1.7;
+}
+
+.ladder figcaption a,
 .finePrint a {
   text-decoration: underline;
   text-underline-offset: 3px;
 }
 
-.scenarios {
+.techniques {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  margin-top: 4rem;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
 }
 
-.scenarios article {
-  padding: 0 2rem;
+.techniques article {
+  padding: 0 1.75rem;
   border-left: 1px solid var(--hairline);
 }
 
-.scenarios article:first-child {
+.techniques article:first-child {
   padding-left: 0;
   border-left: 0;
 }
 
-.scenarios article:last-child {
+.techniques article:last-child {
   padding-right: 0;
 }
 
-.scenarios svg {
+.techniques svg {
   width: 100px;
   height: 58px;
   margin-bottom: 1.25rem;
@@ -312,17 +409,15 @@
   stroke-width: 1.4;
 }
 
-.scenarios h3 {
+.techniques h3 {
   margin: 0 0 0.8rem;
   font-size: 1.06rem;
   font-weight: 600;
   letter-spacing: -0.03em;
 }
 
-.scenarios p,
-.bodyCopy,
-.setupCopy > p,
-.setupSteps p,
+.techniques p,
+.installSteps p,
 .questions p {
   margin: 0;
   color: var(--text-secondary);
@@ -330,131 +425,30 @@
   line-height: 1.8;
 }
 
-.engineSection {
-  border-block: 1px solid var(--hairline);
-  background: #eceee9;
-}
-
-.engineInner {
+.engineSpecs {
   display: grid;
-  max-width: var(--content-max);
-  grid-template-columns: 1fr 1fr;
-  gap: 4rem;
-  margin: 0 auto;
-  padding: clamp(5rem, 9vw, 8rem) var(--gutter) 2rem;
-}
-
-.engineCopy {
-  align-self: center;
-}
-
-.engineCopy .lead {
-  margin-top: 2rem;
-}
-
-.engineCopy .bodyCopy {
-  max-width: 29rem;
-  margin-top: 1.4rem;
-}
-
-.engineCopy .textLink {
-  margin-top: 1.6rem;
-}
-
-.recallCheck {
-  min-width: 0;
-  margin: 0;
-  padding: clamp(1.5rem, 3vw, 2.25rem);
-  border: 1px solid var(--hairline);
-  border-radius: var(--radius-small);
-  background: #fff;
-}
-
-.recallResult {
-  display: flex;
-  align-items: center;
-  gap: 1.2rem;
-  margin-top: 2.2rem;
-}
-
-.recallNumber {
-  font-size: clamp(3rem, 5vw, 4.4rem);
-  font-weight: 450;
-  letter-spacing: -0.065em;
-  line-height: 1;
-  font-variant-numeric: lining-nums;
-}
-
-.recallResult p {
-  margin: 0;
-  font-size: 0.88rem;
-  line-height: 1.7;
-}
-
-.recallResult p span {
-  color: var(--text-secondary);
-}
-
-.checksLabel {
-  margin: 1.8rem 0 0;
-  padding-top: 1.2rem;
-  border-top: 1px solid var(--hairline);
-  color: var(--text-secondary);
-  font-size: 0.8rem;
-}
-
-.checks {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 0.7rem 1rem;
-  margin: 0.9rem 0 0;
-  padding: 0;
-  list-style: none;
-}
-
-.checks li {
-  display: flex;
-  align-items: center;
-  gap: 0.55rem;
-  font-size: 0.88rem;
-  font-weight: 550;
-}
-
-.checks svg {
-  width: 18px;
-  height: 18px;
-  flex: none;
-  stroke: var(--accent);
-  stroke-linecap: round;
-  stroke-linejoin: round;
-  stroke-width: 2.4;
-}
-
-.modelSpecs {
-  display: grid;
-  grid-column: 1 / -1;
   grid-template-columns: repeat(4, minmax(0, 1fr));
-  margin: 0;
+  margin: 4rem 0 0;
   padding-top: 2.5rem;
-  border-top: 1px solid #cdd1c9;
+  border-top: 1px solid var(--hairline);
 }
 
-.modelSpecs > div {
+.engineSpecs > div {
   padding-left: 2rem;
-  border-left: 1px solid #cdd1c9;
+  border-left: 1px solid var(--hairline);
 }
 
-.modelSpecs > div:first-child {
+.engineSpecs > div:first-child {
   padding-left: 0;
   border-left: 0;
 }
 
-.modelSpecs dt {
+.engineSpecs dt {
   color: var(--text-secondary);
   font-size: 0.85rem;
 }
 
-.modelSpecs dd {
+.engineSpecs dd {
   margin: 1rem 0 0;
   font-size: clamp(2.3rem, 4vw, 3.5rem);
   font-weight: 450;
@@ -462,27 +456,22 @@
   line-height: 1.1;
 }
 
-.modelSpecs dd span {
-  margin-left: 0.15rem;
+.engineSpecs dd span {
+  margin-left: 0.3rem;
   color: var(--text-secondary);
-  font-size: 0.5em;
-  letter-spacing: -0.04em;
-}
-
-.modelSpecs dd.textSpec {
-  font-size: clamp(1.2rem, 2.2vw, 1.65rem);
-  letter-spacing: -0.03em;
-  line-height: 1.25;
+  font-size: 0.45em;
+  letter-spacing: -0.02em;
 }
 
 .sourceRail {
   display: flex;
-  grid-column: 1 / -1;
   flex-wrap: wrap;
   align-items: center;
   gap: 0.7rem 2rem;
+  margin-top: 2.5rem;
   padding-top: 1.5rem;
-  border-top: 1px solid #cdd1c9;
+  border-top: 1px solid var(--hairline);
+  font-size: 0.85rem;
 }
 
 .sourceRail a {
@@ -496,65 +485,51 @@
   color: var(--accent);
 }
 
-.setupGrid {
+.installSection {
+  padding-top: 0;
+}
+
+.installGrid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 3rem;
   align-items: center;
 }
 
-.setupArtwork {
+.installArtwork {
   overflow: hidden;
   min-width: 0;
   margin: 0;
   border: 1px solid #303642;
   border-radius: var(--radius-small);
   background: var(--graphite);
-  color: #b3bfce;
 }
 
-.setupArtwork img {
+.installArtwork img {
   display: block;
   width: 100%;
   height: auto;
 }
 
-.setupArtwork figcaption {
-  margin: 0 1.5rem;
-  padding: 1.3rem 0;
-  border-top: 1px solid #303642;
-  font-size: 0.85rem;
-}
-
-.setupCopy {
+.installCopy {
   min-width: 0;
 }
 
-.setupCopy h3 {
-  margin: 0 0 1rem;
-  font-family: var(--font-serif);
-  font-size: clamp(2.1rem, 3vw, 2.8rem);
-  font-weight: 500;
-  letter-spacing: -0.045em;
-  line-height: 1.1;
-}
-
-.setupSteps {
+.installSteps {
   display: grid;
-  gap: 1.25rem;
-  margin: 2rem 0 1.5rem;
+  gap: 1.1rem;
+  margin: 0 0 1.5rem;
   padding: 0;
   list-style: none;
 }
 
-.setupSteps strong {
+.installSteps strong {
   font-size: 0.9rem;
   font-weight: 600;
 }
 
-.setupSteps p {
-  margin-top: 0.25rem;
-  font-size: 0.88rem;
+.installSteps p {
+  margin-top: 0.2rem;
 }
 
 .command {
@@ -576,7 +551,7 @@
 }
 
 .endpoint {
-  margin: 0 0 1.2rem;
+  margin: 0 0 1.6rem;
 }
 
 .endpoint div {
@@ -653,6 +628,15 @@
   font-size: 0.8rem;
 }
 
+.signup {
+  position: relative;
+  border-top: 3px solid var(--accent);
+}
+
+.signup :global(.sectionInner) {
+  max-width: calc(var(--content-max) - var(--gutter) * 2);
+}
+
 @media (min-width: 1600px) {
   .heroArtwork {
     right: calc((100vw - 1500px) / 2);
@@ -672,8 +656,7 @@
   }
 
   .sectionIntro,
-  .engineInner,
-  .setupGrid,
+  .installGrid,
   .questionsSection {
     gap: 2.5rem;
   }
@@ -682,24 +665,31 @@
     grid-template-columns: 1.2fr 0.8fr;
   }
 
-  .engineInner {
+  .comparison,
+  .installGrid {
     grid-template-columns: 1fr;
   }
 
-  .engineCopy .bodyCopy {
-    max-width: 42rem;
+  .techniques {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 2.5rem 0;
   }
 
-  .setupGrid {
-    grid-template-columns: 1fr;
+  .techniques article:nth-child(odd) {
+    padding-left: 0;
+    border-left: 0;
   }
 
-  .setupArtwork img {
+  .techniques article:nth-child(even) {
+    padding-right: 0;
+  }
+
+  .installArtwork img {
     max-height: 470px;
     object-fit: contain;
   }
 
-  .setupCopy {
+  .installCopy {
     max-width: 38rem;
   }
 }
@@ -772,53 +762,85 @@
     font-size: clamp(2.7rem, 9vw, 4.5rem);
   }
 
-  .panelCaption strong,
-  .recallCheck figcaption strong {
-    font-size: 1.6rem;
+  .bar {
+    grid-template-columns: 1fr;
+    gap: 0.4rem;
   }
 
-  .throughputLabel {
-    font-size: 0.86rem;
+  .ladder ol {
+    grid-template-columns: 1fr;
+    gap: 1.1rem;
   }
 
-  .scenarios {
+  .ladder li {
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 0.25rem 1rem;
+  }
+
+  .ladderColumn {
+    grid-column: 1 / -1;
+    height: auto;
+    flex-direction: row-reverse;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 0.8rem;
+    order: 3;
+    margin: 0.2rem 0 0;
+    border: 0;
+  }
+
+  .ladderBar {
+    width: calc(var(--level) * 0.8%);
+    height: 12px;
+    border-radius: 3px;
+  }
+
+  .ladderLabel {
+    grid-row: 1;
+    grid-column: 1;
+  }
+
+  .ladderDate {
+    grid-row: 1;
+    grid-column: 2;
+    align-self: baseline;
+  }
+
+  .techniques {
     grid-template-columns: 1fr;
     gap: 1.8rem;
-    margin-top: 2.5rem;
   }
 
-  .scenarios article,
-  .scenarios article:first-child,
-  .scenarios article:last-child {
+  .techniques article,
+  .techniques article:nth-child(odd),
+  .techniques article:nth-child(even) {
     padding: 1.4rem 0 0;
     border-top: 1px solid var(--hairline);
     border-left: 0;
   }
 
-  .scenarios svg {
+  .techniques svg {
     margin-bottom: 0.8rem;
   }
 
-  .recallResult {
-    flex-wrap: wrap;
-    align-items: flex-end;
-  }
-
-  .modelSpecs {
+  .engineSpecs {
     grid-template-columns: 1fr 1fr;
     gap: 2rem 1rem;
+    margin-top: 3rem;
   }
 
-  .modelSpecs > div:nth-child(3) {
+  .engineSpecs > div,
+  .engineSpecs > div:first-child {
+    padding-left: 1rem;
+    border-left: 1px solid var(--hairline);
+  }
+
+  .engineSpecs > div:nth-child(odd) {
     padding-left: 0;
     border-left: 0;
   }
 
-  .modelSpecs > div {
-    padding-left: 1rem;
-  }
-
-  .modelSpecs dt {
+  .engineSpecs dt {
     font-size: 0.8rem;
   }
 
@@ -826,12 +848,8 @@
     gap: 0.2rem 1.3rem;
   }
 
-  .setupArtwork {
+  .installArtwork {
     margin-inline: -0.5rem;
-  }
-
-  .setupArtwork figcaption {
-    margin-inline: 1rem;
   }
 
   .questionsSection h2 {
