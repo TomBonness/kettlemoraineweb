@@ -88,7 +88,7 @@ await saveCard('home', [
   ...header,
   await textLayer('You have', 64, 182, 136),
   await textLayer('work to do.', 92, 313, 136, 'italic', '#c8d2e8'),
-  await textLayer('Hardware, dictation, and hosted inference.', 68, 554, 22, 'sans', muted),
+  await textLayer('Hardware, dictation, and local inference.', 68, 554, 22, 'sans', muted),
 ])
 
 const controller = await sharp(product).resize({ width: 625 }).png().toBuffer()
@@ -107,9 +107,10 @@ await saveCard('inference', [
   { input: glow(graphite, '#183681'), left: 0, top: 0 },
   { input: lens, left: 460, top: 80 },
   ...header,
-  await textLayer('1,000 TPS', 64, 181, 126),
-  await textLayer('Spend less time\nwaiting for output.', 69, 340, 36, 'serif', '#c8d2e8'),
-  await textLayer('GLM-5.3-Flash · Throughput target, not a measured result.', 69, 554, 21, 'sans', muted),
+  await textLayer('Cinference', 64, 118, 104),
+  await textLayer('Engine', 64, 230, 104),
+  await textLayer('Less waiting,\non hardware you own.', 69, 380, 32, 'serif', '#c8d2e8'),
+  await textLayer('Open source · 256K context on one RTX 5090.', 69, 554, 21, 'sans', muted),
 ])
 
 const dictation = await sharp(asset('public/products/lavtype/voice-to-text.svg'))

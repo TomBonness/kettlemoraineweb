@@ -1,7 +1,7 @@
 export const routes = {
   home: '/',
   openMicro: '/products/open-micro',
-  inference: '/products/1000-tps',
+  inference: '/products/cinference-engine',
   lavtype: '/products/lavtype',
 } as const
 
@@ -24,9 +24,9 @@ export const productCatalog: readonly CatalogProduct[] = [
   },
   {
     id: 'inference',
-    name: '1,000 TPS',
+    name: 'Cinference Engine',
     summary:
-      'We’re building hosted GLM-5.3-Flash inference with a 1,000-token-per-second target. So less of the job is waiting for the next response.',
+      'Spend less time waiting on a model you run yourself. Cinference Engine serves a 27B model with 256K context from one RTX 5090.',
     path: routes.inference,
   },
   {

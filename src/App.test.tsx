@@ -13,7 +13,11 @@ describe('page routing', () => {
 
     const destinations = screen.getAllByRole('link').map((link) => link.getAttribute('href'))
     expect(destinations).toEqual(
-      expect.arrayContaining(['/products/open-micro', '/products/1000-tps', '/products/lavtype']),
+      expect.arrayContaining([
+        '/products/open-micro',
+        '/products/cinference-engine',
+        '/products/lavtype',
+      ]),
     )
   })
 
@@ -31,6 +35,26 @@ describe('page routing', () => {
       'https://github.com/TomBonness/open-micro',
     )
   })
+
+  it.each(['/products/cinference-engine', '/products/cinference-engine/'])(
+    'renders Cinference Engine at %s',
+    (path) => {
+      renderPath(path)
+
+      expect(
+        screen.getByRole('heading', { level: 1, name: 'Cinference Engine' }),
+      ).toBeInTheDocument()
+      expect(document.title).toBe('Cinference Engine — Kettle Moraine Research Labs')
+      expect(screen.getByRole('link', { name: 'Get the installer' })).toHaveAttribute(
+        'href',
+        'https://github.com/satellitedown/fafstmobel-cinference',
+      )
+      expect(screen.getByRole('link', { name: 'View source' })).toHaveAttribute(
+        'href',
+        'https://github.com/satellitedown/cinference',
+      )
+    },
+  )
 
   it.each(['/products/lavtype', '/products/lavtype/'])('renders Lavtype at %s', (path) => {
     renderPath(path)

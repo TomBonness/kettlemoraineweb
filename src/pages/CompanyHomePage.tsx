@@ -34,7 +34,7 @@ export function CompanyHomePage() {
 
           <div className={styles.heroFooter}>
             <p className={styles.heroStatement}>
-              We’re building hardware, software, and hosted inference for people who would rather be
+              We’re building hardware, software, and local inference for people who would rather be
               making something than managing their computer.
             </p>
             <nav className={styles.productRail} aria-label="Featured products">
@@ -116,8 +116,8 @@ export function CompanyHomePage() {
                   alt=""
                 />
                 <div className={styles.inferenceMetric} aria-hidden="true">
-                  <span>1,000</span>
-                  <small>tokens per second target</small>
+                  <span>256K</span>
+                  <small>tokens of context on one RTX 5090</small>
                 </div>
               </div>
               <div className={styles.featureCopy}>
@@ -125,16 +125,16 @@ export function CompanyHomePage() {
                 <p className={styles.productSummary}>{inference.summary}</p>
                 <dl className={styles.productFacts}>
                   <div>
-                    <dt>Model</dt>
-                    <dd>GLM-5.3-Flash</dd>
+                    <dt>Hardware</dt>
+                    <dd>One RTX 5090</dd>
                   </div>
                   <div>
-                    <dt>Access</dt>
-                    <dd>Inference API</dd>
+                    <dt>API</dt>
+                    <dd>OpenAI-compatible</dd>
                   </div>
                 </dl>
                 <span className={styles.productLink}>
-                  Explore 1,000 TPS <span aria-hidden="true">↗</span>
+                  Explore Cinference Engine <span aria-hidden="true">↗</span>
                 </span>
               </div>
             </a>

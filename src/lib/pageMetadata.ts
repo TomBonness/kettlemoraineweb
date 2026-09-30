@@ -15,7 +15,7 @@ export const routeMetadata: Record<ProductId | 'home' | 'not-found', RouteMetada
     path: routes.home,
     title: 'Kettle Moraine Research Labs — You have work to do',
     description:
-      'Hardware, dictation, and hosted inference for people who would rather be making something than managing software.',
+      'Hardware, dictation, and local inference for people who would rather be making something than managing software.',
     image: '/social/company.png',
     imageAlt: 'Kettle Moraine Research Labs — You have work to do.',
   },
@@ -29,11 +29,11 @@ export const routeMetadata: Record<ProductId | 'home' | 'not-found', RouteMetada
   },
   inference: {
     path: routes.inference,
-    title: '1,000 TPS — Kettle Moraine Research Labs',
+    title: 'Cinference Engine — Kettle Moraine Research Labs',
     description:
-      'Hosted GLM-5.3-Flash inference with a 1,000-token-per-second target. Less waiting is the goal. Sign up for API access updates.',
+      'An open-source C++/CUDA inference engine for one RTX 5090. Serve a 27B model with 256K context and image input through an OpenAI-compatible API on your own machine.',
     image: '/social/inference.png',
-    imageAlt: '1,000 TPS — hosted GLM-5.3-Flash inference with a 1,000-token-per-second target.',
+    imageAlt: 'Cinference Engine — an open-source inference engine serving 256K context from one RTX 5090.',
   },
   lavtype: {
     path: routes.lavtype,
