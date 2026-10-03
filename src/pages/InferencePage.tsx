@@ -16,6 +16,7 @@ import {
   localEndpoint,
   peakTokensPerSecond,
   raceFile,
+  raceTokens,
   speedHistory,
   speedTechniques,
 } from '../content/inference'
@@ -134,6 +135,7 @@ export function InferencePage() {
               highlight: engine === cinference,
             }))}
             text={raceFile}
+            tokenCount={raceTokens}
           />
           <div className={styles.comparison}>
             {[chats, edits].map((workload) => (

@@ -10,19 +10,21 @@ type RaceLane = {
 type TokenRaceProps = {
   lanes: readonly RaceLane[]
   text: string
+  /** The model tokenizer's count for `text`; it sets every lane's finish time. */
+  tokenCount: number
 }
 
 function formatSeconds(seconds: number) {
   return `${seconds.toFixed(1)} s`
 }
 
-export function TokenRace({ lanes, text }: TokenRaceProps) {
-  // Approximates a BPE split: words carry one leading space and whitespace runs stand alone.
-  const tokens = useMemo(
+export function TokenRace({ lanes, text, tokenCount }: TokenRaceProps) {
+  // Token-sized pieces to reveal: words carry one leading space and whitespace runs stand alone.
+  const pieces = useMemo(
     () => text.match(/ ?[A-Za-z_]+| ?\d+| ?[^\sA-Za-z0-9_]+|\s+/g) ?? [],
     [text],
   )
-  const duration = tokens.length / Math.min(...lanes.map((lane) => lane.tokensPerSecond))
+  const duration = tokenCount / Math.min(...lanes.map((lane) => lane.tokensPerSecond))
   const [elapsed, setElapsed] = useState(0)
   const [running, setRunning] = useState(false)
   const figure = useRef<HTMLElement>(null)
@@ -76,8 +78,11 @@ export function TokenRace({ lanes, text }: TokenRaceProps) {
 
   const results = lanes.map((lane) => ({
     ...lane,
-    finish: tokens.length / lane.tokensPerSecond,
-    shown: Math.min(tokens.length, Math.floor(elapsed * lane.tokensPerSecond)),
+    finish: tokenCount / lane.tokensPerSecond,
+    shown: Math.min(
+      pieces.length,
+      Math.floor((pieces.length * elapsed * lane.tokensPerSecond) / tokenCount),
+    ),
   }))
   const summary = results
     .map((lane) => `${lane.engine} ${formatSeconds(lane.finish)}`)
@@ -87,7 +92,7 @@ export function TokenRace({ lanes, text }: TokenRaceProps) {
     <figure className={styles.race} ref={figure}>
       <div className={styles.lanes} aria-hidden="true">
         {results.map((lane, index) => {
-          const done = lane.shown === tokens.length
+          const done = lane.shown === pieces.length
           return (
             <div
               className={`${styles.lane} ${lane.highlight ? styles.highlight : ''}`}
@@ -105,14 +110,14 @@ export function TokenRace({ lanes, text }: TokenRaceProps) {
               >
                 <pre>
                   <code>
-                    {tokens.slice(0, lane.shown).join('')}
+                    {pieces.slice(0, lane.shown).join('')}
                     {!done && <span className={styles.caret} />}
                   </code>
                 </pre>
               </div>
               <div className={styles.laneFooter}>
                 <span className={styles.progress}>
-                  <span style={{ transform: `scaleX(${lane.shown / tokens.length})` }} />
+                  <span style={{ transform: `scaleX(${lane.shown / pieces.length})` }} />
                 </span>
                 <span className={done ? styles.done : undefined}>
                   {done

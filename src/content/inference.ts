@@ -182,6 +182,9 @@ if __name__ == "__main__":
     sys.exit(main())
 `
 
+// raceFile's length under the Qwen3.8 tokenizer (fafstmobel's tokenizer.json).
+export const raceTokens = 886
+
 export const installCommands = `git clone ${inferenceLinks.installer}.git
 cd fafstmobel-cinference
 bash setup.sh`
