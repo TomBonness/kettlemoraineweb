@@ -2,7 +2,7 @@ import { CinmuxWindow } from '../components/CinmuxWindow'
 import { HomeCardDictation } from '../components/HomeCardDictation'
 import { HomeCardDraft } from '../components/HomeCardDraft'
 import { HomeCardMicro } from '../components/HomeCardMicro'
-import { HomeHeroStage } from '../components/HomeHeroStage'
+import { HomeWorkspace } from '../components/HomeWorkspace'
 import { SiteShell } from '../components/SiteShell'
 import { WorkspacePanes } from '../components/WorkspaceStage'
 import { productCatalog, routes } from '../content/catalog'
@@ -35,17 +35,19 @@ export function CompanyHomePage() {
               <span aria-hidden="true">You have</span>
               <span aria-hidden="true">work to do.</span>
             </h1>
-            <p className={styles.heroStatement}>
-              We’re building hardware, software, and local inference for people who would rather be
-              making something than managing their computer.
-            </p>
-            <div className={styles.heroActions}>
-              <a className={`button ${styles.heroPrimary}`} href="#products">
-                See what we’re building <span aria-hidden="true">↓</span>
-              </a>
+            <div>
+              <p className={styles.heroStatement}>
+                We’re building hardware, software, and local inference for people who would rather
+                be making something than managing their computer.
+              </p>
+              <div className={styles.heroActions}>
+                <a className={`button ${styles.heroPrimary}`} href="#products">
+                  See what we’re building <span aria-hidden="true">↓</span>
+                </a>
+              </div>
             </div>
           </div>
-          <HomeHeroStage />
+          <HomeWorkspace />
         </div>
       </section>
 

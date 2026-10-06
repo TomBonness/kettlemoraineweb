@@ -29,15 +29,19 @@
 }
 
 .heroInner {
-  display: grid;
   width: 100%;
   max-width: var(--content-max);
-  min-height: min(820px, calc(100svh - 72px));
-  grid-template-columns: minmax(0, 1fr) minmax(0, 0.92fr);
-  align-items: center;
-  gap: clamp(2.5rem, 6vw, 6rem);
   margin: 0 auto;
-  padding: clamp(3.5rem, 6vw, 5rem) var(--gutter);
+  padding: clamp(3rem, 4vw, 3.5rem) var(--gutter) clamp(3rem, 5vw, 4.5rem);
+}
+
+/* The headline on the left, the statement under its shoulder on the right, the scene below. */
+.heroCopy {
+  display: grid;
+  grid-template-columns: minmax(0, 1.3fr) minmax(0, 0.7fr);
+  align-items: end;
+  gap: clamp(2rem, 5vw, 5rem);
+  margin-bottom: clamp(2.5rem, 3vw, 2.75rem);
 }
 
 .heroCopy h1 {
@@ -60,7 +64,7 @@
 
 .heroStatement {
   max-width: 30rem;
-  margin: clamp(1.75rem, 3vw, 2.5rem) 0 0;
+  margin: 0;
   color: #b4bdcd;
   font-size: clamp(0.95rem, 1.2vw, 1.05rem);
   line-height: 1.75;
@@ -79,13 +83,6 @@
 .heroPrimary:hover,
 .heroPrimary:focus-visible {
   background: var(--accent-strong);
-}
-
-/* Narrow desktops: give the note and the pieces around it a little more of the row. */
-@media (max-width: 1240px) {
-  .heroInner {
-    grid-template-columns: minmax(0, 0.85fr) minmax(0, 1fr);
-  }
 }
 
 .products {
@@ -428,11 +425,6 @@
 }
 
 @media (max-width: 1050px) {
-  .heroInner {
-    grid-template-columns: 1fr;
-    gap: 3.5rem;
-  }
-
   .inferenceFeature,
   .cinmuxFeature {
     grid-template-columns: 1fr;
@@ -475,9 +467,10 @@
 }
 
 @media (max-width: 767px) {
-  .hero,
-  .heroInner {
-    min-height: auto;
+  .heroCopy {
+    grid-template-columns: 1fr;
+    gap: 1.75rem;
+    margin-bottom: 3rem;
   }
 
   .heroArtwork {
@@ -489,9 +482,8 @@
   }
 
   .heroInner {
-    gap: 3rem;
     padding-top: 3rem;
-    padding-bottom: 3.5rem;
+    padding-bottom: 3rem;
   }
 
   .heroCopy h1 {

@@ -1,30 +1,44 @@
-import type { Activity } from './cinmux'
 import type { ProductId } from './catalog'
+import type { WorkspaceTab } from './cinmux'
 
-type Chore = { product: ProductId; text: string }
+// The hero's story, one step per product: an agent needs you, its Open Micro key blinks, you say
+// the answer and the fix streams in from the local engine. Each step restates its product's own
+// page: Cinmux's waiting status, Open Micro's agent keys, Lavtype's dictation, Cinference Engine's
+// local endpoint.
+export const workflowSteps = [
+  { product: 'cinmux', action: 'An agent needs you.' },
+  { product: 'open-micro', action: 'Its key blinks amber. Press it.' },
+  { product: 'lavtype', action: 'Say the answer instead of typing it.' },
+  { product: 'inference', action: 'The fix streams in from your own GPU.' },
+] as const satisfies readonly { product: ProductId; action: string }[]
 
-// "You have work to do." The hero's list crosses off the busywork each product takes away, in this
-// order, and leaves the one item that's yours. Each chore restates its product's own summary.
-export const workList = {
-  heading: 'To do',
-  chores: [
-    { product: 'open-micro', text: 'Reach through menus for the action you repeat' },
-    { product: 'lavtype', text: 'Type out what you could just say' },
-    { product: 'inference', text: 'Wait for the answer' },
-    { product: 'cinmux', text: 'Check every terminal for the agent that needs you' },
+export const workspaceCaption = 'Illustration · the session is made up'
+
+export const workspaceTabs: readonly WorkspaceTab[] = [
+  { id: 'scratch', title: 'scratch', activity: 'idle', pinned: true },
+  { id: 'build', title: 'build', activity: 'done' },
+  { id: 'auth', title: 'agent: auth refactor', activity: 'working' },
+  { id: 'flaky', title: 'agent: flaky tests', activity: 'waiting' },
+  { id: 'server', title: 'dev server', activity: 'idle', unread: 2 },
+  { id: 'docs', title: 'agent: docs sweep', activity: 'working' },
+]
+
+export const workspaceSession = {
+  directory: 'api',
+  branch: 'fix/flaky-retry',
+  request: 'Make the checkout tests reliable.',
+  run: 'Ran checkout.test.ts 20 times',
+  failure: 'retries the payment webhook · failed 3 of 20',
+  cause: 'The webhook times out under load.',
+  question: 'Retry with backoff, or quarantine the test?',
+  answer: 'Retry with backoff and keep the test.',
+  writing: 'Writing the fix',
+  fix: [
+    'for attempt in range(5):',
+    '    try:',
+    '        return deliver(event)',
+    '    except TimeoutError:',
+    '        sleep(0.2 * 2 ** attempt)',
   ],
-  remaining: 'The work.',
-} as const satisfies { heading: string; chores: readonly Chore[]; remaining: string }
-
-type HeroTab = { title: string; activity: readonly [before: Activity, landed: Activity, settled: Activity] }
-
-// Example content for the pieces that lift off the list. Illustrative, not measurements.
-export const heroPieces = {
-  /** A line of code, split where a tokenizer might split it, streaming out of the engine. */
-  inferenceTokens: ['let', ' reply', ' =', ' model', '.run', '(prompt)'],
-  /** Two Cinmux tabs: the agent that needed you gets its answer and finishes. */
-  cinmuxTabs: [
-    { title: 'agent: flaky tests', activity: ['waiting', 'working', 'done'] },
-    { title: 'agent: docs sweep', activity: ['working', 'done', 'done'] },
-  ],
-} as const satisfies { inferenceTokens: readonly string[]; cinmuxTabs: readonly HeroTab[] }
+  passed: 'checkout.test.ts · 20 of 20 passed',
+} as const

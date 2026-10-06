@@ -228,13 +228,14 @@ a:is(:hover, :focus-visible) .rig {
   background: #89adff;
 }
 
-/* The decode readout floats in front of the window and comes forward on hover. */
+/* The decode readout floats in front of the window and comes forward on hover. Its size is fixed:
+   only the meter and the kept count change from round to round. */
 .hud {
   position: absolute;
   right: 17%;
   bottom: 9%;
   display: grid;
-  min-width: 15em;
+  width: 20.5em;
   gap: 0.45em;
   padding: 1.1em 1.3em 1.2em;
   border: 1px solid rgb(137 173 255 / 30%);
@@ -243,6 +244,7 @@ a:is(:hover, :focus-visible) .rig {
   box-shadow:
     0 30px 60px rgb(0 0 0 / 50%),
     0 0 50px rgb(5 72 253 / 22%);
+  font-variant-numeric: tabular-nums;
   transform: translateZ(40px);
   transition: transform 900ms var(--motion-ease);
 }
@@ -274,6 +276,16 @@ a:is(:hover, :focus-visible) .hud {
   font-family: var(--font-mono);
   font-size: 0.74em;
   letter-spacing: 0.02em;
+  white-space: nowrap;
+}
+
+/* The kept count keeps its place while a round is being drafted, so the line never reflows. */
+.kept {
+  transition: opacity 300ms var(--motion-ease);
+}
+
+.kept[data-hidden='true'] {
+  opacity: 0;
 }
 
 .meter {
@@ -336,7 +348,7 @@ a:is(:hover, :focus-visible) .hud {
   .hud {
     right: 18%;
     bottom: 6%;
-    min-width: 13em;
+    width: 19em;
   }
 }
 

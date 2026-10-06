@@ -222,8 +222,11 @@ export function HomeCardDraft() {
             ))}
           </span>
           <small>
-            Illustrated round · {draftSize} drafted
-            {phase === 'draft' ? '' : ` · ${current.keptCount} kept`}
+            Illustrated · {draftSize} drafted
+            <span className={styles.kept} data-hidden={phase === 'draft'}>
+              {' '}
+              · {String(current.keptCount).padStart(2, ' ')} kept
+            </span>
           </small>
         </div>
       </div>
