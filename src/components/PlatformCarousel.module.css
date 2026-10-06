@@ -1,0 +1,213 @@
+.carousel {
+  display: grid;
+  gap: clamp(1.5rem, 3vw, 2.5rem);
+}
+
+.stage {
+  position: relative;
+  height: clamp(260px, 44vw, 560px);
+  perspective: 1700px;
+  perspective-origin: 50% 35%;
+}
+
+.screen {
+  position: absolute;
+  z-index: calc(10 - var(--distance));
+  top: 0;
+  left: 50%;
+  width: min(70%, 800px);
+  margin: 0;
+  cursor: pointer;
+  filter: brightness(calc(1 - var(--distance) * 0.38));
+  opacity: calc(1 - var(--distance) * 0.3);
+  transform: translateX(-50%) translateX(calc(var(--offset) * 64%))
+    translateZ(calc(var(--distance) * -300px)) rotateY(calc(var(--side) * -36deg));
+  transition:
+    transform 950ms var(--motion-ease),
+    filter 700ms var(--motion-ease),
+    opacity 700ms var(--motion-ease);
+}
+
+.screen[data-active='true'] {
+  cursor: default;
+}
+
+.screen[data-active='false']:hover {
+  filter: brightness(calc(1.12 - var(--distance) * 0.38));
+}
+
+.frame {
+  overflow: hidden;
+  aspect-ratio: 2160 / 1320;
+  border: 1px solid rgb(255 255 255 / 12%);
+  border-radius: 14px;
+  background: #0b0c0e;
+  box-shadow:
+    0 0 0 1px rgb(0 0 0 / 45%),
+    0 50px 110px rgb(0 0 0 / 60%);
+}
+
+.screen[data-active='true'] .frame {
+  -webkit-box-reflect: below 14px linear-gradient(transparent 72%, rgb(255 255 255 / 14%));
+}
+
+.frame img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* The Mac shot is a window with its own shadow, so it sits on a desktop. */
+.macos .frame {
+  background:
+    radial-gradient(70% 90% at 12% 0%, rgb(83 128 206 / 75%), transparent 70%),
+    radial-gradient(60% 80% at 100% 100%, rgb(76 195 164 / 55%), transparent 70%),
+    linear-gradient(140deg, #1b2740, #12201f);
+}
+
+.macos .frame img {
+  padding: 1.5% 4% 0;
+  object-fit: contain;
+}
+
+.screen figcaption {
+  margin-top: 1.1rem;
+  color: #9aa1ad;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  opacity: calc(1 - var(--distance));
+  text-align: center;
+  text-transform: uppercase;
+  transition: opacity 600ms var(--motion-ease);
+}
+
+.details {
+  display: grid;
+  justify-items: center;
+  gap: 2rem;
+}
+
+.tabs {
+  display: inline-flex;
+  gap: 4px;
+  padding: 4px;
+  border: 1px solid #2a2e36;
+  border-radius: 999px;
+  background: #121418;
+}
+
+.tabs button {
+  min-height: 44px;
+  padding: 0 1.35rem;
+  border: 0;
+  border-radius: 999px;
+  background: transparent;
+  color: #aab0bb;
+  font-size: 0.85rem;
+  font-weight: 620;
+  transition:
+    background var(--hover-duration) var(--motion-ease),
+    color var(--hover-duration) var(--motion-ease);
+}
+
+.tabs button:hover {
+  color: #f7f7f3;
+}
+
+.tabs button[aria-selected='true'] {
+  background: #f7f7f3;
+  color: #111317;
+}
+
+.panel {
+  display: grid;
+  width: 100%;
+  grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+  gap: 1.5rem clamp(2rem, 6vw, 5rem);
+  padding-top: 2rem;
+  border-top: 1px solid #262a31;
+}
+
+.panel[hidden] {
+  display: none;
+}
+
+.panel h3 {
+  margin: 0 0 1rem;
+  font-family: var(--font-serif);
+  font-size: clamp(1.9rem, 3vw, 2.6rem);
+  font-weight: 500;
+  letter-spacing: -0.045em;
+  line-height: 1.05;
+}
+
+.panel p {
+  max-width: 34rem;
+  margin: 0;
+  color: #aab0bb;
+  font-size: 0.95rem;
+  line-height: 1.75;
+}
+
+.panel ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.panel li {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  padding: 0.95rem 0;
+  border-bottom: 1px solid #262a31;
+  font-size: 0.9rem;
+}
+
+.panel li::before {
+  width: 0.4rem;
+  height: 0.4rem;
+  flex: none;
+  border-radius: 50%;
+  background: #a3be78;
+  box-shadow: 0 0 10px rgb(163 190 120 / 70%);
+  content: '';
+}
+
+.command {
+  grid-column: 1 / -1;
+}
+
+@media (max-width: 767px) {
+  .stage {
+    height: clamp(210px, 62vw, 300px);
+    perspective: 1000px;
+  }
+
+  .screen {
+    width: 84%;
+    transform: translateX(-50%) translateX(calc(var(--offset) * 74%))
+      translateZ(calc(var(--distance) * -220px)) rotateY(calc(var(--side) * -30deg));
+  }
+
+  .screen figcaption {
+    font-size: 0.64rem;
+  }
+
+  .tabs button {
+    padding: 0 1rem;
+  }
+
+  .panel {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .screen {
+    transition: none;
+  }
+}

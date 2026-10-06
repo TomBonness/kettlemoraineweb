@@ -1,0 +1,142 @@
+.showcase {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(250px, 300px);
+  align-items: center;
+  gap: clamp(2rem, 5vw, 4.5rem);
+}
+
+.preview {
+  min-width: 0;
+  perspective: 2200px;
+}
+
+.preview > [role='img'] {
+  transform: rotateY(-10deg) rotateX(4deg);
+  transform-origin: 100% 50%;
+}
+
+.picker {
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+.picker legend {
+  display: grid;
+  width: 100%;
+  gap: 0.35rem;
+  margin-bottom: 1.4rem;
+  padding: 0;
+}
+
+.picker legend span {
+  color: var(--text-secondary);
+  font-size: 0.85rem;
+}
+
+.picker legend strong {
+  font-family: var(--font-serif);
+  font-size: clamp(2rem, 3.4vw, 2.8rem);
+  font-weight: 500;
+  letter-spacing: -0.045em;
+  line-height: 1;
+  animation: name-in 600ms var(--motion-ease);
+}
+
+.swatches {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.45rem;
+}
+
+.swatch {
+  position: relative;
+  display: flex;
+  min-width: 0;
+  min-height: 44px;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0 0.75rem 0 0.45rem;
+  border: 1px solid var(--hairline);
+  border-radius: 999px;
+  background: rgb(255 255 255 / 70%);
+  cursor: pointer;
+  font-size: 0.78rem;
+  font-weight: 560;
+  transition:
+    border-color var(--hover-duration) var(--motion-ease),
+    background var(--hover-duration) var(--motion-ease),
+    box-shadow var(--hover-duration) var(--motion-ease);
+}
+
+.swatch > span:last-child {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.swatch:hover {
+  border-color: #aeb1b7;
+  background: #fff;
+}
+
+.swatch input {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.swatch:has(input:checked) {
+  border-color: var(--text-primary);
+  background: #fff;
+  box-shadow: 0 0 0 1px var(--text-primary);
+}
+
+.swatch:has(input:focus-visible) {
+  outline: 3px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.chip {
+  width: 1.75rem;
+  height: 1.75rem;
+  flex: none;
+  border-radius: 50%;
+  background:
+    radial-gradient(circle, transparent 0 42%, var(--swatch-bg) 43%),
+    conic-gradient(
+      from 200deg,
+      var(--swatch-accent) 0 33%,
+      var(--swatch-warning) 0 66%,
+      var(--swatch-green) 0
+    );
+  box-shadow: 0 0 0 1px rgb(0 0 0 / 14%);
+}
+
+@keyframes name-in {
+  from {
+    opacity: 0;
+    transform: translateY(0.4em);
+  }
+}
+
+@media (max-width: 1050px) {
+  .showcase {
+    grid-template-columns: 1fr;
+  }
+
+  .preview > [role='img'] {
+    transform: none;
+  }
+
+  .swatches {
+    grid-template-columns: repeat(auto-fill, minmax(9.5rem, 1fr));
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .picker legend strong {
+    animation: none;
+  }
+}

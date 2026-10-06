@@ -1,0 +1,67 @@
+/* --progress: 0 at the top of the page, 1 once the window has risen into view.
+   --intro: 1 → 0 as the page opens. --mx / --my: the pointer, -1…1. */
+
+.stage {
+  --progress: 0;
+  --intro: 0;
+  --mx: 0;
+  --my: 0;
+  --rest: clamp(0, 1 - var(--progress), 1);
+  position: relative;
+  perspective: 2600px;
+  perspective-origin: 50% 10%;
+  animation: stage-in 1.2s var(--motion-ease) both;
+}
+
+.still {
+  --progress: 1;
+  animation: none;
+}
+
+.glow {
+  position: absolute;
+  inset: 4% -6% -14%;
+  background:
+    radial-gradient(38% 46% at 24% 58%, rgb(163 190 120 / 30%), transparent 72%),
+    radial-gradient(36% 46% at 50% 54%, rgb(76 195 164 / 24%), transparent 72%),
+    radial-gradient(42% 52% at 78% 44%, rgb(47 134 255 / 34%), transparent 72%);
+  filter: blur(36px);
+  opacity: calc(0.55 + var(--rest) * 0.45);
+  pointer-events: none;
+}
+
+.rig {
+  position: relative;
+  transform:
+    translateY(calc(var(--rest) * 7%))
+    rotateX(calc(var(--rest) * 28deg + var(--intro) * 16deg - var(--my) * 3deg))
+    rotateY(calc(var(--rest) * -16deg + var(--mx) * 5deg))
+    rotateZ(calc(var(--rest) * 3.5deg));
+  transform-style: preserve-3d;
+}
+
+.rig > .window {
+  --cw-explode: calc(var(--rest) + var(--intro) * 1.4);
+  --cw-gap: calc(60 * var(--u));
+}
+
+@keyframes stage-in {
+  from {
+    opacity: 0;
+    transform: translateY(48px);
+  }
+}
+
+@media (max-width: 767px) {
+  .stage {
+    width: 168%;
+    perspective: 1600px;
+  }
+
+  .rig {
+    transform:
+      rotateX(calc(var(--rest) * 26deg + var(--intro) * 14deg))
+      rotateY(calc(var(--rest) * -12deg))
+      rotateZ(calc(var(--rest) * 4deg));
+  }
+}

@@ -3,9 +3,10 @@ export const routes = {
   openMicro: '/products/open-micro',
   inference: '/products/cinference-engine',
   lavtype: '/products/lavtype',
+  cinmux: '/products/cinmux',
 } as const
 
-export type ProductId = 'open-micro' | 'inference' | 'lavtype'
+export type ProductId = 'open-micro' | 'inference' | 'lavtype' | 'cinmux'
 
 export type CatalogProduct = {
   id: ProductId
@@ -35,5 +36,12 @@ export const productCatalog: readonly CatalogProduct[] = [
     summary:
       'Say the sentence you were going to type. Lavtype writes it where you’re working, with speech recognition that stays on your machine.',
     path: routes.lavtype,
+  },
+  {
+    id: 'cinmux',
+    name: 'Cinmux',
+    summary:
+      'Know which agent needs you without checking every terminal. Cinmux keeps your tabs in folders, and keeps them running after you close the window.',
+    path: routes.cinmux,
   },
 ]

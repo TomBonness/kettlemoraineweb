@@ -17,6 +17,7 @@ describe('page routing', () => {
         '/products/open-micro',
         '/products/cinference-engine',
         '/products/lavtype',
+        '/products/cinmux',
       ]),
     )
   })
@@ -68,6 +69,18 @@ describe('page routing', () => {
     expect(screen.getAllByRole('link', { name: 'View source' })[0]).toHaveAttribute(
       'href',
       'https://github.com/TomBonness/lavtype',
+    )
+  })
+
+  it.each(['/products/cinmux', '/products/cinmux/'])('renders Cinmux at %s', (path) => {
+    renderPath(path)
+
+    expect(screen.getByRole('heading', { level: 1, name: 'Cinmux' })).toBeInTheDocument()
+    expect(document.title).toBe('Cinmux — Kettle Moraine Research Labs')
+    expect(screen.getByRole('link', { name: 'Install Cinmux' })).toHaveAttribute('href', '#install')
+    expect(screen.getByRole('link', { name: 'View source' })).toHaveAttribute(
+      'href',
+      'https://github.com/satellitedown/cinmux',
     )
   })
 

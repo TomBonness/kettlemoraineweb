@@ -1,0 +1,112 @@
+.command {
+  display: grid;
+  min-width: 0;
+  gap: 0.6rem;
+}
+
+.label {
+  color: #a9afba;
+  font-size: 0.8rem;
+}
+
+.light .label {
+  color: var(--text-secondary);
+}
+
+.row {
+  display: flex;
+  min-width: 0;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.55rem 0.55rem 0.55rem 1.1rem;
+  border: 1px solid #2c3038;
+  border-radius: 14px;
+  background: #0d0e11;
+  box-shadow: inset 0 1px 0 rgb(255 255 255 / 4%);
+}
+
+.light .row {
+  border-color: var(--hairline);
+  background: #fff;
+  box-shadow: 0 10px 30px rgb(17 18 20 / 6%);
+}
+
+.row pre {
+  min-width: 0;
+  flex: 1;
+  margin: 0;
+  overflow-x: auto;
+  color: #e8e9e4;
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  line-height: 1.6;
+  scrollbar-width: none;
+}
+
+.light .row pre {
+  color: var(--text-primary);
+}
+
+.row code {
+  font: inherit;
+  white-space: pre;
+}
+
+.prompt {
+  color: #a3be78;
+  user-select: none;
+}
+
+.light .prompt {
+  color: #5f7a34;
+}
+
+.copy {
+  min-width: 4.6rem;
+  min-height: 40px;
+  flex: none;
+  padding: 0 0.95rem;
+  border: 1px solid #343842;
+  border-radius: 10px;
+  background: #1b1d22;
+  color: #f2f2ee;
+  font-size: 0.76rem;
+  font-weight: 650;
+  transition:
+    background var(--hover-duration) var(--motion-ease),
+    border-color var(--hover-duration) var(--motion-ease);
+}
+
+.copy:hover,
+.copy:focus-visible {
+  border-color: #a3be78;
+  background: #24282b;
+}
+
+.light .copy {
+  border-color: var(--hairline);
+  background: var(--canvas);
+  color: var(--text-primary);
+}
+
+.light .copy:hover,
+.light .copy:focus-visible {
+  border-color: var(--text-primary);
+  background: #fff;
+}
+
+.status {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+@media (max-width: 767px) {
+  .row code {
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
+  }
+}

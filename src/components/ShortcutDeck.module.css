@@ -1,0 +1,172 @@
+.deck {
+  display: grid;
+  gap: 1.75rem;
+}
+
+.toggle {
+  display: inline-flex;
+  justify-self: start;
+  gap: 4px;
+  margin: 0;
+  padding: 4px;
+  border: 1px solid var(--hairline);
+  border-radius: 999px;
+  background: #fff;
+}
+
+.toggle legend {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+.toggle label {
+  position: relative;
+  display: inline-flex;
+  min-height: 40px;
+  align-items: center;
+  padding: 0 1.2rem;
+  border-radius: 999px;
+  cursor: pointer;
+  color: var(--text-secondary);
+  font-size: 0.84rem;
+  font-weight: 620;
+  transition:
+    background var(--hover-duration) var(--motion-ease),
+    color var(--hover-duration) var(--motion-ease);
+}
+
+.toggle input {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.toggle label:has(input:checked) {
+  background: var(--graphite);
+  color: #fff;
+}
+
+.toggle label:has(input:focus-visible) {
+  outline: 3px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.list {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0 clamp(2rem, 5vw, 4.5rem);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.list li {
+  display: flex;
+  min-height: 74px;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.75rem 0.85rem;
+  border-bottom: 1px solid var(--hairline);
+  border-radius: 12px;
+  transition: background 220ms var(--motion-ease);
+}
+
+.list li[data-pressed='true'] {
+  background: rgb(163 190 120 / 18%);
+}
+
+.action {
+  font-size: 0.92rem;
+  font-weight: 560;
+  line-height: 1.35;
+}
+
+.combos {
+  display: inline-flex;
+  flex: none;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 0.5rem;
+}
+
+.separator {
+  color: #9da1a8;
+}
+
+.combo {
+  display: inline-flex;
+  gap: 0.32rem;
+  font: inherit;
+}
+
+.key {
+  display: inline-grid;
+  min-width: 2.5rem;
+  height: 2.5rem;
+  place-items: center;
+  padding: 0 0.65rem;
+  border-radius: 0.6rem;
+  background: linear-gradient(180deg, #fff 0%, #f0f0ec 100%);
+  box-shadow:
+    inset 0 1px 0 #fff,
+    inset 0 -3px 0 rgb(17 18 20 / 5%),
+    0 0 0 1px rgb(17 18 20 / 13%),
+    0 4px 0 #d0d2d6,
+    0 7px 14px rgb(17 18 20 / 12%);
+  color: #26282d;
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  font-weight: 600;
+  transform: translateY(-2px);
+  transition:
+    transform 90ms var(--motion-ease),
+    box-shadow 90ms var(--motion-ease),
+    background 90ms var(--motion-ease),
+    color 90ms var(--motion-ease);
+}
+
+/* Pressed keys go down one after another, the way fingers find a chord. */
+.list li[data-pressed='true'] .key {
+  background: linear-gradient(180deg, #eef5e2 0%, #dfeacb 100%);
+  box-shadow:
+    inset 0 1px 0 #fff,
+    inset 0 -2px 0 rgb(17 18 20 / 5%),
+    0 0 0 1px rgb(95 122 52 / 45%),
+    0 1px 0 #b9c7a1,
+    0 2px 6px rgb(17 18 20 / 10%);
+  color: #3d5420;
+  transform: translateY(2px);
+  transition-delay: calc(var(--key) * 90ms);
+}
+
+.footnote {
+  max-width: 52rem;
+  margin: 0;
+  color: var(--text-secondary);
+  font-size: 0.85rem;
+  line-height: 1.75;
+}
+
+@media (max-width: 900px) {
+  .list {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 480px) {
+  .list li {
+    flex-direction: column;
+    align-items: flex-start;
+    padding-inline: 0;
+  }
+
+  .combos {
+    justify-content: flex-start;
+  }
+}

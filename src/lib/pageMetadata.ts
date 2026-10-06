@@ -43,6 +43,14 @@ export const routeMetadata: Record<ProductId | 'home' | 'not-found', RouteMetada
     image: '/social/lavtype.png',
     imageAlt: 'Lavtype — local dictation for macOS and X11 Linux.',
   },
+  cinmux: {
+    path: routes.cinmux,
+    title: 'Cinmux — Kettle Moraine Research Labs',
+    description:
+      'Persistent terminal workspaces for Linux and macOS. Real terminals in folders, every agent’s status at a glance, and sessions that keep running — at your desk or over SSH.',
+    image: '/social/cinmux.png',
+    imageAlt: 'Cinmux — every terminal, every agent, one place.',
+  },
   'not-found': {
     path: routes.home,
     title: 'Page not found — Kettle Moraine Research Labs',

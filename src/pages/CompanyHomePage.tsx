@@ -1,6 +1,9 @@
+import { CinmuxWindow } from '../components/CinmuxWindow'
 import { SiteShell } from '../components/SiteShell'
 import { VoiceTrace } from '../components/VoiceTrace'
+import { WorkspacePanes } from '../components/WorkspaceStage'
 import { productCatalog, routes } from '../content/catalog'
+import { heroFolders, heroTabs, omarchyThemes } from '../content/cinmux'
 import { llamaCppSpeedup, peakTokensPerSecond } from '../content/inference'
 import openMicroHome from '../assets/product/marketing/open-micro-home-960.webp'
 import openMicroHomeLarge from '../assets/product/marketing/open-micro-home-1600.webp'
@@ -12,7 +15,7 @@ const homeNavigation = productCatalog.map((product) => ({
 }))
 
 export function CompanyHomePage() {
-  const [openMicro, inference, lavtype] = productCatalog
+  const [openMicro, inference, lavtype, cinmux] = productCatalog
 
   return (
     <SiteShell currentPath={routes.home} navigation={homeNavigation}>
@@ -60,8 +63,8 @@ export function CompanyHomePage() {
               </h2>
             </div>
             <p>
-              We’re starting with the actions you repeat, the words you want to write, and the
-              time spent waiting for an answer.
+              We’re starting with the actions you repeat, the words you want to write, the time
+              spent waiting for an answer, and the terminals you leave running.
             </p>
           </header>
 
@@ -164,6 +167,43 @@ export function CompanyHomePage() {
               </div>
               <div className={styles.lavtypeMedia}>
                 <VoiceTrace compact />
+              </div>
+            </a>
+
+            <a
+              className={`${styles.feature} ${styles.cinmuxFeature}`}
+              href={cinmux.path}
+              aria-label={`Explore ${cinmux.name}`}
+            >
+              <div className={styles.featureCopy}>
+                <h3>{cinmux.name}</h3>
+                <p className={styles.productSummary}>{cinmux.summary}</p>
+                <dl className={styles.productFacts}>
+                  <div>
+                    <dt>Agent status</dt>
+                    <dd>Working · Needs input · Done</dd>
+                  </div>
+                  <div>
+                    <dt>Runs on</dt>
+                    <dd>Linux, macOS + SSH</dd>
+                  </div>
+                </dl>
+                <span className={styles.productLink}>
+                  Explore Cinmux <span aria-hidden="true">↗</span>
+                </span>
+              </div>
+              <div className={styles.cinmuxMedia}>
+                <CinmuxWindow
+                  className={styles.cinmuxWindow}
+                  label="The Cinmux window coming apart into its folders, tab list and tmux panes"
+                  theme={omarchyThemes[0]}
+                  tabs={heroTabs}
+                  folders={heroFolders}
+                  selectedId="build"
+                  split="split"
+                  layered
+                  panes={<WorkspacePanes />}
+                />
               </div>
             </a>
           </div>

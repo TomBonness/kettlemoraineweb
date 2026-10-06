@@ -2,6 +2,7 @@ import { useEffect } from 'react'
 import { routeMetadata } from './lib/pageMetadata'
 import { applyRouteMetadata } from './lib/metadata'
 import { resolveRoute } from './lib/routes'
+import { CinmuxPage } from './pages/CinmuxPage'
 import { CompanyHomePage } from './pages/CompanyHomePage'
 import { InferencePage } from './pages/InferencePage'
 import { LavtypePage } from './pages/LavtypePage'
@@ -27,6 +28,8 @@ function App() {
       return <InferencePage />
     case 'lavtype':
       return <LavtypePage />
+    case 'cinmux':
+      return <CinmuxPage />
     default:
       return <NotFoundPage />
   }

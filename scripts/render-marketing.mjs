@@ -123,3 +123,18 @@ await saveCard('lavtype', [
   await textLayer('Say what you were\ngoing to type.', 69, 351, 39, 'serif', '#c8d2e8'),
   await textLayer('Local dictation for macOS and X11 Linux.', 69, 554, 21, 'sans', muted),
 ])
+
+// The Mac screenshot keeps its own window shadow on a transparent canvas, so it sits on the card as-is.
+const workspace = await sharp(asset('src/assets/product/cinmux/cinmux-macos.webp'))
+  .resize({ width: 700 })
+  .extract({ left: 0, top: 0, width: 660, height: 456 })
+  .png()
+  .toBuffer()
+await saveCard('cinmux', [
+  { input: glow(graphite, '#1d5a4c', 80, 62), left: 0, top: 0 },
+  { input: workspace, left: 540, top: 146 },
+  ...header,
+  await textLayer('Cinmux', 64, 160, 132),
+  await textLayer('Every terminal.\nEvery agent.\nOne place.', 69, 318, 39, 'serif', '#c8d2e8'),
+  await textLayer('Terminal workspaces for Linux and macOS.', 69, 554, 21, 'sans', muted),
+])

@@ -1,0 +1,310 @@
+@property --field-lift {
+  syntax: '<number>';
+  inherits: false;
+  initial-value: 0;
+}
+
+.field {
+  --tile-w: 228px;
+  --tile-h: 48px;
+  --tile-gap: 14px;
+  --working: #8ec5b8;
+  --waiting: #ff9a5a;
+  --idle: #868a93;
+  position: relative;
+  margin: 0;
+}
+
+.hud {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1.5rem clamp(2rem, 6vw, 5.5rem);
+  margin: 0;
+}
+
+.hud > div {
+  display: grid;
+  justify-items: center;
+  gap: 0.5rem;
+}
+
+.hud dt {
+  color: #8b8f99;
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.hud dd {
+  margin: 0;
+  color: #f3f3ef;
+  font-size: clamp(2.8rem, 5.4vw, 4.6rem);
+  font-weight: 500;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.05em;
+  line-height: 1;
+}
+
+.hud [data-activity='working'] dd,
+.hud [data-activity='done'] dd {
+  color: var(--working);
+}
+
+.hud [data-activity='waiting'] dt {
+  color: #d99a72;
+}
+
+.hud [data-activity='waiting'] dd {
+  color: var(--waiting);
+  text-shadow: 0 0 32px rgb(255 154 90 / 55%);
+}
+
+.viewport {
+  position: relative;
+  height: clamp(440px, 50vw, 640px);
+  margin-top: -1rem;
+  overflow: hidden;
+  perspective: 1300px;
+  perspective-origin: 50% 18%;
+  mask-image: radial-gradient(ellipse 64% 62% at 50% 46%, #000 42%, transparent 100%);
+}
+
+.plane {
+  position: absolute;
+  top: 42%;
+  left: 50%;
+  display: grid;
+  grid-template-columns: repeat(var(--columns), var(--tile-w));
+  gap: var(--tile-gap);
+  transform: translate(-50%, -50%) rotateX(54deg) rotateZ(-32deg)
+    translate(
+      calc(var(--dx) * (var(--tile-w) + var(--tile-gap))),
+      calc(var(--dy) * (var(--tile-h) + var(--tile-gap)))
+    );
+  transform-style: preserve-3d;
+  transition: transform 1.2s var(--motion-ease);
+}
+
+.tile {
+  --field-lift: 0;
+  position: relative;
+  display: flex;
+  height: var(--tile-h);
+  align-items: center;
+  gap: 10px;
+  padding: 0 14px;
+  border: 1px solid rgb(255 255 255 / 7%);
+  border-radius: 10px;
+  background: linear-gradient(180deg, #1d1f23, #141619);
+  box-shadow: inset 0 1px 0 rgb(255 255 255 / 5%);
+  color: var(--idle);
+  font-size: 13.5px;
+  transform: translateZ(calc(var(--field-lift) * 40px));
+  transform-style: preserve-3d;
+  transition:
+    --field-lift 900ms var(--ease-spring),
+    color 400ms var(--motion-ease),
+    border-color 400ms var(--motion-ease),
+    background 400ms var(--motion-ease),
+    box-shadow 400ms var(--motion-ease);
+}
+
+.tileTitle {
+  min-width: 0;
+  flex: 1;
+  overflow: hidden;
+  color: #d8d9dd;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.tileStatus {
+  font-size: 11.5px;
+  white-space: nowrap;
+}
+
+.tile[data-activity='working'],
+.tile[data-activity='done'] {
+  color: var(--working);
+}
+
+.tile[data-activity='idle'] .tileTitle {
+  color: #a3a6ad;
+}
+
+.tile[data-activity='waiting'] {
+  --field-lift: 1;
+  border-color: rgb(255 154 90 / 75%);
+  background: linear-gradient(180deg, #36251a, #24190f);
+  box-shadow:
+    0 0 0 1px rgb(255 154 90 / 25%),
+    0 0 36px rgb(255 154 90 / 45%),
+    0 44px 50px rgb(0 0 0 / 55%);
+  color: var(--waiting);
+}
+
+.tile[data-activity='waiting'] .tileTitle {
+  color: #ffe1cd;
+}
+
+/* A beam standing up out of the plane, so the tabs that need you read from across the room. */
+.tile[data-activity='waiting']::before {
+  position: absolute;
+  bottom: 50%;
+  left: calc(50% - 1px);
+  width: 2px;
+  height: 170px;
+  background: linear-gradient(to top, rgb(255 154 90 / 90%), rgb(255 154 90 / 0%));
+  box-shadow: 0 0 14px rgb(255 154 90 / 55%);
+  content: '';
+  transform: rotateX(-90deg);
+  transform-origin: bottom;
+  animation: beacon 2.4s ease-in-out infinite;
+}
+
+.focused {
+  --field-lift: 1.8;
+  border-color: #fff;
+  box-shadow:
+    0 0 0 2px #fff,
+    0 0 50px rgb(255 255 255 / 45%),
+    0 60px 60px rgb(0 0 0 / 60%);
+}
+
+.focused::after {
+  position: absolute;
+  inset: -6px;
+  border: 2px solid rgb(255 255 255 / 70%);
+  border-radius: 14px;
+  content: '';
+  animation: ripple 1.2s var(--motion-ease) infinite;
+}
+
+.caption {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+  margin-top: 1.5rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid #262a31;
+}
+
+.caption p {
+  max-width: 36rem;
+  margin: 0;
+  color: #9da3ae;
+  font-size: 0.88rem;
+  line-height: 1.7;
+}
+
+.jump {
+  display: inline-flex;
+  min-height: 52px;
+  align-items: center;
+  gap: 1.1rem;
+  padding: 0.45rem 0.5rem 0.45rem 1.35rem;
+  border: 1px solid rgb(255 154 90 / 45%);
+  border-radius: 999px;
+  background: rgb(255 154 90 / 10%);
+  color: #ffd6bb;
+  font-size: 0.85rem;
+  font-weight: 620;
+  transition:
+    background var(--hover-duration) var(--motion-ease),
+    border-color var(--hover-duration) var(--motion-ease),
+    transform var(--hover-duration) var(--motion-ease);
+}
+
+.jump:hover:not(:disabled),
+.jump:focus-visible {
+  border-color: rgb(255 154 90 / 80%);
+  background: rgb(255 154 90 / 18%);
+  transform: translateY(-2px);
+}
+
+.jump:disabled {
+  cursor: default;
+  opacity: 0.55;
+}
+
+.keys {
+  display: inline-flex;
+  gap: 0.3rem;
+}
+
+.keys kbd {
+  display: inline-grid;
+  min-width: 2.1rem;
+  height: 2.1rem;
+  place-items: center;
+  padding: 0 0.55rem;
+  border-radius: 0.55rem;
+  background: linear-gradient(180deg, #2c2e33, #222428);
+  box-shadow:
+    inset 0 1px 0 rgb(255 255 255 / 12%),
+    0 2px 0 #0b0c0e;
+  color: #ecebe6;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+}
+
+@keyframes beacon {
+  50% {
+    opacity: 0.45;
+  }
+}
+
+@keyframes ripple {
+  from {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  to {
+    opacity: 0;
+    transform: scale(1.18);
+  }
+}
+
+@media (max-width: 767px) {
+  .field {
+    --tile-w: 190px;
+    --tile-h: 44px;
+    --tile-gap: 10px;
+  }
+
+  .hud {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1.5rem 1rem;
+  }
+
+  .viewport {
+    height: 400px;
+    margin-top: 0;
+  }
+
+  .jump {
+    width: 100%;
+    justify-content: space-between;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .plane,
+  .tile {
+    transition: none;
+  }
+
+  .tile[data-activity='waiting']::before,
+  .focused::after {
+    animation: none;
+  }
+}

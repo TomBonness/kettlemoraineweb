@@ -81,7 +81,7 @@
 
 .productRail {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   border-block: 1px solid #353d4c;
 }
 
@@ -97,8 +97,12 @@
   transition: background var(--hover-duration) var(--motion-ease);
 }
 
-.productRail a:not(:last-child) {
+.productRail a:nth-child(odd) {
   border-right: 1px solid #353d4c;
+}
+
+.productRail a:nth-child(-n + 2) {
+  border-bottom: 1px solid #353d4c;
 }
 
 .productRail a:hover,
@@ -275,6 +279,61 @@
 
 .inferenceFeature .productLink span {
   color: #89adff;
+}
+
+.cinmuxFeature {
+  grid-template-columns: minmax(330px, 0.68fr) minmax(0, 1.32fr);
+  border-color: #303642;
+  background: var(--graphite);
+  color: #f7f7f3;
+}
+
+.cinmuxFeature .productSummary,
+.cinmuxFeature .productFacts dt {
+  color: #b4b8c1;
+}
+
+.cinmuxFeature .productFacts,
+.cinmuxFeature .productFacts div,
+.cinmuxFeature .productLink {
+  border-color: #3b4354;
+}
+
+.cinmuxFeature .productLink span {
+  color: #a3be78;
+}
+
+.cinmuxMedia {
+  position: relative;
+  display: grid;
+  min-width: 0;
+  min-height: 560px;
+  overflow: hidden;
+  place-items: center;
+  border-left: 1px solid #303642;
+  background:
+    radial-gradient(55% 50% at 62% 58%, rgb(47 134 255 / 24%), transparent 72%),
+    radial-gradient(45% 45% at 32% 38%, rgb(163 190 120 / 18%), transparent 72%),
+    linear-gradient(rgb(255 255 255 / 4%) 1px, transparent 1px) 0 0 / 56px 56px,
+    linear-gradient(90deg, rgb(255 255 255 / 4%) 1px, transparent 1px) 0 0 / 56px 56px,
+    var(--graphite);
+  perspective: 1600px;
+}
+
+.cinmuxMedia .cinmuxWindow {
+  --cw-explode: 0.55;
+  --cw-gap: calc(56 * var(--u));
+  width: 106%;
+  transform: translate(6%, 7%) rotateX(24deg) rotateY(-26deg) rotateZ(3deg);
+  transition:
+    --cw-explode 900ms var(--motion-ease),
+    transform 900ms var(--motion-ease);
+}
+
+.cinmuxFeature:hover .cinmuxWindow,
+.cinmuxFeature:focus-visible .cinmuxWindow {
+  --cw-explode: 1;
+  transform: translate(6%, 7%) rotateX(28deg) rotateY(-30deg) rotateZ(3deg);
 }
 
 .openMicroMedia,
@@ -482,8 +541,14 @@
     gap: 2rem;
   }
 
-  .inferenceFeature {
+  .inferenceFeature,
+  .cinmuxFeature {
     grid-template-columns: 1fr;
+  }
+
+  .cinmuxMedia {
+    border-top: 1px solid #303642;
+    border-left: 0;
   }
 
   .inferenceMedia {
@@ -556,8 +621,11 @@
     grid-template-columns: 1fr;
   }
 
-  .productRail a:not(:last-child) {
+  .productRail a:nth-child(odd) {
     border-right: 0;
+  }
+
+  .productRail a:not(:last-child) {
     border-bottom: 1px solid #353d4c;
   }
 
@@ -578,7 +646,8 @@
     min-height: 0;
   }
 
-  .inferenceMedia {
+  .inferenceMedia,
+  .cinmuxMedia {
     min-height: 340px;
   }
 
@@ -634,11 +703,16 @@
   .productFacts div:last-child {
     padding-left: 0;
   }
+
+  .cinmuxFeature .productFacts div:first-child {
+    border-bottom-color: #3b4354;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
   .inferenceMedia img,
-  .inferenceFeature {
+  .inferenceFeature,
+  .cinmuxMedia .cinmuxWindow {
     transition: none;
   }
 
