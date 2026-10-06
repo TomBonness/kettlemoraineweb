@@ -1,0 +1,100 @@
+.stage {
+  --progress: 0;
+  --intro: 0;
+  --mx: 0;
+  --my: 0;
+  position: relative;
+  display: grid;
+  height: clamp(280px, 38vw, 460px);
+  place-items: center;
+  perspective: 1400px;
+}
+
+.contours {
+  position: absolute;
+  bottom: -18%;
+  width: min(118%, 1180px);
+  max-width: none;
+  height: auto;
+  opacity: 0.55;
+  mask-image: radial-gradient(closest-side, #000 35%, transparent);
+  transform: rotateX(62deg) rotateZ(calc(var(--mx) * -6deg));
+}
+
+.float {
+  animation: float 7s ease-in-out infinite;
+  transform-style: preserve-3d;
+}
+
+.rig {
+  position: relative;
+  transform:
+    rotateX(calc(12deg + var(--intro) * 34deg - var(--my) * 9deg))
+    rotateY(calc(-18deg + var(--mx) * 24deg));
+  transform-style: preserve-3d;
+}
+
+.layer,
+.face {
+  font-family: var(--font-serif);
+  font-size: clamp(8.5rem, 24vw, 21rem);
+  font-weight: 500;
+  letter-spacing: -0.065em;
+  line-height: 0.9;
+}
+
+/* Stacked copies give the numerals their depth; deeper copies fade toward the background. */
+.layer {
+  position: absolute;
+  inset: 0;
+  color: color-mix(
+    in srgb,
+    #1a3da3 calc(100% - var(--layer) / var(--layers) * 100%),
+    #04060c
+  );
+  transform: translateZ(calc(var(--layer) * -2.4px));
+}
+
+.face {
+  position: relative;
+  display: block;
+  padding-right: 0.06em;
+  background: linear-gradient(115deg, #eef3ff 0%, #9bbaff 38%, #3d6bff 70%, #0548fd 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  transform: translateZ(1px);
+}
+
+.shadow {
+  position: absolute;
+  bottom: 4%;
+  left: 50%;
+  width: min(60%, 520px);
+  height: 46px;
+  border-radius: 50%;
+  background: radial-gradient(closest-side, rgb(5 72 253 / 40%), transparent);
+  filter: blur(6px);
+  transform: translateX(-50%) translateX(calc(var(--mx) * -24px));
+  animation: shadow 7s ease-in-out infinite;
+}
+
+@keyframes float {
+  50% {
+    transform: translateY(-16px);
+  }
+}
+
+@keyframes shadow {
+  50% {
+    opacity: 0.6;
+    scale: 0.86;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .float,
+  .shadow {
+    animation: none;
+  }
+}

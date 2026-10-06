@@ -1,0 +1,475 @@
+@property --om-icon-lift {
+  syntax: '<length>';
+  inherits: false;
+  initial-value: 0px;
+}
+
+@property --om-icon-glow {
+  syntax: '<number>';
+  inherits: true;
+  initial-value: 0;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 14px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  padding: 0 1.5rem 1.6rem;
+  border: 1px solid #23262c;
+  border-radius: var(--radius-large);
+  background: linear-gradient(180deg, #121418, #0c0d10);
+  transition:
+    border-color 300ms var(--motion-ease),
+    transform 300ms var(--motion-ease);
+}
+
+.card:hover {
+  border-color: #3a3326;
+  transform: translateY(-4px);
+}
+
+.label {
+  margin: 0.4rem 0 0;
+  color: var(--product-hover);
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.card h3 {
+  margin: 0.7rem 0 0;
+  color: #f7f7f3;
+  font-family: var(--font-serif);
+  font-size: clamp(1.5rem, 2vw, 1.8rem);
+  font-weight: 500;
+  letter-spacing: -0.035em;
+}
+
+.text {
+  margin: 0.6rem 0 0;
+  color: #9da3ae;
+  font-size: 0.86rem;
+  line-height: 1.7;
+}
+
+/* The little models */
+
+.scene {
+  position: relative;
+  height: 230px;
+  margin: 0 -1.5rem;
+  background: radial-gradient(50% 45% at 50% 58%, rgb(201 169 106 / 12%), transparent 75%);
+  perspective: 640px;
+}
+
+.floor {
+  position: absolute;
+  top: 54%;
+  left: 50%;
+  transform: scale3d(1.55, 1.55, 1.55) rotateX(58deg) rotateZ(-40deg);
+  transform-style: preserve-3d;
+  transition: transform 700ms var(--ease-spring);
+}
+
+.card:hover .floor {
+  transform: scale3d(1.55, 1.55, 1.55) rotateX(54deg) rotateZ(-22deg);
+}
+
+.block {
+  --top: #1a1c20;
+  --s: #2c2f35;
+  --w: #121316;
+  --om-icon-lift: 0px;
+  position: absolute;
+  top: var(--by);
+  left: var(--bx);
+  width: var(--bw);
+  height: var(--bd);
+  transform: translateZ(calc(var(--bz) + var(--om-icon-lift)));
+  transform-style: preserve-3d;
+}
+
+.block > span {
+  position: absolute;
+  height: var(--bh);
+  transform-origin: 50% 0;
+  backface-visibility: hidden;
+}
+
+.north,
+.south {
+  left: 0;
+  width: var(--bw);
+  background: var(--s);
+}
+
+.north {
+  top: 0;
+  transform: rotateX(90deg);
+}
+
+.south {
+  top: var(--bd);
+  transform: rotateZ(180deg) rotateX(90deg);
+}
+
+.east,
+.west {
+  top: calc(var(--bd) / 2);
+  width: var(--bd);
+  background: var(--w);
+}
+
+.east {
+  left: calc(var(--bw) - var(--bd) / 2);
+  transform: rotateZ(90deg) rotateX(90deg);
+}
+
+.west {
+  left: calc(var(--bd) / -2);
+  transform: rotateZ(270deg) rotateX(90deg);
+}
+
+.block > .top {
+  inset: 0;
+  height: auto;
+  border-radius: 2px;
+  background: var(--top);
+  transform: translateZ(var(--bh));
+}
+
+/* USB-C: the plug slides into the port and the light answers. */
+
+.body {
+  --top: linear-gradient(135deg, #1c1e22, #111215);
+  --s: #34363c;
+  --w: #18191c;
+}
+
+.body > .south {
+  background:
+    linear-gradient(#050506, #050506) 50% 55% / 20px 7px no-repeat,
+    linear-gradient(to bottom, transparent 82%, #c9a96a 82% 90%, transparent 90%),
+    #34363c;
+}
+
+.port {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  height: 2px;
+  background: #c9a96a;
+}
+
+.statusLed {
+  position: absolute;
+  top: 9px;
+  left: 9px;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: color-mix(in srgb, #5b8cff calc(var(--om-icon-glow) * 100%), #2a2c31);
+  box-shadow: 0 0 calc(var(--om-icon-glow) * 12px) #5b8cff;
+}
+
+.plug {
+  position: absolute;
+  transform-style: preserve-3d;
+  animation: plug 3.6s var(--motion-ease) infinite paused;
+}
+
+.tip {
+  --top: linear-gradient(90deg, #8d9197, #e6e8eb 45%, #9da1a7);
+  --s: #c7cacf;
+  --w: #7c8086;
+}
+
+.overmold {
+  --top: #26282d;
+  --s: #3a3d43;
+  --w: #1b1c20;
+}
+
+.cable {
+  --top: #1d1e22;
+  --s: #2a2c31;
+  --w: #141518;
+}
+
+.card:has(.plug) .statusLed {
+  animation: plug-light 3.6s var(--motion-ease) infinite paused;
+}
+
+@keyframes plug {
+  0%,
+  100% {
+    transform: translateY(30px);
+  }
+
+  35%,
+  75% {
+    transform: translateY(0);
+  }
+}
+
+@keyframes plug-light {
+  0%,
+  33%,
+  80%,
+  100% {
+    --om-icon-glow: 0;
+  }
+
+  40%,
+  74% {
+    --om-icon-glow: 1;
+  }
+}
+
+/* Bluetooth: five bonded profiles, one in use at a time. */
+
+.profile {
+  --top: linear-gradient(135deg, #262a33, #13151a);
+  --s: #2b2f38;
+  --w: #171a20;
+  animation: profile 7.5s var(--motion-ease) infinite paused;
+}
+
+.profile > .top {
+  border-radius: 6px;
+  box-shadow:
+    inset 0 0 0 1px color-mix(in srgb, #5b8cff calc(var(--om-icon-glow) * 90%), rgb(255 255 255 / 8%)),
+    0 0 calc(var(--om-icon-glow) * 22px) rgb(91 140 255 / 55%);
+}
+
+.profile:nth-child(2) {
+  animation-delay: 1.5s;
+}
+
+.profile:nth-child(3) {
+  animation-delay: 3s;
+}
+
+.profile:nth-child(4) {
+  animation-delay: 4.5s;
+}
+
+.profile:nth-child(5) {
+  animation-delay: 6s;
+}
+
+.profileNumber {
+  position: absolute;
+  right: 7px;
+  bottom: 5px;
+  color: color-mix(in srgb, #9dbaff calc(var(--om-icon-glow) * 100%), #5d636e);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 600;
+}
+
+@keyframes profile {
+  0%,
+  22%,
+  100% {
+    --om-icon-lift: 0px;
+    --om-icon-glow: 0;
+  }
+
+  6%,
+  16% {
+    --om-icon-lift: 6px;
+    --om-icon-glow: 1;
+  }
+}
+
+/* ZMK + Studio: each key takes on a new assignment in turn. */
+
+.plate {
+  --top: linear-gradient(135deg, #15171a, #0c0d0f);
+  --s: #c9a96a;
+  --w: #7d6638;
+}
+
+.miniKey {
+  position: absolute;
+  transform: translateZ(calc(5px + var(--om-icon-lift)));
+  transform-style: preserve-3d;
+  animation: assign 4.8s var(--ease-spring) infinite paused;
+}
+
+.miniKey:nth-child(2) {
+  top: -36px;
+  left: -36px;
+}
+
+.miniKey:nth-child(3) {
+  top: -36px;
+  left: 6px;
+  animation-delay: 1.2s;
+}
+
+.miniKey:nth-child(4) {
+  top: 6px;
+  left: 6px;
+  animation-delay: 2.4s;
+}
+
+.miniKey:nth-child(5) {
+  top: 6px;
+  left: -36px;
+  animation-delay: 3.6s;
+}
+
+.miniCap {
+  --top: radial-gradient(90% 90% at 50% 45%, #202226, #33363b);
+  --s: #4a4d54;
+  --w: #1d1f23;
+}
+
+.miniCap > .top {
+  border-radius: 4px;
+  box-shadow: inset 0 0 0 calc(var(--om-icon-glow) * 2px) #e2c58f;
+}
+
+@keyframes assign {
+  0%,
+  26%,
+  100% {
+    --om-icon-lift: 0px;
+    --om-icon-glow: 0;
+  }
+
+  6% {
+    --om-icon-lift: -5px;
+    --om-icon-glow: 1;
+  }
+
+  18% {
+    --om-icon-lift: 0px;
+    --om-icon-glow: 1;
+  }
+}
+
+/* Local software: the bridge runs on macOS, Linux and Windows. */
+
+.pane {
+  --top: linear-gradient(160deg, #22252c, #101115);
+  --s: #2b2e35;
+  --w: #16181c;
+  animation: pane 6s var(--motion-ease) infinite paused;
+}
+
+.pane:nth-child(2) {
+  animation-delay: 2s;
+}
+
+.pane:nth-child(3) {
+  animation-delay: 4s;
+}
+
+.pane > .top {
+  overflow: hidden;
+  border-radius: 5px;
+  box-shadow:
+    inset 0 0 0 1px color-mix(in srgb, #e2c58f calc(var(--om-icon-glow) * 90%), rgb(255 255 255 / 8%)),
+    0 0 calc(var(--om-icon-glow) * 20px) rgb(201 169 106 / 45%);
+}
+
+.paneBar {
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  height: 10px;
+  border-bottom: 1px solid rgb(255 255 255 / 6%);
+}
+
+.paneBar::before {
+  position: absolute;
+  top: 3px;
+  left: 5px;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: #5d636e;
+  box-shadow:
+    6px 0 #5d636e,
+    12px 0 #5d636e;
+  content: '';
+}
+
+.paneName {
+  position: absolute;
+  bottom: 6px;
+  left: 7px;
+  color: color-mix(in srgb, #f3dba6 calc(var(--om-icon-glow) * 100%), #7a808b);
+  font-family: var(--font-mono);
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+}
+
+@keyframes pane {
+  0%,
+  30%,
+  100% {
+    --om-icon-lift: 0px;
+    --om-icon-glow: 0;
+  }
+
+  8%,
+  24% {
+    --om-icon-lift: 8px;
+    --om-icon-glow: 1;
+  }
+}
+
+.playing :is(.plug, .profile, .miniKey, .pane),
+.playing .card:has(.plug) .statusLed {
+  animation-play-state: running;
+}
+
+@media (max-width: 1050px) {
+  .grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 600px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .plug,
+  .profile,
+  .miniKey,
+  .pane,
+  .card:has(.plug) .statusLed {
+    animation: none;
+  }
+
+  .profile:last-child,
+  .pane:last-child {
+    --om-icon-lift: 8px;
+    --om-icon-glow: 1;
+  }
+
+  .card,
+  .floor {
+    transition: none;
+  }
+}

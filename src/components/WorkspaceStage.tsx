@@ -1,6 +1,6 @@
-import { useEffect, useRef, useState } from 'react'
+import { useRef, useState } from 'react'
 import { heroFolders, heroTabs, heroTimeline, omarchyThemes } from '../content/cinmux'
-import { easeVars, prefersReducedMotion, useInView, useInterval } from '../lib/motion'
+import { prefersReducedMotion, useInView, useInterval, useStageMotion } from '../lib/motion'
 import { CinmuxWindow, Ink, Pane, Prompt, TerminalLine } from './CinmuxWindow'
 import styles from './WorkspaceStage.module.css'
 
@@ -144,36 +144,7 @@ export function WorkspaceStage() {
     inView && !reduced,
   )
 
-  useEffect(() => {
-    const element = stage.current
-    if (!element || reduced) return
-    const progress = () => {
-      const top = element.getBoundingClientRect().top + window.scrollY
-      const distance = Math.max(1, top - window.innerHeight * 0.12)
-      return Math.min(1, Math.max(0, window.scrollY / distance))
-    }
-    const vars = easeVars(element, { '--progress': progress(), '--intro': 1, '--mx': 0, '--my': 0 })
-    vars.set({ '--intro': 0 })
-
-    const scroll = () => vars.set({ '--progress': progress() })
-    const move = (event: PointerEvent) => {
-      if (event.pointerType === 'touch') return
-      const box = element.getBoundingClientRect()
-      const x = ((event.clientX - box.left) / box.width) * 2 - 1
-      const y = ((event.clientY - box.top) / Math.min(box.height, window.innerHeight)) * 2 - 1
-      vars.set({ '--mx': Math.min(1, Math.max(-1, x)), '--my': Math.min(1, Math.max(-1, y)) })
-    }
-
-    window.addEventListener('scroll', scroll, { passive: true })
-    window.addEventListener('resize', scroll)
-    document.addEventListener('pointermove', move, { passive: true })
-    return () => {
-      window.removeEventListener('scroll', scroll)
-      window.removeEventListener('resize', scroll)
-      document.removeEventListener('pointermove', move)
-      vars.stop()
-    }
-  }, [reduced])
+  useStageMotion(stage, !reduced)
 
   return (
     <div className={`${styles.stage} ${reduced ? styles.still : ''}`} ref={stage}>

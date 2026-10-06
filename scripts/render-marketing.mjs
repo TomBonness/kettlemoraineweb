@@ -66,18 +66,13 @@ async function saveCard(route, layers) {
 
 await mkdir(asset('public/social'), { recursive: true })
 
-// The original concept render stays untouched. Only the homepage derivative is art-directed.
+// The original concept render stays untouched. Only the share-card derivative is art-directed.
 const product = await sharp(asset('src/assets/product/marketing/open-micro-transparent.webp'))
   .trim({ threshold: 5 })
   .rotate(-8, { background: { r: 0, g: 0, b: 0, alpha: 0 } })
   .modulate({ brightness: 1.12 })
   .png()
   .toBuffer()
-for (const size of [960, 1600]) {
-  const output = asset(`src/assets/product/marketing/open-micro-home-${size}.webp`)
-  const result = await sharp(product).resize({ width: size }).webp({ quality: 90 }).toFile(output)
-  console.log(`${path.relative(root, output)} — ${result.width} × ${result.height}`)
-}
 
 const header = await masthead()
 const companyContour = await sharp(asset('public/brand/contours.svg'))

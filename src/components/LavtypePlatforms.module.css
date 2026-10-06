@@ -1,0 +1,162 @@
+.platforms {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(1.5rem, 4vw, 3.5rem);
+  perspective: 1700px;
+}
+
+/* --tx / --ty: the pointer over the card, -1…1. --hover: 0 → 1 while it's there. */
+.card {
+  --tx: 0;
+  --ty: 0;
+  --hover: 0;
+  --base: 6deg;
+  position: relative;
+  transform:
+    rotateY(calc(var(--base) + var(--tx) * 9deg))
+    rotateX(calc(var(--ty) * -8deg));
+  transform-style: preserve-3d;
+}
+
+.card[data-platform='linux'] {
+  --base: -6deg;
+}
+
+/* Two glass plates behind each card give it depth; they spread apart on hover. */
+.plate {
+  position: absolute;
+  inset: 0;
+  border-radius: 28px;
+  background: linear-gradient(140deg, rgb(143 180 255 / 45%), rgb(169 139 255 / 35%), rgb(240 154 208 / 40%));
+  transform: translate3d(
+    calc(10px + var(--hover) * 6px),
+    calc(12px + var(--hover) * 8px),
+    calc(-26px - var(--hover) * 16px)
+  );
+}
+
+.plate + .plate {
+  background: linear-gradient(140deg, rgb(143 180 255 / 22%), rgb(169 139 255 / 18%), rgb(240 154 208 / 22%));
+  filter: blur(1px);
+  transform: translate3d(
+    calc(20px + var(--hover) * 12px),
+    calc(24px + var(--hover) * 16px),
+    calc(-52px - var(--hover) * 32px)
+  );
+}
+
+.face {
+  position: relative;
+  height: 100%;
+  padding: clamp(1.6rem, 3vw, 2.4rem);
+  border: 1px solid #d3d8ce;
+  border-radius: 28px;
+  background:
+    radial-gradient(80% 60% at 100% 0%, rgb(169 139 255 / 10%), transparent 70%),
+    #fff;
+  box-shadow:
+    0 1px 0 #fff inset,
+    0 30px 70px rgb(17 18 20 / calc(10% + var(--hover) * 8%));
+  transform-style: preserve-3d;
+}
+
+/* A big extruded figure floats off the card's corner. */
+.badge {
+  position: absolute;
+  top: clamp(1rem, 2vw, 1.6rem);
+  right: clamp(1.4rem, 3vw, 2.2rem);
+  background: linear-gradient(120deg, #8fb4ff, #a98bff 50%, #f09ad0);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  font-family: var(--font-serif);
+  font-size: clamp(3.4rem, 6vw, 5.4rem);
+  font-weight: 500;
+  letter-spacing: -0.06em;
+  line-height: 1;
+  pointer-events: none;
+  text-shadow:
+    1px 1px 0 rgb(122 98 214 / 55%),
+    2px 2px 0 rgb(122 98 214 / 50%),
+    3px 3px 0 rgb(108 86 196 / 45%),
+    4px 4px 0 rgb(98 78 180 / 40%),
+    5px 5px 0 rgb(88 70 164 / 35%),
+    6px 8px 18px rgb(60 40 140 / 25%);
+  transform: translateZ(calc(48px + var(--hover) * 34px));
+}
+
+.heading {
+  display: grid;
+  gap: 0.35rem;
+  margin-bottom: clamp(1.6rem, 3vw, 2.4rem);
+}
+
+.heading h3 {
+  margin: 0;
+  font-family: var(--font-serif);
+  font-size: clamp(2.2rem, 3.6vw, 3rem);
+  font-weight: 500;
+  letter-spacing: -0.05em;
+  line-height: 1;
+}
+
+.heading span {
+  color: var(--text-secondary);
+  font-family: var(--font-mono);
+  font-size: 0.74rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.details {
+  display: grid;
+  margin: 0;
+}
+
+.details > div {
+  display: grid;
+  grid-template-columns: minmax(8.5rem, 0.42fr) minmax(0, 1fr);
+  gap: 1rem;
+  padding: 1rem 0;
+  border-top: 1px solid var(--hairline);
+  font-size: 0.9rem;
+  line-height: 1.6;
+}
+
+.details dt {
+  color: var(--text-secondary);
+}
+
+.details dd {
+  margin: 0;
+}
+
+.details [data-unsupported='true'] dd {
+  justify-self: start;
+  padding: 0.1rem 0.7rem;
+  border: 1px solid rgb(214 92 160 / 35%);
+  border-radius: 999px;
+  background: rgb(240 154 208 / 14%);
+  color: #8c2f66;
+  font-weight: 600;
+}
+
+@media (max-width: 900px) {
+  .platforms {
+    grid-template-columns: 1fr;
+    gap: 3rem;
+  }
+
+  .card,
+  .card[data-platform='linux'] {
+    --base: 0deg;
+  }
+}
+
+@media (max-width: 480px) {
+  .details > div {
+    grid-template-columns: 1fr;
+    gap: 0.2rem;
+  }
+}

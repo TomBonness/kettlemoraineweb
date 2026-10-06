@@ -1,0 +1,8 @@
+.page {
+  --product-gradient: linear-gradient(90deg, #dfe8ff 0%, #89adff 45%, #3d6bff 100%);
+  --product-glow-a: rgb(5 72 253 / 16%);
+  --product-glow-b: rgb(137 173 255 / 12%);
+  --product-hover: #89adff;
+  --hero-title-size: clamp(4rem, 9vw, 8rem);
+  --hero-title-size-small: clamp(3.2rem, 15vw, 4.6rem);
+}

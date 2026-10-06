@@ -1,0 +1,146 @@
+/* --hm-tx / --hm-ty: the pointer over the card, -1…1. --hm-hover: 0 → 1 while the card is hovered. */
+
+.stage {
+  --hm-tx: 0;
+  --hm-ty: 0;
+  --hm-hover: 0;
+  position: absolute;
+  inset: 0;
+  display: grid;
+  overflow: hidden;
+  place-items: center;
+  background:
+    radial-gradient(45% 45% at 50% 50%, rgb(92 100 255 / 30%), transparent 72%),
+    radial-gradient(70% 60% at 50% 50%, rgb(5 72 253 / 18%), transparent 75%),
+    linear-gradient(rgb(255 255 255 / 4%) 1px, transparent 1px) 0 0 / 56px 56px,
+    linear-gradient(90deg, rgb(255 255 255 / 4%) 1px, transparent 1px) 0 0 / 56px 56px,
+    #07080d;
+  perspective: 900px;
+}
+
+.rig {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  transform:
+    rotateX(calc(var(--hm-ty) * -14deg))
+    rotateY(calc(var(--hm-tx) * 18deg));
+  transform-style: preserve-3d;
+}
+
+/* The lens: glowing rings receding along Z, like a barrel seen down its length. */
+.lens {
+  position: absolute;
+  top: calc(-1 * var(--hm-size) / 2);
+  left: calc(-1 * var(--hm-size) / 2);
+  --hm-size: calc(420px - var(--hm-i) * 34px);
+  width: var(--hm-size);
+  height: var(--hm-size);
+  border: 1.5px solid rgb(137 173 255 / calc(0.7 - var(--hm-i) * 0.08));
+  border-radius: 50%;
+  box-shadow:
+    0 0 24px rgb(92 100 255 / calc(0.45 - var(--hm-i) * 0.05)),
+    inset 0 0 24px rgb(92 100 255 / calc(0.35 - var(--hm-i) * 0.04));
+  transform: translateZ(calc(var(--hm-i) * -120px + var(--hm-hover) * 40px));
+  transition: transform 700ms var(--motion-ease);
+}
+
+.lens:first-child {
+  border-width: 2px;
+  border-color: #dfe8ff;
+  box-shadow:
+    0 0 40px rgb(137 173 255 / 70%),
+    inset 0 0 40px rgb(92 100 255 / 55%);
+}
+
+.token {
+  position: absolute;
+  top: 0;
+  left: 0;
+  padding: 0.2rem 0.45rem;
+  border: 1px solid rgb(137 173 255 / 40%);
+  border-radius: 6px;
+  background: rgb(14 18 40 / 75%);
+  color: #cfdbff;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  white-space: nowrap;
+  opacity: 0;
+  transform: translate3d(var(--hm-x), var(--hm-y), -900px) translate(-50%, -50%);
+  animation: stream 4.2s linear infinite;
+  animation-play-state: paused;
+}
+
+.stage[data-playing] .token {
+  animation-play-state: running;
+}
+
+.metric {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  justify-items: center;
+  gap: 0.6rem;
+  color: #f7f7f3;
+  text-align: center;
+  transform: translate(calc(var(--hm-tx) * 10px), calc(var(--hm-ty) * 8px));
+}
+
+.value {
+  background: linear-gradient(180deg, #fff 20%, #89adff 75%, #5c64ff);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  font-size: clamp(6.5rem, 10vw, 10rem);
+  font-variant-numeric: tabular-nums;
+  font-weight: 500;
+  letter-spacing: -0.08em;
+  line-height: 0.9;
+  filter: drop-shadow(0 0 30px rgb(92 100 255 / 55%));
+}
+
+.metric small {
+  color: #c9d3ec;
+  font-size: 0.92rem;
+}
+
+/* With reduced motion, tokens rest inside the lens instead of streaming. */
+.still .token {
+  opacity: 0.55;
+  transform: translate3d(var(--hm-x), var(--hm-y), -400px) translate(-50%, -50%);
+  animation: none;
+}
+
+@keyframes stream {
+  0% {
+    opacity: 0;
+    transform: translate3d(var(--hm-x), var(--hm-y), -900px) translate(-50%, -50%);
+  }
+
+  25% {
+    opacity: 0.9;
+  }
+
+  80% {
+    opacity: 0.9;
+  }
+
+  100% {
+    opacity: 0;
+    transform: translate3d(calc(var(--hm-x) * 1.6), calc(var(--hm-y) * 1.6), 380px) translate(-50%, -50%);
+  }
+}
+
+@media (max-width: 767px) {
+  .rig {
+    scale: 0.72;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .lens {
+    transition: none;
+  }
+}

@@ -42,8 +42,6 @@ export function useInterval(callback: () => void, delay: number, active: boolean
 export type EasedVars = {
   /** Eases toward these values, one animation frame at a time. */
   set: (values: Record<string, number>) => void
-  /** Moves to these values immediately. */
-  jump: (values: Record<string, number>) => void
   stop: () => void
 }
 
@@ -88,14 +86,54 @@ export function easeVars(
       Object.assign(goal, values)
       if (!frame) frame = requestAnimationFrame(step)
     },
-    jump(values) {
-      Object.assign(goal, values)
-      Object.assign(current, values)
-      write()
-    },
     stop() {
       cancelAnimationFrame(frame)
       frame = 0
     },
   }
+}
+
+/**
+ * Drives a 3D stage with eased CSS custom properties on `ref`:
+ * - `--progress`: 0 → 1 as the stage scrolls up to near the top of the viewport. A stage that is
+ *   already on screen when the page opens starts at 0 at the top of the page; one further down
+ *   starts at 0 as it enters the viewport.
+ * - `--intro`: 1 → 0 once, as the stage first appears.
+ * - `--mx` / `--my`: the pointer, -1…1 across the stage (mouse and pen only).
+ */
+export function useStageMotion(ref: RefObject<HTMLElement | null>, active: boolean) {
+  useEffect(() => {
+    const element = ref.current
+    if (!element || !active) return
+    const startTop = Math.min(
+      window.innerHeight,
+      element.getBoundingClientRect().top + window.scrollY,
+    )
+    const progress = () => {
+      const end = window.innerHeight * 0.12
+      const travelled = startTop - element.getBoundingClientRect().top
+      return Math.min(1, Math.max(0, travelled / Math.max(1, startTop - end)))
+    }
+    const vars = easeVars(element, { '--progress': progress(), '--intro': 1, '--mx': 0, '--my': 0 })
+    vars.set({ '--intro': 0 })
+
+    const scroll = () => vars.set({ '--progress': progress() })
+    const move = (event: PointerEvent) => {
+      if (event.pointerType === 'touch') return
+      const box = element.getBoundingClientRect()
+      const x = ((event.clientX - box.left) / box.width) * 2 - 1
+      const y = ((event.clientY - box.top) / Math.min(box.height, window.innerHeight)) * 2 - 1
+      vars.set({ '--mx': Math.min(1, Math.max(-1, x)), '--my': Math.min(1, Math.max(-1, y)) })
+    }
+
+    window.addEventListener('scroll', scroll, { passive: true })
+    window.addEventListener('resize', scroll)
+    document.addEventListener('pointermove', move, { passive: true })
+    return () => {
+      window.removeEventListener('scroll', scroll)
+      window.removeEventListener('resize', scroll)
+      document.removeEventListener('pointermove', move)
+      vars.stop()
+    }
+  }, [ref, active])
 }

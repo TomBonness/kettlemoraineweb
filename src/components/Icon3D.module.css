@@ -1,3 +1,5 @@
+/* Palette, set by the page: --icon-face (face fill), --icon-edge → --icon-edge-deep (the tile's
+   thickness, front to back), --icon-glow-a / --icon-glow-b (the light behind it). */
 .stage {
   --mx: 0;
   --my: 0;
@@ -15,8 +17,8 @@
   position: absolute;
   inset: 8%;
   background:
-    radial-gradient(45% 45% at 40% 45%, rgb(163 190 120 / 45%), transparent 70%),
-    radial-gradient(45% 45% at 62% 58%, rgb(47 134 255 / 38%), transparent 70%);
+    radial-gradient(45% 45% at 40% 45%, var(--icon-glow-a, rgb(137 173 255 / 40%)), transparent 70%),
+    radial-gradient(45% 45% at 62% 58%, var(--icon-glow-b, rgb(5 72 253 / 38%)), transparent 70%);
   filter: blur(30px);
   transform: translate(calc(var(--mx) * -14px), calc(var(--my) * -14px));
 }
@@ -46,8 +48,8 @@
 .slice {
   background: color-mix(
     in srgb,
-    #2a2d31 calc(100% - var(--slice) / var(--slices) * 100%),
-    #050506
+    var(--icon-edge, #2a2d31) calc(100% - var(--slice) / var(--slices) * 100%),
+    var(--icon-edge-deep, #050506)
   );
   box-shadow: inset 0 0 0 1px rgb(255 255 255 / calc(6% - var(--slice) * 0.3%));
   transform: translateZ(calc(var(--slice) * var(--depth) * -1));
@@ -58,22 +60,17 @@
   overflow: hidden;
   place-items: center;
   background:
-    radial-gradient(120% 90% at 30% 0%, #23262a, transparent 60%),
-    #151719;
+    radial-gradient(120% 90% at 30% 0%, rgb(255 255 255 / 7%), transparent 60%),
+    var(--icon-face, #151719);
   box-shadow:
     inset 0 1px 0 rgb(255 255 255 / 12%),
     inset 0 0 0 1px rgb(255 255 255 / 6%);
   transform: translateZ(1px);
 }
 
-.face svg {
+.face > * {
   width: 100%;
   height: 100%;
-}
-
-.frame {
-  stroke: #a3be78;
-  filter: drop-shadow(0 0 6px rgb(163 190 120 / 75%));
 }
 
 .shine {

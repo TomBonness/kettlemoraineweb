@@ -1,0 +1,673 @@
+/* --lt-voice: how loudly the ring is listening, eased between phases. */
+@property --lt-voice {
+  syntax: '<number>';
+  inherits: true;
+  initial-value: 0;
+}
+
+/* --progress / --intro / --mx / --my come from useStageMotion. */
+.stage {
+  --progress: 0;
+  --intro: 0;
+  --mx: 0;
+  --my: 0;
+  --lt-voice: 0;
+  --rest: clamp(0, 1 - var(--progress), 1);
+  position: relative;
+  margin: 0;
+  container-type: inline-size;
+  animation: stage-in 1.2s var(--motion-ease) both;
+  transition: --lt-voice 700ms var(--motion-ease);
+}
+
+.stage[data-phase='listening'] {
+  --lt-voice: 1;
+  transition-duration: 380ms;
+}
+
+.stage[data-phase='recognizing'] {
+  --lt-voice: 0.22;
+}
+
+.still {
+  --progress: 1;
+  --lt-voice: 0.55;
+  animation: none;
+}
+
+/* Layout, in units of the stage width. */
+.viewport {
+  --world-w: 100cqi;
+  --world-d: 62cqi;
+  --pad-x: 29cqi;
+  --pad-y: 40cqi;
+  --ring-r: 21.5cqi;
+  --k: 6cqi;
+  --bar-w: 0.66cqi;
+  --bar-h: 11cqi;
+  --win-x: 53cqi;
+  --win-base: 36cqi;
+  --win-w: 44cqi;
+  --win-turn: 16deg;
+  --type-size: 2.15cqi;
+  --tilt: calc(54deg + var(--rest) * 9deg + var(--intro) * 16deg - var(--my) * 4deg);
+  --spin: calc(var(--rest) * -9deg + var(--mx) * 7deg);
+  position: relative;
+  height: 56cqi;
+  perspective: 2000px;
+  perspective-origin: 50% 0%;
+}
+
+.glow {
+  position: absolute;
+  inset: 0 -8% -8%;
+  background:
+    radial-gradient(30% 40% at 30% 66%, rgb(169 139 255 / calc(22% + var(--lt-voice) * 26%)), transparent 70%),
+    radial-gradient(28% 40% at 22% 58%, rgb(143 180 255 / 22%), transparent 72%),
+    radial-gradient(34% 44% at 76% 40%, rgb(240 154 208 / 16%), transparent 72%);
+  filter: blur(40px);
+  pointer-events: none;
+}
+
+.world {
+  position: absolute;
+  top: calc(var(--world-d) * -0.18);
+  left: 50%;
+  width: var(--world-w);
+  height: var(--world-d);
+  margin-left: calc(var(--world-w) / -2);
+  transform:
+    translateY(calc(var(--rest) * 3cqi))
+    rotateX(var(--tilt))
+    rotateZ(var(--spin));
+  transform-origin: 50% 100%;
+  transform-style: preserve-3d;
+}
+
+/* The pad on the floor: rings of light the keys sit in. */
+.pad {
+  position: absolute;
+  top: calc(var(--pad-y) - var(--ring-r) * 1.3);
+  left: calc(var(--pad-x) - var(--ring-r) * 1.3);
+  width: calc(var(--ring-r) * 2.6);
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background:
+    radial-gradient(closest-side, rgb(169 139 255 / calc(18% + var(--lt-voice) * 30%)), transparent 70%),
+    repeating-radial-gradient(
+      closest-side,
+      transparent 0 calc(var(--ring-r) * 0.3 - 1px),
+      rgb(200 190 255 / 12%) calc(var(--ring-r) * 0.3 - 1px) calc(var(--ring-r) * 0.3)
+    ),
+    radial-gradient(closest-side, rgb(16 17 24 / 90%), rgb(16 17 24 / 0%));
+  box-shadow: inset 0 0 0 1px rgb(255 255 255 / 4%);
+}
+
+.ripple {
+  position: absolute;
+  inset: 26%;
+  border: 2px solid rgb(190 170 255 / 70%);
+  border-radius: 50%;
+  opacity: 0;
+}
+
+.stage[data-phase='listening'] .ripple {
+  animation: ripple 1.9s cubic-bezier(0.2, 0.7, 0.3, 1) infinite;
+}
+
+.ripple:nth-child(2) {
+  animation-delay: 0.63s !important;
+}
+
+.ripple:nth-child(3) {
+  animation-delay: 1.26s !important;
+}
+
+/* The path from the keys to the focused app, lit while the transcript travels. */
+.beam {
+  --dx: calc(var(--win-x) + var(--win-w) / 2 - var(--pad-x));
+  --dy: calc(var(--win-base) - var(--pad-y));
+  position: absolute;
+  top: var(--pad-y);
+  left: var(--pad-x);
+  width: hypot(var(--dx), var(--dy));
+  height: 0.5cqi;
+  overflow: hidden;
+  border-radius: 999px;
+  background: linear-gradient(90deg, transparent, rgb(169 139 255 / 18%) 30%, rgb(240 154 208 / 22%));
+  rotate: atan2(var(--dy), var(--dx));
+  transform: translateY(-50%) translateZ(1px);
+  transform-origin: 0 0;
+}
+
+.beam > span {
+  position: absolute;
+  inset: 0;
+  width: 30%;
+  background: linear-gradient(90deg, transparent, #f4e9ff 60%, transparent);
+  box-shadow: 0 0 20px #a98bff;
+  opacity: 0;
+  transform: translateX(-100%);
+}
+
+.stage[data-phase='recognizing'] .beam > span,
+.stage[data-phase='typing'] .beam > span {
+  animation: travel 0.9s var(--motion-ease) infinite;
+}
+
+/* The waveform: bars standing in a ring around the keys, turned to face you. */
+.ring {
+  position: absolute;
+  inset: 0;
+  transform-style: preserve-3d;
+  pointer-events: none;
+}
+
+.bar {
+  --a: calc(var(--i) / var(--n) * 360deg);
+  --r: calc(var(--ring-r) * (1 + var(--rest) * 0.14 + var(--intro) * 0.5));
+  position: absolute;
+  top: calc(var(--pad-y) - var(--bar-h));
+  left: calc(var(--pad-x) - var(--bar-w) / 2);
+  width: var(--bar-w);
+  height: var(--bar-h);
+  transform:
+    rotateZ(var(--a))
+    translateY(calc(var(--r) * -1))
+    rotateZ(calc(var(--a) * -1 - var(--spin)))
+    rotateX(calc(var(--tilt) * -1));
+  transform-origin: 50% 100%;
+  transform-style: preserve-3d;
+}
+
+.bar > span {
+  position: absolute;
+  inset: 0;
+  border-radius: 999px;
+  background: linear-gradient(
+    to top,
+    color-mix(in srgb, #8fb4ff calc(100% - var(--tone) * 100%), #f09ad0) 0%,
+    #a98bff 60%,
+    #fff 100%
+  );
+  box-shadow: 0 0 calc(var(--lt-voice) * 1.2cqi) rgb(169 139 255 / 70%);
+  transform: scaleY(calc(0.08 + var(--lt-voice) * var(--level) * 0.92));
+  transform-origin: 50% 100%;
+  animation: talk calc(0.42s + var(--level) * 0.5s) ease-in-out calc(var(--i) * -71ms) infinite
+    alternate;
+}
+
+/* The keys: a real button lying on the pad. */
+.key {
+  position: absolute;
+  top: var(--pad-y);
+  left: var(--pad-x);
+  display: block;
+  padding: calc(var(--k) * 0.28);
+  border: 0;
+  border-radius: calc(var(--k) * 0.42);
+  background: linear-gradient(180deg, #17181e, #0c0d10);
+  box-shadow:
+    inset 0 0 0 1px rgb(255 255 255 / 7%),
+    0 0 0 1px rgb(0 0 0 / 60%),
+    0 0 calc(var(--k) * 0.9) rgb(169 139 255 / calc(var(--lt-voice) * 45%));
+  cursor: pointer;
+  touch-action: none;
+  -webkit-touch-callout: none;
+  -webkit-tap-highlight-color: transparent;
+  user-select: none;
+  transform:
+    translate(-50%, -50%)
+    translateZ(calc(var(--rest) * 2.5cqi + var(--intro) * 7cqi));
+  transform-style: preserve-3d;
+  transition: box-shadow var(--hover-duration) var(--motion-ease);
+}
+
+.key:hover {
+  box-shadow:
+    inset 0 0 0 1px rgb(190 170 255 / 30%),
+    0 0 0 1px rgb(0 0 0 / 60%),
+    0 0 calc(var(--k) * 0.9) rgb(169 139 255 / calc(18% + var(--lt-voice) * 45%));
+}
+
+.key:focus-visible {
+  outline: 3px solid #a98bff;
+  outline-offset: calc(var(--k) * 0.12);
+}
+
+.keycaps {
+  display: flex;
+}
+
+.keyLabel {
+  position: absolute;
+  top: calc(var(--pad-y) + var(--k) * 1.05);
+  left: var(--pad-x);
+  color: rgb(200 196 230 / 62%);
+  font-family: var(--font-mono);
+  font-size: max(10px, calc(var(--k) * 0.2));
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  transform: translateX(-50%) translateZ(calc(var(--rest) * 2.5cqi + var(--intro) * 7cqi));
+}
+
+/* The focused app: a window standing behind the pad, leaning back a touch. */
+.window {
+  position: absolute;
+  bottom: calc(var(--world-d) - var(--win-base));
+  left: var(--win-x);
+  width: var(--win-w);
+  transform:
+    translateY(calc(var(--rest) * -3cqi))
+    rotateX(calc(var(--tilt) * -1 + 7deg))
+    translateY(calc(var(--rest) * -4cqi - var(--intro) * 10cqi))
+    rotateY(calc(var(--win-turn) + var(--rest) * -12deg));
+  transform-origin: 50% 100%;
+  transform-style: preserve-3d;
+}
+
+.windowTag {
+  position: absolute;
+  bottom: 100%;
+  left: 0;
+  margin-bottom: 1cqi;
+  color: #cfc6ff;
+  font-family: var(--font-mono);
+  font-size: max(10px, 0.82cqi);
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  transform: translateZ(calc(2cqi + var(--rest) * 3cqi));
+}
+
+.windowBack {
+  position: absolute;
+  inset: 0;
+  border-radius: 1.2cqi;
+  background: linear-gradient(135deg, rgb(143 180 255 / 40%), rgb(169 139 255 / 30%), rgb(240 154 208 / 40%));
+  filter: blur(14px);
+  opacity: calc(0.35 + var(--lt-voice) * 0.25);
+  transform: translateZ(calc(-2.5cqi - var(--rest) * 4cqi));
+}
+
+/* Stacked panes behind the window give it thickness at an angle. */
+.windowSlice {
+  position: absolute;
+  inset: 0;
+  border: 1px solid rgb(190 176 255 / calc(22% - var(--depth) * 4%));
+  border-radius: 1.2cqi;
+  background: rgb(12 12 18 / 92%);
+  transform: translateZ(calc(var(--depth) * -0.32cqi));
+}
+
+/* Its light, spilling onto the floor. */
+.windowGlow {
+  position: absolute;
+  top: calc(var(--win-base) - 5cqi);
+  left: calc(var(--win-x) - 4cqi);
+  width: calc(var(--win-w) + 8cqi);
+  height: 14cqi;
+  border-radius: 50%;
+  background: radial-gradient(
+    closest-side,
+    rgb(169 139 255 / calc(16% + var(--lt-voice) * 10%)),
+    rgb(240 154 208 / 6%) 60%,
+    transparent
+  );
+  transform: translateZ(0.5px);
+}
+
+.windowFrame {
+  position: relative;
+  overflow: hidden;
+  border: 1px solid rgb(255 255 255 / 12%);
+  border-radius: 1.2cqi;
+  background: linear-gradient(180deg, rgb(32 33 40 / 96%), rgb(20 21 26 / 96%));
+  box-shadow:
+    inset 0 1px 0 rgb(255 255 255 / 10%),
+    0 4cqi 8cqi rgb(0 0 0 / 50%);
+  transition:
+    border-color 500ms var(--motion-ease),
+    box-shadow 500ms var(--motion-ease);
+}
+
+.stage[data-phase='typing'] .windowFrame,
+.stage[data-phase='typed'] .windowFrame {
+  border-color: rgb(196 180 255 / 45%);
+  box-shadow:
+    inset 0 1px 0 rgb(255 255 255 / 10%),
+    0 4cqi 8cqi rgb(0 0 0 / 50%),
+    0 0 4cqi rgb(169 139 255 / 28%);
+}
+
+.chrome {
+  display: flex;
+  align-items: center;
+  gap: 0.55cqi;
+  padding: 1cqi 1.2cqi;
+  border-bottom: 1px solid rgb(255 255 255 / 7%);
+}
+
+.chrome i {
+  width: 0.8cqi;
+  height: 0.8cqi;
+  border-radius: 50%;
+  background: #3b3d45;
+}
+
+.chromeTitle {
+  width: 22%;
+  height: 0.7cqi;
+  margin: 0 auto;
+  border-radius: 999px;
+  background: #33353d;
+  translate: -1.4cqi 0;
+}
+
+.doc {
+  display: grid;
+  gap: 1cqi;
+  padding: 1.8cqi 2cqi 2cqi;
+}
+
+.ghostLine {
+  width: var(--w);
+  height: 0.75cqi;
+  border-radius: 999px;
+  background: #2c2e36;
+}
+
+.typed {
+  min-height: 1.3em;
+  margin: 0.6cqi 0 0;
+  color: #f4f3fb;
+  font-family: var(--font-serif);
+  font-size: var(--type-size);
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  line-height: 1.3;
+}
+
+.caret {
+  display: inline-block;
+  width: 2px;
+  height: 1.05em;
+  margin-left: 2px;
+  background: #a98bff;
+  vertical-align: -0.15em;
+  animation: blink 1s steps(1) infinite;
+}
+
+.final {
+  justify-self: start;
+  padding: 0.35cqi 0.8cqi;
+  border: 1px solid rgb(169 139 255 / 40%);
+  border-radius: 999px;
+  color: #cfc6ff;
+  font-family: var(--font-mono);
+  font-size: max(10px, 0.78cqi);
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  opacity: 0;
+  text-transform: uppercase;
+  transform: translateY(0.5cqi);
+  transition:
+    opacity 400ms var(--motion-ease),
+    transform 400ms var(--motion-ease);
+}
+
+.stage[data-phase='typed'] .final {
+  opacity: 1;
+  transform: none;
+}
+
+/* Status, capture clock and hint under the scene. */
+.controls {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr) minmax(0, 1fr);
+  align-items: center;
+  gap: 1rem 2rem;
+  margin-top: 1.5rem;
+  font-size: 0.86rem;
+}
+
+.status {
+  display: flex;
+  min-height: 2.6em;
+  align-items: center;
+  gap: 0.75rem;
+  margin: 0;
+  color: #eceaf6;
+  font-weight: 550;
+}
+
+.statusDot {
+  width: 0.55rem;
+  height: 0.55rem;
+  flex: none;
+  border-radius: 50%;
+  background: #5d6070;
+  transition: background 300ms var(--motion-ease);
+}
+
+.stage[data-phase='listening'] .statusDot {
+  background: #f09ad0;
+  animation: pulse 1.2s ease-out infinite;
+}
+
+.stage[data-phase='recognizing'] .statusDot,
+.stage[data-phase='typing'] .statusDot {
+  background: #a98bff;
+}
+
+.stage[data-phase='typed'] .statusDot {
+  background: #8fb4ff;
+}
+
+.meter {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  color: #9ea3b5;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.meterLabel {
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.meterTrack {
+  position: relative;
+  height: 4px;
+  flex: 1;
+  overflow: hidden;
+  border-radius: 999px;
+  background: #2a2c34;
+}
+
+.meterTrack > span {
+  position: absolute;
+  inset: 0;
+  background: var(--product-gradient);
+  transform: scaleX(var(--fill));
+  transform-origin: 0 50%;
+  transition: transform 120ms linear;
+}
+
+.hint {
+  margin: 0;
+  color: #9ea3b5;
+  text-align: right;
+}
+
+.paused *,
+.paused *::before,
+.paused *::after {
+  animation-play-state: paused !important;
+}
+
+@keyframes stage-in {
+  from {
+    opacity: 0;
+    transform: translateY(48px);
+  }
+}
+
+@keyframes talk {
+  from {
+    scale: 1 0.28;
+  }
+
+  to {
+    scale: 1 1;
+  }
+}
+
+@keyframes ripple {
+  0% {
+    opacity: 0.9;
+    transform: scale(0.75);
+  }
+
+  100% {
+    opacity: 0;
+    transform: scale(2.1);
+  }
+}
+
+@keyframes travel {
+  0% {
+    opacity: 1;
+    transform: translateX(-100%);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateX(340%);
+  }
+}
+
+@keyframes blink {
+  50% {
+    opacity: 0;
+  }
+}
+
+@keyframes pulse {
+  0% {
+    box-shadow: 0 0 0 0 rgb(240 154 208 / 70%);
+  }
+
+  100% {
+    box-shadow: 0 0 0 0.6rem rgb(240 154 208 / 0%);
+  }
+}
+
+@container (max-width: 1000px) {
+  .viewport {
+    --k: 6.8cqi;
+    --pad-x: 30cqi;
+    --ring-r: 24cqi;
+    --bar-h: 12cqi;
+    --win-x: 56cqi;
+    --win-w: 42cqi;
+    --type-size: 2.6cqi;
+    height: 60cqi;
+  }
+}
+
+/* Narrow screens: the window stands behind the pad instead of beside it. */
+@container (max-width: 640px) {
+  .viewport {
+    --world-d: 132cqi;
+    --pad-x: 50cqi;
+    --pad-y: 96cqi;
+    --ring-r: 38cqi;
+    --k: 12cqi;
+    --bar-w: 1.1cqi;
+    --bar-h: 15cqi;
+    --win-x: 4cqi;
+    --win-base: 44cqi;
+    --win-w: 92cqi;
+    --win-turn: 0deg;
+    --type-size: 5.4cqi;
+    --tilt: calc(52deg + var(--rest) * 6deg + var(--intro) * 12deg);
+    --spin: calc(var(--rest) * -5deg);
+    height: 128cqi;
+  }
+
+  .windowTag {
+    margin-bottom: 2cqi;
+    font-size: 2.6cqi;
+  }
+
+  .windowFrame,
+  .windowBack {
+    border-radius: 3cqi;
+  }
+
+  .chrome {
+    gap: 1.4cqi;
+    padding: 2.4cqi 3cqi;
+  }
+
+  .chrome i {
+    width: 2cqi;
+    height: 2cqi;
+  }
+
+  .chromeTitle {
+    height: 1.6cqi;
+  }
+
+  .doc {
+    gap: 2.2cqi;
+    padding: 4cqi 4.4cqi 4.6cqi;
+  }
+
+  .ghostLine {
+    height: 1.8cqi;
+  }
+
+  .final {
+    padding: 0.8cqi 2cqi;
+    font-size: 2.5cqi;
+  }
+}
+
+@media (max-width: 900px) {
+  .controls {
+    grid-template-columns: 1fr;
+    gap: 0.6rem;
+  }
+
+  .hint {
+    text-align: left;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .stage {
+    transition: none;
+  }
+
+  .bar > span,
+  .ripple,
+  .beam > span,
+  .caret,
+  .statusDot {
+    animation: none !important;
+  }
+
+  .final,
+  .meterTrack > span {
+    transition: none;
+  }
+}

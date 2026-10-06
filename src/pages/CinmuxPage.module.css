@@ -1,6 +1,8 @@
 .page {
-  --cx-green: #a3be78;
-  --cx-gradient: linear-gradient(90deg, #a3be78 0%, #4cc3a4 45%, #2f86ff 100%);
+  --product-gradient: linear-gradient(90deg, #a3be78 0%, #4cc3a4 45%, #2f86ff 100%);
+  --product-glow-a: rgb(163 190 120 / 12%);
+  --product-glow-b: rgb(47 134 255 / 14%);
+  --product-hover: #a3be78;
   --cx-void: #08090b;
   --cx-working: #8ec5b8;
   --cx-waiting: #ff9a5a;
@@ -21,12 +23,11 @@
   font-weight: inherit;
 }
 
-.heroStatement em,
 .agentsSection h2 em,
 .anywhereSection h2 em,
 .installSection h2 em {
   padding-right: 0.08em;
-  background: var(--cx-gradient);
+  background: var(--product-gradient);
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
@@ -85,131 +86,11 @@
   color: var(--accent);
 }
 
-.hero .textLink:hover,
-.hero .textLink:focus-visible,
 .agentsSection .textLink:hover,
 .agentsSection .textLink:focus-visible,
 .installSection .textLink:hover,
 .installSection .textLink:focus-visible {
-  color: var(--cx-green);
-}
-
-/* Hero */
-
-.hero {
-  position: relative;
-  isolation: isolate;
-  overflow: hidden;
-  background: var(--graphite);
-  color: #f7f7f3;
-}
-
-.heroBackdrop {
-  position: absolute;
-  z-index: -1;
-  inset: 0;
-  perspective: 700px;
-  perspective-origin: 50% 0%;
-}
-
-.heroBackdrop::before {
-  position: absolute;
-  inset: 0;
-  background:
-    radial-gradient(60% 40% at 18% 0%, rgb(163 190 120 / 12%), transparent 70%),
-    radial-gradient(50% 40% at 85% 8%, rgb(47 134 255 / 14%), transparent 70%);
-  content: '';
-}
-
-.heroFloor {
-  position: absolute;
-  right: -60%;
-  bottom: 0;
-  left: -60%;
-  height: 72%;
-  background:
-    linear-gradient(rgb(255 255 255 / 7%) 1px, transparent 1px) 0 0 / 72px 72px,
-    linear-gradient(90deg, rgb(255 255 255 / 7%) 1px, transparent 1px) 0 0 / 72px 72px;
-  mask-image: linear-gradient(to top, #000 10%, transparent 85%);
-  transform: rotateX(68deg);
-  transform-origin: 50% 100%;
-}
-
-.heroInner {
-  position: relative;
-  max-width: var(--content-max);
-  margin: 0 auto;
-  padding: clamp(4rem, 8vw, 6.5rem) var(--gutter) 0;
-}
-
-.heroCopy {
-  position: relative;
-  z-index: 2;
-  display: grid;
-  grid-template-columns: minmax(0, 1.2fr) minmax(280px, 0.8fr);
-  align-items: end;
-  gap: clamp(2rem, 5vw, 5rem);
-  margin-bottom: clamp(3.5rem, 8vw, 7rem);
-}
-
-.hero h1 {
-  margin: 0;
-  font-family: var(--font-serif);
-  font-size: clamp(5.4rem, 12.5vw, 11.5rem);
-  font-weight: 400;
-  letter-spacing: -0.07em;
-  line-height: 0.88;
-}
-
-.heroStatement {
-  max-width: 34rem;
-  margin: 1.6rem 0 0;
-  font-family: var(--font-serif);
-  font-size: clamp(1.9rem, 3.4vw, 3.1rem);
-  font-weight: 500;
-  letter-spacing: -0.045em;
-  line-height: 1.1;
-}
-
-.heroLead {
-  max-width: 30rem;
-  margin: 0;
-  color: #bfc4cf;
-  font-size: clamp(0.95rem, 1.3vw, 1.08rem);
-  line-height: 1.75;
-}
-
-.heroActions {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 1rem 1.8rem;
-  margin-top: 2rem;
-}
-
-.primaryButton {
-  gap: 1.6rem;
-  background: var(--accent);
-  color: #fff;
-}
-
-.primaryButton:hover,
-.primaryButton:focus-visible {
-  background: var(--accent-strong);
-}
-
-.heroBaseline {
-  position: relative;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  gap: 1rem;
-  margin-top: clamp(4rem, 8vw, 6.5rem);
-  padding: 1.4rem 0;
-  border-top: 1px solid #343945;
-  color: #aeb7c9;
-  font-size: 0.85rem;
-  line-height: 1.6;
+  color: var(--product-hover);
 }
 
 /* Agents */
@@ -321,7 +202,7 @@
 }
 
 .cliPrompt {
-  color: var(--cx-green);
+  color: var(--product-hover);
   user-select: none;
 }
 
@@ -480,7 +361,10 @@
   margin-top: 2rem;
 }
 
-.installGrid > [aria-hidden='true'] {
+.installIcon {
+  --icon-face: #151719;
+  --icon-glow-a: rgb(163 190 120 / 45%);
+  --icon-glow-b: rgb(47 134 255 / 38%);
   justify-self: center;
 }
 
@@ -545,7 +429,6 @@
 }
 
 @media (max-width: 1050px) {
-  .heroCopy,
   .sectionIntro,
   .organizeGrid,
   .installGrid,
@@ -564,7 +447,7 @@
     border-left: 0;
   }
 
-  .installGrid > [aria-hidden='true'] {
+  .installIcon {
     order: -1;
   }
 }
@@ -572,14 +455,6 @@
 @media (max-width: 767px) {
   .page h2 {
     font-size: clamp(2.7rem, 11vw, 4.5rem);
-  }
-
-  .hero h1 {
-    font-size: clamp(4.4rem, 22vw, 6.5rem);
-  }
-
-  .heroCopy {
-    margin-bottom: 2.5rem;
   }
 
   .sectionIntro {

@@ -1,0 +1,264 @@
+/* --hm-tx / --hm-ty: the pointer over the card, -1…1. --hm-hover: 0 → 1 while the card is hovered. */
+
+.stage {
+  --hm-tx: 0;
+  --hm-ty: 0;
+  --hm-hover: 0;
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  background:
+    radial-gradient(50% 40% at 50% 72%, rgb(169 139 255 / 30%), transparent 72%),
+    radial-gradient(40% 40% at 85% 15%, rgb(240 154 208 / 14%), transparent 70%),
+    radial-gradient(40% 40% at 10% 20%, rgb(143 180 255 / 12%), transparent 70%),
+    #0b0a12;
+  perspective: 1100px;
+  perspective-origin: 50% 35%;
+}
+
+.steps {
+  position: absolute;
+  z-index: 2;
+  top: clamp(1rem, 3vw, 1.75rem);
+  left: clamp(1rem, 3vw, 1.75rem);
+  display: flex;
+  gap: 0.4rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.steps li {
+  padding: 0.35rem 0.75rem;
+  border: 1px solid rgb(255 255 255 / 10%);
+  border-radius: 999px;
+  color: #8e8aa3;
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  transition:
+    color 300ms var(--motion-ease),
+    border-color 300ms var(--motion-ease),
+    background 300ms var(--motion-ease);
+}
+
+.steps li[data-current] {
+  border-color: rgb(169 139 255 / 70%);
+  background: rgb(169 139 255 / 16%);
+  color: #ece4ff;
+}
+
+.rig {
+  position: absolute;
+  inset: 0;
+  transform:
+    rotateX(calc(8deg + var(--hm-ty) * -6deg))
+    rotateY(calc(-10deg + var(--hm-tx) * 12deg));
+  transform-style: preserve-3d;
+}
+
+.floor {
+  position: absolute;
+  top: 74%;
+  left: -30%;
+  width: 160%;
+  height: 120%;
+  background:
+    linear-gradient(rgb(169 139 255 / 14%) 1px, transparent 1px) 0 0 / 40px 40px,
+    linear-gradient(90deg, rgb(169 139 255 / 14%) 1px, transparent 1px) 0 0 / 40px 40px;
+  mask-image: radial-gradient(50% 40% at 50% 0%, #000 20%, transparent 100%);
+  transform: rotateX(86deg);
+  transform-origin: 50% 0%;
+}
+
+/* The focused app: a text field the transcript is typed into. */
+.field {
+  position: absolute;
+  top: 20%;
+  right: 9%;
+  left: 9%;
+  padding: 0.9rem 1.2rem 1.3rem;
+  border: 1px solid rgb(255 255 255 / 12%);
+  border-radius: 16px;
+  background: linear-gradient(180deg, rgb(32 30 44 / 92%), rgb(20 19 28 / 92%));
+  box-shadow:
+    0 30px 60px rgb(0 0 0 / 45%),
+    0 0 0 1px rgb(0 0 0 / 30%),
+    inset 0 1px 0 rgb(255 255 255 / 8%);
+  transform: translateZ(calc(70px + var(--hm-hover) * 30px));
+  transition: transform 600ms var(--motion-ease);
+}
+
+.fieldChrome {
+  display: flex;
+  gap: 6px;
+  margin-bottom: 0.9rem;
+}
+
+.fieldChrome span {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: #3a3748;
+}
+
+.fieldText {
+  min-height: 1.5em;
+  margin: 0;
+  color: #f4f1ff;
+  font-family: var(--font-serif);
+  font-size: clamp(1.25rem, 2.2vw, 1.9rem);
+  letter-spacing: -0.02em;
+  line-height: 1.25;
+}
+
+.caret {
+  display: inline-block;
+  width: 2px;
+  height: 1.05em;
+  margin-left: 2px;
+  background: #c8b5ff;
+  vertical-align: -0.15em;
+  animation: blink 1s steps(1) infinite;
+}
+
+/* The voice: bars standing on the floor, live only while the shortcut is held. */
+.bars {
+  position: absolute;
+  bottom: 26%;
+  left: 50%;
+  display: flex;
+  height: 30%;
+  align-items: flex-end;
+  gap: clamp(4px, 0.6vw, 7px);
+  transform: translateX(-50%) translateZ(10px);
+  transform-style: preserve-3d;
+}
+
+.bars span {
+  position: relative;
+  width: clamp(6px, 0.8vw, 10px);
+  height: calc(var(--hm-level) * 100%);
+  border-radius: 3px;
+  background: linear-gradient(180deg, #f09ad0, #a98bff 55%, #8fb4ff);
+  box-shadow: 0 0 14px rgb(169 139 255 / 55%);
+  transform: scaleY(0.12);
+  transform-origin: bottom;
+  transition: transform 500ms var(--motion-ease);
+}
+
+.bars span::after {
+  position: absolute;
+  top: 0;
+  left: 100%;
+  width: 6px;
+  height: 100%;
+  border-radius: 0 3px 3px 0;
+  background: linear-gradient(180deg, #b0699a, #6f58b8 55%, #5a73b0);
+  content: '';
+  transform: rotateY(90deg);
+  transform-origin: left;
+}
+
+.stage[data-playing][data-holding] .bars span {
+  animation: speak 0.9s ease-in-out infinite alternate;
+}
+
+.still .bars span {
+  transform: scaleY(0.7);
+}
+
+.key {
+  position: absolute;
+  bottom: 9%;
+  left: 8%;
+  display: grid;
+  justify-items: start;
+  gap: 0.55rem;
+  transform: translateZ(40px);
+}
+
+.key kbd {
+  display: inline-grid;
+  min-width: 8.5rem;
+  height: 3rem;
+  place-items: center;
+  padding: 0 1rem;
+  border-radius: 0.8rem;
+  background: linear-gradient(180deg, #312d40, #24212f);
+  box-shadow:
+    inset 0 1px 0 rgb(255 255 255 / 14%),
+    0 1px 0 #19171f,
+    0 2px 0 #19171f,
+    0 3px 0 #17151c,
+    0 4px 0 #15131a,
+    0 5px 0 #121017,
+    0 6px 0 #100e14,
+    0 18px 26px rgb(0 0 0 / 55%);
+  color: #ece9f6;
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  transition:
+    transform 160ms var(--motion-ease),
+    box-shadow 160ms var(--motion-ease),
+    color 160ms var(--motion-ease);
+}
+
+.stage[data-holding] .key kbd {
+  box-shadow:
+    inset 0 1px 0 rgb(255 255 255 / 14%),
+    0 1px 0 #19171f,
+    0 0 0 1px rgb(169 139 255 / 70%),
+    0 0 28px rgb(169 139 255 / 55%),
+    0 8px 16px rgb(0 0 0 / 55%);
+  color: #fff;
+  transform: translateY(5px);
+}
+
+.key > span {
+  color: #8e8aa3;
+  font-size: 0.72rem;
+}
+
+@keyframes speak {
+  from {
+    transform: scaleY(0.25);
+  }
+
+  to {
+    transform: scaleY(1);
+  }
+}
+
+@keyframes blink {
+  50% {
+    opacity: 0;
+  }
+}
+
+@media (max-width: 767px) {
+  .key kbd {
+    min-width: 7rem;
+    height: 2.6rem;
+  }
+
+  .field {
+    top: 22%;
+    right: 6%;
+    left: 6%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .caret {
+    animation: none;
+  }
+
+  .field,
+  .bars span,
+  .key kbd,
+  .steps li {
+    transition: none;
+  }
+}

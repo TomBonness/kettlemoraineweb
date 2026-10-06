@@ -1,0 +1,523 @@
+/* Set by the parent: --mm (px per millimetre), --om-explode or --om-lift-1…4 with --om-gap (mm),
+   --om-light and --om-level (the wall light), --om-rx / --om-rz and --om-tags for the captions. */
+
+@property --om-level {
+  syntax: '<number>';
+  inherits: true;
+  initial-value: 0;
+}
+
+@property --om-light {
+  syntax: '<color>';
+  inherits: true;
+  initial-value: #f2f2f2;
+}
+
+@property --om-press {
+  syntax: '<number>';
+  inherits: false;
+  initial-value: 0;
+}
+
+@property --om-turn {
+  syntax: '<angle>';
+  inherits: false;
+  initial-value: 0deg;
+}
+
+@property --om-hl {
+  syntax: '<number>';
+  inherits: true;
+  initial-value: 0;
+}
+
+.device {
+  --om-layer-gap: var(--om-gap, 16);
+  --brass: #e2c58f;
+  position: relative;
+  width: calc(96 * var(--mm));
+  height: calc(96 * var(--mm));
+  transform-style: preserve-3d;
+}
+
+.device[data-focus='0'] .caps,
+.device[data-focus='1'] .controls,
+.device[data-focus='2'] .boards,
+.device[data-focus='3'] .wall,
+.device[data-focus='4'] .base {
+  --om-hl: 1;
+}
+
+/* Layers */
+
+.layer {
+  position: absolute;
+  inset: 0;
+  transform: translateZ(calc((var(--om-layer-lift) * var(--om-layer-gap) + var(--om-hl) * 4) * var(--mm)));
+  transform-style: preserve-3d;
+  transition: --om-hl 600ms var(--motion-ease);
+}
+
+.base {
+  --om-layer-lift: 0;
+}
+
+.wall {
+  --om-layer-lift: var(--om-lift-1, var(--om-explode, 0));
+}
+
+.boards {
+  --om-layer-lift: var(--om-lift-2, calc(var(--om-explode, 0) * 2));
+}
+
+.controls {
+  --om-layer-lift: var(--om-lift-3, calc(var(--om-explode, 0) * 3));
+}
+
+.caps {
+  --om-layer-lift: var(--om-lift-4, calc(var(--om-explode, 0) * 4));
+}
+
+/* Extrusions */
+
+.prism {
+  position: absolute;
+  top: calc(var(--y) * var(--mm));
+  left: calc(var(--x) * var(--mm));
+  width: calc(var(--w) * var(--mm));
+  height: calc(var(--d) * var(--mm));
+  transform: translateZ(calc(var(--z) * var(--mm)));
+  transform-style: preserve-3d;
+}
+
+.facet,
+.capSide {
+  position: absolute;
+  top: calc(var(--fy) * var(--mm));
+  left: calc((var(--fx) - var(--fw) / 2) * var(--mm) - 0.3px);
+  width: calc(var(--fw) * var(--mm) + 0.6px);
+  transform-origin: 50% 0;
+  backface-visibility: hidden;
+}
+
+.facet {
+  height: calc(var(--h) * var(--mm));
+  background: color-mix(
+    in srgb,
+    color-mix(in srgb, var(--brass) calc(var(--om-hl) * 22%), var(--side-hi)) calc(var(--lit) * 100%),
+    var(--side-lo)
+  );
+  transform: rotateZ(calc(var(--fa) * 1deg)) rotateX(90deg);
+}
+
+.top {
+  position: absolute;
+  inset: 0;
+  border-radius: calc(var(--r) * var(--mm));
+  background: var(--top);
+  box-shadow:
+    inset 0 0 0 calc(var(--om-hl) * 1.5px) rgb(226 197 143 / 80%),
+    inset 0 1px 0 rgb(255 255 255 / 7%);
+  transform: translateZ(calc(var(--h) * var(--mm)));
+}
+
+/* Anodized aluminum base */
+
+.baseShell {
+  --side-hi: #5a5d63;
+  --side-lo: #0c0d0f;
+  --top: linear-gradient(135deg, #24262a, #131416 60%, #1b1c1f);
+}
+
+.pocket {
+  position: absolute;
+  inset: calc(5 * var(--mm));
+  border-radius: calc(8 * var(--mm));
+  background:
+    repeating-linear-gradient(90deg, rgb(255 255 255 / 2.5%) 0 1px, transparent 1px 3px),
+    #0d0e10;
+  box-shadow: inset 0 0 calc(2 * var(--mm)) rgb(0 0 0 / 80%);
+}
+
+/* Smoked polycarbonate wall */
+
+.wallShell .facet {
+  background:
+    linear-gradient(
+      to bottom,
+      color-mix(in srgb, var(--om-light) calc(var(--om-level) * 28%), transparent),
+      color-mix(in srgb, var(--om-light) calc(var(--om-level) * 70%), transparent) 55%,
+      color-mix(in srgb, var(--om-light) calc(var(--om-level) * 36%), transparent)
+    ),
+    color-mix(
+      in srgb,
+      color-mix(in srgb, var(--brass) calc(var(--om-hl) * 22%), rgb(62 64 71 / 92%)) calc(var(--lit) * 100%),
+      rgb(13 14 16 / 93%)
+    );
+  backface-visibility: visible;
+}
+
+/* Wall emitters glow through the smoked wall as points of light. */
+.wallShell .facet:nth-child(5n + 1)::after {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+      closest-side,
+      color-mix(in srgb, #fff 55%, var(--om-light)),
+      color-mix(in srgb, var(--om-light) 55%, transparent) 40%,
+      transparent
+    )
+    50% 55% / 25% 80% repeat-x;
+  content: '';
+  opacity: var(--om-level);
+}
+
+.shadow,
+.bloom {
+  position: absolute;
+  border-radius: calc(14 * var(--mm));
+}
+
+.shadow {
+  inset: calc(1 * var(--mm));
+  background: rgb(0 0 0 / 70%);
+  filter: blur(calc(4 * var(--mm)));
+  transform: translateZ(-1px) scale(1.04);
+}
+
+.bloom {
+  inset: calc(4 * var(--mm));
+  box-shadow: 0 0 calc(22 * var(--mm)) calc(7 * var(--mm))
+    color-mix(in srgb, var(--om-light) calc(var(--om-level) * 42%), transparent);
+}
+
+/* Boards */
+
+.pcb {
+  --side-hi: #f3dba6;
+  --side-lo: #7a6337;
+  --top:
+    radial-gradient(120% 90% at 25% 0%, rgb(255 255 255 / 5%), transparent 60%),
+    #0e0f10;
+}
+
+.sister {
+  --side-hi: #e2c58f;
+  --side-lo: #6f5a33;
+  --top:
+    radial-gradient(100% 80% at 30% 10%, rgb(255 255 255 / 4%), transparent 60%),
+    #101112;
+}
+
+.silk,
+.silkSmall,
+.sisterLabel {
+  position: absolute;
+  color: rgb(242 242 238 / 82%);
+  font-family: var(--font-sans);
+  font-weight: 600;
+  line-height: 1;
+  white-space: nowrap;
+}
+
+.silk {
+  top: calc(1.6 * var(--mm));
+  right: 0;
+  left: 0;
+  font-size: calc(1.9 * var(--mm));
+  text-align: center;
+}
+
+.silkSmall {
+  top: calc(4.2 * var(--mm));
+  left: calc(62 * var(--mm));
+  font-size: calc(1.05 * var(--mm));
+}
+
+.sisterLabel {
+  bottom: calc(6 * var(--mm));
+  left: calc(14 * var(--mm));
+  font-size: calc(1.8 * var(--mm));
+}
+
+.led {
+  position: absolute;
+  top: calc(4 * var(--mm));
+  left: calc(17.9 * var(--mm));
+  width: calc(3 * var(--mm));
+  height: calc(3 * var(--mm));
+  background: #f6f6f2;
+  box-shadow: 0 0 calc(1.5 * var(--mm)) rgb(255 255 255 / 45%);
+}
+
+.standoff {
+  position: absolute;
+  top: calc((var(--sy) - 1.9) * var(--mm));
+  left: calc((var(--sx) - 1.9) * var(--mm));
+  width: calc(3.8 * var(--mm));
+  height: calc(3.8 * var(--mm));
+  border-radius: 50%;
+  background: radial-gradient(circle at 40% 35%, #3a3c40, #18191b 70%);
+  box-shadow: 0 0 0 calc(0.4 * var(--mm)) #08090a;
+}
+
+.via {
+  position: absolute;
+  top: calc(90.4 * var(--mm));
+  left: calc((31 + var(--i) * 4.4) * var(--mm));
+  width: calc(1.7 * var(--mm));
+  height: calc(1.7 * var(--mm));
+  border: calc(0.38 * var(--mm)) solid #c9a96a;
+  border-radius: 50%;
+}
+
+.emitter {
+  position: absolute;
+  top: calc((var(--ey) - 1) * var(--mm));
+  left: calc((var(--ex) - 1.5) * var(--mm));
+  width: calc(3 * var(--mm));
+  height: calc(2 * var(--mm));
+  background: color-mix(in srgb, #fff 65%, var(--om-light));
+  box-shadow: 0 0 calc(2.5 * var(--mm)) calc(var(--om-level) * 1.2 * var(--mm)) var(--om-light);
+}
+
+.module {
+  position: absolute;
+  top: calc(32 * var(--mm));
+  left: calc(30 * var(--mm));
+  width: calc(18 * var(--mm));
+  height: calc(13 * var(--mm));
+  border-radius: calc(0.6 * var(--mm));
+  background: linear-gradient(135deg, #b9bdc3, #6d7177 60%, #9a9ea4);
+}
+
+/* Switches and encoder */
+
+.switch {
+  --side-hi: #6a6d74;
+  --side-lo: #1b1c1f;
+  --top:
+    linear-gradient(#34363b, #34363b) center / calc(1.3 * var(--mm)) calc(4.2 * var(--mm)) no-repeat,
+    linear-gradient(#34363b, #34363b) center / calc(4.2 * var(--mm)) calc(1.3 * var(--mm)) no-repeat,
+    radial-gradient(circle, #222327 30%, transparent 31%) center / calc(6 * var(--mm)) calc(6 * var(--mm)) no-repeat,
+    #141517;
+}
+
+.switch .facet {
+  background:
+    linear-gradient(to bottom, transparent 55%, rgb(0 0 0 / 55%) 55%),
+    color-mix(in srgb, var(--side-hi) calc(var(--lit) * 100%), var(--side-lo));
+}
+
+.encoderBody {
+  --side-hi: #e3e5e8;
+  --side-lo: #5b5e64;
+  --top: linear-gradient(135deg, #c6c9ce, #8d9096);
+}
+
+.shaft {
+  position: absolute;
+  inset: 26%;
+  border-radius: 50%;
+  background: radial-gradient(circle at 40% 35%, #3c3e42, #0c0c0d);
+}
+
+/* The exposed touch control */
+
+.touch {
+  position: absolute;
+  top: calc((var(--ty) - 7) * var(--mm));
+  left: calc((var(--tx) - 7) * var(--mm));
+  width: calc(14 * var(--mm));
+  height: calc(14 * var(--mm));
+  border-radius: 50%;
+  cursor: pointer;
+  transform: translateZ(calc(17.65 * var(--mm)));
+}
+
+.touch > span {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: radial-gradient(circle, rgb(255 255 255 / 22%) 0 calc(0.3 * var(--mm)), transparent calc(0.45 * var(--mm)))
+    center / calc(2.3 * var(--mm)) calc(2.3 * var(--mm));
+  box-shadow:
+    inset 0 0 0 calc(0.3 * var(--mm)) rgb(255 255 255 / 6%),
+    inset 0 0 0 calc(var(--om-hl) * 1.5px) rgb(226 197 143 / 80%);
+  mask-image: radial-gradient(circle, #000 55%, transparent 70%);
+  transition: box-shadow 260ms var(--motion-ease);
+}
+
+.touch:hover > span,
+.touch:active > span {
+  background-color: rgb(91 140 255 / 16%);
+  box-shadow:
+    inset 0 0 0 calc(0.3 * var(--mm)) rgb(91 140 255 / 80%),
+    0 0 calc(4 * var(--mm)) rgb(91 140 255 / 55%);
+  mask-image: none;
+}
+
+/* Keycaps */
+
+.key {
+  --om-press: 0;
+  position: absolute;
+  top: calc(var(--ky) * var(--mm));
+  left: calc(var(--kx) * var(--mm));
+  width: calc(var(--kw) * var(--mm));
+  height: calc(18 * var(--mm));
+  cursor: pointer;
+  transform: translateZ(calc((20.6 - var(--om-press) * 3.6) * var(--mm)));
+  transform-style: preserve-3d;
+  transition: --om-press 520ms var(--ease-spring);
+}
+
+.key:hover {
+  --om-press: 0.35;
+}
+
+.key:active,
+.key[data-pressed='true'] {
+  --om-press: 1;
+  transition: --om-press 90ms ease-out;
+}
+
+/* Tapered sides: 18 mm at the skirt, 13 mm at the top, 7.5 mm tall. */
+.capSide {
+  height: calc(7.906 * var(--mm));
+  background:
+    linear-gradient(to bottom, rgb(0 0 0 / 35%), transparent 45%),
+    color-mix(
+      in srgb,
+      #45474d calc(var(--lit) * 100%),
+      #0b0b0d
+    );
+  clip-path: polygon(
+    0 0,
+    100% 0,
+    calc(100% - 2.5 * var(--mm)) 100%,
+    calc(2.5 * var(--mm)) 100%
+  );
+  transform: rotateZ(calc(var(--fa) * 1deg)) rotateX(71.565deg);
+}
+
+.capTop {
+  position: absolute;
+  top: calc(2.5 * var(--mm));
+  left: calc(2.5 * var(--mm));
+  width: calc((var(--kw) - 5) * var(--mm));
+  height: calc(13 * var(--mm));
+  border-radius: calc(1.4 * var(--mm));
+  background:
+    radial-gradient(110% 90% at 50% 40%, #18191b 25%, #212225 62%, #2f3034 100%),
+    #1c1d20;
+  box-shadow:
+    inset 0 0 0 calc(var(--om-hl) * 1.5px) rgb(226 197 143 / 85%),
+    inset calc(0.4 * var(--mm)) calc(0.5 * var(--mm)) calc(0.6 * var(--mm)) rgb(255 255 255 / 7%);
+  transform: translateZ(calc(7.5 * var(--mm)));
+}
+
+/* The push encoder knob turns one detent per press. */
+.knob {
+  --om-press: 0;
+  --om-turn: calc(var(--detent) * 15deg);
+  position: absolute;
+  top: calc(var(--ky) * var(--mm));
+  left: calc(var(--kx) * var(--mm));
+  width: calc(17.4 * var(--mm));
+  height: calc(17.4 * var(--mm));
+  border-radius: 50%;
+  cursor: pointer;
+  transform: translateZ(calc((19.8 - var(--om-press) * 1.8) * var(--mm))) rotateZ(var(--om-turn));
+  transform-style: preserve-3d;
+  transition:
+    --om-press 520ms var(--ease-spring),
+    --om-turn 520ms var(--ease-spring);
+}
+
+.knob:hover {
+  --om-press: 0.3;
+}
+
+.knob:active {
+  --om-press: 1;
+  transition:
+    --om-press 90ms ease-out,
+    --om-turn 520ms var(--ease-spring);
+}
+
+.knobBody {
+  --side-hi: #4a4c52;
+  --side-lo: #060607;
+  --top:
+    radial-gradient(circle at 38% 32%, rgb(255 255 255 / 9%), transparent 55%),
+    repeating-radial-gradient(circle, #17181a 0 1px, #1d1e21 1px 2.5px);
+}
+
+.knobBody .facet:nth-child(even) {
+  --side-hi: #33353a;
+}
+
+.notch {
+  position: absolute;
+  top: calc(1.6 * var(--mm));
+  left: calc(50% - 0.45 * var(--mm));
+  width: calc(0.9 * var(--mm));
+  height: calc(3.4 * var(--mm));
+  border-radius: calc(0.45 * var(--mm));
+  background: #8c8f96;
+}
+
+/* Captions that turn to face the viewer */
+
+.tag {
+  position: absolute;
+  top: calc(var(--om-tag-y, 96) * var(--mm));
+  left: calc(var(--om-tag-x, 0) * var(--mm));
+  transform: translateZ(calc(var(--tag-z) * var(--mm)));
+  transform-style: preserve-3d;
+  pointer-events: none;
+}
+
+.tagFace {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: flex;
+  align-items: center;
+  gap: 0.6em;
+  color: #e6e8ec;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  opacity: var(--om-tags, 0);
+  text-transform: uppercase;
+  transform: rotateZ(calc(var(--om-rz, 0deg) * -1)) rotateX(calc(var(--om-rx, 0deg) * -1))
+    translate(calc(-100% - 22px), -50%);
+  transform-origin: 0 0;
+  white-space: nowrap;
+}
+
+.tagFace::after {
+  position: absolute;
+  top: 50%;
+  left: calc(100% + 6px);
+  width: 14px;
+  height: 1px;
+  background: var(--brass);
+  content: '';
+}
+
+.tagIndex {
+  color: var(--brass);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .layer,
+  .key,
+  .knob,
+  .touch > span {
+    transition: none;
+  }
+}

@@ -1,0 +1,322 @@
+.demo {
+  --signal: #0548fd;
+  display: grid;
+  grid-template-columns: minmax(0, 1.25fr) minmax(0, 0.75fr);
+  align-items: center;
+  gap: clamp(2rem, 5vw, 4.5rem);
+}
+
+/* The model */
+
+.stage {
+  --mx: 0;
+  --my: 0;
+  --mm: clamp(2.5px, 0.34vw, 4.7px);
+  --om-rx: calc(64deg - var(--my) * 5deg);
+  --om-rz: calc(38deg + var(--mx) * 12deg);
+  position: relative;
+  height: clamp(340px, 40vw, 560px);
+  perspective: 1800px;
+  perspective-origin: 50% 20%;
+}
+
+.halo {
+  position: absolute;
+  inset: 8% 0 0;
+  background: radial-gradient(42% 40% at 50% 62%, var(--signal), transparent 72%);
+  filter: blur(42px);
+  opacity: calc(0.08 + var(--om-level) * 0.42);
+  transition: background 700ms var(--motion-ease);
+  pointer-events: none;
+}
+
+.rig {
+  position: absolute;
+  top: 52%;
+  left: 50%;
+  transform: translate(-50%, -50%) rotateX(var(--om-rx)) rotateZ(var(--om-rz));
+  transform-style: preserve-3d;
+}
+
+.device {
+  --om-light: var(--signal);
+  transition: --om-light 700ms var(--motion-ease);
+}
+
+/* Each behavior animates the light level on the model, the halo and the matching swatch. */
+.demo[data-behavior='still'] :is(.device, .halo),
+.picker [data-behavior='still'] .swatch {
+  --om-level: 0.16;
+}
+
+.demo[data-behavior='solid'] :is(.device, .halo),
+.picker [data-behavior='solid'] .swatch {
+  --om-level: 1;
+}
+
+.demo[data-behavior='breathe'] :is(.device, .halo),
+.picker [data-behavior='breathe'] .swatch {
+  animation: breathe 3.6s ease-in-out infinite;
+}
+
+.demo[data-behavior='pulse'] :is(.device, .halo),
+.picker [data-behavior='pulse'] .swatch {
+  animation: pulse 1.25s ease-in-out infinite;
+}
+
+.demo[data-behavior='blink'] :is(.device, .halo),
+.picker [data-behavior='blink'] .swatch {
+  animation: blink 1.5s linear infinite;
+}
+
+.demo[data-behavior='alarm'] :is(.device, .halo),
+.picker [data-behavior='alarm'] .swatch {
+  animation: alarm 0.5s linear infinite;
+}
+
+/* Choosing a signal */
+
+.panel {
+  position: relative;
+  display: grid;
+  gap: 2rem;
+}
+
+.picker {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+.picker legend {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+.picker label {
+  position: relative;
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  align-items: center;
+  gap: 0.15rem 0.75rem;
+  min-height: 64px;
+  padding: 0.7rem 0.9rem;
+  border: 1px solid #23262c;
+  border-radius: 14px;
+  background: linear-gradient(180deg, #121418, #0d0e11);
+  cursor: pointer;
+  transition:
+    border-color 260ms var(--motion-ease),
+    background 260ms var(--motion-ease),
+    transform 260ms var(--motion-ease);
+}
+
+.picker label:hover {
+  border-color: #3a3f49;
+  transform: translateY(-2px);
+}
+
+.picker label:has(input:checked) {
+  border-color: color-mix(in srgb, var(--signal) 70%, transparent);
+  background:
+    radial-gradient(90% 120% at 0% 50%, color-mix(in srgb, var(--signal) 20%, transparent), transparent 70%),
+    #111317;
+}
+
+.picker label:has(input:focus-visible) {
+  outline: 3px solid var(--signal);
+  outline-offset: 2px;
+}
+
+.picker input {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.swatch {
+  grid-row: span 2;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: color-mix(in srgb, var(--signal) calc(25% + var(--om-level) * 75%), #1a1c20);
+  box-shadow: 0 0 calc(var(--om-level) * 14px) color-mix(in srgb, var(--signal) 80%, transparent);
+}
+
+.optionName {
+  color: #f1f2ee;
+  font-size: 0.88rem;
+  font-weight: 600;
+}
+
+.optionBehavior {
+  color: #8a909c;
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.readout {
+  min-height: 11.5rem;
+  padding-top: 1.6rem;
+  border-top: 1px solid #23262c;
+}
+
+.readout p {
+  margin: 0;
+}
+
+.readout .name {
+  margin-top: 0.6rem;
+}
+
+.readout .meaning {
+  margin-top: 0.9rem;
+}
+
+.behavior {
+  color: var(--signal);
+  font-family: var(--font-mono);
+  font-size: 0.74rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  transition: color 500ms var(--motion-ease);
+}
+
+.name {
+  color: #f7f7f3;
+  font-family: var(--font-serif);
+  font-size: clamp(2.6rem, 4.4vw, 4rem);
+  font-weight: 500;
+  letter-spacing: -0.05em;
+  line-height: 1;
+}
+
+.meaning {
+  color: #a9afba;
+  font-size: 0.95rem;
+  line-height: 1.7;
+}
+
+.timer {
+  position: absolute;
+  bottom: -1rem;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(90deg, var(--signal), transparent) no-repeat 0 0 / 0% 100%;
+}
+
+.timer[data-playing='true'] {
+  animation: timer 3.6s linear forwards;
+}
+
+@keyframes timer {
+  to {
+    background-size: 100% 100%;
+  }
+}
+
+@keyframes breathe {
+  0%,
+  100% {
+    --om-level: 0.18;
+  }
+
+  50% {
+    --om-level: 0.95;
+  }
+}
+
+@keyframes pulse {
+  0%,
+  100% {
+    --om-level: 0.4;
+  }
+
+  50% {
+    --om-level: 1;
+  }
+}
+
+@keyframes blink {
+  0%,
+  16% {
+    --om-level: 1;
+  }
+
+  17%,
+  100% {
+    --om-level: 0.08;
+  }
+}
+
+@keyframes alarm {
+  0%,
+  48% {
+    --om-level: 1;
+  }
+
+  50%,
+  100% {
+    --om-level: 0.06;
+  }
+}
+
+@media (max-width: 1050px) {
+  .demo {
+    grid-template-columns: 1fr;
+  }
+
+  .stage {
+    height: clamp(280px, 48vw, 420px);
+  }
+}
+
+@media (max-width: 767px) {
+  .stage {
+    --mm: clamp(2.2px, 0.62vw, 3.4px);
+  }
+
+  .picker label {
+    min-height: 58px;
+    padding: 0.6rem 0.7rem;
+  }
+
+  .readout {
+    min-height: 0;
+  }
+}
+
+/* A still light still tells the signals apart by color and level. */
+.still.demo[data-behavior] :is(.device, .halo),
+.still .picker [data-behavior] .swatch {
+  animation: none;
+}
+
+.still.demo[data-behavior] :is(.device, .halo),
+.still .picker label:not([data-behavior='still']) .swatch {
+  --om-level: 0.85;
+}
+
+.still.demo[data-behavior='still'] :is(.device, .halo) {
+  --om-level: 0.16;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .device,
+  .halo,
+  .swatch,
+  .picker label {
+    transition: none;
+  }
+}

@@ -1,0 +1,186 @@
+/* --progress: 0 → 1 as the ladder scrolls into view; each column rises on its own cue (--ci-i) to
+   --ci-level, its share of 1,000 tok/s. --mx / --my: the pointer. */
+
+.ladder {
+  --progress: 0;
+  --mx: 0;
+  --my: 0;
+  --ci-rest: clamp(0, 1 - var(--progress), 1);
+  --ci-h: clamp(220px, 30vw, 400px);
+  --ci-w: clamp(40px, 7.4vw, 108px);
+  margin: 0;
+  perspective: 1800px;
+  perspective-origin: 50% 0%;
+}
+
+.still {
+  --progress: 1;
+}
+
+.scene {
+  position: relative;
+  padding-top: 3rem;
+  transform: rotateX(calc(-9deg - var(--ci-rest) * 10deg - var(--my) * 4deg))
+    rotateY(calc(-11deg + var(--ci-rest) * 6deg + var(--mx) * 7deg));
+  transform-origin: 50% 70%;
+  transform-style: preserve-3d;
+}
+
+/* The ground the columns stand on, folded back from their base line. */
+.floor {
+  position: absolute;
+  top: calc(3rem + var(--ci-h));
+  right: -3%;
+  left: -3%;
+  height: calc(var(--ci-w) * 2.4);
+  background:
+    linear-gradient(rgb(17 18 20 / 7%) 1px, transparent 1px) 0 0 / 40px 40px,
+    linear-gradient(90deg, rgb(17 18 20 / 7%) 1px, transparent 1px) 0 0 / 40px 40px,
+    radial-gradient(60% 70% at 70% 20%, rgb(5 72 253 / 16%), transparent 70%);
+  mask-image: radial-gradient(60% 100% at 50% 0%, #000 35%, transparent);
+  transform: rotateX(-90deg);
+  transform-origin: top;
+}
+
+.ladder ol {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: clamp(0.5rem, 2vw, 2rem);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  transform-style: preserve-3d;
+}
+
+.ladder li {
+  --ci-g: clamp(0, (var(--progress) - 0.04) * 2.5 - var(--ci-i) * 0.13, 1);
+  --ci-top: calc(var(--ci-h) * var(--ci-level) * var(--ci-g));
+  display: grid;
+  min-width: 0;
+  grid-template-rows: var(--ci-h) auto auto;
+  justify-items: center;
+  text-align: center;
+  transform-style: preserve-3d;
+}
+
+.column {
+  position: relative;
+  grid-area: 1 / 1;
+  align-self: end;
+  width: var(--ci-w);
+  height: var(--ci-top);
+  transform: translateX(calc(var(--ci-w) / -2.5));
+  transform-style: preserve-3d;
+}
+
+.column > span {
+  position: absolute;
+}
+
+.front {
+  --ci-tone: color-mix(in oklab, #0548fd calc(35% + var(--ci-i) * 13%), #aebbe0);
+  inset: 0;
+  background: linear-gradient(180deg, color-mix(in oklab, var(--ci-tone) 70%, #fff), var(--ci-tone));
+  box-shadow: inset 0 1px 0 rgb(255 255 255 / 45%);
+}
+
+.lid {
+  right: 0;
+  bottom: 100%;
+  left: 0;
+  height: var(--ci-w);
+  background: color-mix(in oklab, #0548fd calc(10% + var(--ci-i) * 10%), #e9eefb);
+  transform: rotateX(90deg);
+  transform-origin: bottom;
+}
+
+.side {
+  top: 0;
+  bottom: 0;
+  left: 100%;
+  width: var(--ci-w);
+  background: linear-gradient(180deg, color-mix(in oklab, #0548fd calc(45% + var(--ci-i) * 12%), #5d6680), color-mix(in oklab, #0336c4 calc(50% + var(--ci-i) * 10%), #3c4357));
+  transform: rotateY(90deg);
+  transform-origin: left;
+}
+
+[data-latest='true'] .front {
+  background: linear-gradient(180deg, #89adff, #5c64ff 45%, #0548fd);
+  box-shadow:
+    inset 0 1px 0 rgb(255 255 255 / 60%),
+    0 0 60px rgb(5 72 253 / 45%);
+}
+
+[data-latest='true'] .lid {
+  background: linear-gradient(180deg, #f3f6ff, #c4d4ff);
+}
+
+.value {
+  grid-area: 1 / 1;
+  align-self: end;
+  margin-bottom: calc(var(--ci-top) + var(--ci-w) * 0.45 + 0.6rem);
+  color: var(--text-primary);
+  font-family: var(--font-serif);
+  font-size: clamp(1rem, 2.3vw, 2.1rem);
+  font-weight: 500;
+  letter-spacing: -0.04em;
+  opacity: clamp(0, var(--ci-g) * 4 - 0.6, 1);
+  font-variant-numeric: tabular-nums;
+  transform: translateZ(calc(var(--ci-w) * -0.5));
+}
+
+[data-latest='true'] .value {
+  color: var(--accent);
+}
+
+.date {
+  margin-top: calc(var(--ci-w) * 0.5 + 1rem);
+  color: var(--text-secondary);
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.label {
+  max-width: 13rem;
+  margin-top: 0.4rem;
+  font-size: 0.85rem;
+  font-weight: 560;
+  line-height: 1.4;
+}
+
+.ladder figcaption {
+  margin-top: clamp(2rem, 4vw, 3rem);
+  padding-top: 1.2rem;
+  border-top: 1px solid #c7cec0;
+  color: var(--text-secondary);
+  font-size: 0.82rem;
+  line-height: 1.7;
+}
+
+.ladder figcaption a {
+  color: var(--accent);
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+}
+
+@media (max-width: 767px) {
+  .ladder {
+    --ci-h: 220px;
+  }
+
+  .value {
+    font-size: 0.95rem;
+  }
+
+  .date {
+    font-size: 0.62rem;
+    letter-spacing: 0.06em;
+  }
+
+  .label {
+    font-size: 0.68rem;
+  }
+}

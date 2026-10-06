@@ -1,0 +1,218 @@
+/* --om-lift-1…4: how far each gap has opened (0…1, cumulative up the stack); --om-scroll-turn: 0 → 1
+   across the track. Both are eased from scroll. */
+
+.track {
+  position: relative;
+  height: 460vh;
+}
+
+.sticky {
+  position: sticky;
+  top: 72px;
+  display: grid;
+  height: calc(100vh - 72px);
+  grid-template-columns: minmax(0, 1.25fr) minmax(0, 0.75fr);
+  align-items: center;
+  gap: clamp(1.5rem, 4vw, 4rem);
+}
+
+.stage {
+  --om-lift-1: 0;
+  --om-lift-2: 0;
+  --om-lift-3: 0;
+  --om-lift-4: 0;
+  --om-scroll-turn: 0;
+  --mm: clamp(2px, min(0.3vw, 0.44vh), 4.3px);
+  --om-gap: 20;
+  --om-light: #f4f1ea;
+  --om-level: 0.3;
+  position: relative;
+  height: 100%;
+  perspective: 2200px;
+  perspective-origin: 50% 30%;
+}
+
+.glow {
+  position: absolute;
+  inset: 10% 6%;
+  background:
+    radial-gradient(40% 36% at 45% 62%, rgb(201 169 106 / 22%), transparent 72%),
+    radial-gradient(30% 30% at 58% 40%, rgb(91 140 255 / 12%), transparent 72%);
+  filter: blur(30px);
+  pointer-events: none;
+}
+
+.rig {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%)
+    translateY(calc(var(--om-lift-4) * var(--om-gap) * var(--mm) * 0.4))
+    rotateX(calc(60deg - var(--om-scroll-turn) * 4deg))
+    rotateZ(calc(30deg + var(--om-scroll-turn) * 26deg))
+    translateZ(calc(var(--om-lift-4) * var(--om-gap) * var(--mm) * -0.5));
+  transform-style: preserve-3d;
+}
+
+/* Captions */
+
+.captions {
+  display: grid;
+  gap: 0.25rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.captions li {
+  position: relative;
+  padding: 0.9rem 0 0.9rem 1.4rem;
+  border-left: 1px solid #d3d8ce;
+  opacity: 0.45;
+  transition: opacity 400ms var(--motion-ease);
+}
+
+.captions li::before {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: -1px;
+  width: 2px;
+  background: var(--product-gradient);
+  content: '';
+  transform: scaleY(0);
+  transform-origin: 50% 0;
+  transition: transform 500ms var(--motion-ease);
+}
+
+.captions li[data-active='true'] {
+  opacity: 1;
+}
+
+.captions li[data-active='true']::before {
+  transform: scaleY(1);
+}
+
+.heading {
+  margin: 0;
+  font: inherit;
+}
+
+.label {
+  display: flex;
+  align-items: baseline;
+  gap: 0.9rem;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--text-primary);
+  font-family: var(--font-serif);
+  font-size: clamp(1.35rem, 2vw, 1.75rem);
+  font-weight: 500;
+  letter-spacing: -0.03em;
+  line-height: 1.15;
+  text-align: left;
+}
+
+button.label {
+  cursor: pointer;
+}
+
+button.label:focus-visible {
+  outline: 3px solid var(--accent);
+  outline-offset: 4px;
+  border-radius: 4px;
+}
+
+.index {
+  color: #9a8150;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+}
+
+.body {
+  display: grid;
+  grid-template-rows: 1fr;
+  transition: grid-template-rows 450ms var(--motion-ease);
+}
+
+.body p {
+  min-height: 0;
+  max-width: 30rem;
+  margin: 0;
+  padding: 0.55rem 0 0 2.1rem;
+  overflow: hidden;
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+  line-height: 1.7;
+}
+
+/* With reduced motion the stack stays apart and every caption is shown. */
+.still {
+  height: auto;
+}
+
+.still .sticky {
+  position: static;
+  height: auto;
+}
+
+.still .stage {
+  --om-lift-1: 0.8;
+  --om-lift-2: 1.6;
+  --om-lift-3: 2.4;
+  --om-lift-4: 3.2;
+  --om-scroll-turn: 0.5;
+  height: clamp(420px, 52vw, 640px);
+}
+
+@media (max-width: 1050px) {
+  .track {
+    height: 520vh;
+  }
+
+  .sticky {
+    grid-template-columns: 1fr;
+    grid-template-rows: minmax(0, 1fr) auto;
+    gap: 0.5rem;
+    padding-bottom: 1.25rem;
+  }
+
+  .stage {
+    --mm: clamp(2.2px, min(0.75vw, 0.32vh), 3.4px);
+  }
+
+  .captions li {
+    padding-block: 0.4rem;
+  }
+
+  .captions li:not([data-active='true']) .body {
+    grid-template-rows: 0fr;
+  }
+
+  .captions li:not([data-active='true']) .body p {
+    padding-top: 0;
+  }
+
+  .label {
+    font-size: 1.1rem;
+  }
+
+  .still .sticky {
+    grid-template-rows: auto;
+  }
+
+  .still .captions li .body {
+    grid-template-rows: 1fr;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .captions li,
+  .captions li::before,
+  .body {
+    transition: none;
+  }
+}

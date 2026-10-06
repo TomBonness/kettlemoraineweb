@@ -1,8 +1,9 @@
 import { AgentField } from '../components/AgentField'
-import { CinmuxIcon3D } from '../components/CinmuxIcon3D'
 import { StatusGlyph } from '../components/CinmuxWindow'
 import { CopyCommand } from '../components/CopyCommand'
+import { Icon3D } from '../components/Icon3D'
 import { PlatformCarousel } from '../components/PlatformCarousel'
+import { ProductHero } from '../components/ProductHero'
 import { SearchDemo } from '../components/SearchDemo'
 import { SessionDemo } from '../components/SessionDemo'
 import { ShortcutDeck } from '../components/ShortcutDeck'
@@ -31,41 +32,21 @@ export function CinmuxPage() {
       cta={{ label: 'Install', href: `${routes.cinmux}#install` }}
     >
       <div className={styles.page}>
-        <section className={styles.hero} aria-labelledby="cinmux-title">
-          <div className={styles.heroBackdrop} aria-hidden="true">
-            <div className={styles.heroFloor} />
-          </div>
-          <div className={styles.heroInner}>
-            <div className={styles.heroCopy}>
-              <div>
-                <h1 id="cinmux-title">Cinmux</h1>
-                <p className={styles.heroStatement}>
-                  Every terminal. Every agent. <em>One place.</em>
-                </p>
-              </div>
-              <div>
-                <p className={styles.heroLead}>
-                  Persistent terminal workspaces for Linux and macOS. Real terminals in folders,
-                  agents you can read at a glance, and sessions that keep running — at your desk
-                  or over SSH.
-                </p>
-                <div className={styles.heroActions}>
-                  <a className={`button ${styles.primaryButton}`} href="#install">
-                    Install Cinmux <span aria-hidden="true">↓</span>
-                  </a>
-                  <a className={styles.textLink} href={cinmuxLinks.source}>
-                    View source <span aria-hidden="true">↗</span>
-                  </a>
-                </div>
-              </div>
-            </div>
-            <WorkspaceStage />
-            <div className={styles.heroBaseline}>
-              <span>Linux · macOS 15+ · any terminal over SSH</span>
-              <span>Open source · MIT licensed</span>
-            </div>
-          </div>
-        </section>
+        <ProductHero
+          title="Cinmux"
+          titleId="cinmux-title"
+          statement={
+            <>
+              Every terminal. Every agent. <em>One place.</em>
+            </>
+          }
+          lead="Persistent terminal workspaces for Linux and macOS. Real terminals in folders, agents you can read at a glance, and sessions that keep running — at your desk or over SSH."
+          primary={{ label: 'Install Cinmux', href: '#install' }}
+          secondary={{ label: 'View source', href: cinmuxLinks.source }}
+          baseline={['Linux · macOS 15+ · any terminal over SSH', 'Open source · MIT licensed']}
+        >
+          <WorkspaceStage />
+        </ProductHero>
 
         <section className={styles.agentsSection} id="agents" aria-labelledby="agents-title">
           <div className={styles.inner}>
@@ -265,7 +246,27 @@ export function CinmuxPage() {
                 </a>
               </div>
             </div>
-            <CinmuxIcon3D />
+            <Icon3D className={styles.installIcon}>
+              <svg viewBox="10 10 108 108" fill="none">
+                <rect
+                  x="27"
+                  y="31"
+                  width="74"
+                  height="66"
+                  rx="7"
+                  stroke="#a3be78"
+                  strokeWidth="5"
+                  style={{ filter: 'drop-shadow(0 0 6px rgb(163 190 120 / 75%))' }}
+                />
+                <path
+                  d="m41 49 13 13-13 13m24 1h20"
+                  stroke="#e6e8e5"
+                  strokeWidth="5"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+              </svg>
+            </Icon3D>
           </div>
         </section>
 

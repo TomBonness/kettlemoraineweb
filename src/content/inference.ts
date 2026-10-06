@@ -185,6 +185,27 @@ if __name__ == "__main__":
 // raceFile's length under the Qwen3.8 tokenizer (fafstmobel's tokenizer.json).
 export const raceTokens = 886
 
+// The hero's speculative-decoding illustration: the drafter continues raceFile's summarize()
+// three rounds in a row. Each round drafts a tree of 15 tokens; `accepted` is the path the 27B
+// model keeps. Indices follow the tree in InferenceStage, so every accepted token's parent is the
+// one before it. Illustrative tokens, not a measurement.
+export const draftPrompt = ['def summarize(durations):', '    """Rank kernels by total time."""', '    stats = []'] as const
+
+export const draftRounds = [
+  {
+    tokens: [' for', ' return', ' if', ' name', ' kernel', ' sorted', ' not', ',', ' in', ' in', ' values', ' times', ' durations', ' in', ' durations'],
+    accepted: [0, 3, 7, 10, 13, 14],
+  },
+  {
+    tokens: ['.items', ':', '.values', '()', '():', '↵', '():', ':', ')', '↵', '↵', ' stats', ' ordered', ' =', ' sorted'],
+    accepted: [0, 4, 9, 12],
+  },
+  {
+    tokens: [' =', ' :', '.append', ' sorted', ' list', ' ordered', '(', '(values', '(', '(', '))', ')', '(values', ')', '↵'],
+    accepted: [0, 3, 7, 11],
+  },
+] as const
+
 export const installCommands = `git clone ${inferenceLinks.installer}.git
 cd fafstmobel-cinference
 bash setup.sh`
@@ -193,6 +214,31 @@ export const localEndpoint = {
   baseUrl: 'http://127.0.0.1:8001/v1',
   model: 'fafstmobel-cinference',
 } as const
+
+export const installSteps = [
+  { title: 'Check your setup.', body: 'Linux x86_64, an RTX 5090, and an NVIDIA driver for CUDA 13.4.' },
+  { title: 'Install.', body: 'Run the commands below and choose 1.' },
+  { title: 'Start the server.', body: 'Choose 3, then connect to the local endpoint.' },
+] as const
+
+export const inferenceQuestions = [
+  {
+    question: 'Does the speed change what the model writes?',
+    answer: 'No. The full 27B model checks every drafted token and keeps only what it would have produced itself, so the output follows the model’s own distribution.',
+  },
+  {
+    question: 'How is it faster than NInfer?',
+    answer: 'Cinference Engine keeps NInfer’s foundation and rewrites its decode path: new verification kernels, verify trees, prompt lookup, lookup rounds, and GDN blocks that overlap on a second CUDA stream.',
+  },
+  {
+    question: 'What does it run on?',
+    answer: 'An RTX 5090 on Linux. The installer sets up fafstmobel, a 27B Qwen3.8 model with vision and reasoning, and the engine also loads other NInfer v3 models.',
+  },
+  {
+    question: 'What does it cost?',
+    answer: 'Nothing. The engine is Apache-2.0. fafstmobel uses the Swift Open License v1.0, so read its LICENSE.swift before commercial use.',
+  },
+] as const
 
 export const inferenceSignup = {
   source: 'cinference-engine-product',

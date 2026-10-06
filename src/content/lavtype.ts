@@ -13,14 +13,16 @@ export const lavtypeNavigation = [
 ] as const
 
 export const lavtypeHero = {
-  tagline: 'Say what you were going to type.',
+  statement: 'Say what you were',
+  statementEmphasis: 'going to type.',
   outcome:
     'Lavtype turns speech into text where you’re working. Hold your shortcut, speak, then release. Recognition runs on your computer, not on a cloud service.',
   compatibility: 'macOS 13+ · Linux x86_64 on X11/Xorg',
 } as const
 
 export const lavtypeProcess = {
-  title: 'Dictate without switching apps.',
+  title: 'Dictate without',
+  titleEmphasis: 'switching apps.',
   lead:
     'Put the cursor where you want to write, then hold your shortcut and speak. When recognition finishes, Lavtype types one final transcript into the app that’s focused at that moment.',
   transcript: 'Send the revised drawing tomorrow.',
@@ -46,8 +48,31 @@ export const lavtypeSteps = [
   },
 ] as const
 
+/** The example shortcut on the page’s keycaps. Lavtype lets you choose your own. */
+export const lavtypeExampleShortcut = {
+  keys: ['⌘', '⇧', 'Space'],
+  label: 'Example shortcut',
+} as const
+
+/** Copy for the hold-to-speak demo in the hero. */
+export const lavtypeDemo = {
+  button: 'Hold to dictate (example shortcut: Command Shift Space)',
+  hint: 'Press and hold the keys, or focus them and hold Space or Enter.',
+  focusedApp: 'Focused app',
+  idle: 'Hold the shortcut and speak. Release to type.',
+  listening: 'Listening… release to type.',
+  recognizing: 'Recognizing on your computer…',
+  capped: 'Capture stops at 55 seconds. Recognizing on your computer…',
+  typed: 'Typed into the focused app: “Send the revised drawing tomorrow.”',
+  tooShort: 'Released under 100 ms, so nothing was typed.',
+  captureLimitSeconds: 55,
+  minimumClipMs: 100,
+  finalTranscript: 'One final transcript',
+} as const
+
 export const lavtypeRecognition = {
-  title: 'Recognition stays on your computer.',
+  title: 'Recognition stays',
+  titleEmphasis: 'on your computer.',
   lead:
     'You don’t need to send your voice to a cloud service to write a sentence. Lavtype uses a local recognizer and keeps no transcript history.',
   body:
@@ -58,10 +83,14 @@ export const lavtypeRecognition = {
 } as const
 
 export const lavtypePlatform = {
-  title: 'Check your setup.',
+  title: 'Check',
+  titleEmphasis: 'your setup.',
   lead:
     'Lavtype is available for macOS and X11 Linux, with the requirements below. Choose the release for your machine and follow the install guide. The MIT-licensed source is there to read, change or build yourself.',
-  download: 'Download and choose your shortcut.',
+  download: 'Download and',
+  downloadEmphasis: 'choose your shortcut.',
+  downloadLead:
+    'Choose the release for your machine, follow the install guide, then pick the shortcut you’ll hold to speak.',
 } as const
 
 export const localRecognitionDetails = [
@@ -70,6 +99,21 @@ export const localRecognitionDetails = [
   ['History', 'No transcript history'],
   ['Clipboard', 'No clipboard fallback'],
   ['Output', 'Final results only'],
+] as const
+
+export const lavtypeRecognizers = [
+  {
+    id: 'parakeet',
+    name: 'Parakeet',
+    detail: localRecognitionDetails[0][1],
+    tag: 'Offline once set up',
+  },
+  {
+    id: 'apple-speech',
+    name: 'Apple Speech',
+    detail: localRecognitionDetails[1][1],
+    tag: 'macOS only',
+  },
 ] as const
 
 export const platformDetails = [
@@ -82,4 +126,40 @@ export const platformDetails = [
   ['Capture', 'Up to 55 seconds per hold'],
   ['Output', 'One complete transcript; clips under 100 ms type nothing'],
   ['License', 'MIT'],
+] as const
+
+export const lavtypeQuestions = [
+  {
+    question: 'Does Lavtype send my voice anywhere?',
+    answer:
+      'No. Recognition runs on your computer with a local recognizer. There’s no cloud or clipboard fallback, including no fallback to Apple’s network recognizer.',
+  },
+  {
+    question: 'Does it work offline?',
+    answer:
+      'Once the model is set up, recognition works offline. Model setup may need a download: Parakeet’s English model is an explicit ~460 MiB download and needs 1.2 GiB free space.',
+  },
+  {
+    question: 'Does it keep what I said?',
+    answer: 'No. Lavtype keeps no transcript history, and it types final results only.',
+  },
+  {
+    question: 'How long can I talk?',
+    answer:
+      'Up to 55 seconds per hold. When you release, Lavtype types one complete transcript; clips under 100 ms type nothing.',
+  },
+  {
+    question: 'What does it need on macOS?',
+    answer:
+      'macOS 13 or newer, on Apple silicon or Intel. Lavtype asks for Microphone and Accessibility permissions, plus Speech Recognition if you use Apple Speech.',
+  },
+  {
+    question: 'Why won’t macOS open it the first time?',
+    answer: 'Current DMGs are not notarized. Control-click the app and choose Open.',
+  },
+  {
+    question: 'Does it work on Wayland?',
+    answer:
+      'No. On Linux, Lavtype needs Ubuntu 22.04-compatible x86_64 on X11/Xorg. Wayland and XWayland are unsupported.',
+  },
 ] as const

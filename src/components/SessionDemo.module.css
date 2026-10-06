@@ -60,7 +60,7 @@
   width: 0.55rem;
   height: 0.55rem;
   border-radius: 50%;
-  background: var(--cx-green, #a3be78);
+  background: #a3be78;
   box-shadow: 0 0 12px rgb(163 190 120 / 80%);
 }
 

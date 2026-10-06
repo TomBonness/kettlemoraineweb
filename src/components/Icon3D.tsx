@@ -1,11 +1,18 @@
-import { useEffect, useRef, type CSSProperties } from 'react'
+import { useEffect, useRef, type CSSProperties, type ReactNode } from 'react'
 import { easeVars, prefersReducedMotion } from '../lib/motion'
-import styles from './CinmuxIcon3D.module.css'
+import styles from './Icon3D.module.css'
 
 const slices = 18
 
-/** The Cinmux app icon as a solid tile that turns to face the pointer. */
-export function CinmuxIcon3D() {
+type Icon3DProps = {
+  /** The icon artwork, drawn on the tile's face. */
+  children: ReactNode
+  /** Sets the palette: `--icon-face`, `--icon-edge`, `--icon-edge-deep`, `--icon-glow-a`, `--icon-glow-b`. */
+  className?: string
+}
+
+/** An app icon as a solid, floating tile that turns to face the pointer. Decorative. */
+export function Icon3D({ children, className = '' }: Icon3DProps) {
   const stage = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
@@ -37,7 +44,7 @@ export function CinmuxIcon3D() {
   }, [])
 
   return (
-    <div className={styles.stage} ref={stage} aria-hidden="true">
+    <div className={`${styles.stage} ${className}`} ref={stage} aria-hidden="true">
       <div className={styles.glow} />
       <div className={styles.float}>
         <div className={styles.body}>
@@ -48,26 +55,7 @@ export function CinmuxIcon3D() {
               key={index}
             />
           ))}
-          <span className={styles.face}>
-            <svg viewBox="10 10 108 108" fill="none">
-              <rect
-                className={styles.frame}
-                x="27"
-                y="31"
-                width="74"
-                height="66"
-                rx="7"
-                strokeWidth="5"
-              />
-              <path
-                d="m41 49 13 13-13 13m24 1h20"
-                stroke="#e6e8e5"
-                strokeWidth="5"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
-            </svg>
-          </span>
+          <span className={styles.face}>{children}</span>
           <span className={styles.shine} />
         </div>
       </div>

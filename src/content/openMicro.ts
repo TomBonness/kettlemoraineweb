@@ -71,21 +71,36 @@ export const navigation = [
   { label: 'Specs', href: '#specs' },
 ] as const
 
+/** Section headings as two lines; the second is set in italic. */
 export const headings = {
   hero: 'Open Micro',
-  status: 'See when work needs you.',
-  connectivity: 'Keep control on your computer.',
-  design: 'See how it fits together.',
-  specifications: 'The current design.',
-  openSource: 'You can change the design.',
+  status: ['See when work', 'needs you.'],
+  connectivity: ['Keep control', 'on your computer.'],
+  design: ['See how it', 'fits together.'],
+  specifications: ['The current', 'design.'],
+  openSource: ['You can change', 'the design.'],
 } as const
 
 export const hero = {
-  statement: 'A shortcut you can put your hand on.',
+  statement: ['A shortcut you can', 'put your hand on.'],
   description:
     'Open Micro is a desktop controller concept in development. Map repeated actions to keys, a dial, and touch instead of reaching through menus.',
   primaryCta: 'Keep me updated',
   secondaryCta: 'See how it’s built',
+  baseline: [
+    '12 keys · encoder · touch',
+    'USB-C + Bluetooth',
+    'Open-source hardware and software',
+    'Concept in development',
+  ],
+  modelLabel:
+    'A model of the Open Micro concept: twelve dark keys and a push encoder on an exposed control PCB, over a smoked polycarbonate wall and an anodized aluminum base',
+  modelHint: 'Concept model · press a key or the encoder',
+} as const
+
+export const sourceLinks = {
+  repository: 'https://github.com/TomBonness/open-micro',
+  qualification: 'https://github.com/TomBonness/open-micro/blob/main/docs/qualification.md',
 } as const
 
 export const productCopy = {
@@ -103,6 +118,11 @@ export const productCopy = {
   materialHeading: 'Controls you can feel.',
   materialBody:
     'PBT keycaps give your fingers a textured surface. The encoder gives turning and pressing their own control.',
+  explodedCaption:
+    'Controls, two PCBs, smoked wall, battery, aluminum base, and feet, taken apart.',
+  specsLead:
+    'Open Micro is still in development. Targets and pending values are marked as they stand in the current design.',
+  conceptTag: 'Concept visualization',
 } as const
 
 export const waitlistCopy = {
@@ -218,6 +238,19 @@ export const specs = [
     'CNC 6061-T6 aluminum, neutral-frosted polycarbonate, dark PBT keycaps, silicone feet',
   ],
 ] as const
+
+/** Points on the overhead render (percent of its width and height) tied to a spec row. */
+export const specHotspots = [
+  { label: 'Exposed control PCB', spec: 'Architecture', x: 50, y: 13.5 },
+  { label: '12 MX hot-swap keys', spec: 'Controls', x: 57.4, y: 42.4 },
+  { label: '24-detent push encoder', spec: 'Controls', x: 27.3, y: 72.7 },
+  { label: 'Capacitive touch', spec: 'Controls', x: 72.5, y: 74 },
+] as const satisfies ReadonlyArray<{
+  label: string
+  spec: (typeof specs)[number][0]
+  x: number
+  y: number
+}>
 
 export const licenses = [
   ['Hardware / mechanical', 'CERN-OHL-S-2.0'],

@@ -270,70 +270,6 @@ main {
   background: var(--surface);
 }
 
-.notFound {
-  position: relative;
-  display: grid;
-  min-height: min(830px, calc(100svh - 72px));
-  align-items: center;
-  overflow: hidden;
-  isolation: isolate;
-  background: var(--graphite);
-  color: #f7f7f3;
-}
-
-.notFoundArtwork {
-  position: absolute;
-  z-index: -1;
-  inset: 0 0 0 20%;
-}
-
-.notFoundArtwork img {
-  position: absolute;
-  right: -10%;
-  width: 1050px;
-  max-width: none;
-  height: 100%;
-  object-fit: cover;
-  opacity: 0.7;
-}
-
-.notFoundArtwork > span {
-  position: absolute;
-  top: 50%;
-  right: 8%;
-  color: transparent;
-  font-size: clamp(10rem, 25vw, 26rem);
-  font-weight: 500;
-  letter-spacing: -0.08em;
-  line-height: 1;
-  -webkit-text-stroke: 1px rgb(137 173 255 / 45%);
-  transform: translateY(-50%);
-}
-
-.notFound h1 {
-  max-width: 10ch;
-  margin: 0;
-  font-family: var(--font-serif);
-  font-size: clamp(3.5rem, 9vw, 8rem);
-  font-weight: 500;
-  letter-spacing: -0.06em;
-  line-height: 0.98;
-}
-
-.notFound .sectionInner > p {
-  max-width: 34rem;
-  margin: 2rem 0 0;
-  color: #b5bfce;
-  font-size: var(--lead-size);
-  line-height: 1.55;
-}
-
-.notFound .button {
-  margin-top: 2rem;
-  background: var(--accent);
-  color: #fff;
-}
-
 .siteFooter {
   padding: 4.5rem var(--gutter) 0;
   border-top: 1px solid #292e39;
@@ -585,23 +521,6 @@ main {
 
   .siteFooter {
     padding-top: 3.5rem;
-  }
-
-  .notFound {
-    min-height: 700px;
-  }
-
-  .notFoundArtwork {
-    inset: 0;
-    opacity: 0.45;
-  }
-
-  .notFoundArtwork > span {
-    top: auto;
-    right: 8%;
-    bottom: 3%;
-    font-size: 9rem;
-    transform: none;
   }
 }
 
