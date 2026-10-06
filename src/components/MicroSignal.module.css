@@ -1,97 +1,131 @@
-.demo {
+.signal {
   --signal: #0548fd;
-  display: grid;
-  grid-template-columns: minmax(0, 1.25fr) minmax(0, 0.75fr);
+  margin-top: clamp(1rem, 3vw, 2rem);
+}
+
+.scene {
+  margin: 0;
+}
+
+.frame {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  border: 1px solid #1d2026;
+  border-radius: var(--radius-large);
+  background: #000;
+}
+
+.frame img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+/* Multiplied over the wall light: the white emitters take the signal color while the dark body,
+   which the mask leaves alone elsewhere, stays as rendered. */
+.tint {
+  position: absolute;
+  inset: 0;
+  background-color: var(--signal);
+  mask-image:
+    radial-gradient(8% 11% at 29.2% 61.6%, #000 40%, transparent),
+    radial-gradient(8% 11% at 43.6% 68%, #000 40%, transparent),
+    radial-gradient(8% 11% at 65% 66%, #000 40%, transparent),
+    radial-gradient(7% 10% at 73.6% 57.6%, #000 40%, transparent);
+  mix-blend-mode: multiply;
+  transition: background-color 900ms var(--motion-ease);
+}
+
+/* Light spilling from the four visible emitters and along the wall, screened over the render. */
+.glow {
+  position: absolute;
+  inset: 0;
+  background-color: var(--signal);
+  mask-image:
+    radial-gradient(5.5% 7% at 29.2% 61.6%, rgb(0 0 0 / 60%), transparent),
+    radial-gradient(5.5% 7% at 43.6% 68%, rgb(0 0 0 / 60%), transparent),
+    radial-gradient(5.5% 7% at 65% 66%, rgb(0 0 0 / 60%), transparent),
+    radial-gradient(5% 6.5% at 73.6% 57.6%, rgb(0 0 0 / 60%), transparent),
+    radial-gradient(40% 14% at 52% 66%, rgb(0 0 0 / 30%), transparent),
+    radial-gradient(50% 14% at 52% 86%, rgb(0 0 0 / 18%), transparent);
+  mix-blend-mode: screen;
+  opacity: 0.9;
+  transition: background-color 900ms var(--motion-ease);
+  will-change: opacity;
+}
+
+.glow[data-behavior='0'] {
+  opacity: 0.18;
+}
+
+.glow[data-behavior='1'] {
+  animation: breathe 4.2s ease-in-out infinite;
+}
+
+.glow[data-behavior='2'] {
+  animation: pulse 1.6s ease-in-out infinite;
+}
+
+.glow[data-behavior='3'] {
+  animation: blink-short 1.8s linear infinite;
+}
+
+.glow[data-behavior='4'] {
+  opacity: 0.85;
+}
+
+.glow[data-behavior='5'] {
+  animation: blink-fast 0.6s steps(1, end) infinite;
+}
+
+.signal[data-live='false'] .glow {
+  animation-play-state: paused;
+}
+
+.scene figcaption {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.6rem 1.4rem;
+  margin-top: 1.2rem;
+  color: #a9afba;
+  font-size: 0.92rem;
+  line-height: 1.6;
+}
+
+.conceptTag {
+  display: inline-flex;
   align-items: center;
-  gap: clamp(2rem, 5vw, 4.5rem);
+  gap: 0.5rem;
+  color: #c9a96a;
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
 }
 
-/* The model */
-
-.stage {
-  --mx: 0;
-  --my: 0;
-  --mm: clamp(2.5px, 0.34vw, 4.7px);
-  --om-rx: calc(64deg - var(--my) * 5deg);
-  --om-rz: calc(38deg + var(--mx) * 12deg);
-  position: relative;
-  height: clamp(340px, 40vw, 560px);
-  perspective: 1800px;
-  perspective-origin: 50% 20%;
+.conceptTag::before {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: currentColor;
+  content: '';
 }
 
-.halo {
-  position: absolute;
-  inset: 8% 0 0;
-  background: radial-gradient(42% 40% at 50% 62%, var(--signal), transparent 72%);
-  filter: blur(42px);
-  opacity: calc(0.08 + var(--om-level) * 0.42);
-  transition: background 700ms var(--motion-ease);
-  pointer-events: none;
-}
-
-.rig {
-  position: absolute;
-  top: 52%;
-  left: 50%;
-  transform: translate(-50%, -50%) rotateX(var(--om-rx)) rotateZ(var(--om-rz));
-  transform-style: preserve-3d;
-}
-
-.device {
-  --om-light: var(--signal);
-  transition: --om-light 700ms var(--motion-ease);
-}
-
-/* Each behavior animates the light level on the model, the halo and the matching swatch. */
-.demo[data-behavior='still'] :is(.device, .halo),
-.picker [data-behavior='still'] .swatch {
-  --om-level: 0.16;
-}
-
-.demo[data-behavior='solid'] :is(.device, .halo),
-.picker [data-behavior='solid'] .swatch {
-  --om-level: 1;
-}
-
-.demo[data-behavior='breathe'] :is(.device, .halo),
-.picker [data-behavior='breathe'] .swatch {
-  animation: breathe 3.6s ease-in-out infinite;
-}
-
-.demo[data-behavior='pulse'] :is(.device, .halo),
-.picker [data-behavior='pulse'] .swatch {
-  animation: pulse 1.25s ease-in-out infinite;
-}
-
-.demo[data-behavior='blink'] :is(.device, .halo),
-.picker [data-behavior='blink'] .swatch {
-  animation: blink 1.5s linear infinite;
-}
-
-.demo[data-behavior='alarm'] :is(.device, .halo),
-.picker [data-behavior='alarm'] .swatch {
-  animation: alarm 0.5s linear infinite;
-}
-
-/* Choosing a signal */
-
-.panel {
-  position: relative;
-  display: grid;
-  gap: 2rem;
-}
-
+/* The picker doubles as the legend: name, behavior and meaning of each signal. */
 .picker {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 8px;
-  margin: 0;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+  min-width: 0;
+  margin: clamp(2rem, 4vw, 3rem) 0 0;
   padding: 0;
   border: 0;
 }
 
-.picker legend {
+.pickerLabel {
   position: absolute;
   width: 1px;
   height: 1px;
@@ -100,223 +134,142 @@
   white-space: nowrap;
 }
 
-.picker label {
+.option {
   position: relative;
   display: grid;
-  grid-template-columns: auto minmax(0, 1fr);
-  align-items: center;
-  gap: 0.15rem 0.75rem;
-  min-height: 64px;
-  padding: 0.7rem 0.9rem;
-  border: 1px solid #23262c;
+  grid-template-columns: auto 1fr;
+  gap: 0.5rem 0.85rem;
+  padding: 1.1rem 1.2rem 1.2rem;
+  border: 1px solid #1d2026;
   border-radius: 14px;
-  background: linear-gradient(180deg, #121418, #0d0e11);
+  background: rgb(255 255 255 / 2.5%);
   cursor: pointer;
   transition:
-    border-color 260ms var(--motion-ease),
-    background 260ms var(--motion-ease),
-    transform 260ms var(--motion-ease);
+    border-color 400ms var(--motion-ease),
+    background-color 400ms var(--motion-ease);
 }
 
-.picker label:hover {
-  border-color: #3a3f49;
-  transform: translateY(-2px);
+.option:hover {
+  border-color: #2d323b;
 }
 
-.picker label:has(input:checked) {
-  border-color: color-mix(in srgb, var(--signal) 70%, transparent);
-  background:
-    radial-gradient(90% 120% at 0% 50%, color-mix(in srgb, var(--signal) 20%, transparent), transparent 70%),
-    #111317;
+.option[data-active='true'] {
+  border-color: color-mix(in srgb, var(--swatch) 55%, #1d2026);
+  background: color-mix(in srgb, var(--swatch) 8%, transparent);
 }
 
-.picker label:has(input:focus-visible) {
-  outline: 3px solid var(--signal);
-  outline-offset: 2px;
-}
-
-.picker input {
+.option input {
   position: absolute;
   opacity: 0;
   pointer-events: none;
 }
 
-.swatch {
-  grid-row: span 2;
-  width: 14px;
-  height: 14px;
-  border-radius: 50%;
-  background: color-mix(in srgb, var(--signal) calc(25% + var(--om-level) * 75%), #1a1c20);
-  box-shadow: 0 0 calc(var(--om-level) * 14px) color-mix(in srgb, var(--signal) 80%, transparent);
+.option:has(input:focus-visible) {
+  outline: 2px solid var(--swatch);
+  outline-offset: 2px;
 }
 
-.optionName {
-  color: #f1f2ee;
-  font-size: 0.88rem;
+.swatch {
+  width: 10px;
+  height: 10px;
+  margin-top: 0.4rem;
+  border-radius: 50%;
+  background: var(--swatch);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--swatch) 22%, transparent);
+}
+
+.optionText {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.2rem 0.8rem;
+}
+
+.optionText strong {
+  color: #f7f7f3;
+  font-size: 0.98rem;
   font-weight: 600;
 }
 
-.optionBehavior {
-  color: #8a909c;
+.optionText span {
+  color: #8a909b;
   font-family: var(--font-mono);
   font-size: 0.68rem;
-  letter-spacing: 0.06em;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
-}
-
-.readout {
-  min-height: 11.5rem;
-  padding-top: 1.6rem;
-  border-top: 1px solid #23262c;
-}
-
-.readout p {
-  margin: 0;
-}
-
-.readout .name {
-  margin-top: 0.6rem;
-}
-
-.readout .meaning {
-  margin-top: 0.9rem;
-}
-
-.behavior {
-  color: var(--signal);
-  font-family: var(--font-mono);
-  font-size: 0.74rem;
-  font-weight: 600;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-  transition: color 500ms var(--motion-ease);
-}
-
-.name {
-  color: #f7f7f3;
-  font-family: var(--font-serif);
-  font-size: clamp(2.6rem, 4.4vw, 4rem);
-  font-weight: 500;
-  letter-spacing: -0.05em;
-  line-height: 1;
 }
 
 .meaning {
+  grid-column: 2;
   color: #a9afba;
-  font-size: 0.95rem;
-  line-height: 1.7;
-}
-
-.timer {
-  position: absolute;
-  bottom: -1rem;
-  left: 0;
-  width: 100%;
-  height: 2px;
-  background: linear-gradient(90deg, var(--signal), transparent) no-repeat 0 0 / 0% 100%;
-}
-
-.timer[data-playing='true'] {
-  animation: timer 3.6s linear forwards;
-}
-
-@keyframes timer {
-  to {
-    background-size: 100% 100%;
-  }
+  font-size: 0.88rem;
+  line-height: 1.55;
 }
 
 @keyframes breathe {
   0%,
   100% {
-    --om-level: 0.18;
+    opacity: 0.22;
   }
 
   50% {
-    --om-level: 0.95;
+    opacity: 0.95;
   }
 }
 
 @keyframes pulse {
   0%,
   100% {
-    --om-level: 0.4;
+    opacity: 0.45;
   }
 
   50% {
-    --om-level: 1;
+    opacity: 1;
   }
 }
 
-@keyframes blink {
+@keyframes blink-short {
   0%,
   16% {
-    --om-level: 1;
+    opacity: 1;
   }
 
-  17%,
+  22%,
   100% {
-    --om-level: 0.08;
+    opacity: 0.1;
   }
 }
 
-@keyframes alarm {
-  0%,
-  48% {
-    --om-level: 1;
+@keyframes blink-fast {
+  0% {
+    opacity: 1;
   }
 
-  50%,
-  100% {
-    --om-level: 0.06;
+  50% {
+    opacity: 0.1;
   }
 }
 
-@media (max-width: 1050px) {
-  .demo {
+@media (max-width: 900px) {
+  .picker {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 560px) {
+  .picker {
     grid-template-columns: 1fr;
   }
-
-  .stage {
-    height: clamp(280px, 48vw, 420px);
-  }
-}
-
-@media (max-width: 767px) {
-  .stage {
-    --mm: clamp(2.2px, 0.62vw, 3.4px);
-  }
-
-  .picker label {
-    min-height: 58px;
-    padding: 0.6rem 0.7rem;
-  }
-
-  .readout {
-    min-height: 0;
-  }
-}
-
-/* A still light still tells the signals apart by color and level. */
-.still.demo[data-behavior] :is(.device, .halo),
-.still .picker [data-behavior] .swatch {
-  animation: none;
-}
-
-.still.demo[data-behavior] :is(.device, .halo),
-.still .picker label:not([data-behavior='still']) .swatch {
-  --om-level: 0.85;
-}
-
-.still.demo[data-behavior='still'] :is(.device, .halo) {
-  --om-level: 0.16;
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .device,
-  .halo,
-  .swatch,
-  .picker label {
+  .glow {
+    animation: none !important;
+  }
+
+  .tint,
+  .glow {
     transition: none;
   }
 }

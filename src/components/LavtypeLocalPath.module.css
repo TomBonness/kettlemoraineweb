@@ -1,0 +1,335 @@
+.path {
+  --lp-gap: 2.6rem;
+  margin: 0;
+}
+
+.computer {
+  position: relative;
+  padding: 2.6rem clamp(1rem, 2.4vw, 2rem) clamp(1rem, 2.4vw, 2rem);
+  border: 1px dashed #383d4a;
+  border-radius: 26px;
+}
+
+.boundary {
+  position: absolute;
+  top: 0;
+  left: 1.6rem;
+  padding: 0 0.7rem;
+  background: var(--lv-void, #08090b);
+  color: #a9afba;
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  transform: translateY(-50%);
+}
+
+.flow {
+  display: grid;
+  grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.35fr) minmax(0, 1fr) minmax(0, 1fr);
+  gap: var(--lp-gap);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.node {
+  position: relative;
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.6rem;
+  padding: 1.3rem 1.3rem 1.4rem;
+  border: 1px solid #23262e;
+  border-radius: 18px;
+  background: linear-gradient(180deg, #14161b, #101115);
+  box-shadow: 0 24px 50px rgb(0 0 0 / 35%);
+}
+
+/* An arrow to the next node. */
+.node:not(:last-child)::after {
+  position: absolute;
+  top: 50%;
+  right: calc(var(--lp-gap) * -1 + 0.45rem);
+  width: calc(var(--lp-gap) - 0.9rem);
+  height: 9px;
+  background:
+    linear-gradient(#5d5873, #5d5873) left center / calc(100% - 4px) 1px no-repeat,
+    conic-gradient(from -135deg at 100% 50%, #8a80b8 90deg, transparent 0) right center / 5px 9px
+      no-repeat;
+  content: '';
+  transform: translateY(-50%);
+}
+
+.node strong {
+  color: #f3f3f6;
+  font-size: 1rem;
+  font-weight: 600;
+  line-height: 1.35;
+}
+
+.step {
+  color: #8b7fd0;
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+}
+
+.detail {
+  color: #a9afba;
+  font-size: 0.84rem;
+  line-height: 1.55;
+}
+
+.mic {
+  width: 26px;
+  height: 32px;
+  margin: 0.2rem 0;
+  stroke: #a98bff;
+  stroke-linecap: round;
+  stroke-width: 1.6;
+}
+
+.recognizer {
+  border-color: rgb(169 139 255 / 32%);
+  background:
+    radial-gradient(90% 70% at 20% 0%, rgb(169 139 255 / 10%), transparent 70%),
+    linear-gradient(180deg, #16161d, #111116);
+}
+
+.toggle {
+  display: inline-flex;
+  max-width: 100%;
+  flex-wrap: wrap;
+  gap: 4px;
+  margin: 0.2rem 0 0.3rem;
+  padding: 4px;
+  border: 1px solid #2b2e38;
+  border-radius: 999px;
+  background: #0b0c0f;
+}
+
+.toggle legend {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+.toggle label {
+  position: relative;
+  display: inline-flex;
+  min-height: 36px;
+  align-items: center;
+  padding: 0 0.95rem;
+  border-radius: 999px;
+  cursor: pointer;
+  color: #a9afba;
+  font-size: 0.8rem;
+  font-weight: 620;
+  transition:
+    background var(--hover-duration) var(--motion-ease),
+    color var(--hover-duration) var(--motion-ease);
+}
+
+.toggle label:hover {
+  color: #fff;
+}
+
+.toggle input {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.toggle label:has(input:checked) {
+  background: #f3f1fb;
+  color: #1d1a2c;
+}
+
+.toggle label:has(input:focus-visible) {
+  outline: 3px solid #a98bff;
+  outline-offset: 2px;
+}
+
+.choice {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.45rem;
+  animation: choice-in 600ms var(--motion-ease) both;
+}
+
+.tag {
+  padding: 0.25rem 0.65rem;
+  border-radius: 999px;
+  background: rgb(143 180 255 / 12%);
+  color: #b9cdff;
+  font-family: var(--font-mono);
+  font-size: 0.66rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.quote {
+  color: #f3f3f6;
+  font-family: var(--font-serif);
+  font-size: 1.3rem;
+  line-height: 1.25;
+  letter-spacing: -0.02em;
+  quotes: none;
+}
+
+.window {
+  display: block;
+  width: 100%;
+  overflow: hidden;
+  border: 1px solid #2b2e38;
+  border-radius: 10px;
+  background: #f4f4f1;
+  box-shadow: 0 12px 26px rgb(0 0 0 / 35%);
+}
+
+.lights {
+  display: flex;
+  gap: 4px;
+  padding: 0.5rem 0.6rem;
+  border-bottom: 1px solid #e0e0da;
+  background: #ebebe6;
+}
+
+.lights i {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #ff5f57;
+}
+
+.lights i:nth-child(2) {
+  background: #febc2e;
+}
+
+.lights i:nth-child(3) {
+  background: #28c840;
+}
+
+.windowText {
+  display: block;
+  padding: 0.75rem 0.8rem 0.9rem;
+  color: #1c1d24;
+  font-size: 0.84rem;
+  line-height: 1.45;
+}
+
+.caret {
+  display: inline-block;
+  width: 2px;
+  height: 1em;
+  margin-left: 2px;
+  background: #8c70e6;
+  vertical-align: -0.15em;
+}
+
+/* What isn't on the path. */
+
+.absent {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  margin: 1.4rem 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.absent li {
+  padding: 0.4rem 0.85rem;
+  border: 1px solid #2b2e38;
+  border-radius: 999px;
+  color: #a3a8b4;
+  font-size: 0.8rem;
+}
+
+.absent s {
+  display: inline-block;
+  text-decoration-color: rgb(240 154 208 / 75%);
+  text-decoration-thickness: 1px;
+}
+
+.absent s::first-letter {
+  text-transform: uppercase;
+}
+
+.srOnly {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+.note {
+  margin-top: 1rem;
+  color: #8f95a3;
+  font-size: 0.84rem;
+  line-height: 1.6;
+}
+
+@keyframes choice-in {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+}
+
+@media (max-width: 1050px) {
+  .flow {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  /* 02 → 03 wraps to the next row; the step numbers carry the order. */
+  .node:nth-child(2)::after {
+    display: none;
+  }
+}
+
+@media (max-width: 640px) {
+  .flow {
+    grid-template-columns: 1fr;
+    --lp-gap: 2rem;
+  }
+
+  .node:nth-child(2)::after {
+    display: block;
+  }
+
+  .node:not(:last-child)::after {
+    top: auto;
+    right: auto;
+    bottom: calc(var(--lp-gap) * -1 + 0.4rem);
+    left: 2.2rem;
+    width: 9px;
+    height: calc(var(--lp-gap) - 0.8rem);
+    background:
+      linear-gradient(#5d5873, #5d5873) center top / 1px calc(100% - 4px) no-repeat,
+      conic-gradient(from -45deg at 50% 100%, #8a80b8 90deg, transparent 0) center bottom / 9px
+        5px no-repeat;
+    transform: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .choice {
+    animation: none;
+  }
+
+  .toggle label {
+    transition: none;
+  }
+}

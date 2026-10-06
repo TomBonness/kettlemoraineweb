@@ -93,9 +93,6 @@ export const hero = {
     'Open-source hardware and software',
     'Concept in development',
   ],
-  modelLabel:
-    'A model of the Open Micro concept: twelve dark keys and a push encoder on an exposed control PCB, over a smoked polycarbonate wall and an anodized aluminum base',
-  modelHint: 'Concept model · press a key or the encoder',
 } as const
 
 export const sourceLinks = {

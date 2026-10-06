@@ -1,14 +1,14 @@
 import type { ReactNode } from 'react'
-import { MicroConnect } from '../components/MicroConnect'
+import { MicroHero } from '../components/MicroHero'
 import { MicroLayers } from '../components/MicroLayers'
 import { MicroSignal } from '../components/MicroSignal'
 import { MicroSpecs } from '../components/MicroSpecs'
-import { MicroStage } from '../components/MicroStage'
 import { ProductHero } from '../components/ProductHero'
 import { SiteShell } from '../components/SiteShell'
 import { WaitlistForm } from '../components/WaitlistForm'
 import { routes } from '../content/catalog'
 import {
+  connectivityCards,
   headings,
   hero,
   licenses,
@@ -45,6 +45,24 @@ function SectionIntro({ children, lead }: { children: ReactNode; lead: ReactNode
   )
 }
 
+/** Line-art icons for the four connectivity cards, in `connectivityCards` order. */
+const connectionIcons: ReactNode[] = [
+  <>
+    <rect x="13" y="20" width="38" height="24" rx="12" />
+    <rect x="23" y="29" width="18" height="6" rx="3" />
+    <path d="M6 32h7m38 0h7" />
+  </>,
+  <path d="m28 9 15 13-22 20m7-33v46l15-13-22-20M12 21a23 23 0 0 0 0 22m40-22a23 23 0 0 1 0 22" />,
+  <>
+    <path d="M15 10v44m17-44v44m17-44v44" />
+    <path d="M10 23h10v8H10zm17 13h10v8H27zm17-21h10v8H44z" fill="var(--om-card)" />
+  </>,
+  <>
+    <rect x="9" y="12" width="46" height="32" rx="2" />
+    <path d="M24 53h16m-8-9v9m-9-30-5 5 5 5m18-10 5 5-5 5m-7-12-4 14" />
+  </>,
+]
+
 export function OpenMicroPage() {
   return (
     <SiteShell
@@ -67,7 +85,7 @@ export function OpenMicroPage() {
             secondary={{ label: hero.secondaryCta, href: '#design' }}
             baseline={hero.baseline}
           >
-            <MicroStage />
+            <MicroHero />
           </ProductHero>
         </div>
 
@@ -77,18 +95,6 @@ export function OpenMicroPage() {
               <SectionTitle id="status-title" lines={headings.status} />
             </SectionIntro>
             <MicroSignal />
-            <figure className={styles.nightScene}>
-              <img
-                {...marketingRenders.night}
-                sizes="(max-width: 1280px) 92vw, 1184px"
-                loading="lazy"
-                decoding="async"
-              />
-              <figcaption>
-                <span className={styles.conceptTag}>{productCopy.conceptTag}</span>
-                {productCopy.statusPrinciple}
-              </figcaption>
-            </figure>
           </div>
         </section>
 
@@ -98,28 +104,16 @@ export function OpenMicroPage() {
               <SectionTitle id="design-title" lines={headings.design} />
             </SectionIntro>
             <MicroLayers />
-            <div className={styles.renders}>
-              <figure className={styles.explodedScene}>
+            <div className={styles.material}>
+              <figure className={styles.detailScene}>
                 <img
-                  {...marketingRenders.exploded}
-                  sizes="(max-width: 900px) 92vw, 520px"
+                  {...marketingRenders.detail}
+                  sizes="(max-width: 900px) 92vw, 720px"
                   loading="lazy"
                   decoding="async"
                 />
-                <figcaption>
-                  <span className={styles.conceptTag}>{productCopy.conceptTag}</span>
-                  {productCopy.explodedCaption}
-                </figcaption>
               </figure>
-              <div className={styles.material}>
-                <figure className={styles.detailScene}>
-                  <img
-                    {...marketingRenders.detail}
-                    sizes="(max-width: 900px) 92vw, 640px"
-                    loading="lazy"
-                    decoding="async"
-                  />
-                </figure>
+              <div className={styles.materialCopy}>
                 <h3>{productCopy.materialHeading}</h3>
                 <p>{productCopy.materialBody}</p>
               </div>
@@ -140,7 +134,25 @@ export function OpenMicroPage() {
                 decoding="async"
               />
             </figure>
-            <MicroConnect />
+            <div className={styles.connectGrid}>
+              {connectivityCards.map((card, index) => (
+                <article className={styles.connection} key={card.title}>
+                  <svg
+                    className={styles.connectionIcon}
+                    viewBox="0 0 64 64"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="1.5"
+                    aria-hidden="true"
+                  >
+                    {connectionIcons[index]}
+                  </svg>
+                  <p className={styles.connectionLabel}>{card.label}</p>
+                  <h3>{card.title}</h3>
+                  <p>{card.body}</p>
+                </article>
+              ))}
+            </div>
           </div>
         </section>
 
@@ -189,20 +201,7 @@ export function OpenMicroPage() {
         </section>
 
         <div className={styles.signup}>
-          <figure className={styles.signupModel} aria-hidden="true">
-            <span className={styles.signupGlow} />
-            <img
-              src={marketingRenders.transparent.src}
-              srcSet={marketingRenders.transparent.srcSet}
-              width={marketingRenders.transparent.width}
-              height={marketingRenders.transparent.height}
-              sizes="(max-width: 767px) 80vw, 460px"
-              alt=""
-              loading="lazy"
-              decoding="async"
-            />
-            <figcaption className={styles.conceptTag}>{hero.baseline[3]}</figcaption>
-          </figure>
+          <p className={styles.signupTag}>{hero.baseline[3]}</p>
           <WaitlistForm signup={openMicroSignup} />
         </div>
       </div>

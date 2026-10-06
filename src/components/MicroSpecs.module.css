@@ -5,98 +5,20 @@
   gap: clamp(2.5rem, 6vw, 5.5rem);
 }
 
-/* The overhead render */
-
 .figure {
-  --mx: 0;
-  --my: 0;
-  position: sticky;
-  top: 104px;
-  margin: 0;
-  perspective: 1400px;
-}
-
-.tilt {
   position: relative;
   overflow: hidden;
+  margin: 0;
   border: 1px solid #dfe1da;
   border-radius: var(--radius-large);
   background: #efefef;
-  box-shadow:
-    0 40px 80px -40px rgb(20 22 26 / 35%),
-    0 1px 0 rgb(255 255 255 / 80%) inset;
-  transform: rotateX(calc(var(--my) * -5deg)) rotateY(calc(var(--mx) * 6deg));
+  box-shadow: 0 40px 80px -48px rgb(20 22 26 / 35%);
 }
 
-.tilt img {
+.figure img {
   display: block;
   width: 100%;
   height: auto;
-}
-
-/* 96 mm dimension lines along the top and left edges of the board */
-.dimension {
-  position: absolute;
-  color: #6b6f77;
-  font-family: var(--font-mono);
-  font-size: 0.66rem;
-  font-weight: 600;
-  letter-spacing: 0.1em;
-  transition: color 300ms var(--motion-ease);
-}
-
-.dimension::before {
-  position: absolute;
-  background: currentColor;
-  content: '';
-}
-
-.dimension[data-axis='x'] {
-  top: 6.4%;
-  right: 12%;
-  left: 11.9%;
-  height: 12px;
-  border-inline: 1px solid currentColor;
-}
-
-.dimension[data-axis='x']::before {
-  top: 50%;
-  right: 0;
-  left: 0;
-  height: 1px;
-}
-
-.dimension[data-axis='y'] {
-  top: 11.9%;
-  bottom: 12%;
-  left: 6.4%;
-  width: 12px;
-  border-block: 1px solid currentColor;
-}
-
-.dimension[data-axis='y']::before {
-  top: 0;
-  bottom: 0;
-  left: 50%;
-  width: 1px;
-}
-
-.dimension > span {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  padding: 0 0.5rem;
-  background: #efefef;
-  transform: translate(-50%, -50%);
-  white-space: nowrap;
-}
-
-.dimension[data-axis='y'] > span {
-  transform: translate(-50%, -50%) rotate(-90deg);
-}
-
-.figure[data-spec='Footprint'] .dimension {
-  color: #9a7a3c;
 }
 
 .hotspot {
@@ -105,133 +27,108 @@
   left: var(--x);
   width: 34px;
   height: 34px;
+  margin: -17px 0 0 -17px;
   padding: 0;
   border: 0;
   border-radius: 50%;
   background: transparent;
   cursor: pointer;
-  transform: translate(-50%, -50%);
 }
 
+/* A brass dot with a soft ring. */
 .hotspot::before,
 .hotspot::after {
   position: absolute;
+  inset: 0;
+  margin: auto;
   border-radius: 50%;
   content: '';
 }
 
 .hotspot::before {
-  inset: 11px;
-  background: #fff;
-  box-shadow: 0 0 0 3px rgb(5 72 253 / 85%);
-  transition:
-    box-shadow 300ms var(--motion-ease),
-    background 300ms var(--motion-ease);
+  width: 22px;
+  height: 22px;
+  background: rgb(255 255 255 / 55%);
+  box-shadow: 0 2px 8px rgb(0 0 0 / 25%);
+  transition: transform 400ms var(--motion-ease);
 }
 
 .hotspot::after {
-  inset: 0;
-  border: 1.5px solid rgb(255 255 255 / 70%);
-  animation: ping 2.4s var(--motion-ease) infinite;
+  width: 8px;
+  height: 8px;
+  background: #9a8150;
 }
 
-.hotspot[data-match='true']::before,
-.hotspot:hover::before,
-.hotspot:focus-visible::before {
-  background: #e2c58f;
-  box-shadow:
-    0 0 0 3px #c9a96a,
-    0 0 18px rgb(226 197 143 / 80%);
+.hotspot[data-match='true']::before {
+  transform: scale(1.25);
 }
 
 .hotspot:focus-visible {
-  outline: 3px solid var(--accent);
-  outline-offset: 3px;
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
 }
 
 .hotspotLabel {
   position: absolute;
   top: 50%;
-  left: calc(100% + 8px);
-  padding: 0.45rem 0.75rem;
-  border: 1px solid rgb(255 255 255 / 12%);
-  border-radius: 999px;
-  background: rgb(16 17 20 / 88%);
+  left: calc(100% + 4px);
+  padding: 0.4rem 0.65rem;
+  border-radius: 8px;
+  background: #14161a;
   color: #f7f7f3;
-  font-size: 0.75rem;
-  font-weight: 600;
-  opacity: 0;
-  pointer-events: none;
-  transform: translate(-6px, -50%);
-  transition:
-    opacity 260ms var(--motion-ease),
-    transform 260ms var(--motion-ease);
+  font-size: 0.78rem;
+  font-weight: 550;
   white-space: nowrap;
-  backdrop-filter: blur(8px);
+  opacity: 0;
+  transform: translate(-4px, -50%);
+  transition:
+    opacity 300ms var(--motion-ease),
+    transform 300ms var(--motion-ease);
+  pointer-events: none;
 }
 
-/* Labels on the right of the render open to the left. */
 .hotspot[data-side='left'] .hotspotLabel {
-  right: calc(100% + 8px);
+  right: calc(100% + 4px);
   left: auto;
-  transform: translate(6px, -50%);
+  transform: translate(4px, -50%);
 }
 
-.hotspot[data-shown='true'] .hotspotLabel,
-.hotspot:hover .hotspotLabel,
-.hotspot:focus-visible .hotspotLabel {
+.hotspot[data-shown='true'] .hotspotLabel {
   opacity: 1;
   transform: translate(0, -50%);
 }
 
-@keyframes ping {
-  from {
-    opacity: 0.9;
-    transform: scale(0.5);
-  }
-
-  to {
-    opacity: 0;
-    transform: scale(1.3);
-  }
-}
-
-/* The spec sheet */
-
 .list {
+  display: grid;
   margin: 0;
 }
 
 .list > div {
   display: grid;
-  grid-template-columns: minmax(0, 0.38fr) minmax(0, 0.62fr);
+  grid-template-columns: minmax(8rem, 0.4fr) 1fr;
   gap: 1.5rem;
-  padding: 1.15rem 0.9rem;
-  border-top: 1px solid var(--hairline);
-  border-radius: 12px;
-  transition: background 260ms var(--motion-ease);
+  padding: 1rem 0.75rem;
+  border-top: 1px solid #d3d8ce;
+  transition: background-color 300ms var(--motion-ease);
 }
 
 .list > div:last-child {
-  border-bottom: 1px solid var(--hairline);
+  border-bottom: 1px solid #d3d8ce;
 }
 
 .list > div[data-active='true'] {
-  background: rgb(201 169 106 / 16%);
+  background: #eceee9;
 }
 
 .list dt {
-  font-family: var(--font-serif);
-  font-size: 1.2rem;
-  font-weight: 500;
-  letter-spacing: -0.02em;
+  color: var(--text-secondary);
+  font-size: 0.86rem;
 }
 
 .list dd {
   margin: 0;
-  color: var(--text-secondary);
-  font-size: 0.9rem;
-  line-height: 1.65;
+  font-size: 0.94rem;
+  line-height: 1.55;
 }
 
 @media (max-width: 900px) {
@@ -240,34 +137,22 @@
   }
 
   .figure {
-    position: relative;
-    top: 0;
-    width: 100%;
-    max-width: 560px;
-    justify-self: center;
+    width: min(100%, 560px);
+    margin-inline: auto;
   }
 }
 
-@media (max-width: 600px) {
+@media (max-width: 560px) {
   .list > div {
     grid-template-columns: 1fr;
-    gap: 0.35rem;
-  }
-
-  .hotspotLabel {
-    font-size: 0.68rem;
+    gap: 0.3rem;
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .hotspot::after {
-    animation: none;
-    opacity: 0;
-  }
-
-  .tilt,
+  .hotspot::before,
   .hotspotLabel,
-  .hotspot::before {
+  .list > div {
     transition: none;
   }
 }

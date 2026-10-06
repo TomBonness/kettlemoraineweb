@@ -185,25 +185,34 @@ if __name__ == "__main__":
 // raceFile's length under the Qwen3.8 tokenizer (fafstmobel's tokenizer.json).
 export const raceTokens = 886
 
-// The hero's speculative-decoding illustration: the drafter continues raceFile's summarize()
-// three rounds in a row. Each round drafts a tree of 15 tokens; `accepted` is the path the 27B
-// model keeps. Indices follow the tree in InferenceStage, so every accepted token's parent is the
-// one before it. Illustrative tokens, not a measurement.
-export const draftPrompt = ['def summarize(durations):', '    """Rank kernels by total time."""', '    stats = []'] as const
+// Splits text into token-sized pieces for the race and the hero: words carry one leading space and
+// whitespace runs stand alone. Close to, but not the same as, the Qwen3.8 tokenizer.
+export const tokenPieces = (text: string) =>
+  text.match(/ ?[A-Za-z_]+| ?\d+| ?[^\sA-Za-z0-9_]+|\s+/g) ?? []
+
+// The hero's speculative-decoding illustration. The editor opens on raceFile up to `draftFrom`
+// and writes on to `draftUntil`, one round at a time. Each round the drafter proposes 15 pieces
+// (tokenPieces): the next `kept` pieces of the file, then its own wrong `guess` for the rest. The
+// 27B model keeps the matching prefix and adds its own next piece. Illustrative only: the pieces
+// and the kept counts were written for this animation, not measured.
+export const draftFrom = 'def summarize('
+export const draftUntil = '\n\n\ndef print_table'
+export const draftSize = 15
 
 export const draftRounds = [
-  {
-    tokens: [' for', ' return', ' if', ' name', ' kernel', ' sorted', ' not', ',', ' in', ' in', ' values', ' times', ' durations', ' in', ' durations'],
-    accepted: [0, 3, 7, 10, 13, 14],
-  },
-  {
-    tokens: ['.items', ':', '.values', '()', '():', '↵', '():', ':', ')', '↵', '↵', ' stats', ' ordered', ' =', ' sorted'],
-    accepted: [0, 4, 9, 12],
-  },
-  {
-    tokens: [' =', ' :', '.append', ' sorted', ' list', ' ordered', '(', '(values', '(', '(', '))', ')', '(values', ')', '↵'],
-    accepted: [0, 3, 7, 11],
-  },
+  { kept: 12, guess: [']]', ')', ':'] },
+  { kept: 9, guess: [' in', ' order', ' of', ' total', ' time', '."""'] },
+  { kept: 15, guess: [] },
+  { kept: 6, guess: ['values', '.', 'sort', '()', '\n        ', 'stats', '.', 'append', '('] },
+  { kept: 13, guess: ['name', ','] },
+  { kept: 12, guess: ['total', '=', 'sum'] },
+  { kept: 12, guess: ['statistics', '.', 'median'] },
+  { kept: 10, guess: ['max', '_us', '=', 'max', '('] },
+  { kept: 7, guess: ['-', '1', ']', '),', ' 2', '),', '\n            ', ')'] },
+  { kept: 6, guess: ['ordered', ')', ')', ')],', ' 2', '),', '\n            ', ')', '\n        '] },
+  { kept: 15, guess: [] },
+  { kept: 9, guess: ['median_us', ')', '[:', 'top', ']', '\n'] },
+  { kept: 5, guess: ['[:', 'top', ']', '\n', '\n\n', 'def', ' print', '_table', '(', 'stats'] },
 ] as const
 
 export const installCommands = `git clone ${inferenceLinks.installer}.git

@@ -1,0 +1,293 @@
+/* --intro: 1 → 0 as the hero opens. --mx / --my: the pointer, -1…1. --progress: scrolling away. */
+
+.stage {
+  --intro: 0;
+  --progress: 0;
+  --mx: 0;
+  --my: 0;
+  --ink: #1b2236;
+  --ink-soft: #6a7080;
+  --pencil: #2f5bff;
+  position: relative;
+  perspective: 1500px;
+}
+
+.rig {
+  position: relative;
+  max-width: 34rem;
+  margin-left: auto;
+  opacity: calc(1 - var(--intro));
+  transform:
+    translateY(calc(var(--intro) * 40px - var(--progress) * 24px))
+    rotateX(calc(7deg - var(--my) * 3deg))
+    rotateY(calc(-9deg + var(--mx) * 5deg))
+    rotateZ(-1.6deg);
+  transform-style: preserve-3d;
+}
+
+.sheet,
+.sheetBehind {
+  border-radius: 6px;
+}
+
+/* A second sheet under the first, for a little thickness. */
+.sheetBehind {
+  position: absolute;
+  inset: 0;
+  background: #e6e4dc;
+  box-shadow: 0 30px 60px rgb(0 0 0 / 40%);
+  transform: translate3d(14px, 12px, -24px) rotateZ(3deg);
+}
+
+.sheet {
+  position: relative;
+  padding: clamp(1.5rem, 3vw, 2.25rem) clamp(1.4rem, 3vw, 2.4rem) clamp(1.75rem, 3vw, 2.5rem);
+  background-color: #fbfaf5;
+  background-image:
+    linear-gradient(rgb(47 91 255 / 7%) 1px, transparent 1px),
+    linear-gradient(90deg, rgb(47 91 255 / 7%) 1px, transparent 1px);
+  background-position: -1px -1px;
+  background-size: 22px 22px;
+  box-shadow:
+    inset 0 1px 0 rgb(255 255 255 / 80%),
+    0 2px 4px rgb(0 0 0 / 20%),
+    0 36px 70px rgb(0 0 0 / 45%);
+  color: var(--ink);
+}
+
+.header {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+  padding-bottom: 0.9rem;
+  border-bottom: 2px solid rgb(27 34 54 / 75%);
+}
+
+.header h2 {
+  margin: 0;
+  font-family: var(--font-serif);
+  font-size: clamp(2rem, 3vw, 2.5rem);
+  font-style: italic;
+  font-weight: 500;
+  letter-spacing: -0.04em;
+  line-height: 1;
+}
+
+.header span {
+  color: var(--ink-soft);
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.items {
+  display: grid;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.item {
+  display: grid;
+  grid-template-columns: 1.75rem minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 0.35rem 0.9rem;
+  padding: 0.95rem 0;
+  border-bottom: 1px solid rgb(27 34 54 / 12%);
+}
+
+.box {
+  width: 1.75rem;
+  height: 1.75rem;
+  stroke: var(--ink);
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 1.7;
+}
+
+.tick {
+  stroke: var(--pencil);
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  stroke-width: 2.6;
+  transition: stroke-dashoffset 360ms var(--motion-ease);
+}
+
+.item[data-done='true'] .tick {
+  stroke-dashoffset: 0;
+}
+
+/* The strike draws across the chore, line by line, as if with a pen. */
+.chore {
+  justify-self: start;
+  color: var(--ink);
+  font-size: clamp(0.95rem, 1.3vw, 1.08rem);
+  font-weight: 500;
+  line-height: 1.45;
+  text-decoration: none;
+  transition: color 400ms var(--motion-ease) 300ms;
+}
+
+.chore > span {
+  padding: 0 0.1em;
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
+  background: linear-gradient(var(--ink), var(--ink)) no-repeat 0 58% / 0% 2px;
+  transition: background-size 520ms var(--motion-ease) 260ms;
+}
+
+.item[data-done='true'] .chore {
+  color: #7c8190;
+}
+
+.item[data-done='true'] .chore > span {
+  background-size: 100% 2px;
+}
+
+.product {
+  display: inline-flex;
+  min-height: 34px;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0 0.7rem;
+  border: 1px solid rgb(27 34 54 / 14%);
+  border-radius: 999px;
+  background: rgb(255 255 255 / 75%);
+  color: var(--ink);
+  font-size: 0.76rem;
+  font-weight: 650;
+  white-space: nowrap;
+  opacity: 0;
+  transform: translateX(-8px);
+  transition:
+    opacity 400ms var(--motion-ease) 620ms,
+    transform 500ms var(--motion-ease) 620ms,
+    border-color var(--hover-duration) var(--motion-ease),
+    background var(--hover-duration) var(--motion-ease);
+}
+
+.product i {
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: 50%;
+  background: var(--hue);
+}
+
+.product > span {
+  color: var(--ink-soft);
+}
+
+.item[data-done='true'] .product,
+.product:focus-visible {
+  opacity: 1;
+  transform: none;
+}
+
+.product:hover,
+.product:focus-visible {
+  border-color: var(--hue);
+  background: #fff;
+}
+
+.item[data-product='open-micro'] {
+  --hue: #b08a3e;
+}
+
+.item[data-product='lavtype'] {
+  --hue: #8b6cff;
+}
+
+.item[data-product='inference'] {
+  --hue: #3d5bff;
+}
+
+.item[data-product='cinmux'] {
+  --hue: #5f8a3c;
+}
+
+.remaining {
+  border-bottom: 0;
+  padding-top: 1.25rem;
+}
+
+/* What's left is yours: it gets circled, not crossed off. */
+.work {
+  position: relative;
+  justify-self: start;
+  padding: 0.1em 0.7em 0.1em 0.35em;
+  font-family: var(--font-serif);
+  font-size: clamp(1.7rem, 2.6vw, 2.15rem);
+  font-style: italic;
+  font-weight: 500;
+  letter-spacing: -0.03em;
+  line-height: 1.1;
+}
+
+.work svg {
+  position: absolute;
+  inset: -0.3em -0.4em -0.3em -0.4em;
+  width: calc(100% + 0.8em);
+  height: calc(100% + 0.6em);
+  overflow: visible;
+  stroke: var(--pencil);
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  stroke-linecap: round;
+  stroke-width: 2.2;
+  vector-effect: non-scaling-stroke;
+  transition: stroke-dashoffset 900ms var(--motion-ease);
+}
+
+.remaining[data-done='true'] .work svg {
+  stroke-dashoffset: 0;
+}
+
+.srOnly {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+@media (max-width: 1050px) {
+  .rig {
+    margin: 0 auto;
+  }
+}
+
+@media (max-width: 560px) {
+  .rig {
+    transform:
+      translateY(calc(var(--intro) * 30px))
+      rotateX(4deg)
+      rotateZ(-1deg);
+  }
+
+  .item {
+    grid-template-columns: 1.6rem minmax(0, 1fr);
+    gap: 0.2rem 0.75rem;
+    padding: 0.75rem 0;
+  }
+
+  .product {
+    grid-column: 2;
+    justify-self: start;
+    min-height: 30px;
+  }
+
+  .sheetBehind {
+    transform: translate3d(8px, 10px, -16px) rotateZ(2.4deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .rig {
+    opacity: 1;
+    transform: rotateZ(-1.6deg);
+  }
+}

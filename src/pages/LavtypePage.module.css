@@ -167,6 +167,88 @@
   background: #eceee9;
 }
 
+.platforms {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(1rem, 2.5vw, 2rem);
+}
+
+.platform {
+  min-width: 0;
+  padding: clamp(1.5rem, 3vw, 2.4rem);
+  border: 1px solid rgb(17 18 20 / 8%);
+  border-radius: 22px;
+  background: #fbfbf8;
+  box-shadow:
+    0 1px 2px rgb(17 18 20 / 5%),
+    0 18px 40px rgb(17 18 20 / 6%);
+  transition:
+    transform 450ms var(--motion-ease),
+    box-shadow 450ms var(--motion-ease);
+}
+
+.platformHeading {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.5rem 1rem;
+  margin-bottom: 1.4rem;
+}
+
+.platformHeading h3 {
+  margin: 0;
+  font-family: var(--font-serif);
+  font-size: clamp(2rem, 3.4vw, 2.8rem);
+  font-weight: 500;
+  letter-spacing: -0.05em;
+  line-height: 1;
+}
+
+.platformHeading span {
+  padding: 0.3rem 0.7rem;
+  border: 1px solid #d3d8ce;
+  border-radius: 999px;
+  color: var(--text-secondary);
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.platformDetails {
+  display: grid;
+  margin: 0;
+}
+
+.platformDetails > div {
+  display: grid;
+  grid-template-columns: minmax(8.5rem, 0.42fr) minmax(0, 1fr);
+  gap: 1rem;
+  padding: 0.95rem 0;
+  border-top: 1px solid #e1e4dc;
+  font-size: 0.9rem;
+  line-height: 1.6;
+}
+
+.platformDetails dt {
+  color: var(--text-secondary);
+}
+
+.platformDetails dd {
+  margin: 0;
+}
+
+@media (hover: hover) and (prefers-reduced-motion: no-preference) {
+  .platform:hover {
+    box-shadow:
+      0 1px 2px rgb(17 18 20 / 5%),
+      0 26px 54px rgb(17 18 20 / 10%);
+    transform: translateY(-4px);
+  }
+}
+
 .facts {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -337,6 +419,7 @@
   }
 
   .facts,
+  .platforms,
   .questionsGrid {
     grid-template-columns: 1fr;
   }
@@ -349,7 +432,8 @@
     max-width: none;
   }
 
-  .darkDetails > div {
+  .darkDetails > div,
+  .platformDetails > div {
     grid-template-columns: 1fr;
     gap: 0.2rem;
   }

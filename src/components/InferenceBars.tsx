@@ -1,19 +1,17 @@
-import { useRef, useState, type CSSProperties } from 'react'
+import { useRef, type CSSProperties } from 'react'
 import { comparedEngines, comparisonAxisMax, engineComparison } from '../content/inference'
-import { prefersReducedMotion, useStageMotion } from '../lib/motion'
+import { useInView } from '../lib/motion'
 import styles from './InferenceBars.module.css'
 
 const cinference = 'Cinference Engine'
 
-/** Both measured workloads as solid bars that grow out of the floor as they scroll into view. */
+/** Both measured workloads as flat bars that grow once they scroll into view. */
 export function InferenceBars() {
-  const stage = useRef<HTMLDivElement>(null)
-  const [reduced] = useState(prefersReducedMotion)
-
-  useStageMotion(stage, !reduced)
+  const comparison = useRef<HTMLDivElement>(null)
+  const inView = useInView(comparison, 0.3)
 
   return (
-    <div className={`${styles.comparison} ${reduced ? styles.still : ''}`} ref={stage}>
+    <div className={styles.comparison} data-shown={inView} ref={comparison}>
       {engineComparison.map((workload) => (
         <figure className={styles.workload} key={workload.name}>
           <figcaption>
@@ -30,21 +28,24 @@ export function InferenceBars() {
             {comparedEngines.map((engine, index) => (
               <div
                 className={`${styles.bar} ${engine === cinference ? styles.highlight : ''}`}
-                style={
-                  {
-                    '--ci-value': workload.tokensPerSecond[engine] / comparisonAxisMax,
-                    '--ci-i': index,
-                  } as CSSProperties
-                }
                 key={engine}
               >
                 <dt>{engine}</dt>
                 <dd>
                   <span className={styles.track} aria-hidden="true">
-                    <span className={styles.prism} />
+                    <span
+                      style={
+                        {
+                          width: `${(workload.tokensPerSecond[engine] / comparisonAxisMax) * 100}%`,
+                          '--ci-i': index,
+                        } as CSSProperties
+                      }
+                    />
                   </span>
-                  <strong>{workload.tokensPerSecond[engine].toFixed(1)}</strong>
-                  <span className={styles.unit}> tok/s</span>
+                  <strong>
+                    {workload.tokensPerSecond[engine].toFixed(1)}
+                    <span> tok/s</span>
+                  </strong>
                 </dd>
               </div>
             ))}

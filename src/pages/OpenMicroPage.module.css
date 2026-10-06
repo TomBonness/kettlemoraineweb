@@ -80,26 +80,6 @@
   color: var(--accent);
 }
 
-.conceptTag {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-  color: #9a8150;
-  font-family: var(--font-mono);
-  font-size: 0.68rem;
-  font-weight: 600;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-}
-
-.conceptTag::before {
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background: currentColor;
-  content: '';
-}
-
 /* Status */
 
 .statusSection {
@@ -109,70 +89,34 @@
     var(--om-void);
 }
 
-.statusSection .conceptTag {
-  color: #c9a96a;
-}
-
-.nightScene {
-  margin: clamp(4rem, 8vw, 6.5rem) 0 0;
-}
-
-.nightScene img {
-  display: block;
-  width: 100%;
-  height: auto;
-  border: 1px solid #1d2026;
-  border-radius: var(--radius-large);
-}
-
-.nightScene figcaption {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: baseline;
-  gap: 0.6rem 1.4rem;
-  margin-top: 1.2rem;
-  color: #a9afba;
-  font-size: 0.92rem;
-  line-height: 1.6;
-}
-
 /* Design */
 
 .designSection {
-  overflow-x: clip;
   background: var(--canvas);
 }
 
-.renders {
+.material {
   display: grid;
-  grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
+  grid-template-columns: minmax(0, 1.25fr) minmax(0, 0.75fr);
   align-items: end;
-  gap: clamp(1.5rem, 4vw, 3.5rem);
-  margin-top: clamp(3rem, 7vw, 6rem);
+  gap: clamp(2rem, 5vw, 4.5rem);
+  margin-top: clamp(4.5rem, 9vw, 8rem);
 }
 
-.renders figure {
+.detailScene {
   margin: 0;
 }
 
-.renders img {
+.detailScene img {
   display: block;
   width: 100%;
   height: auto;
   border-radius: var(--radius-large);
+  box-shadow: 0 40px 80px -48px rgb(20 22 26 / 45%);
 }
 
-.explodedScene figcaption {
-  display: grid;
-  gap: 0.4rem;
-  margin-top: 1rem;
-  color: var(--text-secondary);
-  font-size: 0.85rem;
-  line-height: 1.6;
-}
-
-.material h3 {
-  margin: clamp(1.5rem, 3vw, 2.4rem) 0 0;
+.materialCopy h3 {
+  margin: 0;
   font-family: var(--font-serif);
   font-size: clamp(2rem, 3.4vw, 3rem);
   font-weight: 500;
@@ -180,7 +124,7 @@
   line-height: 1.05;
 }
 
-.material p {
+.materialCopy p {
   max-width: 34rem;
   margin: 0.9rem 0 0;
   color: var(--text-secondary);
@@ -191,20 +135,96 @@
 /* Connectivity */
 
 .connectSection {
+  --om-card: #0e1013;
   background:
     radial-gradient(50% 30% at 50% 30%, rgb(201 169 106 / 8%), transparent 70%),
     var(--om-void);
 }
 
 .deskScene {
-  margin: 0 0 14px;
+  overflow: hidden;
+  margin: 0;
+  border: 1px solid #1d2026;
+  border-radius: var(--radius-large);
 }
 
 .deskScene img {
   display: block;
   width: 100%;
   height: auto;
-  border-radius: var(--radius-large);
+}
+
+/* A slow drift of at most 24px while the render crosses the viewport. */
+@supports (animation-timeline: view()) {
+  .deskScene img {
+    scale: 1.05;
+    animation: desk-drift linear both;
+    animation-timeline: view();
+  }
+}
+
+@keyframes desk-drift {
+  from {
+    translate: 0 -12px;
+  }
+
+  to {
+    translate: 0 12px;
+  }
+}
+
+.connectGrid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 12px;
+  margin-top: 12px;
+}
+
+.connection {
+  min-width: 0;
+  padding: 1.8rem 1.6rem 2rem;
+  border: 1px solid #1d2026;
+  border-radius: 18px;
+  background: var(--om-card);
+  transition:
+    transform 500ms var(--motion-ease),
+    border-color 500ms var(--motion-ease);
+}
+
+.connection:hover {
+  border-color: #2d323b;
+  transform: translateY(-3px);
+}
+
+.connectionIcon {
+  display: block;
+  width: 52px;
+  height: 52px;
+  margin: 0 0 1.6rem;
+  color: #e2c58f;
+}
+
+.connection .connectionLabel {
+  margin: 0 0 0.6rem;
+  color: #8a909b;
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.connection h3 {
+  margin: 0 0 0.8rem;
+  font: 500 clamp(1.45rem, 2.2vw, 1.85rem) / 1.1 var(--font-serif);
+  letter-spacing: -0.035em;
+}
+
+.connection p {
+  margin: 0;
+  color: #a9afba;
+  font-size: 0.88rem;
+  line-height: 1.7;
 }
 
 /* Specs */
@@ -284,7 +304,6 @@
 
 .studioScene {
   margin: 0;
-  perspective: 1400px;
 }
 
 .studioScene img {
@@ -292,13 +311,7 @@
   width: 100%;
   height: auto;
   border-radius: var(--radius-large);
-  box-shadow: 0 50px 90px -50px rgb(10 12 16 / 70%);
-  transform: rotateY(-8deg) rotateX(3deg);
-  transition: transform 900ms var(--motion-ease);
-}
-
-.studioScene:hover img {
-  transform: none;
+  box-shadow: 0 50px 90px -50px rgb(10 12 16 / 60%);
 }
 
 /* Waitlist */
@@ -307,57 +320,45 @@
   position: relative;
   isolation: isolate;
   overflow: hidden;
+  padding-top: clamp(4rem, 8vw, 6rem);
   background:
-    radial-gradient(40% 30% at 50% 18%, rgb(201 169 106 / 12%), transparent 70%),
-    radial-gradient(50% 40% at 50% 30%, rgb(5 72 253 / 12%), transparent 70%),
+    radial-gradient(40% 30% at 50% 0%, rgb(201 169 106 / 12%), transparent 70%),
+    radial-gradient(50% 40% at 50% 10%, rgb(5 72 253 / 10%), transparent 70%),
     var(--graphite);
 }
 
 .signup > section {
   border-top: 0;
   background: transparent;
-  padding-top: clamp(2rem, 4vw, 3.5rem);
+  padding-top: clamp(1.5rem, 3vw, 2.5rem);
 }
 
 .signup :global(.sectionInner) {
   max-width: calc(var(--content-max) - var(--gutter) * 2);
 }
 
-.signupModel {
-  position: relative;
-  display: grid;
-  justify-items: center;
-  width: min(460px, 78vw);
-  margin: 0 auto;
-  padding-top: clamp(4rem, 8vw, 6rem);
-}
-
-.signupGlow {
-  position: absolute;
-  z-index: -1;
-  inset: 30% 6% 10%;
-  background:
-    radial-gradient(45% 45% at 40% 50%, rgb(201 169 106 / 38%), transparent 70%),
-    radial-gradient(45% 45% at 62% 55%, rgb(5 72 253 / 34%), transparent 70%);
-  filter: blur(36px);
-}
-
-.signupModel img {
-  display: block;
+.signupTag {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
   width: 100%;
-  height: auto;
-  margin: -12% 0 -14%;
-  animation: float 6s ease-in-out infinite;
-}
-
-.signupModel .conceptTag {
+  max-width: var(--content-max);
+  margin: 0 auto;
+  padding: 0 var(--gutter);
   color: #c9a96a;
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
 }
 
-@keyframes float {
-  50% {
-    transform: translateY(-12px) rotate(-1deg);
-  }
+.signupTag::before {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: currentColor;
+  content: '';
 }
 
 @media (max-width: 1050px) {
@@ -366,10 +367,14 @@
     grid-template-columns: 1fr;
     gap: 2rem;
   }
+
+  .connectGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
 }
 
 @media (max-width: 900px) {
-  .renders {
+  .material {
     grid-template-columns: 1fr;
   }
 }
@@ -382,18 +387,21 @@
   .sectionIntro {
     margin-bottom: 2rem;
   }
+}
 
-  .studioScene img {
-    transform: none;
+@media (max-width: 560px) {
+  .connectGrid {
+    grid-template-columns: 1fr;
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .signupModel img {
+  .deskScene img {
     animation: none;
+    scale: none;
   }
 
-  .studioScene img {
+  .connection {
     transition: none;
   }
 }

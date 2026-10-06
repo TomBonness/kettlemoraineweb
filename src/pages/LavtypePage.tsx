@@ -1,10 +1,9 @@
 import { Icon3D } from '../components/Icon3D'
-import { LavtypeEnclosure } from '../components/LavtypeEnclosure'
-import { LavtypePlatforms } from '../components/LavtypePlatforms'
-import { LavtypeSequence } from '../components/LavtypeSequence'
+import { LavtypeLocalPath } from '../components/LavtypeLocalPath'
 import { LavtypeStage } from '../components/LavtypeStage'
 import { ProductHero } from '../components/ProductHero'
 import { SiteShell } from '../components/SiteShell'
+import { VoiceTrace } from '../components/VoiceTrace'
 import { routes } from '../content/catalog'
 import {
   lavtypeHero,
@@ -18,6 +17,21 @@ import {
   platformDetails,
 } from '../content/lavtype'
 import styles from './LavtypePage.module.css'
+
+const platforms = [
+  {
+    id: 'macos',
+    name: 'macOS',
+    format: 'DMG download',
+    details: platformDetails.slice(0, 3),
+  },
+  {
+    id: 'linux',
+    name: 'Linux',
+    format: 'AppImage download',
+    details: platformDetails.slice(3, 6),
+  },
+] as const
 
 export function LavtypePage() {
   return (
@@ -55,7 +69,7 @@ export function LavtypePage() {
               </h2>
               <p className={styles.lead}>{lavtypeProcess.lead}</p>
             </div>
-            <LavtypeSequence />
+            <VoiceTrace />
           </div>
         </section>
 
@@ -73,7 +87,7 @@ export function LavtypePage() {
               </h2>
               <p className={styles.lead}>{lavtypeRecognition.lead}</p>
             </div>
-            <LavtypeEnclosure />
+            <LavtypeLocalPath />
             <div className={styles.recognition}>
               <div>
                 <p className={styles.body}>{lavtypeRecognition.body}</p>
@@ -104,7 +118,28 @@ export function LavtypePage() {
               </h2>
               <p className={styles.lead}>{lavtypePlatform.lead}</p>
             </div>
-            <LavtypePlatforms />
+            <div className={styles.platforms}>
+              {platforms.map((platform) => (
+                <article
+                  className={styles.platform}
+                  aria-labelledby={`${platform.id}-title`}
+                  key={platform.id}
+                >
+                  <div className={styles.platformHeading}>
+                    <h3 id={`${platform.id}-title`}>{platform.name}</h3>
+                    <span>{platform.format}</span>
+                  </div>
+                  <dl className={styles.platformDetails}>
+                    {platform.details.map(([term, detail]) => (
+                      <div key={term}>
+                        <dt>{term}</dt>
+                        <dd>{detail}</dd>
+                      </div>
+                    ))}
+                  </dl>
+                </article>
+              ))}
+            </div>
             <dl className={styles.facts}>
               {platformDetails.slice(6).map(([term, detail]) => (
                 <div key={term}>

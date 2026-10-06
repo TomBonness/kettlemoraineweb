@@ -33,16 +33,16 @@
 .rig {
   position: relative;
   transform:
-    translateY(calc(var(--rest) * 7%))
-    rotateX(calc(var(--rest) * 28deg + var(--intro) * 16deg - var(--my) * 3deg))
-    rotateY(calc(var(--rest) * -16deg + var(--mx) * 5deg))
-    rotateZ(calc(var(--rest) * 3.5deg));
+    translateY(calc(var(--rest) * 5%))
+    rotateX(calc(var(--rest) * 20deg + var(--intro) * 10deg - var(--my) * 2.5deg))
+    rotateY(calc(var(--rest) * -11deg + var(--mx) * 4deg))
+    rotateZ(calc(var(--rest) * 2deg));
   transform-style: preserve-3d;
 }
 
 .rig > .window {
-  --cw-explode: calc(var(--rest) + var(--intro) * 1.4);
-  --cw-gap: calc(60 * var(--u));
+  --cw-explode: calc(var(--rest) * 0.6 + var(--intro) * 0.8);
+  --cw-gap: calc(52 * var(--u));
 }
 
 @keyframes stage-in {
@@ -60,8 +60,8 @@
 
   .rig {
     transform:
-      rotateX(calc(var(--rest) * 26deg + var(--intro) * 14deg))
-      rotateY(calc(var(--rest) * -12deg))
-      rotateZ(calc(var(--rest) * 4deg));
+      rotateX(calc(var(--rest) * 18deg + var(--intro) * 9deg))
+      rotateY(calc(var(--rest) * -8deg))
+      rotateZ(calc(var(--rest) * 2.5deg));
   }
 }

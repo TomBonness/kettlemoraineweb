@@ -1,61 +1,33 @@
-/* --progress: 0 → 1 as the arc rises into view; --mx / --my: the pointer. Each lane has
-   --ci-offset (-1, 0, 1 from the middle) and --ci-distance (its absolute value). */
+/* --progress: 0 → 1 as the screens rise into view. They settle from a slight tilt to flat. */
 
 .race {
   margin: 0;
   color: #e6e9f0;
 }
 
-.arc {
+.stage {
   --progress: 0;
-  --mx: 0;
-  --my: 0;
   --ci-rest: clamp(0, 1 - var(--progress), 1);
-  position: relative;
-  padding: 1rem 0 3.5rem;
-  perspective: 1700px;
-  perspective-origin: 50% 20%;
+  padding: 0 0 2.5rem;
+  perspective: 1800px;
+  perspective-origin: 50% 0%;
 }
 
-/* A pool of light under the screens, so they stand on something. */
-.arc::after {
-  position: absolute;
-  right: 6%;
-  bottom: 0;
-  left: 6%;
-  height: 6rem;
-  background: radial-gradient(50% 50% at 50% 50%, rgb(5 72 253 / 34%), transparent 72%);
-  filter: blur(8px);
-  content: '';
+.still {
+  --progress: 1;
 }
 
 .lanes {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: clamp(0.8rem, 1.6vw, 1.4rem);
-  transform: rotateX(calc(var(--ci-rest) * 18deg + var(--my) * -3deg)) rotateY(calc(var(--mx) * 5deg));
-  transform-style: preserve-3d;
+  transform: rotateX(calc(var(--ci-rest) * 10deg));
+  transform-origin: 50% 0%;
 }
 
-/* Concave arc: the outer screens swing in to face you, and come forward. */
 .lane {
   position: relative;
   min-width: 0;
-  transform: translateX(calc(var(--ci-offset) * -2%))
-    translateZ(calc(var(--ci-distance) * (50px + var(--ci-rest) * 70px)))
-    rotateY(calc(var(--ci-offset) * -1 * (24deg + var(--ci-rest) * 16deg)));
-  transform-style: preserve-3d;
-}
-
-/* The screen's back plate and edge give it thickness. */
-.lane::before {
-  position: absolute;
-  inset: 0;
-  border-radius: 18px;
-  background: linear-gradient(180deg, #1a1d24, #06070a);
-  box-shadow: 0 40px 80px rgb(0 0 0 / 55%);
-  content: '';
-  transform: translateZ(-16px);
 }
 
 .bezel {
@@ -70,8 +42,7 @@
     #0a0b0f;
   box-shadow:
     inset 0 1px 0 rgb(255 255 255 / 7%),
-    0 0 0 1px rgb(0 0 0 / 50%);
-  -webkit-box-reflect: below 14px linear-gradient(transparent 78%, rgb(255 255 255 / 10%));
+    0 30px 70px rgb(0 0 0 / 45%);
 }
 
 .highlight .bezel {
@@ -81,8 +52,8 @@
     #080b14;
   box-shadow:
     inset 0 1px 0 rgb(223 232 255 / 18%),
-    0 0 0 1px rgb(5 72 253 / 40%),
-    0 0 70px rgb(5 72 253 / 32%);
+    0 30px 70px rgb(0 0 0 / 45%),
+    0 0 60px rgb(5 72 253 / 18%);
 }
 
 .laneHeader {
@@ -141,18 +112,10 @@
   margin-left: 1px;
   background: #5b6474;
   vertical-align: text-bottom;
-  animation: blink 1s steps(2, start) infinite;
 }
 
 .highlight .caret {
   background: #89adff;
-  box-shadow: 0 0 10px #89adff;
-}
-
-@keyframes blink {
-  to {
-    visibility: hidden;
-  }
 }
 
 .laneFooter {
@@ -184,7 +147,6 @@
 
 .highlight .progress > span {
   background: linear-gradient(90deg, #0548fd, #5c64ff, #89adff);
-  box-shadow: 0 0 10px rgb(137 173 255 / 80%);
 }
 
 .done {
@@ -195,7 +157,7 @@
   color: #89adff;
 }
 
-/* The finish time pops forward off the screen when a lane is done. */
+/* The finish time appears over the screen when a lane is done. */
 .badge {
   position: absolute;
   top: 3.6rem;
@@ -218,7 +180,6 @@
 .highlight .badge {
   border-color: transparent;
   background: linear-gradient(135deg, #f3f6ff, #89adff);
-  box-shadow: 0 0 30px rgb(137 173 255 / 60%);
   color: #071030;
 }
 
@@ -271,27 +232,15 @@
 @media (max-width: 900px) {
   .lanes {
     grid-template-columns: 1fr;
-    transform: rotateX(calc(var(--ci-rest) * 10deg + 6deg));
-  }
-
-  .lane {
-    transform: translateZ(calc(var(--ci-offset) * 24px));
+    transform: none;
   }
 
   .screen {
     height: 8.5rem;
   }
-
-  .bezel {
-    -webkit-box-reflect: unset;
-  }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .caret {
-    animation: none;
-  }
-
   .badge {
     transition: none;
   }

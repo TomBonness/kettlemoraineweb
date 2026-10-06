@@ -1,22 +1,12 @@
 import { useCallback, useEffect, useRef, useState, type CSSProperties } from 'react'
 import { lavtypeDemo, lavtypeExampleShortcut, lavtypeProcess } from '../content/lavtype'
 import { prefersReducedMotion, useInView, useInterval, useStageMotion } from '../lib/motion'
-import { LavtypeKeycaps } from './LavtypeKeycaps'
 import styles from './LavtypeStage.module.css'
 
 type Phase = 'idle' | 'listening' | 'recognizing' | 'typing' | 'typed' | 'short'
 
 const transcript = lavtypeProcess.transcript
-const barCount = 64
-
-/** A ring of bars around the keys; each bar gets a speech-like level and a colour stop. */
-const bars = Array.from({ length: barCount }, (_, index) => {
-  const swing = Math.sin(index * 0.9) * 0.55 + Math.sin(index * 0.37 + 1.2) * 0.45
-  return {
-    level: 0.22 + Math.abs(swing) * 0.78,
-    tone: Math.abs((index / barCount) * 2 - 1),
-  }
-})
+const barCount = 20
 
 /** How long the self-playing demo waits in each phase before moving on. */
 const autoplayDelays: Partial<Record<Phase, number>> = {
@@ -26,10 +16,22 @@ const autoplayDelays: Partial<Record<Phase, number>> = {
   short: 1800,
 }
 
+/** A speech-like level for each bar of the dictation pill, tapering towards the ends. */
+function levelAt(index: number, seconds: number) {
+  const swing = Math.sin(seconds * 5.3 + index * 0.75) * 0.6 + Math.sin(seconds * 2.1 + index * 0.31) * 0.4
+  const envelope = 0.55 + 0.45 * Math.sin((Math.PI * (index + 0.5)) / barCount)
+  return 0.2 + Math.abs(swing) * 0.8 * envelope
+}
+
+function clock(seconds: number) {
+  const whole = Math.floor(seconds)
+  return `${Math.floor(whole / 60)}:${String(whole % 60).padStart(2, '0')}`
+}
+
 /**
- * The hero centerpiece: the example shortcut as keycaps on a glowing pad, ringed by a waveform.
- * Hold the keys (pointer, or Space/Enter while focused) and the ring listens; release and the
- * transcript types into a floating focused-app window. Plays itself while idle and on screen.
+ * The hero centerpiece: a notes window and the example shortcut on a gently tilted plane. Hold
+ * the keys (pointer, or Space/Enter while focused) and a dictation pill listens; release and the
+ * one final transcript types into the note. Plays itself while idle and on screen.
  */
 export function LavtypeStage() {
   const stage = useRef<HTMLElement>(null)
@@ -80,7 +82,7 @@ export function LavtypeStage() {
     window.clearTimeout(assistedHold.current)
   }
 
-  // The capture clock, which stops a hold at the cap.
+  // The capture clock, which also moves the waveform and stops a hold at the cap.
   useInterval(
     () => {
       const seconds = (performance.now() - startedAt.current) / 1000
@@ -103,7 +105,7 @@ export function LavtypeStage() {
           go('typing')
         }
       },
-      reduced ? 300 : 1100,
+      reduced ? 300 : 1000,
     )
     return () => window.clearTimeout(timer)
   }, [phase, reduced, go])
@@ -134,8 +136,16 @@ export function LavtypeStage() {
     return () => window.clearTimeout(timer)
   }, [autoplay, inView, phase, press, release, go])
 
+  // A self-played hold that scrolls away is dropped, so nothing runs off screen.
+  useEffect(() => {
+    if (inView || !autoplay || phaseRef.current !== 'listening') return
+    setElapsed(0)
+    go('idle')
+  }, [inView, autoplay, go])
+
   useEffect(() => () => window.clearTimeout(assistedHold.current), [])
 
+  const listening = phase === 'listening'
   const status =
     phase === 'listening'
       ? lavtypeDemo.listening
@@ -151,115 +161,126 @@ export function LavtypeStage() {
 
   return (
     <figure
-      className={`${styles.stage} ${reduced ? styles.still : ''} ${inView ? '' : styles.paused}`}
       ref={stage}
       data-phase={phase}
+      className={`${styles.stage} ${reduced ? styles.still : ''} ${inView ? '' : styles.paused}`}
     >
-      <div className={styles.viewport}>
-        <div className={styles.glow} aria-hidden="true" />
-        <div className={styles.world}>
-          <div className={styles.pad} aria-hidden="true">
-            <span className={styles.ripple} />
-            <span className={styles.ripple} />
-            <span className={styles.ripple} />
+      <div className={styles.glow} aria-hidden="true" />
+      <div className={styles.rig}>
+        <div className={styles.window} aria-hidden="true">
+          <div className={styles.titlebar}>
+            <span className={styles.lights}>
+              <i />
+              <i />
+              <i />
+            </span>
+            <span className={styles.title}>Notes</span>
+            <span className={styles.focus}>{lavtypeDemo.focusedApp}</span>
           </div>
-          <div className={styles.beam} aria-hidden="true">
-            <span />
-          </div>
-          <div className={styles.ring} aria-hidden="true">
-            {bars.map((bar, index) => (
-              <span
-                className={styles.bar}
-                style={
-                  {
-                    '--i': index,
-                    '--n': barCount,
-                    '--level': bar.level.toFixed(3),
-                    '--tone': bar.tone.toFixed(3),
-                  } as CSSProperties
-                }
-                key={index}
-              >
-                <span />
+          <div className={styles.body}>
+            <div className={styles.sidebar}>
+              <span className={styles.sideHead}>Today</span>
+              <span className={styles.note} data-current="">
+                <b>Drawing review</b>
+                <small>9:41</small>
               </span>
-            ))}
+              <span className={styles.note}>
+                <b>Bracket order</b>
+                <small>Yesterday</small>
+              </span>
+              <span className={styles.note}>
+                <b>Print shop</b>
+                <small>Monday</small>
+              </span>
+            </div>
+            <div className={styles.editor}>
+              <span className={styles.date}>Today at 9:41</span>
+              <span className={styles.noteTitle}>Drawing review</span>
+              <span className={styles.line}>Mark up the hinge detail.</span>
+              <span className={styles.line}>Check the bracket dimensions.</span>
+              <span className={styles.typed}>
+                {transcript.slice(0, typed)}
+                <span className={styles.caret} />
+              </span>
+              <span className={styles.final}>{lavtypeDemo.finalTranscript}</span>
+            </div>
           </div>
+          <div className={styles.pill}>
+            <svg className={styles.mic} viewBox="0 0 16 20" fill="none">
+              <rect x="5" y="1" width="6" height="11" rx="3" />
+              <path d="M2.5 9a5.5 5.5 0 0 0 11 0M8 14.5V18" />
+            </svg>
+            <span className={styles.wave}>
+              {Array.from({ length: barCount }, (_, index) => (
+                <span
+                  style={
+                    {
+                      '--level': listening ? levelAt(index, elapsed).toFixed(3) : 0.14,
+                    } as CSSProperties
+                  }
+                  key={index}
+                />
+              ))}
+            </span>
+            <span className={styles.clock}>{clock(elapsed)}</span>
+          </div>
+        </div>
 
-          <button
-            className={styles.key}
-            type="button"
-            aria-label={lavtypeDemo.button}
-            aria-describedby="lavtype-stage-hint"
-            onPointerDown={(event) => {
-              if (event.button !== 0) return
-              event.currentTarget.setPointerCapture(event.pointerId)
-              takeOver()
-              press()
-            }}
-            onPointerUp={() => release()}
-            onPointerCancel={() => release()}
-            onLostPointerCapture={() => release()}
-            onContextMenu={(event) => event.preventDefault()}
-            onKeyDown={(event) => {
-              if (event.key !== ' ' && event.key !== 'Enter') return
-              event.preventDefault()
-              if (event.repeat) return
-              takeOver()
-              press()
-            }}
-            onKeyUp={(event) => {
-              if (event.key !== ' ' && event.key !== 'Enter') return
-              event.preventDefault()
-              keyReleasedAt.current = performance.now()
-              release()
-            }}
-            onBlur={() => release()}
-            onClick={(event) => {
-              // Assistive tech activates with a click and no hold: dictate a short phrase for it.
-              if (event.detail !== 0 || performance.now() - keyReleasedAt.current < 400) return
-              if (phaseRef.current === 'listening') return
-              takeOver()
-              press()
-              assistedHold.current = window.setTimeout(() => release(), 1600)
-            }}
-          >
-            <LavtypeKeycaps className={styles.keycaps} pressed={phase === 'listening'} />
-          </button>
+        <button
+          className={styles.keys}
+          type="button"
+          aria-label={lavtypeDemo.button}
+          aria-describedby="lavtype-stage-hint"
+          data-pressed={listening}
+          onPointerDown={(event) => {
+            if (event.button !== 0) return
+            event.currentTarget.setPointerCapture(event.pointerId)
+            takeOver()
+            press()
+          }}
+          onPointerUp={() => release()}
+          onPointerCancel={() => release()}
+          onLostPointerCapture={() => release()}
+          onContextMenu={(event) => event.preventDefault()}
+          onKeyDown={(event) => {
+            if (event.key !== ' ' && event.key !== 'Enter') return
+            event.preventDefault()
+            if (event.repeat) return
+            takeOver()
+            press()
+          }}
+          onKeyUp={(event) => {
+            if (event.key !== ' ' && event.key !== 'Enter') return
+            event.preventDefault()
+            keyReleasedAt.current = performance.now()
+            release()
+          }}
+          onBlur={() => release()}
+          onClick={(event) => {
+            // Assistive tech activates with a click and no hold: dictate a short phrase for it.
+            if (event.detail !== 0 || performance.now() - keyReleasedAt.current < 400) return
+            if (phaseRef.current === 'listening') return
+            takeOver()
+            press()
+            assistedHold.current = window.setTimeout(() => release(), 1600)
+          }}
+        >
+          <span className={styles.chord} aria-hidden="true">
+            {lavtypeExampleShortcut.keys.map((key, index) => (
+              <kbd
+                className={styles.key}
+                data-wide={key === 'Space' ? '' : undefined}
+                style={{ '--key': index } as CSSProperties}
+                key={key}
+              >
+                {key}
+              </kbd>
+            ))}
+          </span>
           <span className={styles.keyLabel} aria-hidden="true">
             {lavtypeExampleShortcut.label}
           </span>
-
-          <span className={styles.windowGlow} aria-hidden="true" />
-          <div className={styles.window} aria-hidden="true">
-            <span className={styles.windowTag}>{lavtypeDemo.focusedApp}</span>
-            <div className={styles.windowBack} />
-            {[4, 3, 2, 1].map((depth) => (
-              <span
-                className={styles.windowSlice}
-                style={{ '--depth': depth } as CSSProperties}
-                key={depth}
-              />
-            ))}
-            <div className={styles.windowFrame}>
-              <div className={styles.chrome}>
-                <i />
-                <i />
-                <i />
-                <span className={styles.chromeTitle} />
-              </div>
-              <div className={styles.doc}>
-                <span className={styles.ghostLine} style={{ '--w': '58%' } as CSSProperties} />
-                <span className={styles.ghostLine} style={{ '--w': '82%' } as CSSProperties} />
-                <span className={styles.ghostLine} style={{ '--w': '40%' } as CSSProperties} />
-                <p className={styles.typed}>
-                  {transcript.slice(0, typed)}
-                  <span className={styles.caret} />
-                </p>
-                <span className={styles.final}>{lavtypeDemo.finalTranscript}</span>
-              </div>
-            </div>
-          </div>
-        </div>
+        </button>
       </div>
 
       <figcaption className={styles.controls}>
@@ -278,7 +299,7 @@ export function LavtypeStage() {
               }
             />
           </span>
-          <span className={styles.meterValue}>
+          <span>
             {elapsed.toFixed(1)} s / {lavtypeDemo.captureLimitSeconds} s
           </span>
         </div>

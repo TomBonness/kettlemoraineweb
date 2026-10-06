@@ -1,135 +1,57 @@
-import { useRef, useState, type CSSProperties } from 'react'
 import { speedTechniques } from '../content/inference'
-import { prefersReducedMotion, useInView } from '../lib/motion'
 import styles from './InferenceTechniques.module.css'
 
-type Kind = (typeof speedTechniques)[number]['icon']
-
-/* Draft: 15 tokens fanned out in four ranks; the lit ones are the path the model keeps. */
-const fan = [3, 4, 4, 4].flatMap((count, rank) =>
-  Array.from({ length: count }, (_, slot) => ({
-    rank,
-    x: 26 + rank * 21,
-    y: 50 + (slot - (count - 1) / 2) * (26 - rank * 2),
-    z: (slot - (count - 1) / 2) * -26,
-  })),
-)
-const fanPath = new Set([1, 4, 8, 12])
-
-/* Verify: one distribution, drawn twice; the drafted copy settles onto the model's own. */
-const distribution = [0.22, 0.48, 0.9, 0.62, 0.34, 0.18, 0.1]
-
-function Illustration({ kind }: { kind: Kind }) {
-  if (kind === 'draft') {
-    return (
-      <div className={styles.draft}>
-        <span className={styles.seed} />
-        {fan.map((tile, index) => (
-          <span
-            className={`${styles.fanTile} ${fanPath.has(index) ? styles.onPath : ''}`}
-            style={
-              {
-                '--ci-x': tile.x,
-                '--ci-y': tile.y,
-                '--ci-z': tile.z,
-                '--ci-i': index,
-                '--ci-rank': tile.rank,
-              } as CSSProperties
-            }
-            key={index}
-          />
-        ))}
-        <span className={styles.counter}>15</span>
-      </div>
-    )
-  }
-
-  if (kind === 'lookup') {
-    return (
-      <div className={styles.lookup}>
-        <span className={`${styles.sheet} ${styles.context}`}>
-          <span className={styles.sheetLabel}>Context</span>
-          {[78, 54, 66, 40, 72].map((width, index) => (
-            <span className={styles.line} style={{ width: `${width}%` }} key={index} />
-          ))}
-          <span className={styles.match} />
-        </span>
-        <span className={`${styles.sheet} ${styles.answer}`}>
-          <span className={styles.sheetLabel}>Answer</span>
-          {[70, 48].map((width, index) => (
-            <span className={styles.line} style={{ width: `${width}%` }} key={index} />
-          ))}
-          <span className={styles.slot} />
-        </span>
-        <span className={styles.flying} />
-      </div>
-    )
-  }
-
-  if (kind === 'kernel') {
-    return (
-      <div className={styles.kernel}>
-        <div className={styles.board}>
-          <span className={styles.boardBase} />
-          <span className={styles.boardDie} />
-          <span className={`${styles.stream} ${styles.streamA}`}>
-            {['FP8', 'NVFP4', 'K8V4'].map((label, index) => (
-              <span style={{ '--ci-i': index } as CSSProperties} key={label}>
-                {label}
-              </span>
-            ))}
-          </span>
-          <span className={`${styles.stream} ${styles.streamB}`}>
-            {['GDN', 'GDN'].map((label, index) => (
-              <span style={{ '--ci-i': index } as CSSProperties} key={index}>
-                {label}
-              </span>
-            ))}
-          </span>
-        </div>
-      </div>
-    )
-  }
-
+function TechniqueIcon({ kind }: { kind: (typeof speedTechniques)[number]['icon'] }) {
   return (
-    <div className={styles.verify}>
-      {(['drafted', 'model'] as const).map((layer) => (
-        <span className={`${styles.plot} ${styles[layer]}`} key={layer}>
-          {distribution.map((height, index) => (
-            <span style={{ '--ci-bar': height } as CSSProperties} key={index} />
-          ))}
-        </span>
-      ))}
-      <svg className={styles.check} viewBox="0 0 48 48" fill="none">
-        <circle cx="24" cy="24" r="21" />
-        <path d="m15 24.5 6.5 6.5L34 18" />
-      </svg>
-    </div>
+    <svg viewBox="0 0 120 64" fill="none" aria-hidden="true">
+      {kind === 'draft' ? (
+        <>
+          <circle cx="12" cy="32" r="4" />
+          <path d="M16 32h10l12-17h8M26 32h20M26 32l12 17h8M62 32h8m16 0h8" />
+          <rect x="46" y="10" width="16" height="10" rx="2" />
+          <rect x="46" y="27" width="16" height="10" rx="2" />
+          <rect x="46" y="44" width="16" height="10" rx="2" />
+          <rect x="70" y="27" width="16" height="10" rx="2" />
+          <path d="m97 32 6 6 12-14" />
+        </>
+      ) : kind === 'lookup' ? (
+        <>
+          <rect x="8" y="8" width="42" height="48" rx="4" />
+          <path d="M17 19h24M17 28h16M17 47h20" />
+          <rect x="14" y="33" width="30" height="8" rx="2" />
+          <path d="M55 37h13m-5-5 5 5-5 5" />
+          <rect x="73" y="8" width="40" height="48" rx="4" />
+          <path d="M82 19h22M82 28h14" />
+          <rect x="79" y="33" width="28" height="8" rx="2" />
+        </>
+      ) : kind === 'kernel' ? (
+        <>
+          <path d="M4 24h18m-12 8h12M4 40h18" />
+          <rect x="38" y="10" width="44" height="44" rx="4" />
+          <rect x="50" y="22" width="20" height="20" rx="2" />
+          <path d="M48 10V3m12 7V3m12 7V3M48 61v-7m12 7v-7m12 7v-7M38 20h-7m7 12h-7m7 12h-7M82 20h7m-7 12h7m-7 12h7" />
+        </>
+      ) : (
+        <>
+          <rect x="8" y="14" width="44" height="36" rx="4" />
+          <path d="M16 26h28M16 38h20M60 28h12M60 36h12" />
+          <rect x="80" y="14" width="34" height="36" rx="4" />
+          <path d="m89 32 5 5 11-12" />
+        </>
+      )}
+    </svg>
   )
 }
 
-/** The four techniques, each with a small looping 3D scene that plays only while on screen. */
+/** The four techniques behind the speed, each with a line drawing. */
 export function InferenceTechniques() {
-  const grid = useRef<HTMLDivElement>(null)
-  const inView = useInView(grid, 0.2)
-  const [reduced] = useState(prefersReducedMotion)
-
   return (
-    <div
-      className={`${styles.techniques} ${reduced ? styles.still : ''}`}
-      data-playing={inView && !reduced}
-      ref={grid}
-    >
-      {speedTechniques.map((technique, index) => (
-        <article className={styles.card} key={technique.icon}>
-          <div className={styles.viewport} aria-hidden="true">
-            <span className={styles.index}>{String(index + 1).padStart(2, '0')}</span>
-            <Illustration kind={technique.icon} />
-          </div>
-          <div className={styles.text}>
-            <h3>{technique.title}</h3>
-            <p>{technique.description}</p>
-          </div>
+    <div className={styles.techniques}>
+      {speedTechniques.map((technique) => (
+        <article key={technique.icon}>
+          <TechniqueIcon kind={technique.icon} />
+          <h3>{technique.title}</h3>
+          <p>{technique.description}</p>
         </article>
       ))}
     </div>

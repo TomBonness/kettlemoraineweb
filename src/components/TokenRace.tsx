@@ -1,4 +1,5 @@
-import { useEffect, useLayoutEffect, useMemo, useRef, useState, type CSSProperties } from 'react'
+import { useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react'
+import { tokenPieces } from '../content/inference'
 import { prefersReducedMotion, useInView, useStageMotion } from '../lib/motion'
 import styles from './TokenRace.module.css'
 
@@ -20,19 +21,15 @@ function formatSeconds(seconds: number) {
 }
 
 /**
- * Three screens in an arc, each writing the same file at one engine's measured decode rate. It
+ * Three screens side by side, each writing the same file at one engine's measured decode rate. It
  * plays while on screen, pauses when scrolled away, and replays on request. With reduced motion
  * (or no IntersectionObserver) it opens on the finished race.
  */
 export function TokenRace({ lanes, text, tokenCount }: TokenRaceProps) {
-  // Token-sized pieces to reveal: words carry one leading space and whitespace runs stand alone.
-  const pieces = useMemo(
-    () => text.match(/ ?[A-Za-z_]+| ?\d+| ?[^\sA-Za-z0-9_]+|\s+/g) ?? [],
-    [text],
-  )
+  const pieces = useMemo(() => tokenPieces(text), [text])
   const duration = tokenCount / Math.min(...lanes.map((lane) => lane.tokensPerSecond))
   const figure = useRef<HTMLElement>(null)
-  const arc = useRef<HTMLDivElement>(null)
+  const stage = useRef<HTMLDivElement>(null)
   const screens = useRef<(HTMLDivElement | null)[]>([])
   const inView = useInView(figure, 0.35)
   const [reduced] = useState(prefersReducedMotion)
@@ -43,7 +40,7 @@ export function TokenRace({ lanes, text, tokenCount }: TokenRaceProps) {
   const done = elapsed >= duration
   const active = inView && !done
 
-  useStageMotion(arc, !reduced)
+  useStageMotion(stage, !reduced)
 
   useEffect(() => {
     if (!active) return
@@ -80,16 +77,14 @@ export function TokenRace({ lanes, text, tokenCount }: TokenRaceProps) {
 
   return (
     <figure className={styles.race} ref={figure}>
-      <div className={styles.arc} ref={arc} aria-hidden="true">
+      <div className={`${styles.stage} ${reduced ? styles.still : ''}`} ref={stage} aria-hidden="true">
         <div className={styles.lanes}>
           {results.map((lane, index) => {
             const finished = lane.shown === pieces.length
-            const offset = index - (results.length - 1) / 2
             return (
               <div
                 className={`${styles.lane} ${lane.highlight ? styles.highlight : ''}`}
                 data-finished={finished}
-                style={{ '--ci-offset': offset, '--ci-distance': Math.abs(offset) } as CSSProperties}
                 key={lane.engine}
               >
                 <div className={styles.bezel}>

@@ -1,8 +1,8 @@
 import { CopyCommand } from '../components/CopyCommand'
 import { Icon3D } from '../components/Icon3D'
 import { InferenceBars } from '../components/InferenceBars'
+import { InferenceDraftWindow } from '../components/InferenceDraftWindow'
 import { InferenceLadder } from '../components/InferenceLadder'
-import { InferenceStage } from '../components/InferenceStage'
 import { InferenceTechniques } from '../components/InferenceTechniques'
 import { ProductHero } from '../components/ProductHero'
 import { SiteShell } from '../components/SiteShell'
@@ -58,7 +58,7 @@ export function InferencePage() {
             'Engine: Apache-2.0',
           ]}
         >
-          <InferenceStage />
+          <InferenceDraftWindow />
         </ProductHero>
 
         <section className={styles.speedSection} id="speed" aria-labelledby="speed-title">

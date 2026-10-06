@@ -1,421 +1,248 @@
-/* --lt-voice: how loudly the ring is listening, eased between phases. */
-@property --lt-voice {
-  syntax: '<number>';
-  inherits: true;
-  initial-value: 0;
-}
+/* --progress: 0 at the top of the page, 1 once the window has risen into view.
+   --intro: 1 → 0 as the page opens. --mx / --my: the pointer, -1…1. */
 
-/* --progress / --intro / --mx / --my come from useStageMotion. */
 .stage {
   --progress: 0;
   --intro: 0;
   --mx: 0;
   --my: 0;
-  --lt-voice: 0;
   --rest: clamp(0, 1 - var(--progress), 1);
   position: relative;
   margin: 0;
-  container-type: inline-size;
+  perspective: 2400px;
+  perspective-origin: 50% 0%;
   animation: stage-in 1.2s var(--motion-ease) both;
-  transition: --lt-voice 700ms var(--motion-ease);
-}
-
-.stage[data-phase='listening'] {
-  --lt-voice: 1;
-  transition-duration: 380ms;
-}
-
-.stage[data-phase='recognizing'] {
-  --lt-voice: 0.22;
 }
 
 .still {
   --progress: 1;
-  --lt-voice: 0.55;
   animation: none;
-}
-
-/* Layout, in units of the stage width. */
-.viewport {
-  --world-w: 100cqi;
-  --world-d: 62cqi;
-  --pad-x: 29cqi;
-  --pad-y: 40cqi;
-  --ring-r: 21.5cqi;
-  --k: 6cqi;
-  --bar-w: 0.66cqi;
-  --bar-h: 11cqi;
-  --win-x: 53cqi;
-  --win-base: 36cqi;
-  --win-w: 44cqi;
-  --win-turn: 16deg;
-  --type-size: 2.15cqi;
-  --tilt: calc(54deg + var(--rest) * 9deg + var(--intro) * 16deg - var(--my) * 4deg);
-  --spin: calc(var(--rest) * -9deg + var(--mx) * 7deg);
-  position: relative;
-  height: 56cqi;
-  perspective: 2000px;
-  perspective-origin: 50% 0%;
 }
 
 .glow {
   position: absolute;
-  inset: 0 -8% -8%;
+  inset: 6% 4% 18%;
   background:
-    radial-gradient(30% 40% at 30% 66%, rgb(169 139 255 / calc(22% + var(--lt-voice) * 26%)), transparent 70%),
-    radial-gradient(28% 40% at 22% 58%, rgb(143 180 255 / 22%), transparent 72%),
-    radial-gradient(34% 44% at 76% 40%, rgb(240 154 208 / 16%), transparent 72%);
+    radial-gradient(40% 50% at 28% 55%, rgb(143 180 255 / 26%), transparent 72%),
+    radial-gradient(38% 48% at 52% 50%, rgb(169 139 255 / 24%), transparent 72%),
+    radial-gradient(40% 50% at 76% 45%, rgb(240 154 208 / 20%), transparent 72%);
   filter: blur(40px);
   pointer-events: none;
 }
 
-.world {
-  position: absolute;
-  top: calc(var(--world-d) * -0.18);
-  left: 50%;
-  width: var(--world-w);
-  height: var(--world-d);
-  margin-left: calc(var(--world-w) / -2);
+.rig {
+  position: relative;
+  width: min(100%, 980px);
+  margin: 0 auto;
+  padding-bottom: 3.4rem;
   transform:
-    translateY(calc(var(--rest) * 3cqi))
-    rotateX(var(--tilt))
-    rotateZ(var(--spin));
-  transform-origin: 50% 100%;
+    translateY(calc(var(--rest) * 5%))
+    rotateX(calc(var(--rest) * 18deg + var(--intro) * 10deg - var(--my) * 3deg))
+    rotateY(calc(var(--rest) * -9deg + var(--mx) * 4deg))
+    rotateZ(calc(var(--rest) * 1.5deg));
   transform-style: preserve-3d;
 }
 
-/* The pad on the floor: rings of light the keys sit in. */
-.pad {
-  position: absolute;
-  top: calc(var(--pad-y) - var(--ring-r) * 1.3);
-  left: calc(var(--pad-x) - var(--ring-r) * 1.3);
-  width: calc(var(--ring-r) * 2.6);
-  aspect-ratio: 1;
-  border-radius: 50%;
-  background:
-    radial-gradient(closest-side, rgb(169 139 255 / calc(18% + var(--lt-voice) * 30%)), transparent 70%),
-    repeating-radial-gradient(
-      closest-side,
-      transparent 0 calc(var(--ring-r) * 0.3 - 1px),
-      rgb(200 190 255 / 12%) calc(var(--ring-r) * 0.3 - 1px) calc(var(--ring-r) * 0.3)
-    ),
-    radial-gradient(closest-side, rgb(16 17 24 / 90%), rgb(16 17 24 / 0%));
-  box-shadow: inset 0 0 0 1px rgb(255 255 255 / 4%);
-}
+/* The focused app: a notes window in dark mode. */
 
-.ripple {
-  position: absolute;
-  inset: 26%;
-  border: 2px solid rgb(190 170 255 / 70%);
-  border-radius: 50%;
-  opacity: 0;
-}
-
-.stage[data-phase='listening'] .ripple {
-  animation: ripple 1.9s cubic-bezier(0.2, 0.7, 0.3, 1) infinite;
-}
-
-.ripple:nth-child(2) {
-  animation-delay: 0.63s !important;
-}
-
-.ripple:nth-child(3) {
-  animation-delay: 1.26s !important;
-}
-
-/* The path from the keys to the focused app, lit while the transcript travels. */
-.beam {
-  --dx: calc(var(--win-x) + var(--win-w) / 2 - var(--pad-x));
-  --dy: calc(var(--win-base) - var(--pad-y));
-  position: absolute;
-  top: var(--pad-y);
-  left: var(--pad-x);
-  width: hypot(var(--dx), var(--dy));
-  height: 0.5cqi;
-  overflow: hidden;
-  border-radius: 999px;
-  background: linear-gradient(90deg, transparent, rgb(169 139 255 / 18%) 30%, rgb(240 154 208 / 22%));
-  rotate: atan2(var(--dy), var(--dx));
-  transform: translateY(-50%) translateZ(1px);
-  transform-origin: 0 0;
-}
-
-.beam > span {
-  position: absolute;
-  inset: 0;
-  width: 30%;
-  background: linear-gradient(90deg, transparent, #f4e9ff 60%, transparent);
-  box-shadow: 0 0 20px #a98bff;
-  opacity: 0;
-  transform: translateX(-100%);
-}
-
-.stage[data-phase='recognizing'] .beam > span,
-.stage[data-phase='typing'] .beam > span {
-  animation: travel 0.9s var(--motion-ease) infinite;
-}
-
-/* The waveform: bars standing in a ring around the keys, turned to face you. */
-.ring {
-  position: absolute;
-  inset: 0;
-  transform-style: preserve-3d;
-  pointer-events: none;
-}
-
-.bar {
-  --a: calc(var(--i) / var(--n) * 360deg);
-  --r: calc(var(--ring-r) * (1 + var(--rest) * 0.14 + var(--intro) * 0.5));
-  position: absolute;
-  top: calc(var(--pad-y) - var(--bar-h));
-  left: calc(var(--pad-x) - var(--bar-w) / 2);
-  width: var(--bar-w);
-  height: var(--bar-h);
-  transform:
-    rotateZ(var(--a))
-    translateY(calc(var(--r) * -1))
-    rotateZ(calc(var(--a) * -1 - var(--spin)))
-    rotateX(calc(var(--tilt) * -1));
-  transform-origin: 50% 100%;
-  transform-style: preserve-3d;
-}
-
-.bar > span {
-  position: absolute;
-  inset: 0;
-  border-radius: 999px;
-  background: linear-gradient(
-    to top,
-    color-mix(in srgb, #8fb4ff calc(100% - var(--tone) * 100%), #f09ad0) 0%,
-    #a98bff 60%,
-    #fff 100%
-  );
-  box-shadow: 0 0 calc(var(--lt-voice) * 1.2cqi) rgb(169 139 255 / 70%);
-  transform: scaleY(calc(0.08 + var(--lt-voice) * var(--level) * 0.92));
-  transform-origin: 50% 100%;
-  animation: talk calc(0.42s + var(--level) * 0.5s) ease-in-out calc(var(--i) * -71ms) infinite
-    alternate;
-}
-
-/* The keys: a real button lying on the pad. */
-.key {
-  position: absolute;
-  top: var(--pad-y);
-  left: var(--pad-x);
-  display: block;
-  padding: calc(var(--k) * 0.28);
-  border: 0;
-  border-radius: calc(var(--k) * 0.42);
-  background: linear-gradient(180deg, #17181e, #0c0d10);
-  box-shadow:
-    inset 0 0 0 1px rgb(255 255 255 / 7%),
-    0 0 0 1px rgb(0 0 0 / 60%),
-    0 0 calc(var(--k) * 0.9) rgb(169 139 255 / calc(var(--lt-voice) * 45%));
-  cursor: pointer;
-  touch-action: none;
-  -webkit-touch-callout: none;
-  -webkit-tap-highlight-color: transparent;
-  user-select: none;
-  transform:
-    translate(-50%, -50%)
-    translateZ(calc(var(--rest) * 2.5cqi + var(--intro) * 7cqi));
-  transform-style: preserve-3d;
-  transition: box-shadow var(--hover-duration) var(--motion-ease);
-}
-
-.key:hover {
-  box-shadow:
-    inset 0 0 0 1px rgb(190 170 255 / 30%),
-    0 0 0 1px rgb(0 0 0 / 60%),
-    0 0 calc(var(--k) * 0.9) rgb(169 139 255 / calc(18% + var(--lt-voice) * 45%));
-}
-
-.key:focus-visible {
-  outline: 3px solid #a98bff;
-  outline-offset: calc(var(--k) * 0.12);
-}
-
-.keycaps {
-  display: flex;
-}
-
-.keyLabel {
-  position: absolute;
-  top: calc(var(--pad-y) + var(--k) * 1.05);
-  left: var(--pad-x);
-  color: rgb(200 196 230 / 62%);
-  font-family: var(--font-mono);
-  font-size: max(10px, calc(var(--k) * 0.2));
-  font-weight: 600;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  white-space: nowrap;
-  transform: translateX(-50%) translateZ(calc(var(--rest) * 2.5cqi + var(--intro) * 7cqi));
-}
-
-/* The focused app: a window standing behind the pad, leaning back a touch. */
 .window {
-  position: absolute;
-  bottom: calc(var(--world-d) - var(--win-base));
-  left: var(--win-x);
-  width: var(--win-w);
-  transform:
-    translateY(calc(var(--rest) * -3cqi))
-    rotateX(calc(var(--tilt) * -1 + 7deg))
-    translateY(calc(var(--rest) * -4cqi - var(--intro) * 10cqi))
-    rotateY(calc(var(--win-turn) + var(--rest) * -12deg));
-  transform-origin: 50% 100%;
-  transform-style: preserve-3d;
-}
-
-.windowTag {
-  position: absolute;
-  bottom: 100%;
-  left: 0;
-  margin-bottom: 1cqi;
-  color: #cfc6ff;
-  font-family: var(--font-mono);
-  font-size: max(10px, 0.82cqi);
-  font-weight: 600;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-  transform: translateZ(calc(2cqi + var(--rest) * 3cqi));
-}
-
-.windowBack {
-  position: absolute;
-  inset: 0;
-  border-radius: 1.2cqi;
-  background: linear-gradient(135deg, rgb(143 180 255 / 40%), rgb(169 139 255 / 30%), rgb(240 154 208 / 40%));
-  filter: blur(14px);
-  opacity: calc(0.35 + var(--lt-voice) * 0.25);
-  transform: translateZ(calc(-2.5cqi - var(--rest) * 4cqi));
-}
-
-/* Stacked panes behind the window give it thickness at an angle. */
-.windowSlice {
-  position: absolute;
-  inset: 0;
-  border: 1px solid rgb(190 176 255 / calc(22% - var(--depth) * 4%));
-  border-radius: 1.2cqi;
-  background: rgb(12 12 18 / 92%);
-  transform: translateZ(calc(var(--depth) * -0.32cqi));
-}
-
-/* Its light, spilling onto the floor. */
-.windowGlow {
-  position: absolute;
-  top: calc(var(--win-base) - 5cqi);
-  left: calc(var(--win-x) - 4cqi);
-  width: calc(var(--win-w) + 8cqi);
-  height: 14cqi;
-  border-radius: 50%;
-  background: radial-gradient(
-    closest-side,
-    rgb(169 139 255 / calc(16% + var(--lt-voice) * 10%)),
-    rgb(240 154 208 / 6%) 60%,
-    transparent
-  );
-  transform: translateZ(0.5px);
-}
-
-.windowFrame {
   position: relative;
   overflow: hidden;
-  border: 1px solid rgb(255 255 255 / 12%);
-  border-radius: 1.2cqi;
-  background: linear-gradient(180deg, rgb(32 33 40 / 96%), rgb(20 21 26 / 96%));
+  border: 1px solid rgb(255 255 255 / 11%);
+  border-radius: 14px;
+  background: #1b1b20;
   box-shadow:
-    inset 0 1px 0 rgb(255 255 255 / 10%),
-    0 4cqi 8cqi rgb(0 0 0 / 50%);
-  transition:
-    border-color 500ms var(--motion-ease),
-    box-shadow 500ms var(--motion-ease);
+    0 0 0 1px rgb(0 0 0 / 50%),
+    0 40px 90px rgb(0 0 0 / 55%);
+  color: #ececf1;
+  font-size: clamp(11px, 1.05vw, 15px);
+  user-select: none;
 }
 
-.stage[data-phase='typing'] .windowFrame,
-.stage[data-phase='typed'] .windowFrame {
-  border-color: rgb(196 180 255 / 45%);
-  box-shadow:
-    inset 0 1px 0 rgb(255 255 255 / 10%),
-    0 4cqi 8cqi rgb(0 0 0 / 50%),
-    0 0 4cqi rgb(169 139 255 / 28%);
-}
-
-.chrome {
+.titlebar {
+  position: relative;
   display: flex;
+  height: 2.9em;
   align-items: center;
-  gap: 0.55cqi;
-  padding: 1cqi 1.2cqi;
+  padding: 0 1.1em;
   border-bottom: 1px solid rgb(255 255 255 / 7%);
+  background: #232329;
 }
 
-.chrome i {
-  width: 0.8cqi;
-  height: 0.8cqi;
+.lights {
+  display: flex;
+  gap: 0.5em;
+}
+
+.lights i {
+  width: 0.82em;
+  height: 0.82em;
   border-radius: 50%;
-  background: #3b3d45;
+  background: #ff5f57;
 }
 
-.chromeTitle {
-  width: 22%;
-  height: 0.7cqi;
-  margin: 0 auto;
+.lights i:nth-child(2) {
+  background: #febc2e;
+}
+
+.lights i:nth-child(3) {
+  background: #28c840;
+}
+
+.title {
+  position: absolute;
+  left: 50%;
+  color: #c9c9d2;
+  font-size: 0.86em;
+  font-weight: 600;
+  transform: translateX(-50%);
+}
+
+.focus {
+  margin-left: auto;
+  padding: 0.3em 0.75em;
+  border: 1px solid rgb(169 139 255 / 35%);
   border-radius: 999px;
-  background: #33353d;
-  translate: -1.4cqi 0;
+  color: #cfc4ff;
+  font-family: var(--font-mono);
+  font-size: 0.66em;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
 }
 
-.doc {
+.body {
   display: grid;
-  gap: 1cqi;
-  padding: 1.8cqi 2cqi 2cqi;
+  min-height: 22em;
+  grid-template-columns: 15em minmax(0, 1fr);
 }
 
-.ghostLine {
-  width: var(--w);
-  height: 0.75cqi;
-  border-radius: 999px;
-  background: #2c2e36;
+.sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25em;
+  padding: 1.1em 0.7em;
+  border-right: 1px solid rgb(255 255 255 / 7%);
+  background: #18181c;
+}
+
+.sideHead {
+  padding: 0 0.6em 0.4em;
+  color: #8a8a96;
+  font-size: 0.72em;
+  font-weight: 700;
+}
+
+.note {
+  display: grid;
+  gap: 0.15em;
+  padding: 0.6em 0.65em;
+  border-radius: 7px;
+}
+
+.note[data-current] {
+  background: rgb(169 139 255 / 18%);
+}
+
+.note b {
+  overflow: hidden;
+  font-size: 0.86em;
+  font-weight: 600;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.note small {
+  color: #8a8a96;
+  font-size: 0.74em;
+}
+
+.editor {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 1.4em 2.2em 6em;
+}
+
+.date {
+  align-self: center;
+  color: #77777f;
+  font-size: 0.74em;
+}
+
+.noteTitle {
+  margin-top: 1em;
+  font-family: var(--font-serif);
+  font-size: 1.9em;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+}
+
+.line,
+.typed {
+  position: relative;
+  margin-top: 0.75em;
+  padding-left: 1.3em;
+  font-size: 1.12em;
+  line-height: 1.45;
+}
+
+.line {
+  color: #b9b9c3;
+}
+
+.line::before,
+.typed::before {
+  position: absolute;
+  top: 0.62em;
+  left: 0.15em;
+  width: 0.38em;
+  height: 0.38em;
+  border-radius: 50%;
+  background: #6f6f7a;
+  content: '';
 }
 
 .typed {
-  min-height: 1.3em;
-  margin: 0.6cqi 0 0;
-  color: #f4f3fb;
-  font-family: var(--font-serif);
-  font-size: var(--type-size);
-  font-weight: 500;
-  letter-spacing: -0.02em;
-  line-height: 1.3;
+  min-height: 1.45em;
+  color: #fff;
+}
+
+.paused .caret {
+  animation-play-state: paused;
+}
+
+.typed::before {
+  background: #a98bff;
 }
 
 .caret {
   display: inline-block;
   width: 2px;
-  height: 1.05em;
+  height: 1.1em;
   margin-left: 2px;
   background: #a98bff;
-  vertical-align: -0.15em;
-  animation: blink 1s steps(1) infinite;
+  vertical-align: -0.18em;
+  animation: blink 1.1s steps(1) infinite;
 }
 
 .final {
-  justify-self: start;
-  padding: 0.35cqi 0.8cqi;
-  border: 1px solid rgb(169 139 255 / 40%);
+  margin-top: 1em;
+  margin-left: 1.3em;
+  padding: 0.3em 0.7em;
   border-radius: 999px;
-  color: #cfc6ff;
+  background: rgb(143 180 255 / 13%);
+  color: #b9cdff;
   font-family: var(--font-mono);
-  font-size: max(10px, 0.78cqi);
+  font-size: 0.68em;
   font-weight: 600;
   letter-spacing: 0.08em;
   opacity: 0;
   text-transform: uppercase;
-  transform: translateY(0.5cqi);
+  transform: translateY(6px);
   transition:
-    opacity 400ms var(--motion-ease),
-    transform 400ms var(--motion-ease);
+    opacity 600ms var(--motion-ease),
+    transform 600ms var(--motion-ease);
 }
 
 .stage[data-phase='typed'] .final {
@@ -423,14 +250,170 @@
   transform: none;
 }
 
+/* The OS dictation pill, shown while the shortcut is held and while recognition finishes. */
+
+.pill {
+  position: absolute;
+  bottom: 1.4em;
+  font-size: 1.12em;
+  left: 50%;
+  display: flex;
+  height: 2.9em;
+  align-items: center;
+  gap: 0.75em;
+  padding: 0 1.05em 0 0.85em;
+  border: 1px solid rgb(255 255 255 / 14%);
+  border-radius: 999px;
+  background: #0c0c0f;
+  box-shadow: 0 14px 34px rgb(0 0 0 / 50%);
+  opacity: 0;
+  transform: translate(-50%, 12px) scale(0.96);
+  transition:
+    opacity 380ms var(--motion-ease),
+    transform 380ms var(--motion-ease);
+}
+
+.stage[data-phase='listening'] .pill,
+.stage[data-phase='recognizing'] .pill {
+  opacity: 1;
+  transform: translate(-50%, 0);
+}
+
+.mic {
+  width: 0.95em;
+  height: 1.2em;
+  flex: none;
+  stroke: #f09ad0;
+  stroke-linecap: round;
+  stroke-width: 1.8;
+}
+
+.mic rect {
+  fill: #f09ad0;
+  stroke: none;
+}
+
+.wave {
+  display: flex;
+  height: 1.5em;
+  align-items: center;
+  gap: 0.2em;
+}
+
+.wave span {
+  width: 0.2em;
+  height: 100%;
+  border-radius: 999px;
+  background: #ececf1;
+  transform: scaleY(var(--level));
+  transition: transform 110ms linear;
+}
+
+.stage[data-phase='recognizing'] .wave span {
+  opacity: 0.45;
+}
+
+.clock {
+  min-width: 2.4em;
+  color: #c9c9d2;
+  font-family: var(--font-mono);
+  font-size: 0.78em;
+  font-variant-numeric: tabular-nums;
+}
+
+/* The example shortcut, in front of the window. */
+
+.keys {
+  position: absolute;
+  right: 5%;
+  bottom: 0;
+  display: grid;
+  justify-items: center;
+  gap: 0.7rem;
+  padding: 0.7rem 0.8rem 0.6rem;
+  border: 0;
+  border-radius: 16px;
+  background: none;
+  cursor: pointer;
+  touch-action: none;
+  transform: translateZ(36px);
+  -webkit-touch-callout: none;
+  user-select: none;
+}
+
+.keys:focus-visible {
+  outline: 3px solid #a98bff;
+  outline-offset: 2px;
+}
+
+.chord {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.key {
+  display: inline-grid;
+  min-width: 3.6rem;
+  height: 3.6rem;
+  place-items: center;
+  padding: 0 0.9rem;
+  border-radius: 0.8rem;
+  background: linear-gradient(180deg, #fbfbfd 0%, #e9e9f0 100%);
+  box-shadow:
+    inset 0 1px 0 #fff,
+    inset 0 -3px 0 rgb(17 18 20 / 6%),
+    0 0 0 1px rgb(17 18 20 / 30%),
+    0 5px 0 #b9b9c7,
+    0 14px 24px rgb(0 0 0 / 45%);
+  color: #26262e;
+  font-family: var(--font-mono);
+  font-size: 1.05rem;
+  font-weight: 600;
+  transform: translateY(-3px);
+  transition:
+    transform 90ms var(--motion-ease),
+    box-shadow 90ms var(--motion-ease),
+    background 90ms var(--motion-ease),
+    color 90ms var(--motion-ease);
+}
+
+.key[data-wide] {
+  min-width: 8rem;
+  font-size: 0.86rem;
+}
+
+/* Pressed keys go down one after another, the way fingers find a chord. */
+.keys[data-pressed='true'] .key {
+  background: linear-gradient(180deg, #f1ecff 0%, #ded5fb 100%);
+  box-shadow:
+    inset 0 1px 0 #fff,
+    inset 0 -2px 0 rgb(17 18 20 / 5%),
+    0 0 0 1px rgb(120 92 220 / 55%),
+    0 1px 0 #a99bd8,
+    0 4px 10px rgb(0 0 0 / 35%);
+  color: #4a3a8c;
+  transform: translateY(2px);
+  transition-delay: calc(var(--key) * 70ms);
+}
+
+.keyLabel {
+  color: #a3a3b2;
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
 /* Status, capture clock and hint under the scene. */
+
 .controls {
   position: relative;
   display: grid;
   grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr) minmax(0, 1fr);
   align-items: center;
   gap: 1rem 2rem;
-  margin-top: 1.5rem;
+  margin-top: 1.75rem;
   font-size: 0.86rem;
 }
 
@@ -455,7 +438,6 @@
 
 .stage[data-phase='listening'] .statusDot {
   background: #f09ad0;
-  animation: pulse 1.2s ease-out infinite;
 }
 
 .stage[data-phase='recognizing'] .statusDot,
@@ -507,12 +489,6 @@
   text-align: right;
 }
 
-.paused *,
-.paused *::before,
-.paused *::after {
-  animation-play-state: paused !important;
-}
-
 @keyframes stage-in {
   from {
     opacity: 0;
@@ -520,125 +496,9 @@
   }
 }
 
-@keyframes talk {
-  from {
-    scale: 1 0.28;
-  }
-
-  to {
-    scale: 1 1;
-  }
-}
-
-@keyframes ripple {
-  0% {
-    opacity: 0.9;
-    transform: scale(0.75);
-  }
-
-  100% {
-    opacity: 0;
-    transform: scale(2.1);
-  }
-}
-
-@keyframes travel {
-  0% {
-    opacity: 1;
-    transform: translateX(-100%);
-  }
-
-  100% {
-    opacity: 1;
-    transform: translateX(340%);
-  }
-}
-
 @keyframes blink {
   50% {
     opacity: 0;
-  }
-}
-
-@keyframes pulse {
-  0% {
-    box-shadow: 0 0 0 0 rgb(240 154 208 / 70%);
-  }
-
-  100% {
-    box-shadow: 0 0 0 0.6rem rgb(240 154 208 / 0%);
-  }
-}
-
-@container (max-width: 1000px) {
-  .viewport {
-    --k: 6.8cqi;
-    --pad-x: 30cqi;
-    --ring-r: 24cqi;
-    --bar-h: 12cqi;
-    --win-x: 56cqi;
-    --win-w: 42cqi;
-    --type-size: 2.6cqi;
-    height: 60cqi;
-  }
-}
-
-/* Narrow screens: the window stands behind the pad instead of beside it. */
-@container (max-width: 640px) {
-  .viewport {
-    --world-d: 132cqi;
-    --pad-x: 50cqi;
-    --pad-y: 96cqi;
-    --ring-r: 38cqi;
-    --k: 12cqi;
-    --bar-w: 1.1cqi;
-    --bar-h: 15cqi;
-    --win-x: 4cqi;
-    --win-base: 44cqi;
-    --win-w: 92cqi;
-    --win-turn: 0deg;
-    --type-size: 5.4cqi;
-    --tilt: calc(52deg + var(--rest) * 6deg + var(--intro) * 12deg);
-    --spin: calc(var(--rest) * -5deg);
-    height: 128cqi;
-  }
-
-  .windowTag {
-    margin-bottom: 2cqi;
-    font-size: 2.6cqi;
-  }
-
-  .windowFrame,
-  .windowBack {
-    border-radius: 3cqi;
-  }
-
-  .chrome {
-    gap: 1.4cqi;
-    padding: 2.4cqi 3cqi;
-  }
-
-  .chrome i {
-    width: 2cqi;
-    height: 2cqi;
-  }
-
-  .chromeTitle {
-    height: 1.6cqi;
-  }
-
-  .doc {
-    gap: 2.2cqi;
-    padding: 4cqi 4.4cqi 4.6cqi;
-  }
-
-  .ghostLine {
-    height: 1.8cqi;
-  }
-
-  .final {
-    padding: 0.8cqi 2cqi;
-    font-size: 2.5cqi;
   }
 }
 
@@ -653,20 +513,62 @@
   }
 }
 
-@media (prefers-reduced-motion: reduce) {
+@media (max-width: 640px) {
   .stage {
-    transition: none;
+    perspective: 1500px;
   }
 
-  .bar > span,
-  .ripple,
-  .beam > span,
-  .caret,
-  .statusDot {
-    animation: none !important;
+  .rig {
+    padding-bottom: 0;
+    transform:
+      translateY(calc(var(--rest) * 4%))
+      rotateX(calc(var(--rest) * 16deg + var(--intro) * 8deg))
+      rotateY(calc(var(--rest) * -6deg));
+  }
+
+  .window {
+    font-size: 12px;
+  }
+
+  .body {
+    min-height: 0;
+    grid-template-columns: 1fr;
+  }
+
+  .sidebar {
+    display: none;
+  }
+
+  .editor {
+    padding: 1.1em 1.3em 5.4em;
+  }
+
+  .keys {
+    position: relative;
+    right: auto;
+    margin: 1.4rem auto 0;
+  }
+
+  .key {
+    min-width: 3rem;
+    height: 3rem;
+    font-size: 0.95rem;
+  }
+
+  .key[data-wide] {
+    min-width: 6.4rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .caret {
+    animation: none;
   }
 
   .final,
+  .pill,
+  .wave span,
+  .key,
   .meterTrack > span {
     transition: none;
   }

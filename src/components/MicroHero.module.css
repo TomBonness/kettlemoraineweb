@@ -1,0 +1,116 @@
+/* --progress: 0 at the top of the page, 1 once scrolled. --intro: 1 → 0 as the page opens.
+   --mx / --my: the pointer, -1…1. Written by useStageMotion. */
+
+.stage {
+  --progress: 0;
+  --intro: 0;
+  --mx: 0;
+  --my: 0;
+  --rest: clamp(0, 1 - var(--progress), 1);
+  position: relative;
+  z-index: 1;
+  width: min(880px, 100%);
+  margin: clamp(-1rem, -2vw, 0rem) auto 0;
+  perspective: 1800px;
+  animation: stage-in 1.1s var(--motion-ease) both;
+}
+
+.still {
+  --progress: 1;
+  animation: none;
+}
+
+.glow {
+  position: absolute;
+  inset: 4% -8% 6%;
+  background:
+    radial-gradient(34% 40% at 38% 52%, rgb(201 169 106 / 26%), transparent 72%),
+    radial-gradient(38% 44% at 64% 48%, rgb(5 72 253 / 30%), transparent 72%);
+  animation: breathe 7s ease-in-out infinite;
+  pointer-events: none;
+}
+
+.glow[data-live='false'] {
+  animation-play-state: paused;
+}
+
+.shadow {
+  position: absolute;
+  right: 14%;
+  bottom: 10%;
+  left: 14%;
+  height: 16%;
+  border-radius: 50%;
+  background:
+    radial-gradient(closest-side, rgb(0 0 0 / 85%), rgb(0 0 0 / 45%) 50%, transparent 78%),
+    radial-gradient(closest-side, rgb(201 169 106 / 16%), rgb(91 140 255 / 8%) 60%, transparent);
+  opacity: calc(0.75 + var(--rest) * 0.25);
+  transform: scaleX(calc(1 - var(--rest) * 0.06));
+  pointer-events: none;
+}
+
+.render {
+  position: relative;
+  /* The product fills the middle half of the square render; trim the empty margins. */
+  margin: -21% 0 -19%;
+  transform:
+    translateY(calc(var(--rest) * -14px + var(--intro) * 28px))
+    rotateX(calc(var(--rest) * 8deg - var(--my) * 2.5deg))
+    rotateY(calc(var(--mx) * 4deg))
+    rotateZ(calc(var(--rest) * -1.5deg));
+  pointer-events: none;
+}
+
+.render img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.tag {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+  margin: 0 0 clamp(1.5rem, 3vw, 2.5rem);
+  color: #c9a96a;
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.tag::before {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: currentColor;
+  content: '';
+}
+
+@keyframes breathe {
+  50% {
+    opacity: 0.7;
+  }
+}
+
+@keyframes stage-in {
+  from {
+    opacity: 0;
+  }
+}
+
+@media (max-width: 767px) {
+  .render {
+    margin-inline: -8%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .stage,
+  .glow {
+    animation: none;
+  }
+}
