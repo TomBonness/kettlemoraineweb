@@ -8,8 +8,6 @@ const waveformLevels = [
 ]
 
 type VoiceTraceProps = {
-  /** The small dark version, for a card on a dark surface. */
-  compact?: boolean
   id?: string
 }
 
@@ -17,7 +15,7 @@ type VoiceTraceProps = {
  * Hold → Speak → Release as three flat panels. While on screen it steps through them once every
  * couple of seconds; pointing at a step shows that step and stops the sequence.
  */
-export function VoiceTrace({ compact = false, id }: VoiceTraceProps) {
+export function VoiceTrace({ id }: VoiceTraceProps) {
   const figure = useRef<HTMLElement>(null)
   const inView = useInView(figure, 0.35)
   const [reduced] = useState(prefersReducedMotion)
@@ -34,7 +32,7 @@ export function VoiceTrace({ compact = false, id }: VoiceTraceProps) {
 
   return (
     <figure
-      className={`${styles.instrument} ${compact ? styles.compact : ''}`}
+      className={styles.instrument}
       id={id}
       ref={figure}
       data-playing={active !== null ? '' : undefined}

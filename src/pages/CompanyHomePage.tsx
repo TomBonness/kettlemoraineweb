@@ -1,13 +1,13 @@
 import { CinmuxWindow } from '../components/CinmuxWindow'
+import { HomeCardDictation } from '../components/HomeCardDictation'
+import { HomeCardDraft } from '../components/HomeCardDraft'
+import { HomeCardMicro } from '../components/HomeCardMicro'
+import { HomeHeroStage } from '../components/HomeHeroStage'
 import { SiteShell } from '../components/SiteShell'
-import { VoiceTrace } from '../components/VoiceTrace'
-import { WorkList } from '../components/WorkList'
 import { WorkspacePanes } from '../components/WorkspaceStage'
 import { productCatalog, routes } from '../content/catalog'
 import { heroFolders, heroTabs, omarchyThemes } from '../content/cinmux'
-import { llamaCppSpeedup, peakTokensPerSecond } from '../content/inference'
-import openMicroHome from '../assets/product/marketing/open-micro-home-960.webp'
-import openMicroHomeLarge from '../assets/product/marketing/open-micro-home-1600.webp'
+import { llamaCppSpeedup } from '../content/inference'
 import styles from './CompanyHomePage.module.css'
 
 const homeNavigation = productCatalog.map((product) => ({
@@ -45,7 +45,7 @@ export function CompanyHomePage() {
               </a>
             </div>
           </div>
-          <WorkList />
+          <HomeHeroStage />
         </div>
       </section>
 
@@ -71,16 +71,7 @@ export function CompanyHomePage() {
               aria-label={`Explore ${openMicro.name}`}
             >
               <div className={styles.openMicroMedia}>
-                <img
-                  src={openMicroHome}
-                  srcSet={`${openMicroHome} 960w, ${openMicroHomeLarge} 1600w`}
-                  width="1600"
-                  height="1190"
-                  alt="Art-directed concept visualization of Open Micro with twelve dark keys, a push encoder, and a softly illuminated smoked wall"
-                  sizes="(max-width: 767px) calc(100vw - 48px), (max-width: 1050px) calc(100vw - 96px), (max-width: 1280px) 65vw, 780px"
-                  loading="lazy"
-                  decoding="async"
-                />
+                <HomeCardMicro />
               </div>
               <div className={styles.featureCopy}>
                 <h3>{openMicro.name}</h3>
@@ -107,18 +98,7 @@ export function CompanyHomePage() {
               aria-label={`Explore ${inference.name}`}
             >
               <div className={styles.inferenceMedia}>
-                <img
-                  src="/products/inference/token-lens.svg"
-                  width="1200"
-                  height="1000"
-                  loading="lazy"
-                  decoding="async"
-                  alt=""
-                />
-                <div className={styles.inferenceMetric} aria-hidden="true">
-                  <span>{Math.floor(peakTokensPerSecond)}</span>
-                  <small>tokens per second on one RTX 5090</small>
-                </div>
+                <HomeCardDraft />
               </div>
               <div className={styles.featureCopy}>
                 <h3>{inference.name}</h3>
@@ -162,7 +142,7 @@ export function CompanyHomePage() {
                 </span>
               </div>
               <div className={styles.lavtypeMedia}>
-                <VoiceTrace compact />
+                <HomeCardDictation />
               </div>
             </a>
 

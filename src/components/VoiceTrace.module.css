@@ -1,4 +1,4 @@
-/* Light by default, for canvas sections; `.compact` is the small dark version for a dark card. */
+/* Light, for canvas sections. */
 
 .instrument {
   --vt-panel: #fff;
@@ -216,97 +216,6 @@
   line-height: 1.65;
 }
 
-/* Compact: dark panels for a card on a dark surface. */
-
-.compact {
-  --vt-panel: #171a21;
-  --vt-panel-border: #2a2f3b;
-  --vt-panel-shadow: none;
-  --vt-active-ring: rgb(169 139 255 / 55%);
-  --vt-active-shadow: 0 12px 28px rgb(0 0 0 / 35%);
-  --vt-rule: #2d323d;
-  --vt-muted: #aeb6c6;
-  --vt-number: #b7a6ff;
-  --vt-text: #f6f6f0;
-  --vt-quote: #f6f6f0;
-  display: flex;
-  height: 100%;
-  min-height: 0;
-  flex-direction: column;
-  justify-content: center;
-  padding: clamp(0.9rem, 2.2vw, 1.7rem);
-}
-
-/* The steps share the sequence's rows, so the panels and labels line up across the card. The
-   panels keep a fixed height, so a tall card centers the sequence instead of stretching it. */
-.compact .sequence {
-  min-height: 0;
-  grid-template-rows: clamp(120px, 15vw, 168px) auto;
-  gap: 0.75rem;
-}
-
-.compact .step {
-  grid-row: span 2;
-  grid-template-rows: subgrid;
-  gap: 0.75rem;
-}
-
-.compact .panel {
-  gap: 0.6rem;
-  border-radius: 12px;
-}
-
-.compact .chord {
-  gap: 0.25rem;
-}
-
-.compact .chord kbd {
-  min-width: 1.75rem;
-  height: 1.75rem;
-  padding: 0 0.4rem;
-  border-radius: 0.45rem;
-  font-size: 0.68rem;
-}
-
-.compact .chord kbd[data-wide] {
-  min-width: 3.4rem;
-  font-size: 0.6rem;
-}
-
-.compact .panelNote {
-  font-size: 0.58rem;
-}
-
-.compact .waveform {
-  gap: 2px;
-  padding: 1rem 0.6rem;
-}
-
-.compact .waveform span {
-  width: 2px;
-  min-width: 1px;
-}
-
-.compact .transcript {
-  padding: 0.7rem;
-}
-
-.compact .transcript q {
-  font-size: clamp(0.82rem, 1.5vw, 1.1rem);
-}
-
-.compact .stepCopy {
-  padding-top: 0.6rem;
-}
-
-.compact .stepCopy strong {
-  font-size: 1.1rem;
-}
-
-.compact .stepCopy p {
-  font-size: 0.78rem;
-}
-
 @keyframes voicePulse {
   0%,
   100% {
@@ -382,66 +291,16 @@
     grid-column: 1 / -1;
     font-size: 0.86rem;
   }
-
-  .compact {
-    padding: 0.9rem;
-  }
-
-  .compact .sequence {
-    flex: none;
-    grid-template-rows: none;
-    gap: 0.65rem;
-  }
-
-  .compact .step {
-    grid-row: auto;
-    grid-template-columns: minmax(110px, 0.7fr) minmax(0, 1fr);
-    grid-template-rows: minmax(62px, auto);
-    gap: 1rem;
-  }
-
-  .compact .panel {
-    min-height: 62px;
-    gap: 0.35rem;
-    padding: 0.5rem;
-  }
-
-  .compact .chord kbd {
-    min-width: 1.5rem;
-    height: 1.5rem;
-    font-size: 0.6rem;
-  }
-
-  .compact .chord kbd[data-wide] {
-    min-width: 2.9rem;
-    font-size: 0.55rem;
-  }
-
-  .compact .waveform {
-    padding: 0.65rem 0.5rem;
-  }
-
-  .compact .transcript {
-    padding: 0.5rem;
-  }
-
-  .compact .transcript q {
-    font-size: 0.8rem;
-  }
-
-  .compact .stepCopy strong {
-    font-size: 1.1rem;
-  }
 }
 
 @media (max-width: 420px) {
-  .instrument:not(.compact) .step {
+  .step {
     grid-template-columns: 1fr;
     grid-template-rows: 150px auto;
     gap: 1rem;
   }
 
-  .instrument:not(.compact) .stepCopy {
+  .stepCopy {
     padding-top: 0.9rem;
     border-top: 1px solid var(--vt-rule);
   }

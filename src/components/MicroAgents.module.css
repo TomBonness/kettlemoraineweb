@@ -1,0 +1,467 @@
+.agents {
+  display: grid;
+  gap: clamp(3rem, 6vw, 5rem);
+}
+
+.stage {
+  display: grid;
+  grid-template-columns: minmax(0, 1.08fr) minmax(0, 0.92fr);
+  align-items: center;
+  gap: clamp(2.5rem, 6vw, 6rem);
+}
+
+.figure {
+  display: grid;
+  justify-items: center;
+  gap: 1.6rem;
+  margin: 0;
+}
+
+.deviceWrap {
+  width: min(100%, 520px);
+}
+
+.figure figcaption {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: center;
+  gap: 0.4rem 1rem;
+  color: #8b919c;
+  font-size: 0.85rem;
+  line-height: 1.6;
+  text-align: center;
+  text-wrap: pretty;
+}
+
+.tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: #c9a96a;
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.tag::before {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: currentColor;
+  content: '';
+}
+
+/* Sessions and encoder, drawn as a quiet host panel. */
+.console {
+  min-width: 0;
+  padding: 0.9rem;
+  border: 1px solid #1d2026;
+  border-radius: 22px;
+  background: linear-gradient(180deg, #0f1114, #0b0c0f);
+  box-shadow:
+    inset 0 1px 0 rgb(255 255 255 / 4%),
+    0 40px 90px -50px rgb(0 0 0 / 90%);
+}
+
+.consoleHead {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.35rem 0.75rem 0.8rem;
+}
+
+.consoleHead p {
+  margin: 0;
+  color: #f2f2ee;
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+.consoleHead span {
+  color: #6d737e;
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.sessions {
+  display: grid;
+  gap: 2px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.session {
+  position: relative;
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 0.9rem;
+  width: 100%;
+  min-height: 56px;
+  padding: 0.6rem 0.75rem;
+  border: 0;
+  border-radius: 14px;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+
+.session::before,
+.session::after {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  content: '';
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 600ms var(--motion-ease);
+}
+
+.session::before {
+  background: rgb(255 255 255 / 4%);
+}
+
+.session::after {
+  box-shadow: inset 0 0 0 1px rgb(226 197 143 / 30%);
+}
+
+.session[data-hot='true']::before,
+.session[aria-pressed='true']::before,
+.session[aria-pressed='true']::after {
+  opacity: 1;
+}
+
+.session:focus-visible {
+  outline: 2px solid #e2c58f;
+  outline-offset: 2px;
+}
+
+/* A miniature cap with the key's light around its edge. */
+.chip {
+  display: grid;
+  width: 28px;
+  height: 28px;
+  place-items: center;
+  border-radius: 7px;
+  background: linear-gradient(180deg, #26262a, #1a1a1d);
+  box-shadow:
+    inset 0 1px 0 rgb(255 255 255 / 8%),
+    0 0 0 1px color-mix(in srgb, var(--c) 75%, transparent),
+    0 0 12px color-mix(in srgb, var(--c) 40%, transparent);
+  color: #8b919c;
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+}
+
+.session[data-state='idle'] .chip {
+  box-shadow:
+    inset 0 1px 0 rgb(255 255 255 / 8%),
+    0 0 0 1px #262930;
+}
+
+.sessionText {
+  display: grid;
+  min-width: 0;
+  gap: 0.1rem;
+}
+
+.sessionName {
+  overflow: hidden;
+  color: #ecece7;
+  font-size: 0.94rem;
+  font-weight: 550;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.sessionDetail {
+  overflow: hidden;
+  color: #7c828d;
+  font-size: 0.8rem;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.sessionState {
+  display: grid;
+  justify-items: end;
+  gap: 0.1rem;
+}
+
+.stateLabel {
+  color: color-mix(in srgb, var(--c) 80%, #fff);
+  font-size: 0.82rem;
+  font-weight: 550;
+  white-space: nowrap;
+}
+
+.session[data-state='idle'] .stateLabel {
+  color: #6d737e;
+}
+
+.session[data-state='waiting'] .stateLabel {
+  font-weight: 650;
+}
+
+.effect {
+  color: #5d636e;
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+}
+
+/* Encoder */
+.dial {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  align-items: center;
+  gap: 1.4rem;
+  margin-top: 0.9rem;
+  padding: 1.1rem 0.75rem 0.4rem;
+  border-top: 1px solid #1a1d22;
+}
+
+.meter {
+  width: 168px;
+}
+
+.meter svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  overflow: visible;
+}
+
+.track,
+.lit {
+  fill: none;
+  stroke-linecap: round;
+  stroke-width: 7;
+}
+
+.track {
+  stroke: #1f2228;
+}
+
+.lit {
+  opacity: 0;
+  transition: opacity 700ms var(--motion-ease);
+}
+
+.lit[data-on='true'] {
+  opacity: 1;
+}
+
+.needle {
+  transform-box: view-box;
+  transform-origin: 80px 82px;
+  transition: transform 900ms var(--motion-ease);
+}
+
+.needle line {
+  stroke: #ecece7;
+  stroke-linecap: round;
+  stroke-width: 2;
+}
+
+.needle circle {
+  fill: #ecece7;
+}
+
+.hub {
+  fill: #16181c;
+  stroke: #2c3038;
+}
+
+.meterEnds {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 0.35rem;
+  color: #5d636e;
+  font-family: var(--font-mono);
+  font-size: 0.64rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.dialCopy {
+  display: grid;
+  min-width: 0;
+  gap: 0.35rem;
+}
+
+.kicker {
+  margin: 0;
+  color: #6d737e;
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.dialTarget {
+  margin: 0;
+  overflow: hidden;
+  color: #f2f2ee;
+  font-size: 1.05rem;
+  font-weight: 600;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.dialButtons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+}
+
+.dialButtons button {
+  display: inline-flex;
+  min-height: 40px;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0 0.95rem;
+  border: 1px solid #2c3038;
+  border-radius: 999px;
+  background: #15171b;
+  color: #ecece7;
+  font: inherit;
+  font-size: 0.8rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: border-color var(--hover-duration) var(--motion-ease);
+}
+
+.dialButtons button:hover,
+.dialButtons button:focus-visible {
+  border-color: #c9a96a;
+}
+
+.dialButtons button:focus-visible {
+  outline: 2px solid #e2c58f;
+  outline-offset: 2px;
+}
+
+.dialButtons span {
+  color: #8b919c;
+  font-size: 0.95rem;
+}
+
+.fallback {
+  margin: 0.6rem 0 0;
+  padding: 0 0.75rem 0.35rem;
+  color: #6d737e;
+  font-size: 0.78rem;
+  line-height: 1.55;
+  text-wrap: pretty;
+}
+
+/* Command and principles */
+.notes {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 2.5rem clamp(1.5rem, 3vw, 3rem);
+  padding-top: clamp(2rem, 4vw, 3rem);
+  border-top: 1px solid #1a1d22;
+}
+
+.command {
+  grid-column: 1 / -1;
+  min-width: 0;
+}
+
+.point p {
+  margin: 0;
+  color: #8b919c;
+  font-size: 0.9rem;
+  line-height: 1.65;
+  text-wrap: pretty;
+}
+
+.point h3 {
+  margin: 0 0 0.6rem;
+  color: #f2f2ee;
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.announcer {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  margin: 0;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+@media (max-width: 1050px) {
+  .stage {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 2.5rem;
+  }
+
+  .dial {
+    grid-template-columns: 1fr;
+    justify-items: center;
+    text-align: center;
+  }
+
+  .dialButtons {
+    justify-content: center;
+  }
+
+  .fallback {
+    text-align: center;
+  }
+}
+
+@media (max-width: 860px) {
+  .stage {
+    grid-template-columns: 1fr;
+  }
+
+  .console {
+    width: min(100%, 560px);
+    justify-self: center;
+  }
+}
+
+@media (max-width: 767px) {
+  .notes {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 420px) {
+  .console {
+    padding: 0.6rem;
+  }
+
+  .session {
+    gap: 0.7rem;
+    padding: 0.55rem 0.6rem;
+  }
+
+  .effect {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .session::before,
+  .session::after,
+  .lit,
+  .needle {
+    transition: none;
+  }
+}

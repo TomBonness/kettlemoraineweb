@@ -81,6 +81,13 @@
   background: var(--accent-strong);
 }
 
+/* Narrow desktops: give the note and the pieces around it a little more of the row. */
+@media (max-width: 1240px) {
+  .heroInner {
+    grid-template-columns: minmax(0, 0.85fr) minmax(0, 1fr);
+  }
+}
+
 .products {
   padding: clamp(6rem, 11vw, 10rem) var(--gutter) clamp(7rem, 12vw, 11rem);
   background: var(--canvas);
@@ -181,48 +188,7 @@
   min-height: 560px;
   overflow: hidden;
   border-right: 1px solid #303642;
-  background:
-    linear-gradient(rgb(255 255 255 / 4%) 1px, transparent 1px),
-    linear-gradient(90deg, rgb(255 255 255 / 4%) 1px, transparent 1px);
-  background-size: 64px 64px;
-}
-
-.inferenceMedia img {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: 65% center;
-  opacity: 0.9;
-  transition: transform 700ms var(--motion-ease);
-}
-
-.inferenceFeature:hover .inferenceMedia img {
-  transform: scale(1.04);
-}
-
-.inferenceMetric {
-  position: absolute;
-  inset: 0;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 1rem;
-}
-
-.inferenceMetric > span {
-  font-size: clamp(7rem, 10vw, 10rem);
-  font-weight: 500;
-  letter-spacing: -0.08em;
-  line-height: 1;
-}
-
-.inferenceMetric small {
-  font-family: var(--font-sans);
-  font-size: 0.95rem;
-  letter-spacing: 0.01em;
+  background: var(--graphite);
 }
 
 .inferenceFeature .productSummary,
@@ -303,46 +269,13 @@
 }
 
 .openMicroMedia {
-  display: grid;
-  place-items: center;
-  isolation: isolate;
   border-right: 1px solid #263b61;
-  background:
-    radial-gradient(ellipse at 55% 82%, rgb(5 72 253 / 72%), transparent 58%),
-    radial-gradient(ellipse at 12% 8%, #344765, transparent 60%),
-    linear-gradient(145deg, #192234, #0e1420 48%, #19376a);
-}
-
-.openMicroMedia img {
-  position: relative;
-  display: block;
-  width: 112%;
-  max-width: none;
-  height: 100%;
-  padding: 1rem;
-  object-fit: contain;
-  filter: drop-shadow(0 28px 32px rgb(0 0 0 / 45%));
-  transition: transform 700ms var(--motion-ease);
-}
-
-.openMicroFeature:hover .openMicroMedia img,
-.openMicroFeature:focus-within .openMicroMedia img {
-  transform: translateY(-5px) scale(1.025);
+  background: #0d121d;
 }
 
 .lavtypeMedia {
-  display: grid;
-  padding: clamp(1rem, 2.5vw, 2rem);
-  background:
-    linear-gradient(rgb(255 255 255 / 5%) 1px, transparent 1px),
-    linear-gradient(90deg, rgb(255 255 255 / 5%) 1px, transparent 1px), var(--graphite);
-  background-size: 58px 58px;
-}
-
-.lavtypeMedia > figure {
-  align-self: stretch;
-  border: 1px solid #303238;
-  border-radius: var(--radius-large);
+  border-left: 1px solid #303642;
+  background: var(--graphite);
 }
 
 .featureCopy {
@@ -534,6 +467,11 @@
     border-right: 0;
     border-bottom: 1px solid var(--hairline);
   }
+
+  .lavtypeMedia {
+    border-top: 1px solid #303642;
+    border-left: 0;
+  }
 }
 
 @media (max-width: 767px) {
@@ -579,19 +517,15 @@
     min-height: 340px;
   }
 
-  .inferenceMetric > span {
-    font-size: clamp(6rem, 24vw, 9rem);
-  }
-
-  .openMicroMedia,
-  .lavtypeMedia {
+  .openMicroMedia {
     min-height: 0;
     aspect-ratio: 4 / 3;
   }
 
+  .inferenceMedia,
   .lavtypeMedia {
-    min-height: clamp(340px, 92vw, 370px);
-    aspect-ratio: auto;
+    min-height: 340px;
+    height: clamp(340px, 66vw, 540px);
   }
 
   .featureCopy {
@@ -638,14 +572,12 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .inferenceMedia img,
   .inferenceFeature,
   .cinmuxMedia .cinmuxWindow {
     transition: none;
   }
 
-  .inferenceFeature:hover,
-  .inferenceFeature:hover .inferenceMedia img {
+  .inferenceFeature:hover {
     transform: none;
   }
 }

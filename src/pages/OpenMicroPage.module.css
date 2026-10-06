@@ -20,7 +20,7 @@
   font-weight: inherit;
 }
 
-.statusSection h2 em,
+.agentSection h2 em,
 .connectSection h2 em {
   padding-right: 0.08em;
   background: var(--product-gradient);
@@ -29,14 +29,14 @@
   color: transparent;
 }
 
-.statusSection,
+.agentSection,
 .connectSection {
   position: relative;
   overflow: hidden;
   color: #f7f7f3;
 }
 
-.statusSection .lead,
+.agentSection .lead,
 .connectSection .lead {
   color: #a9afba;
 }
@@ -80,12 +80,12 @@
   color: var(--accent);
 }
 
-/* Status */
+/* Agents */
 
-.statusSection {
+.agentSection {
   background:
-    radial-gradient(45% 32% at 30% 52%, rgb(5 72 253 / 9%), transparent 70%),
-    radial-gradient(40% 28% at 80% 20%, rgb(201 169 106 / 6%), transparent 70%),
+    radial-gradient(42% 34% at 28% 58%, rgb(77 141 255 / 7%), transparent 70%),
+    radial-gradient(40% 28% at 82% 18%, rgb(201 169 106 / 6%), transparent 70%),
     var(--om-void);
 }
 

@@ -1,0 +1,201 @@
+/* Sized in em: the hero stage sets the font size, so every piece scales together. */
+
+/* Open Micro: the real render, lit by a brass glow, no card. */
+.openMicro {
+  position: relative;
+  display: block;
+  width: var(--hm-render-width, 14.5em);
+}
+
+.openMicro::before {
+  position: absolute;
+  z-index: -1;
+  inset: -12% -10% -4%;
+  border-radius: 50%;
+  background: radial-gradient(closest-side, rgb(201 169 106 / 30%), rgb(201 169 106 / 8%) 62%, transparent);
+  content: '';
+}
+
+.openMicro img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+/* Shared dark surface for the three UI pieces. */
+.lavtype,
+.inference,
+.cinmux {
+  position: relative;
+  display: flex;
+  border: 1px solid rgb(255 255 255 / 12%);
+  box-shadow:
+    inset 0 1px 0 rgb(255 255 255 / 7%),
+    0 0 0 1px rgb(0 0 0 / 35%),
+    0 0 2.4em -0.4em var(--hm-glow);
+  color: #ededf0;
+  white-space: nowrap;
+}
+
+/* Lavtype: the dictation pill, listening, then showing what it typed. */
+.lavtype {
+  --hm-glow: rgb(139 108 255 / 45%);
+  height: 2.9em;
+  align-items: center;
+  gap: 0.7em;
+  padding: 0 1.1em 0 0.95em;
+  border-radius: 999px;
+  background: #0c0c0f;
+}
+
+.mic {
+  width: 0.85em;
+  height: 1.1em;
+  flex: none;
+  stroke: #a98bff;
+  stroke-linecap: round;
+  stroke-width: 1.8;
+}
+
+.mic rect {
+  fill: #a98bff;
+  stroke: none;
+}
+
+.wave {
+  display: flex;
+  height: 1.35em;
+  align-items: center;
+  gap: 0.18em;
+}
+
+.wave span {
+  width: 0.17em;
+  height: 100%;
+  border-radius: 999px;
+  background: #ececf1;
+  transform: scaleY(var(--hm-level));
+  transition: transform 900ms var(--motion-ease) 1100ms;
+}
+
+.lavtype[data-landed='true'] .wave span {
+  transform: scaleY(0.3);
+}
+
+.transcript {
+  font-size: 0.9em;
+  font-weight: 500;
+  letter-spacing: -0.005em;
+  opacity: 0;
+  transform: translateX(-0.4em);
+  transition:
+    opacity 700ms var(--motion-ease) 1500ms,
+    transform 900ms var(--motion-ease) 1500ms;
+}
+
+.lavtype[data-landed='true'] .transcript {
+  opacity: 1;
+  transform: none;
+}
+
+/* Cinference Engine: a peak-rate readout and a line of code streaming out, token by token. */
+.inference {
+  --hm-glow: rgb(61 91 255 / 50%);
+  flex-direction: column;
+  gap: 0.75em;
+  padding: 0.85em 1em 0.95em;
+  border-radius: 0.85em;
+  background: linear-gradient(160deg, #161a26, #0d0f15 70%);
+}
+
+.rate {
+  display: flex;
+  align-items: baseline;
+  gap: 0.4em;
+}
+
+.rateValue {
+  font-family: var(--font-serif);
+  font-size: 2.5em;
+  font-weight: 500;
+  letter-spacing: -0.04em;
+  line-height: 0.9;
+}
+
+.rateUnit {
+  color: #89adff;
+  font-family: var(--font-mono);
+  font-size: 0.78em;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+}
+
+.tokens {
+  display: flex;
+  color: #c9d4f2;
+  font-family: var(--font-mono);
+  font-size: 0.7em;
+  line-height: 1.7;
+  white-space: pre;
+}
+
+.tokens span {
+  border-radius: 0.3em;
+  opacity: 0;
+  transition: opacity 600ms var(--motion-ease) calc(1300ms + var(--hm-token) * 110ms);
+}
+
+/* Alternate tokens are tinted so you can see where the model split them. */
+.tokens span:nth-child(odd) {
+  background: rgb(61 91 255 / 22%);
+}
+
+.tokens span:nth-child(even) {
+  background: rgb(137 173 255 / 10%);
+}
+
+.inference[data-landed='true'] .tokens span {
+  opacity: 1;
+}
+
+/* Cinmux: two rows of the tab list, in the Gruvbox palette of the Cinmux card below. */
+.cinmux {
+  /* CinmuxWindow's badge is sized in --u design pixels: 11u ≈ 0.85em of the tab text. */
+  --u: 0.078em;
+  --hm-glow: rgb(163 190 120 / 40%);
+  flex-direction: column;
+  gap: 0.15em;
+  padding: 0.4em;
+  border-radius: 0.8em;
+  background: var(--cw-bg);
+  color: var(--cw-text);
+  font-family: var(--font-sans);
+  user-select: none;
+}
+
+.tab {
+  display: flex;
+  height: 2.15em;
+  align-items: center;
+  gap: 1.4em;
+  padding: 0 0.7em 0 0.75em;
+  border-radius: 0.5em;
+  font-size: 0.86em;
+}
+
+.tab[data-selected='true'] {
+  background: var(--cw-selected);
+  font-weight: 600;
+}
+
+.tabTitle {
+  flex: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .wave span,
+  .transcript,
+  .tokens span {
+    transition: none;
+  }
+}

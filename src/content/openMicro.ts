@@ -8,8 +8,6 @@ import top from '../assets/product/marketing/open-micro-top-1600.webp'
 import topFull from '../assets/product/marketing/open-micro-top.webp'
 import detail from '../assets/product/marketing/open-micro-detail-1600.webp'
 import detailFull from '../assets/product/marketing/open-micro-detail.webp'
-import night from '../assets/product/marketing/open-micro-night-1600.webp'
-import nightFull from '../assets/product/marketing/open-micro-night.webp'
 import transparent from '../assets/product/marketing/open-micro-transparent-1600.webp'
 import transparentFull from '../assets/product/marketing/open-micro-transparent.webp'
 
@@ -49,13 +47,6 @@ export const marketingRenders = {
     height: 2880,
     alt: 'Material close-up of the anodized encoder knob, dished dark keycaps, PCB solder mask, and solder joints',
   },
-  night: {
-    src: night,
-    srcSet: `${night} 1600w, ${nightFull} 3840w`,
-    width: 3840,
-    height: 2160,
-    alt: 'Night concept visualization with white light diffused through the smoked polycarbonate wall',
-  },
   transparent: {
     src: transparent,
     srcSet: `${transparent} 1600w, ${transparentFull} 2880w`,
@@ -74,7 +65,7 @@ export const navigation = [
 /** Section headings as two lines; the second is set in italic. */
 export const headings = {
   hero: 'Open Micro',
-  status: ['See when work', 'needs you.'],
+  agents: ['Your agents,', 'under your hand.'],
   connectivity: ['Keep control', 'on your computer.'],
   design: ['See how it', 'fits together.'],
   specifications: ['The current', 'design.'],
@@ -104,10 +95,6 @@ export const productCopy = {
   skipLink: 'Skip to content',
   primaryNavigationLabel: 'Primary navigation',
   navigationCta: 'Get updates',
-  statusLead:
-    'The planned lighting gives background work a visible status beside your keyboard. You should be able to see whether an action is still running, has finished, or needs your input without opening another window.',
-  statusPrinciple: 'Color and light patterns distinguish progress, completion, and a request for input.',
-  statusLegendLabel: 'Open Micro status signal legend',
   connectivityLead:
     'The design pairs USB-C and Bluetooth with configurable firmware and local host software. Choose how to connect and what each control does.',
   designLead:
@@ -130,49 +117,80 @@ export const waitlistCopy = {
   error: "We couldn't save your email. Please try again.",
 } as const
 
-export const statusSignals = [
-  {
-    name: 'Ready',
-    color: '#69717E',
-    behavior: 'Dim / still',
-    meaning: 'The controller is ready for an action.',
-  },
-  {
-    name: 'Working',
-    color: '#0548FD',
-    behavior: 'Slow breathe',
-    meaning: 'Work is continuing in the background.',
-  },
-  {
-    name: 'Active',
-    color: '#31C7D9',
-    behavior: 'Steady pulse',
-    meaning: 'An action assigned to a control is running.',
-  },
-  {
-    name: 'Needs input',
-    color: '#FF9F0A',
-    behavior: 'Short blink',
-    meaning: 'The next step needs your input.',
-  },
-  {
-    name: 'Complete',
-    color: '#30D158',
-    behavior: 'Solid',
-    meaning: 'The action finished successfully.',
-  },
-  {
-    name: 'Attention',
-    color: '#FF453A',
-    behavior: 'Fast blink',
-    meaning: 'Something needs review.',
-  },
-] as const satisfies ReadonlyArray<{
-  name: string
-  color: string
-  behavior: string
-  meaning: string
-}>
+/** Agent lifecycle states from the host SDK and the light each shows on its key. */
+export const agentStates = {
+  idle: { label: 'idle', effect: 'off', color: '#4a4f58' },
+  thinking: { label: 'thinking', effect: 'breathe', color: '#4d8dff' },
+  running: { label: 'running', effect: 'pulse', color: '#3cc4d8' },
+  waiting: { label: 'needs you', effect: 'blink', color: '#ffa424' },
+  done: { label: 'done', effect: 'solid', color: '#42cf7c' },
+  error: { label: 'error', effect: 'solid', color: '#ff5147' },
+} as const
+
+export type AgentState = keyof typeof agentStates
+
+/** Made-up sessions for the illustration, one per agent key (`agent-1` to `agent-6`). */
+export const agentSessions = [
+  { name: 'auth refactor', detail: 'splitting the session middleware' },
+  { name: 'flaky test triage', detail: 'rerunning the checkout suite' },
+  { name: 'API docs', detail: 'documenting the export endpoints' },
+  { name: 'dependency update', detail: 'bumping the bundler' },
+  { name: 'schema migration', detail: 'drafting the users table change' },
+  { name: 'release notes', detail: 'summarizing merged changes' },
+] as const
+
+/**
+ * The example loop. Each beat sets every session's state, the selected session, and an optional
+ * encoder detent for it. At most two lights animate at once, and the detents net to zero per loop.
+ */
+export const agentBeats: ReadonlyArray<{
+  states: readonly AgentState[]
+  selected: number
+  turn?: -1 | 1
+}> = [
+  { states: ['thinking', 'waiting', 'done', 'idle', 'done', 'idle'], selected: 0 },
+  { states: ['running', 'waiting', 'done', 'idle', 'done', 'idle'], selected: 0, turn: 1 },
+  { states: ['running', 'running', 'done', 'idle', 'done', 'idle'], selected: 1 },
+  { states: ['done', 'running', 'done', 'thinking', 'done', 'idle'], selected: 3, turn: -1 },
+  { states: ['done', 'done', 'idle', 'running', 'done', 'thinking'], selected: 3 },
+  { states: ['idle', 'done', 'idle', 'error', 'done', 'running'], selected: 3 },
+  { states: ['idle', 'idle', 'idle', 'thinking', 'done', 'running'], selected: 3, turn: 1 },
+  { states: ['thinking', 'idle', 'done', 'running', 'idle', 'done'], selected: 0 },
+  { states: ['thinking', 'running', 'done', 'done', 'idle', 'done'], selected: 0, turn: -1 },
+]
+
+/** Starting thinking level per session, 0 (lowest) to `agentLevels - 1`, on a neutral meter. */
+export const agentLevels = 5
+export const agentStartLevels = [2, 1, 2, 1, 3, 2] as const
+
+export const agentCopy = {
+  lead: 'Each agent you run can claim one of six lit keys, and its light follows the work: a slow breathe while it thinks, a steady pulse while it runs, an amber blink when it needs you. Press a key to select that session, then turn the encoder to change its thinking level.',
+  captionTag: 'Example sessions',
+  caption: 'Illustration. Session names and timings are made up.',
+  listLabel: 'Agent keys',
+  slots: '6 slots',
+  encoderLabel: 'Encoder · thinking level',
+  lower: 'Lower',
+  higher: 'Higher',
+  fallback: 'With no app subscribed, the encoder falls back to volume down, up, and mute.',
+  commandLabel: 'Set any light from a terminal',
+  command:
+    "open-microctl led set agent-1 --effect breathe --primary '#4D8DFF' --period 1400 --ttl 15",
+  points: [
+    {
+      title: 'Thirteen lights to address.',
+      body: 'Each of the twelve keys and the touch control takes its own color and effect: off, solid, breathe, blink, pulse, or rainbow.',
+    },
+    {
+      title: 'Anything can set a light.',
+      body: 'Apps talk to a local daemon over a private socket. Alongside the OMP agent extension, the source includes a generic JSON state producer, so a script or another tool can light a key too.',
+    },
+    {
+      title: 'No path into your prompts.',
+      body: 'The keys select a session and the encoder changes its thinking level. Nothing on the device can type into an agent: there is no hardware prompt-injection path.',
+    },
+  ],
+} as const
 
 export const connectivityCards = [
   {

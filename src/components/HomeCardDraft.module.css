@@ -1,0 +1,350 @@
+/* The editor sits on a plane tilted toward the card's copy, like the Cinmux card mirrored. */
+
+.stage {
+  --hm-line: 1.7em;
+  position: absolute;
+  inset: 0;
+  display: grid;
+  overflow: hidden;
+  place-items: center;
+  background:
+    radial-gradient(55% 50% at 44% 62%, rgb(5 72 253 / 34%), transparent 72%),
+    radial-gradient(40% 40% at 70% 22%, rgb(92 100 255 / 24%), transparent 72%),
+    linear-gradient(rgb(255 255 255 / 4%) 1px, transparent 1px) 0 0 / 56px 56px,
+    linear-gradient(90deg, rgb(255 255 255 / 4%) 1px, transparent 1px) 0 0 / 56px 56px,
+    var(--graphite);
+  container-type: size;
+  perspective: 1600px;
+}
+
+.rig {
+  position: relative;
+  width: 100%;
+  font-size: clamp(7px, min(1.7cqi, 2.2cqb), 13px);
+  transform: translate(7%, 3%) rotateX(14deg) rotateY(16deg) rotateZ(-1.5deg);
+  transform-style: preserve-3d;
+  transition: transform 900ms var(--motion-ease);
+}
+
+a:is(:hover, :focus-visible) .rig {
+  transform: translate(7%, 3%) rotateX(16deg) rotateY(18deg) rotateZ(-1.5deg);
+}
+
+.window {
+  overflow: hidden;
+  border: 1px solid rgb(137 173 255 / 16%);
+  border-radius: 12px;
+  background: #0b0d12;
+  box-shadow:
+    0 0 0 1px rgb(0 0 0 / 50%),
+    0 50px 100px rgb(0 0 0 / 55%);
+  color: #c9d1e0;
+}
+
+.titleBar {
+  position: relative;
+  display: flex;
+  height: 2.6em;
+  align-items: center;
+  padding: 0 1em;
+  border-bottom: 1px solid #1a1e27;
+  background: #0f1218;
+}
+
+.lights {
+  display: flex;
+  gap: 0.45em;
+}
+
+.lights i {
+  width: 0.75em;
+  height: 0.75em;
+  border-radius: 50%;
+  background: #2b303b;
+}
+
+.title {
+  position: absolute;
+  left: 50%;
+  color: #c3cad6;
+  font-size: 0.86em;
+  font-weight: 600;
+  transform: translateX(-50%);
+  white-space: nowrap;
+}
+
+.title span {
+  color: #6f7787;
+  font-weight: 400;
+}
+
+.tab {
+  display: flex;
+  height: 2.4em;
+  align-items: flex-end;
+  padding-left: 0.8em;
+  background: #0d1016;
+}
+
+.tab span {
+  padding: 0.55em 1.1em;
+  border-bottom: 2px solid #5c64ff;
+  background: #0b0d12;
+  color: #dfe4ec;
+  font-family: var(--font-mono);
+  font-size: 0.8em;
+}
+
+.viewport {
+  height: calc(16 * var(--hm-line) + 1.2em);
+  overflow: hidden;
+  font-family: var(--font-mono);
+  mask-image: linear-gradient(90deg, #000 85%, transparent), linear-gradient(transparent, #000 1.6em);
+  mask-composite: intersect;
+}
+
+.scroll {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  padding-top: 0.6em;
+  transform: translateY(calc(var(--hm-top) * var(--hm-line) * -1));
+  transition:
+    transform 700ms var(--motion-ease),
+    opacity 600ms var(--motion-ease);
+}
+
+.fading {
+  opacity: 0;
+}
+
+/* Back to the top of the function while hidden, so the restart doesn't scroll into view. */
+.rewind {
+  transition: none;
+}
+
+.gutter,
+.code {
+  margin: 0;
+  font: inherit;
+  line-height: var(--hm-line);
+  white-space: pre;
+}
+
+.gutter {
+  padding: 0 1.1em 0 1.3em;
+  color: #3c4250;
+  text-align: right;
+}
+
+.code code {
+  font: inherit;
+}
+
+.keyword {
+  color: #bb9af7;
+}
+
+.function {
+  color: #7aa2f7;
+}
+
+.string {
+  color: #9ece6a;
+}
+
+.number {
+  color: #ff9e64;
+}
+
+.comment {
+  color: #565f89;
+}
+
+.type {
+  color: #2ac3de;
+}
+
+.builtin {
+  color: #7dcfff;
+}
+
+.decorator {
+  color: #e0af68;
+}
+
+/* The kept run turns solid together; the rest of the draft fades where it was. */
+.fresh {
+  animation: fresh-in 520ms var(--motion-ease) both;
+}
+
+.caret {
+  display: inline-block;
+  width: 2px;
+  height: 1.25em;
+  margin-right: -2px;
+  background: #89adff;
+  box-shadow: 0 0 8px rgb(92 100 255 / 80%);
+  vertical-align: text-bottom;
+}
+
+.ghost {
+  color: #9db6ff;
+  animation: ghost-in 240ms var(--motion-ease) calc(var(--hm-i) * 26ms) both;
+}
+
+.leaving .ghost {
+  text-decoration: line-through rgb(255 140 140 / 40%);
+  animation: ghost-out 400ms var(--motion-ease) both;
+}
+
+.statusBar {
+  display: flex;
+  height: 2.2em;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1em;
+  padding: 0 1em;
+  border-top: 1px solid #1a1e27;
+  background: #0f1218;
+  color: #7f8898;
+  font-family: var(--font-mono);
+  font-size: 0.78em;
+  white-space: nowrap;
+}
+
+.statusBar span {
+  display: flex;
+  overflow: hidden;
+  align-items: center;
+  gap: 0.6em;
+  text-overflow: ellipsis;
+}
+
+.statusBar i {
+  width: 0.55em;
+  height: 0.55em;
+  flex: none;
+  border-radius: 50%;
+  background: #89adff;
+}
+
+/* The decode readout floats in front of the window and comes forward on hover. */
+.hud {
+  position: absolute;
+  right: 17%;
+  bottom: 9%;
+  display: grid;
+  min-width: 15em;
+  gap: 0.45em;
+  padding: 1.1em 1.3em 1.2em;
+  border: 1px solid rgb(137 173 255 / 30%);
+  border-radius: 14px;
+  background: rgb(12 15 24 / 94%);
+  box-shadow:
+    0 30px 60px rgb(0 0 0 / 50%),
+    0 0 50px rgb(5 72 253 / 22%);
+  transform: translateZ(40px);
+  transition: transform 900ms var(--motion-ease);
+}
+
+a:is(:hover, :focus-visible) .hud {
+  transform: translateZ(70px);
+}
+
+.peak {
+  display: flex;
+  align-items: baseline;
+  gap: 0.35em;
+  color: #89adff;
+  font-family: var(--font-mono);
+  font-size: 1.05em;
+}
+
+.peak strong {
+  color: #dfe8ff;
+  font-family: var(--font-sans);
+  font-size: 3.3em;
+  font-weight: 500;
+  letter-spacing: -0.05em;
+  line-height: 1;
+}
+
+.hud small {
+  color: #8f98a8;
+  font-family: var(--font-mono);
+  font-size: 0.74em;
+  letter-spacing: 0.02em;
+}
+
+.meter {
+  display: grid;
+  grid-template-columns: repeat(15, minmax(0, 1fr));
+  gap: 0.25em;
+  margin-top: 0.7em;
+  padding-top: 0.85em;
+  border-top: 1px solid #222838;
+}
+
+.meter i {
+  height: 0.45em;
+  border-radius: 2px;
+  background: #89adff;
+  opacity: 0.4;
+  transition: opacity 300ms var(--motion-ease);
+}
+
+.meter i[data-state='kept'] {
+  opacity: 1;
+}
+
+.meter i[data-state='rejected'] {
+  opacity: 0.12;
+}
+
+@keyframes fresh-in {
+  from {
+    opacity: 0.45;
+  }
+}
+
+@keyframes ghost-in {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 0.55;
+  }
+}
+
+@keyframes ghost-out {
+  from {
+    opacity: 0.55;
+  }
+
+  to {
+    opacity: 0;
+  }
+}
+
+@media (max-width: 767px) {
+  .title span,
+  .statusBar span:last-child {
+    display: none;
+  }
+
+  .hud {
+    right: 18%;
+    bottom: 6%;
+    min-width: 13em;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .rig,
+  .hud,
+  .scroll,
+  .meter i {
+    transition: none;
+  }
+}
