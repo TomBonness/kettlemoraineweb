@@ -240,7 +240,7 @@ a:is(:hover, :focus-visible) .rig {
   padding: 1.1em 1.3em 1.2em;
   border: 1px solid rgb(137 173 255 / 30%);
   border-radius: 14px;
-  background: rgb(12 15 24 / 94%);
+  background: #0c0f18;
   box-shadow:
     0 30px 60px rgb(0 0 0 / 50%),
     0 0 50px rgb(5 72 253 / 22%);

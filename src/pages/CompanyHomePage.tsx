@@ -2,12 +2,12 @@ import { CinmuxWindow } from '../components/CinmuxWindow'
 import { HomeCardDictation } from '../components/HomeCardDictation'
 import { HomeCardDraft } from '../components/HomeCardDraft'
 import { HomeCardMicro } from '../components/HomeCardMicro'
-import { HomeWorkspace } from '../components/HomeWorkspace'
 import { SiteShell } from '../components/SiteShell'
 import { WorkspacePanes } from '../components/WorkspaceStage'
 import { productCatalog, routes } from '../content/catalog'
 import { heroFolders, heroTabs, omarchyThemes } from '../content/cinmux'
 import { llamaCppSpeedup } from '../content/inference'
+import { marketingRenders } from '../content/openMicro'
 import styles from './CompanyHomePage.module.css'
 
 const homeNavigation = productCatalog.map((product) => ({
@@ -21,33 +21,30 @@ export function CompanyHomePage() {
   return (
     <SiteShell currentPath={routes.home} navigation={homeNavigation}>
       <section className={styles.hero} aria-labelledby="company-heading">
-        <div className={styles.heroGrid} aria-hidden="true" />
-        <img
-          className={styles.heroArtwork}
-          src="/brand/contours.svg"
-          width="1200"
-          height="1000"
-          alt=""
-        />
+        <div className={styles.heroScene}>
+          <img
+            className={styles.heroRender}
+            {...marketingRenders.detail}
+            sizes="(max-width: 767px) 100vw, 60vw"
+            fetchPriority="high"
+          />
+        </div>
         <div className={styles.heroInner}>
           <div className={styles.heroCopy}>
             <h1 id="company-heading" aria-label="You have work to do.">
               <span aria-hidden="true">You have</span>
               <span aria-hidden="true">work to do.</span>
             </h1>
-            <div>
-              <p className={styles.heroStatement}>
-                We’re building hardware, software, and local inference for people who would rather
-                be making something than managing their computer.
-              </p>
-              <div className={styles.heroActions}>
-                <a className={`button ${styles.heroPrimary}`} href="#products">
-                  See what we’re building <span aria-hidden="true">↓</span>
-                </a>
-              </div>
+            <p className={styles.heroStatement}>
+              We’re building hardware, software, and local inference for people who would rather be
+              making something than managing their computer.
+            </p>
+            <div className={styles.heroActions}>
+              <a className={`button ${styles.heroPrimary}`} href="#products">
+                See what we’re building <span aria-hidden="true">↓</span>
+              </a>
             </div>
           </div>
-          <HomeWorkspace />
         </div>
       </section>
 
