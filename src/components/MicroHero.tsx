@@ -1,5 +1,5 @@
 import { useRef, useState } from 'react'
-import { marketingRenders, productCopy } from '../content/openMicro'
+import { marketingRenders } from '../content/openMicro'
 import { prefersReducedMotion, useInView, useStageMotion } from '../lib/motion'
 import styles from './MicroHero.module.css'
 
@@ -26,7 +26,6 @@ export function MicroHero() {
           decoding="async"
         />
       </figure>
-      <p className={styles.tag}>{productCopy.conceptTag}</p>
     </div>
   )
 }

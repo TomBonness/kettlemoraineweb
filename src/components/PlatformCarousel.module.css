@@ -168,12 +168,10 @@
 }
 
 .panel li::before {
-  width: 0.4rem;
-  height: 0.4rem;
+  width: 0.75rem;
+  height: 1px;
   flex: none;
-  border-radius: 50%;
   background: #a3be78;
-  box-shadow: 0 0 10px rgb(163 190 120 / 70%);
   content: '';
 }
 

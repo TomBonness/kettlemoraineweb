@@ -202,7 +202,6 @@ export function OpenMicroPage() {
         </section>
 
         <div className={styles.signup}>
-          <p className={styles.signupTag}>{hero.baseline[3]}</p>
           <WaitlistForm signup={openMicroSignup} />
         </div>
       </div>

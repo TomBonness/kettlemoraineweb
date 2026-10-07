@@ -91,10 +91,6 @@ export function LavtypePage() {
             <div className={styles.recognition}>
               <div>
                 <p className={styles.body}>{lavtypeRecognition.body}</p>
-                <p className={styles.output}>
-                  <span aria-hidden="true" />
-                  {lavtypeRecognition.output}
-                </p>
               </div>
               <dl className={styles.darkDetails}>
                 {localRecognitionDetails.map(([term, detail]) => (

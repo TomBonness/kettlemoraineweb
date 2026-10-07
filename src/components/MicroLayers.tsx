@@ -65,7 +65,6 @@ export function MicroLayers() {
           )}
         </div>
         <figcaption>
-          <span className={styles.conceptTag}>{productCopy.conceptTag}</span>
           {productCopy.explodedCaption}
         </figcaption>
       </figure>

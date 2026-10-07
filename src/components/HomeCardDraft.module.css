@@ -220,14 +220,6 @@ a:is(:hover, :focus-visible) .rig {
   text-overflow: ellipsis;
 }
 
-.statusBar i {
-  width: 0.55em;
-  height: 0.55em;
-  flex: none;
-  border-radius: 50%;
-  background: #89adff;
-}
-
 /* The decode readout floats in front of the window and comes forward on hover. Its size is fixed:
    only the meter and the kept count change from round to round. */
 .hud {

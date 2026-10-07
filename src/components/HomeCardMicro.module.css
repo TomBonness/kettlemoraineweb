@@ -30,34 +30,6 @@
   transition: opacity 900ms var(--motion-ease);
 }
 
-.tag {
-  position: absolute;
-  z-index: 2;
-  top: clamp(1rem, 2.4vw, 1.75rem);
-  left: clamp(1rem, 2.4vw, 1.75rem);
-  display: inline-flex;
-  align-items: center;
-  gap: 0.55rem;
-  padding: 0.45rem 0.8rem 0.45rem 0.7rem;
-  border: 1px solid rgb(255 255 255 / 14%);
-  border-radius: 999px;
-  background: rgb(12 16 26 / 62%);
-  color: #dfe3ea;
-  font-family: var(--font-mono);
-  font-size: 0.68rem;
-  font-weight: 600;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-}
-
-.tag i {
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background: #d6b26e;
-  box-shadow: 0 0 0 3px rgb(214 178 110 / 18%);
-}
-
 /* A few degrees toward the pointer, never more than 5°. */
 .tilt {
   width: min(82%, 680px);
@@ -168,10 +140,6 @@ a:is(:hover, :focus-visible) .peek {
 }
 
 @media (max-width: 767px) {
-  .tag {
-    font-size: 0.6rem;
-  }
-
   .peek {
     display: none;
   }

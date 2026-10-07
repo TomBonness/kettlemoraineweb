@@ -71,14 +71,12 @@ export function SessionDemo() {
         <div className={styles.scene}>
           <div className={styles.server}>
             <div className={styles.serverHeader}>
-              <span className={styles.serverDot} />
               Cinmux’s private tmux server
               <span className={styles.serverState}>{open ? 'Attached' : 'Still running'}</span>
             </div>
             <ol className={styles.sessions}>
               {persistentSessions.map((session) => (
                 <li key={session.id} data-activity={activities[session.id]}>
-                  <span className={styles.pulse} />
                   <span className={styles.sessionTitle}>{session.title}</span>
                   <code>{session.command}</code>
                   <span className={styles.sessionDetail}>{details[session.id]}</span>
@@ -138,7 +136,6 @@ export function SessionDemo() {
           )}
         </button>
         <p className={styles.status} aria-live={autoplay ? 'off' : 'polite'}>
-          <span className={styles.pulse} />
           {open
             ? `Cinmux is open. ${persistentSessions.length} sessions running.`
             : `Cinmux is closed. All ${persistentSessions.length} sessions are still running.`}

@@ -200,7 +200,7 @@ export function HomeCardDraft() {
           </div>
           <div className={styles.statusBar}>
             <span>
-              <i /> Cinference Engine · {localEndpoint.baseUrl.replace('http://', '')}
+              Cinference Engine · {localEndpoint.baseUrl.replace('http://', '')}
             </span>
             <span>Ln {caretLine + 1} · Python</span>
           </div>

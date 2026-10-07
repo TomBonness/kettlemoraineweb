@@ -189,7 +189,7 @@ export function InferenceDraftWindow() {
               </p>
               <div className={styles.reply}>
                 <span className={styles.model}>
-                  <i /> {localEndpoint.model}
+                  {localEndpoint.model}
                 </span>
                 <p>
                   Writing <code>{fileName}</code>…
@@ -268,7 +268,7 @@ export function InferenceDraftWindow() {
           </div>
           <div className={styles.statusBar}>
             <span>
-              <i /> Cinference Engine · {localEndpoint.baseUrl.replace('http://', '')}
+              Cinference Engine · {localEndpoint.baseUrl.replace('http://', '')}
             </span>
             <span>
               Ln {caretLine + 1} · Python · UTF-8

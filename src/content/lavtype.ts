@@ -75,7 +75,6 @@ export const lavtypeRecognition = {
     'You don’t need to send your voice to a cloud service to write a sentence. Lavtype uses a local recognizer and keeps no transcript history.',
   body:
     'Choose Parakeet and explicitly download its English model, or use Apple Speech on macOS where on-device recognition is supported. Once the model is set up, recognition works offline. There’s no cloud or clipboard fallback, including no fallback to Apple’s network recognizer.',
-  output: 'Final transcript → app focused when recognition finishes',
   note: 'Model setup may need a download. Speech recognition itself runs on your computer.',
 } as const
 

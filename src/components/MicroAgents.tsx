@@ -6,51 +6,55 @@ import {
   agentSessions,
   agentStartLevels,
   agentStates,
+  marketingRenders,
 } from '../content/openMicro'
 import { prefersReducedMotion, useInView, useInterval } from '../lib/motion'
 import { CopyCommand } from './CopyCommand'
-import { MicroAgentDevice } from './MicroAgentDevice'
 import styles from './MicroAgents.module.css'
 
 const BEAT_MS = 3400
 
-/* The thinking-level meter: a half ring of `agentLevels` segments around a needle. */
-const METER = { cx: 80, cy: 82, r: 62, gap: 7 }
-const SEGMENT = (180 - METER.gap * (agentLevels - 1)) / agentLevels
+/* Where the keys sit on the overhead render, from the board model: the 96 mm board fills the middle
+   76.15% of the image, and the 18 mm caps sit on a 19.05 mm pitch. */
+const BOARD_INSET = 11.925
+const MM = 76.15 / 96
+const PITCH = 19.05
+const CAP = 18
+const GRID = (96 - (PITCH * 3 + CAP)) / 2
 
-function point(degrees: number) {
-  const radians = (degrees * Math.PI) / 180
-  return `${(METER.cx + METER.r * Math.cos(radians)).toFixed(2)} ${(METER.cy - METER.r * Math.sin(radians)).toFixed(2)}`
-}
+/** Agent keys 1–6 as [column, row]: the two bottom keys, then the row above them. */
+const AGENT_KEYS = [
+  [1, 3],
+  [2, 3],
+  [0, 2],
+  [1, 2],
+  [2, 2],
+  [3, 2],
+] as const
 
-/** Segment `index` runs left to right across the top of the ring. */
-function segmentPath(index: number) {
-  const start = 180 - index * (SEGMENT + METER.gap)
-  return `M ${point(start)} A ${METER.r} ${METER.r} 0 0 1 ${point(start - SEGMENT)}`
-}
-
-/** Needle rotation from straight up to the middle of segment `level`. */
-function needleDegrees(level: number) {
-  const middle = 180 - level * (SEGMENT + METER.gap) - SEGMENT / 2
-  return 90 - middle
+function keyBox([column, row]: readonly [number, number]) {
+  return {
+    '--x': `${BOARD_INSET + (GRID + column * PITCH) * MM}%`,
+    '--y': `${BOARD_INSET + (GRID + row * PITCH) * MM}%`,
+    '--size': `${CAP * MM}%`,
+  } as CSSProperties
 }
 
 /**
- * Six example agent sessions mapped to Open Micro's agent keys. While on screen the sessions move
+ * Six example agent sessions on Open Micro's agent keys: the real overhead render with each key lit
+ * in its session's color and effect, beside the session list. While on screen the sessions move
  * through a calm example loop; the first interaction hands control to the visitor, who can pick a
- * session (on the list or its key) and turn the encoder to change its thinking level.
+ * session (in the list or on its key) and change its thinking level.
  */
 export function MicroAgents() {
   const root = useRef<HTMLDivElement>(null)
   const listId = useId()
-  const gradientId = useId()
   const inView = useInView(root, 0.25)
   const [reduced] = useState(prefersReducedMotion)
   const [autoplay, setAutoplay] = useState(true)
   const [beat, setBeat] = useState(0)
   const [selected, setSelected] = useState(agentBeats[0].selected)
   const [levels, setLevels] = useState<number[]>(() => [...agentStartLevels])
-  const [turns, setTurns] = useState(0)
   const [hot, setHot] = useState<number | null>(null)
   const [announcement, setAnnouncement] = useState('')
 
@@ -59,7 +63,6 @@ export function MicroAgents() {
   const session = agentSessions[selected]
 
   const turn = (slot: number, direction: -1 | 1) => {
-    setTurns((current) => current + direction)
     setLevels((current) =>
       current.map((value, index) =>
         index === slot ? Math.min(agentLevels - 1, Math.max(0, value + direction)) : value,
@@ -84,9 +87,8 @@ export function MicroAgents() {
   const select = (slot: number) => {
     stop()
     setSelected(slot)
-    const { name } = agentSessions[slot]
     setAnnouncement(
-      `${name} selected, ${agentStates[states[slot]].label}. Thinking level ${levels[slot] + 1} of ${agentLevels}.`,
+      `${agentSessions[slot].name} selected, ${agentStates[states[slot]].label}. Thinking level ${levels[slot] + 1} of ${agentLevels}.`,
     )
   }
 
@@ -99,121 +101,100 @@ export function MicroAgents() {
 
   return (
     <div className={styles.agents} ref={root} onPointerDown={stop} onFocus={stop}>
-      <div className={styles.stage}>
-        <figure className={styles.figure}>
-          <div className={styles.deviceWrap}>
-            <MicroAgentDevice
-              states={states}
-              hot={hot}
-              selected={selected}
-              turns={turns}
-              live={inView}
-              onHot={setHot}
-              onSelect={select}
-              onTurn={userTurn}
-            />
-          </div>
-          <figcaption>
-            <span className={styles.tag}>{agentCopy.captionTag}</span>
-            {agentCopy.caption}
-          </figcaption>
-        </figure>
+      <div className={styles.stage} data-live={inView && !reduced}>
+        {/* The list beside it is the accessible equivalent; the keys here are for pointers. */}
+        <div className={styles.device} aria-hidden="true">
+          <span className={styles.surface} />
+          <img
+            className={styles.render}
+            src={marketingRenders.top.src}
+            srcSet={marketingRenders.top.srcSet}
+            width={marketingRenders.top.width}
+            height={marketingRenders.top.height}
+            sizes="(max-width: 860px) 92vw, 600px"
+            alt=""
+            loading="lazy"
+            decoding="async"
+          />
+          {AGENT_KEYS.map((key, slot) => (
+            <span
+              className={styles.key}
+              data-effect={agentStates[states[slot]].effect}
+              data-selected={selected === slot}
+              data-hot={hot === slot}
+              style={{ ...keyBox(key), '--c': agentStates[states[slot]].color } as CSSProperties}
+              onPointerEnter={() => setHot(slot)}
+              onPointerLeave={() => setHot(null)}
+              onClick={() => select(slot)}
+              key={slot}
+            >
+              <span className={styles.glow} />
+            </span>
+          ))}
+        </div>
 
-        <div className={styles.console}>
-          <div className={styles.consoleHead}>
+        <div className={styles.panel}>
+          <div className={styles.panelHead}>
             <p id={listId}>{agentCopy.listLabel}</p>
             <span>{agentCopy.slots}</span>
           </div>
           <ul className={styles.sessions} aria-labelledby={listId}>
-            {agentSessions.map((item, slot) => {
-              const light = agentStates[states[slot]]
-              return (
-                <li key={item.name}>
-                  <button
-                    className={styles.session}
-                    type="button"
-                    aria-pressed={selected === slot}
-                    data-hot={hot === slot}
-                    data-state={states[slot]}
-                    style={{ '--c': light.color } as CSSProperties}
-                    onPointerEnter={() => setHot(slot)}
-                    onPointerLeave={() => setHot(null)}
-                    onFocus={() => setHot(slot)}
-                    onBlur={() => setHot(null)}
-                    onClick={() => select(slot)}
-                  >
-                    <span className={styles.chip} aria-hidden="true">
-                      {slot + 1}
-                    </span>
-                    <span className={styles.sessionText}>
-                      <span className={styles.sessionName}>{item.name}</span>
-                      <span className={styles.sessionDetail}>{item.detail}</span>
-                    </span>
-                    <span className={styles.sessionState}>
-                      <span className={styles.stateLabel}>{light.label}</span>
-                      <span className={styles.effect}>{light.effect}</span>
-                    </span>
-                  </button>
-                </li>
-              )
-            })}
+            {agentSessions.map((item, slot) => (
+              <li key={item.name}>
+                <button
+                  className={styles.session}
+                  type="button"
+                  aria-pressed={selected === slot}
+                  data-hot={hot === slot}
+                  data-state={states[slot]}
+                  style={{ '--c': agentStates[states[slot]].color } as CSSProperties}
+                  onPointerEnter={() => setHot(slot)}
+                  onPointerLeave={() => setHot(null)}
+                  onFocus={() => setHot(slot)}
+                  onBlur={() => setHot(null)}
+                  onClick={() => select(slot)}
+                >
+                  <span className={styles.keycap} aria-hidden="true">
+                    {slot + 1}
+                  </span>
+                  <span className={styles.sessionText}>
+                    <span className={styles.sessionName}>{item.name}</span>
+                    <span className={styles.sessionDetail}>{item.detail}</span>
+                  </span>
+                  <span className={styles.state}>{agentStates[states[slot]].label}</span>
+                </button>
+              </li>
+            ))}
           </ul>
 
-          <div className={styles.dial}>
-            <div
-              className={styles.meter}
-              role="meter"
-              aria-label={`Thinking level for ${session.name}`}
-              aria-valuemin={1}
-              aria-valuemax={agentLevels}
-              aria-valuenow={level + 1}
-              aria-valuetext={`${level + 1} of ${agentLevels}`}
-            >
-              <svg viewBox="0 0 160 92" aria-hidden="true">
-                <defs>
-                  <linearGradient id={gradientId} x1="18" x2="142" y1="0" y2="0" gradientUnits="userSpaceOnUse">
-                    <stop offset="0" stopColor="#e2c58f" />
-                    <stop offset="0.55" stopColor="#8fa6e8" />
-                    <stop offset="1" stopColor="#4d7dff" />
-                  </linearGradient>
-                </defs>
+          <div className={styles.encoder}>
+            <div>
+              <p className={styles.encoderLabel}>
+                {agentCopy.encoderLabel} <strong>{session.name}</strong>
+              </p>
+              <div
+                className={styles.level}
+                role="meter"
+                aria-label={`Thinking level for ${session.name}`}
+                aria-valuemin={1}
+                aria-valuemax={agentLevels}
+                aria-valuenow={level + 1}
+                aria-valuetext={`${level + 1} of ${agentLevels}`}
+              >
                 {Array.from({ length: agentLevels }, (_, index) => (
-                  <g key={index}>
-                    <path className={styles.track} d={segmentPath(index)} />
-                    <path
-                      className={styles.lit}
-                      d={segmentPath(index)}
-                      stroke={`url(#${gradientId})`}
-                      data-on={index <= level}
-                    />
-                  </g>
+                  <i data-on={index <= level} key={index} />
                 ))}
-                <g className={styles.needle} style={{ transform: `rotate(${needleDegrees(level)}deg)` }}>
-                  <line x1="80" y1="70" x2="80" y2="34" />
-                  <circle cx="80" cy="32" r="2.6" />
-                </g>
-                <circle className={styles.hub} cx="80" cy="82" r="7" />
-              </svg>
-              <div className={styles.meterEnds} aria-hidden="true">
-                <span>{agentCopy.lower}</span>
-                <span>{agentCopy.higher}</span>
               </div>
             </div>
-            <div className={styles.dialCopy}>
-              <p className={styles.kicker}>{agentCopy.encoderLabel}</p>
-              <p className={styles.dialTarget} style={{ '--c': agentStates[states[selected]].color } as CSSProperties}>
-                {session.name}
-              </p>
-              <div className={styles.dialButtons}>
-                <button type="button" aria-label="Lower thinking level" onClick={() => userTurn(-1)}>
-                  <span aria-hidden="true">↺</span>
-                  {agentCopy.lower}
-                </button>
-                <button type="button" aria-label="Higher thinking level" onClick={() => userTurn(1)}>
-                  {agentCopy.higher}
-                  <span aria-hidden="true">↻</span>
-                </button>
-              </div>
+            <div className={styles.encoderButtons}>
+              <button type="button" aria-label="Lower thinking level" onClick={() => userTurn(-1)}>
+                <span aria-hidden="true">↺</span>
+                {agentCopy.lower}
+              </button>
+              <button type="button" aria-label="Higher thinking level" onClick={() => userTurn(1)}>
+                {agentCopy.higher}
+                <span aria-hidden="true">↻</span>
+              </button>
             </div>
           </div>
           <p className={styles.fallback}>{agentCopy.fallback}</p>

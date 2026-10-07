@@ -191,14 +191,16 @@
   color: #b9b9c3;
 }
 
+/* Dashes, as in a Notes list. */
 .line::before,
 .typed::before {
   position: absolute;
-  top: 0.62em;
-  left: 0.15em;
-  width: 0.38em;
-  height: 0.38em;
-  border-radius: 50%;
+  top: 0.78em;
+  left: 0.05em;
+  width: 0.55em;
+  height: 0.09em;
+  min-height: 1px;
+  border-radius: 1px;
   background: #6f6f7a;
   content: '';
 }
@@ -305,7 +307,7 @@
   height: 100%;
   border-radius: 999px;
   background: #ececf1;
-  transform: scaleY(var(--level));
+  transform: scaleY(max(0.4, var(--level)));
   transition: transform 110ms linear;
 }
 
@@ -425,28 +427,6 @@
   margin: 0;
   color: #eceaf6;
   font-weight: 550;
-}
-
-.statusDot {
-  width: 0.55rem;
-  height: 0.55rem;
-  flex: none;
-  border-radius: 50%;
-  background: #5d6070;
-  transition: background 300ms var(--motion-ease);
-}
-
-.stage[data-phase='listening'] .statusDot {
-  background: #f09ad0;
-}
-
-.stage[data-phase='recognizing'] .statusDot,
-.stage[data-phase='typing'] .statusDot {
-  background: #a98bff;
-}
-
-.stage[data-phase='typed'] .statusDot {
-  background: #8fb4ff;
 }
 
 .meter {

@@ -337,30 +337,6 @@
   max-width: calc(var(--content-max) - var(--gutter) * 2);
 }
 
-.signupTag {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  width: 100%;
-  max-width: var(--content-max);
-  margin: 0 auto;
-  padding: 0 var(--gutter);
-  color: #c9a96a;
-  font-family: var(--font-mono);
-  font-size: 0.68rem;
-  font-weight: 600;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-}
-
-.signupTag::before {
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background: currentColor;
-  content: '';
-}
-
 @media (max-width: 1050px) {
   .sectionIntro,
   .sourceGrid {

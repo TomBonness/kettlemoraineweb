@@ -5,97 +5,78 @@
   gap: clamp(2.5rem, 6vw, 5.5rem);
 }
 
+/* The card is wider than the render so the callout labels sit beside the device. */
 .figure {
-  position: relative;
-  overflow: hidden;
   margin: 0;
+  padding: 0 13%;
   border: 1px solid #dfe1da;
   border-radius: var(--radius-large);
   background: #efefef;
   box-shadow: 0 40px 80px -48px rgb(20 22 26 / 35%);
 }
 
-.figure img {
+.drawing {
+  position: relative;
+}
+
+.drawing img {
   display: block;
   width: 100%;
   height: auto;
 }
 
-.hotspot {
+/* A label and a fine line out to the part, at the part's height. Positions are in percent of the
+   render; left labels start in the card's margin and right labels end in it. */
+.callout {
   position: absolute;
   top: var(--y);
-  left: var(--x);
-  width: 34px;
-  height: 34px;
-  margin: -17px 0 0 -17px;
-  padding: 0;
-  border: 0;
-  border-radius: 50%;
-  background: transparent;
-  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  color: #4b5059;
+  font-size: 0.76rem;
+  line-height: 1.25;
+  transform: translateY(-50%);
+  transition: color 300ms var(--motion-ease);
 }
 
-/* A brass dot with a soft ring. */
-.hotspot::before,
-.hotspot::after {
-  position: absolute;
-  inset: 0;
-  margin: auto;
-  border-radius: 50%;
-  content: '';
+.callout[data-side='left'] {
+  left: -15%;
+  width: calc(var(--to) + 15%);
 }
 
-.hotspot::before {
-  width: 22px;
-  height: 22px;
-  background: rgb(255 255 255 / 55%);
-  box-shadow: 0 2px 8px rgb(0 0 0 / 25%);
-  transition: transform 400ms var(--motion-ease);
+.callout[data-side='right'] {
+  left: var(--to);
+  width: calc(115% - var(--to));
+  flex-direction: row-reverse;
 }
 
-.hotspot::after {
-  width: 8px;
-  height: 8px;
-  background: #9a8150;
+.calloutLabel {
+  flex: none;
+  max-width: 6.6rem;
 }
 
-.hotspot[data-match='true']::before {
-  transform: scale(1.25);
+.callout[data-side='left'] .calloutLabel {
+  text-align: right;
 }
 
-.hotspot:focus-visible {
-  outline: 2px solid var(--accent);
-  outline-offset: 2px;
-}
-
-.hotspotLabel {
-  position: absolute;
-  top: 50%;
-  left: calc(100% + 4px);
-  padding: 0.4rem 0.65rem;
-  border-radius: 8px;
-  background: #14161a;
-  color: #f7f7f3;
-  font-size: 0.78rem;
-  font-weight: 550;
-  white-space: nowrap;
-  opacity: 0;
-  transform: translate(-4px, -50%);
+.calloutLine {
+  min-width: 0.75rem;
+  height: 1px;
+  flex: 1;
+  background: #8d939c;
   transition:
-    opacity 300ms var(--motion-ease),
+    background-color 300ms var(--motion-ease),
     transform 300ms var(--motion-ease);
-  pointer-events: none;
 }
 
-.hotspot[data-side='left'] .hotspotLabel {
-  right: calc(100% + 4px);
-  left: auto;
-  transform: translate(4px, -50%);
+.callout[data-match='true'] {
+  color: #8a6a2f;
 }
 
-.hotspot[data-shown='true'] .hotspotLabel {
-  opacity: 1;
-  transform: translate(0, -50%);
+.callout[data-match='true'] .calloutLine {
+  background: #b08a3e;
+  transform: scaleY(1.6);
 }
 
 .list {
@@ -137,12 +118,20 @@
   }
 
   .figure {
-    width: min(100%, 560px);
+    width: min(100%, 600px);
     margin-inline: auto;
   }
 }
 
 @media (max-width: 560px) {
+  .figure {
+    padding: 0;
+  }
+
+  .callout {
+    display: none;
+  }
+
   .list > div {
     grid-template-columns: 1fr;
     gap: 0.3rem;
@@ -150,8 +139,8 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .hotspot::before,
-  .hotspotLabel,
+  .callout,
+  .calloutLine,
   .list > div {
     transition: none;
   }

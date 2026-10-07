@@ -215,7 +215,7 @@ export function LavtypeStage() {
                 <span
                   style={
                     {
-                      '--level': listening ? levelAt(index, elapsed).toFixed(3) : 0.14,
+                      '--level': listening ? levelAt(index, elapsed).toFixed(3) : 0.4,
                     } as CSSProperties
                   }
                   key={index}
@@ -285,7 +285,6 @@ export function LavtypeStage() {
 
       <figcaption className={styles.controls}>
         <p className={styles.status} aria-live={autoplay ? 'off' : 'polite'}>
-          <span className={styles.statusDot} />
           {status}
         </p>
         <div className={styles.meter} aria-hidden="true">

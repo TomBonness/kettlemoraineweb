@@ -162,14 +162,6 @@
   font-size: 0.7rem;
 }
 
-.model i,
-.statusBar i {
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background: #89adff;
-}
-
 .reply ul {
   display: grid;
   gap: 0.3rem;

@@ -72,7 +72,7 @@ export function HomeCardDictation() {
         const swing =
           Math.sin(seconds * 6.1 + index * 0.9) * 0.6 + Math.sin(seconds * 2.3 + index * 0.4) * 0.4
         const envelope = 0.55 + 0.45 * Math.sin((Math.PI * (index + 0.5)) / barCount)
-        ;(bars[index] as HTMLElement).style.transform = `scaleY(${(0.2 + Math.abs(swing) * 0.8 * envelope).toFixed(3)})`
+        ;(bars[index] as HTMLElement).style.transform = `scaleY(${(0.42 + Math.abs(swing) * 0.58 * envelope).toFixed(3)})`
       }
       time.textContent = `0:0${Math.floor(seconds)}`
     }, 130)

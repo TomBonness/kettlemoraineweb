@@ -106,7 +106,6 @@ export const productCopy = {
     'Controls, two PCBs, smoked wall, battery, aluminum base, and feet, taken apart.',
   specsLead:
     'Open Micro is still in development. Targets and pending values are marked as they stand in the current design.',
-  conceptTag: 'Concept visualization',
 } as const
 
 export const waitlistCopy = {
@@ -165,11 +164,9 @@ export const agentStartLevels = [2, 1, 2, 1, 3, 2] as const
 
 export const agentCopy = {
   lead: 'Each agent you run can claim one of six lit keys, and its light follows the work: a slow breathe while it thinks, a steady pulse while it runs, an amber blink when it needs you. Press a key to select that session, then turn the encoder to change its thinking level.',
-  captionTag: 'Example sessions',
-  caption: 'Illustration. Session names and timings are made up.',
-  listLabel: 'Agent keys',
-  slots: '6 slots',
-  encoderLabel: 'Encoder · thinking level',
+  listLabel: 'Example sessions',
+  slots: 'Agent keys 1 to 6',
+  encoderLabel: 'Thinking level for',
   lower: 'Lower',
   higher: 'Higher',
   fallback: 'With no app subscribed, the encoder falls back to volume down, up, and mute.',
@@ -254,17 +251,21 @@ export const specs = [
   ],
 ] as const
 
-/** Points on the overhead render (percent of its width and height) tied to a spec row. */
-export const specHotspots = [
-  { label: 'Exposed control PCB', spec: 'Architecture', x: 50, y: 13.5 },
-  { label: '12 MX hot-swap keys', spec: 'Controls', x: 57.4, y: 42.4 },
-  { label: '24-detent push encoder', spec: 'Controls', x: 27.3, y: 72.7 },
-  { label: 'Capacitive touch', spec: 'Controls', x: 72.5, y: 74 },
+/**
+ * Callouts on the overhead render, each tied to a spec row: a label beside the device and a line
+ * at height `y` that ends at `to`, both in percent of the render's size.
+ */
+export const specCallouts = [
+  { label: 'Exposed control PCB', spec: 'Architecture', side: 'left', y: 13.5, to: 38.5 },
+  { label: '24-detent push encoder', spec: 'Controls', side: 'left', y: 72.7, to: 20 },
+  { label: '12 MX hot-swap keys', spec: 'Controls', side: 'right', y: 42.4, to: 80.3 },
+  { label: 'Capacitive touch', spec: 'Controls', side: 'right', y: 74, to: 76.5 },
 ] as const satisfies ReadonlyArray<{
   label: string
   spec: (typeof specs)[number][0]
-  x: number
+  side: 'left' | 'right'
   y: number
+  to: number
 }>
 
 export const licenses = [

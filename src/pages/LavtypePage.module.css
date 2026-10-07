@@ -110,27 +110,6 @@
   line-height: 1.8;
 }
 
-.output {
-  display: flex;
-  align-items: center;
-  gap: 0.8rem;
-  margin: 1.8rem 0 0;
-  color: #cfc6ff;
-  font-family: var(--font-mono);
-  font-size: 0.78rem;
-  font-weight: 600;
-  letter-spacing: 0.04em;
-}
-
-.output span {
-  width: 0.55rem;
-  height: 0.55rem;
-  flex: none;
-  border-radius: 50%;
-  background: var(--product-gradient);
-  box-shadow: 0 0 12px rgb(169 139 255 / 80%);
-}
-
 .darkDetails {
   display: grid;
   margin: 0;

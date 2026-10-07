@@ -77,26 +77,6 @@
   line-height: 1.6;
 }
 
-.conceptTag {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-  color: #9a8150;
-  font-family: var(--font-mono);
-  font-size: 0.68rem;
-  font-weight: 600;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-}
-
-.conceptTag::before {
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background: currentColor;
-  content: '';
-}
-
 .list {
   display: grid;
   margin: 0;

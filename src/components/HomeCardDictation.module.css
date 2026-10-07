@@ -190,14 +190,16 @@ a:is(:hover, :focus-visible) .rig {
   color: #b9b9c3;
 }
 
+/* Dashes, as in a Notes list. */
 .line::before,
 .typed::before {
   position: absolute;
-  top: 0.62em;
-  left: 0.15em;
-  width: 0.38em;
-  height: 0.38em;
-  border-radius: 50%;
+  top: 0.78em;
+  left: 0.05em;
+  width: 0.55em;
+  height: 0.09em;
+  min-height: 1px;
+  border-radius: 1px;
   background: #6f6f7a;
   content: '';
 }
@@ -314,7 +316,7 @@ a:is(:hover, :focus-visible) .stage:is([data-phase='listening'], [data-phase='re
   height: 100%;
   border-radius: 999px;
   background: #ececf1;
-  transform: scaleY(0.14);
+  transform: scaleY(0.42);
   transition:
     transform 130ms linear,
     opacity 600ms var(--motion-ease);

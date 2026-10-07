@@ -40,9 +40,6 @@ export function HomeCardMicro() {
   return (
     <div className={styles.stage} ref={stage} data-playing={inView && !reduced}>
       <div className={styles.light} aria-hidden="true" />
-      <span className={styles.tag}>
-        <i aria-hidden="true" /> Concept in development
-      </span>
       <div className={styles.tilt}>
         <div className={styles.lift}>
           <div className={styles.shadow} aria-hidden="true" />
