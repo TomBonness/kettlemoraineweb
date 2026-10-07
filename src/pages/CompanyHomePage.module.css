@@ -1,47 +1,36 @@
-/* One quiet picture: the headline on graphite on the left, a close-up of Open Micro on the right,
-   fading in from behind the copy. */
+/* The headline on the left; on the right, the KMRL mark as a machined object around its core. */
 .hero {
   position: relative;
-  display: grid;
   overflow: hidden;
-  min-height: min(820px, calc(100svh - 72px));
-  align-items: center;
   background:
-    radial-gradient(36% 46% at 12% 24%, rgb(5 72 253 / 9%), transparent 72%),
+    radial-gradient(36% 46% at 12% 24%, rgb(5 72 253 / 8%), transparent 72%),
+    radial-gradient(42% 60% at 74% 52%, rgb(5 72 253 / 12%), transparent 74%),
     var(--graphite);
   color: #f8f8f6;
   isolation: isolate;
 }
 
-.heroScene {
-  position: absolute;
-  z-index: -1;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  width: 60%;
-  mask-image: linear-gradient(90deg, transparent, #000 38%);
-}
-
-.heroRender {
-  display: block;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: 44% 50%;
-  animation: hero-render-in 1.8s var(--motion-ease) both;
-}
-
 .heroInner {
+  display: grid;
   width: 100%;
   max-width: var(--content-max);
+  min-height: min(820px, calc(100svh - 72px));
+  grid-template-columns: minmax(0, 1fr) minmax(0, 0.95fr);
+  align-items: center;
+  gap: clamp(1rem, 3vw, 3rem);
   margin: 0 auto;
-  padding: clamp(3.5rem, 6vw, 5rem) var(--gutter);
+  padding: clamp(3rem, 5vw, 4.5rem) var(--gutter);
 }
 
 .heroCopy {
-  max-width: 46rem;
+  position: relative;
+  z-index: 1;
   animation: hero-copy-in 900ms var(--motion-ease) both;
+}
+
+/* The canvas bleeds past the column so the pieces have room to arrive. */
+.heroMark {
+  margin: -14% -16% -14% -10%;
 }
 
 .heroCopy h1 {
@@ -83,13 +72,6 @@
 .heroPrimary:hover,
 .heroPrimary:focus-visible {
   background: var(--accent-strong);
-}
-
-@keyframes hero-render-in {
-  from {
-    opacity: 0;
-    transform: scale(1.04);
-  }
 }
 
 @keyframes hero-copy-in {
@@ -439,25 +421,17 @@
 }
 
 @media (max-width: 1050px) {
-  /* The copy first, then the picture under it, fading in from the top. */
-  .hero {
-    display: flex;
-    min-height: auto;
-    flex-direction: column;
-  }
-
-  .heroScene {
-    position: relative;
-    width: 100%;
-    height: auto;
-    aspect-ratio: 16 / 9;
-    order: 1;
-    margin-top: -2rem;
-    mask-image: linear-gradient(transparent, #000 34%);
-  }
-
+  /* The copy first, then the mark under it. */
   .heroInner {
+    min-height: auto;
+    grid-template-columns: 1fr;
+    gap: 0;
     padding-bottom: 0;
+  }
+
+  .heroMark {
+    width: min(100%, 620px);
+    margin: -4% auto -2%;
   }
 
   .inferenceFeature,
@@ -502,12 +476,13 @@
 }
 
 @media (max-width: 767px) {
-  .heroScene {
-    aspect-ratio: 4 / 3;
-  }
-
   .heroInner {
     padding-top: 3rem;
+  }
+
+  .heroMark {
+    width: 112%;
+    margin: -2% -6% 0;
   }
 
   .heroCopy h1 {
@@ -588,7 +563,6 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .heroRender,
   .heroCopy {
     animation: none;
   }
