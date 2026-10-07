@@ -65,7 +65,6 @@ export const navigation = [
 /** Section headings as two lines; the second is set in italic. */
 export const headings = {
   hero: 'Open Micro',
-  agents: ['Your agents,', 'under your hand.'],
   connectivity: ['Keep control', 'on your computer.'],
   design: ['See how it', 'fits together.'],
   specifications: ['The current', 'design.'],
@@ -114,79 +113,6 @@ export const waitlistCopy = {
   placeholder: 'you@example.com',
   pending: 'Joining…',
   error: "We couldn't save your email. Please try again.",
-} as const
-
-/** Agent lifecycle states from the host SDK and the light each shows on its key. */
-export const agentStates = {
-  idle: { label: 'idle', effect: 'off', color: '#4a4f58' },
-  thinking: { label: 'thinking', effect: 'breathe', color: '#4d8dff' },
-  running: { label: 'running', effect: 'pulse', color: '#3cc4d8' },
-  waiting: { label: 'needs you', effect: 'blink', color: '#ffa424' },
-  done: { label: 'done', effect: 'solid', color: '#42cf7c' },
-  error: { label: 'error', effect: 'solid', color: '#ff5147' },
-} as const
-
-export type AgentState = keyof typeof agentStates
-
-/** Made-up sessions for the illustration, one per agent key (`agent-1` to `agent-6`). */
-export const agentSessions = [
-  { name: 'auth refactor', detail: 'splitting the session middleware' },
-  { name: 'flaky test triage', detail: 'rerunning the checkout suite' },
-  { name: 'API docs', detail: 'documenting the export endpoints' },
-  { name: 'dependency update', detail: 'bumping the bundler' },
-  { name: 'schema migration', detail: 'drafting the users table change' },
-  { name: 'release notes', detail: 'summarizing merged changes' },
-] as const
-
-/**
- * The example loop. Each beat sets every session's state, the selected session, and an optional
- * encoder detent for it. At most two lights animate at once, and the detents net to zero per loop.
- */
-export const agentBeats: ReadonlyArray<{
-  states: readonly AgentState[]
-  selected: number
-  turn?: -1 | 1
-}> = [
-  { states: ['thinking', 'waiting', 'done', 'idle', 'done', 'idle'], selected: 0 },
-  { states: ['running', 'waiting', 'done', 'idle', 'done', 'idle'], selected: 0, turn: 1 },
-  { states: ['running', 'running', 'done', 'idle', 'done', 'idle'], selected: 1 },
-  { states: ['done', 'running', 'done', 'thinking', 'done', 'idle'], selected: 3, turn: -1 },
-  { states: ['done', 'done', 'idle', 'running', 'done', 'thinking'], selected: 3 },
-  { states: ['idle', 'done', 'idle', 'error', 'done', 'running'], selected: 3 },
-  { states: ['idle', 'idle', 'idle', 'thinking', 'done', 'running'], selected: 3, turn: 1 },
-  { states: ['thinking', 'idle', 'done', 'running', 'idle', 'done'], selected: 0 },
-  { states: ['thinking', 'running', 'done', 'done', 'idle', 'done'], selected: 0, turn: -1 },
-]
-
-/** Starting thinking level per session, 0 (lowest) to `agentLevels - 1`, on a neutral meter. */
-export const agentLevels = 5
-export const agentStartLevels = [2, 1, 2, 1, 3, 2] as const
-
-export const agentCopy = {
-  lead: 'Each agent you run can claim one of six lit keys, and its light follows the work: a slow breathe while it thinks, a steady pulse while it runs, an amber blink when it needs you. Press a key to select that session, then turn the encoder to change its thinking level.',
-  listLabel: 'Example sessions',
-  slots: 'Agent keys 1 to 6',
-  encoderLabel: 'Thinking level for',
-  lower: 'Lower',
-  higher: 'Higher',
-  fallback: 'With no app subscribed, the encoder falls back to volume down, up, and mute.',
-  commandLabel: 'Set any light from a terminal',
-  command:
-    "open-microctl led set agent-1 --effect breathe --primary '#4D8DFF' --period 1400 --ttl 15",
-  points: [
-    {
-      title: 'Thirteen lights to address.',
-      body: 'Each of the twelve keys and the touch control takes its own color and effect: off, solid, breathe, blink, pulse, or rainbow.',
-    },
-    {
-      title: 'Anything can set a light.',
-      body: 'Apps talk to a local daemon over a private socket. Alongside the OMP agent extension, the source includes a generic JSON state producer, so a script or another tool can light a key too.',
-    },
-    {
-      title: 'No path into your prompts.',
-      body: 'The keys select a session and the encoder changes its thinking level. Nothing on the device can type into an agent: there is no hardware prompt-injection path.',
-    },
-  ],
 } as const
 
 export const connectivityCards = [

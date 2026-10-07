@@ -1,14 +1,13 @@
 import type { ReactNode } from 'react'
-import { MicroAgents } from '../components/MicroAgents'
 import { MicroHero } from '../components/MicroHero'
 import { MicroLayers } from '../components/MicroLayers'
+import { MicroLit } from '../components/MicroLit'
 import { MicroSpecs } from '../components/MicroSpecs'
 import { ProductHero } from '../components/ProductHero'
 import { SiteShell } from '../components/SiteShell'
 import { WaitlistForm } from '../components/WaitlistForm'
 import { routes } from '../content/catalog'
 import {
-  agentCopy,
   connectivityCards,
   headings,
   hero,
@@ -89,15 +88,6 @@ export function OpenMicroPage() {
             <MicroHero />
           </ProductHero>
         </div>
-
-        <section className={styles.agentSection} id="agents" aria-labelledby="agents-title">
-          <div className={styles.inner}>
-            <SectionIntro lead={agentCopy.lead}>
-              <SectionTitle id="agents-title" lines={headings.agents} />
-            </SectionIntro>
-            <MicroAgents />
-          </div>
-        </section>
 
         <section className={styles.designSection} id="design" aria-labelledby="design-title">
           <div className={styles.inner}>
@@ -202,6 +192,7 @@ export function OpenMicroPage() {
         </section>
 
         <div className={styles.signup}>
+          <MicroLit />
           <WaitlistForm signup={openMicroSignup} />
         </div>
       </div>

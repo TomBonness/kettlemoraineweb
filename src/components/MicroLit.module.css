@@ -1,0 +1,90 @@
+/* The stage is the board itself: the render inside is scaled and offset so its 96 mm board fills
+   the box exactly. Sizes inside are in cqi, 1% of the board's width. */
+.stage {
+  position: relative;
+  width: min(78vw, 460px);
+  aspect-ratio: 1;
+  margin: 0 auto;
+  container-type: inline-size;
+  isolation: isolate;
+}
+
+/* Light from the keys falling on the desk around the device. */
+.pool {
+  position: absolute;
+  z-index: -1;
+  inset: -38%;
+  background:
+    radial-gradient(closest-side at 38% 40%, rgb(226 197 143 / 16%), transparent 70%),
+    radial-gradient(closest-side at 62% 62%, rgb(91 140 255 / 18%), transparent 72%);
+  opacity: 0;
+  transition: opacity 1400ms var(--motion-ease) 400ms;
+}
+
+.stage[data-lit='true'] .pool {
+  opacity: 1;
+}
+
+.board {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  border-radius: 12%;
+  box-shadow:
+    0 0 0 1px rgb(255 255 255 / 8%),
+    inset 0 1px 0 rgb(255 255 255 / 10%),
+    0 5cqi 12cqi rgb(0 0 0 / 60%);
+}
+
+.board img {
+  position: absolute;
+  top: -15.66%;
+  left: -15.66%;
+  width: 131.32%;
+  max-width: none;
+  height: auto;
+}
+
+/* Each key lit from beneath: a tight glow at the cap's edge and a wide spill onto the board. */
+.lights {
+  position: absolute;
+  inset: 0;
+  mix-blend-mode: screen;
+  pointer-events: none;
+}
+
+.lights i {
+  --c: color-mix(in oklab, #f2d49b, #6f9bff var(--t));
+  position: absolute;
+  top: var(--y);
+  left: var(--x);
+  width: var(--w);
+  height: var(--h);
+  border-radius: 18%;
+  box-shadow:
+    0 0.3cqi 2.2cqi 0 color-mix(in srgb, var(--c) 60%, transparent),
+    0 0.6cqi 6cqi 0.8cqi color-mix(in srgb, var(--c) 26%, transparent);
+  opacity: 0;
+  transition: opacity 900ms var(--motion-ease) calc(300ms + var(--i) * 80ms);
+}
+
+.stage[data-lit='true'] .lights i {
+  opacity: 1;
+}
+
+.stage[data-live='true'][data-lit='true'] .lights {
+  animation: breathe 5s ease-in-out 2.4s infinite alternate;
+}
+
+@keyframes breathe {
+  to {
+    opacity: 0.7;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pool,
+  .lights i {
+    transition: none;
+  }
+}

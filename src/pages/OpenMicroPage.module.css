@@ -20,7 +20,6 @@
   font-weight: inherit;
 }
 
-.agentSection h2 em,
 .connectSection h2 em {
   padding-right: 0.08em;
   background: var(--product-gradient);
@@ -29,14 +28,12 @@
   color: transparent;
 }
 
-.agentSection,
 .connectSection {
   position: relative;
   overflow: hidden;
   color: #f7f7f3;
 }
 
-.agentSection .lead,
 .connectSection .lead {
   color: #a9afba;
 }
@@ -78,15 +75,6 @@
 .textLink:hover,
 .textLink:focus-visible {
   color: var(--accent);
-}
-
-/* Agents */
-
-.agentSection {
-  background:
-    radial-gradient(42% 34% at 28% 58%, rgb(77 141 255 / 7%), transparent 70%),
-    radial-gradient(40% 28% at 82% 18%, rgb(201 169 106 / 6%), transparent 70%),
-    var(--om-void);
 }
 
 /* Design */
