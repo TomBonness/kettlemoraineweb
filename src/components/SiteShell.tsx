@@ -31,20 +31,7 @@ export function SiteShell({ children, currentPath, navigation, cta }: SiteShellP
             aria-label="Kettle Moraine Research Labs — home"
             aria-current={currentPageValue(routes.home, currentPath)}
           >
-            <img
-              className="wordmarkFull"
-              src="/brand/kettle-moraine-wordmark.png"
-              width="1440"
-              height="374"
-              alt=""
-            />
-            <img
-              className="wordmarkMark"
-              src="/brand/kettle-moraine-mark.png"
-              width="512"
-              height="512"
-              alt=""
-            />
+            <img src="/brand/kettle-moraine-wordmark.png" width="1419" height="374" alt="" />
           </a>
           <div className="navLinks">
             {navigation.map((item) => (

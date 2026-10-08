@@ -114,10 +114,6 @@ button {
   height: auto;
 }
 
-.wordmarkMark {
-  display: none !important;
-}
-
 .navLinks {
   display: flex;
   gap: 1.75rem;
@@ -377,11 +373,6 @@ main {
     width: min(48vw, 180px);
   }
 
-  .wordmarkFull {
-    display: block !important;
-  }
-
-  .wordmarkMark,
   .navLinks,
   .navCta,
   .navSpacer {

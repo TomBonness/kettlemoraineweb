@@ -13,7 +13,8 @@
     "preview": "vite preview",
     "test": "vitest run",
     "assets:optimize": "node scripts/optimize-images.mjs",
-    "assets:marketing": "tsx scripts/render-marketing.mjs"
+    "assets:marketing": "tsx scripts/render-marketing.mjs",
+    "assets:brand": "node scripts/render-brand.mjs"
   },
   "dependencies": {
     "aws-amplify": "^6.18.0",

@@ -1,5 +1,5 @@
 /**
- * Geometry for the 3D KMRL mark: each traced bracket segment extruded into a solid with rounded
+ * Geometry for the 3D KMRL mark: each bracket segment extruded into a solid with rounded
  * edges, and a sphere for the dot. Units are world units: the dot sits at the origin and the mark
  * spans about ±0.9 in x and y, facing +z.
  */
