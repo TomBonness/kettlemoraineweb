@@ -8,6 +8,7 @@ import { InferencePage } from './pages/InferencePage'
 import { LavtypePage } from './pages/LavtypePage'
 import { NotFoundPage } from './pages/NotFoundPage'
 import { OpenMicroPage } from './pages/OpenMicroPage'
+import { PendingPage } from './pages/PendingPage'
 
 function App() {
   const route = resolveRoute(window.location.pathname)
@@ -30,6 +31,8 @@ function App() {
       return <LavtypePage />
     case 'cinmux':
       return <CinmuxPage />
+    case 'pending':
+      return <PendingPage />
     default:
       return <NotFoundPage />
   }

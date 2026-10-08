@@ -1,9 +1,9 @@
 import { routes } from './catalog'
 
 export const inferenceLinks = {
-  installer: 'https://github.com/satellitedown/fafstmobel-cinference',
-  source: 'https://github.com/satellitedown/cinference',
-  performance: 'https://github.com/satellitedown/cinference#performance',
+  installer: routes.pending,
+  source: routes.pending,
+  performance: routes.pending,
   model: 'https://huggingface.co/satellitedown/fafstmobel',
   upstream: 'https://github.com/Neroued/ninfer',
 } as const
@@ -215,7 +215,7 @@ export const draftRounds = [
   { kept: 5, guess: ['[:', 'top', ']', '\n', '\n\n', 'def', ' print', '_table', '(', 'stats'] },
 ] as const
 
-export const installCommands = `git clone ${inferenceLinks.installer}.git
+export const installCommands = `git clone https://github.com/satellitedown/fafstmobel-cinference.git
 cd fafstmobel-cinference
 bash setup.sh`
 

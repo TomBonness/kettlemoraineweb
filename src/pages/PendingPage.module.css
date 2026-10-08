@@ -1,0 +1,38 @@
+.page {
+  display: grid;
+  min-height: min(720px, calc(100svh - 72px));
+  place-content: center;
+  justify-items: center;
+  padding: clamp(4rem, 10vw, 7rem) var(--gutter);
+  background:
+    radial-gradient(40% 50% at 50% 40%, rgb(5 72 253 / 10%), transparent 72%),
+    var(--graphite);
+  color: #f8f8f6;
+  text-align: center;
+}
+
+.page h1 {
+  margin: 0;
+  font-family: var(--font-serif);
+  font-size: clamp(3rem, 7vw, 5.75rem);
+  font-weight: 500;
+  letter-spacing: -0.05em;
+  line-height: 1;
+}
+
+.page p {
+  margin: 1.25rem 0 2.25rem;
+  color: #aeb7c9;
+  font-size: clamp(1rem, 1.3vw, 1.1rem);
+}
+
+.back {
+  gap: 0.6rem;
+  border-color: #3a4150;
+  color: #f8f8f6;
+}
+
+.back:hover,
+.back:focus-visible {
+  border-color: #6f99ff;
+}

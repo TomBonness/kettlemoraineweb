@@ -1,9 +1,9 @@
 import { routes } from './catalog'
 
 export const lavtypeLinks = {
-  download: 'https://github.com/TomBonness/lavtype/releases/latest',
-  source: 'https://github.com/TomBonness/lavtype',
-  installGuide: 'https://github.com/TomBonness/lavtype#install-a-release',
+  download: routes.pending,
+  source: routes.pending,
+  installGuide: routes.pending,
 } as const
 
 export const lavtypeNavigation = [

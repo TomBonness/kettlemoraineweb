@@ -4,6 +4,8 @@ export const routes = {
   inference: '/products/cinference-engine',
   lavtype: '/products/lavtype',
   cinmux: '/products/cinmux',
+  /** Where links to source and downloads lead while they aren't public. */
+  pending: '/pending',
 } as const
 
 export type ProductId = 'open-micro' | 'inference' | 'lavtype' | 'cinmux'

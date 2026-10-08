@@ -7,13 +7,10 @@ import tuiFull from '../assets/product/cinmux/cinmux-tui.webp'
 import { routes } from './catalog'
 
 // Facts on this page follow the published README at github.com/satellitedown/cinmux (v1.2.0).
-const repository = 'https://github.com/satellitedown/cinmux'
-
 export const cinmuxLinks = {
-  source: repository,
-  buildFromSource: `${repository}#build-from-source`,
-  agentStatus: `${repository}#agent-status`,
-  license: `${repository}/blob/master/LICENSE`,
+  source: routes.pending,
+  buildFromSource: routes.pending,
+  agentStatus: routes.pending,
 } as const
 
 export const cinmuxNavigation = [

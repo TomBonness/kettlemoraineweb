@@ -10,6 +10,7 @@ import detail from '../assets/product/marketing/open-micro-detail-1600.webp'
 import detailFull from '../assets/product/marketing/open-micro-detail.webp'
 import transparent from '../assets/product/marketing/open-micro-transparent-1600.webp'
 import transparentFull from '../assets/product/marketing/open-micro-transparent.webp'
+import { routes } from './catalog'
 
 export const marketingRenders = {
   desk: {
@@ -86,8 +87,8 @@ export const hero = {
 } as const
 
 export const sourceLinks = {
-  repository: 'https://github.com/TomBonness/open-micro',
-  qualification: 'https://github.com/TomBonness/open-micro/blob/main/docs/qualification.md',
+  repository: routes.pending,
+  qualification: routes.pending,
 } as const
 
 export const productCopy = {

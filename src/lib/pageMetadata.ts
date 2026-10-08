@@ -16,7 +16,7 @@ export type RouteMetadata = {
   imageAlt: string
 }
 
-export const routeMetadata: Record<ProductId | 'home' | 'not-found', RouteMetadata> = {
+export const routeMetadata: Record<ProductId | 'home' | 'pending' | 'not-found', RouteMetadata> = {
   home: {
     path: routes.home,
     title: 'Kettle Moraine Research Labs — You have work to do',
@@ -56,6 +56,13 @@ export const routeMetadata: Record<ProductId | 'home' | 'not-found', RouteMetada
       'Persistent terminal workspaces for Linux and macOS. Real terminals in folders, every agent’s status at a glance, and sessions that keep running — at your desk or over SSH.',
     image: '/social/cinmux.png',
     imageAlt: 'Cinmux — every terminal, every agent, one place.',
+  },
+  pending: {
+    path: routes.pending,
+    title: 'Public access pending — Kettle Moraine Research Labs',
+    description: 'This isn’t public yet.',
+    image: '/social/company.png',
+    imageAlt: 'Kettle Moraine Research Labs — You have work to do.',
   },
   'not-found': {
     path: routes.home,
