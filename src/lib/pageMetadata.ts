@@ -2,6 +2,12 @@ import { routes, type ProductId } from '../content/catalog.ts'
 
 const productionOrigin = 'https://main.d1weoyfvphogxs.amplifyapp.com'
 
+/**
+ * Link previews (Messages, Slack, Discord, X…) cache the card image by its URL. Bump this whenever
+ * the cards in public/social are re-rendered so shared links pick up the new image.
+ */
+const socialImageVersion = 2
+
 export type RouteMetadata = {
   path: string
   title: string
@@ -64,7 +70,7 @@ type MetaTag = { attribute: 'name' | 'property'; key: string; content: string }
 
 export function getPageMetadata({ path, title, description, image, imageAlt }: RouteMetadata) {
   const canonicalUrl = new URL(path, productionOrigin).toString()
-  const imageUrl = new URL(image, productionOrigin).toString()
+  const imageUrl = new URL(`${image}?v=${socialImageVersion}`, productionOrigin).toString()
   const tags: MetaTag[] = [
     { attribute: 'name', key: 'description', content: description },
     { attribute: 'property', key: 'og:type', content: 'website' },

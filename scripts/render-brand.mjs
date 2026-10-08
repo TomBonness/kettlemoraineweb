@@ -4,8 +4,10 @@ import path from 'node:path'
 import sharp from 'sharp'
 
 // Every raster logo derives from the designer's vector mark, so a refined mark means replacing
-// src/assets/brand/kettle-moraine-mark.svg and re-running this script. Run `npm run
-// assets:marketing` afterwards: the social cards carry the wordmark.
+// src/assets/brand/kettle-moraine-mark.svg and re-running this script. Then run `npm run
+// assets:marketing` (the social cards carry the wordmark), and bump the `?v=` on the icon links in
+// index.html and `socialImageVersion` in src/lib/pageMetadata.ts so cached icons and link
+// previews refresh.
 const root = fileURLToPath(new URL('../', import.meta.url))
 const asset = (name) => path.join(root, name)
 
